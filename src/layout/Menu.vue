@@ -8,7 +8,11 @@
     >
       <el-menu-item index="domain-list">域名管理</el-menu-item>
 
-      <div class="self-center ml-auto">
+      <el-menu-item index="email">邮箱设置</el-menu-item>
+
+      <el-menu-item index="system">系统设置</el-menu-item>
+
+      <div class="self-center margin-left--auto">
         <el-dropdown>
           <el-avatar
             src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"

@@ -13,7 +13,12 @@
         prop="domain"
       >
         <template #default="scope">
-          <span>{{ scope.row.domain || '-' }}</span>
+          <el-link
+            :underline="false"
+            :href="scope.row.domain_url"
+            target="_blank"
+            >{{ scope.row.domain }}</el-link
+          >
         </template>
       </el-table-column>
 
@@ -22,6 +27,7 @@
         label="ip地址"
         header-align="center"
         align="center"
+        width="140"
         prop="ip"
       >
         <template #default="scope">
@@ -38,17 +44,10 @@
         prop="connect_status"
       >
         <template #default="scope">
-          <el-icon
-            v-if="scope.row.connect_status"
-            class="color--success"
-            ><SuccessFilled
-          /></el-icon>
-
-          <el-icon
-            v-else
-            class="color--danger"
-            ><WarningFilled
-          /></el-icon>
+          <ConnectStatus
+            :value="scope.row.connect_status"
+            @on-click="handleShowDetail(scope.row)"
+          ></ConnectStatus>
         </template>
       </el-table-column>
 
@@ -57,6 +56,7 @@
         label="有效期天数"
         header-align="center"
         align="center"
+        width="140"
         prop="total_days"
       >
         <template #default="scope">
@@ -77,11 +77,40 @@
         label="创建时间"
         header-align="center"
         align="center"
-        width="170"
+        width="110"
         prop="create_time"
       >
         <template #default="scope">
-          <span>{{ scope.row.create_time || '-' }}</span>
+          <span>{{ scope.row.create_time_label || '-' }}</span>
+        </template>
+      </el-table-column>
+
+      <!-- 创建时间 -->
+      <el-table-column
+        label="更新时间"
+        header-align="center"
+        align="center"
+        width="110"
+        prop="check_time"
+      >
+        <template #default="scope">
+          <span>{{ scope.row.check_time_label || '-' }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        label="更新"
+        width="60"
+        header-align="center"
+        align="center"
+      >
+        <template #default="scope">
+          <el-link
+            :underline="false"
+            type="primary"
+            @click="handleUpdateRowDomainInfo(scope.row)"
+            ><el-icon><Refresh /></el-icon
+          ></el-link>
         </template>
       </el-table-column>
 
@@ -130,6 +159,13 @@
       :row="currentRow"
       @on-success="handleUpdateSuccess"
     ></DataFormDialog>
+
+    <!-- 详情 -->
+    <DataDetailDialog
+      :row="currentRow"
+      v-model:visible="dialogDetailVisible"
+      @on-success="handleDetailSuccess"
+    ></DataDetailDialog>
   </div>
 </template>
 
@@ -138,12 +174,16 @@
  * created 2022-10-01
  */
 import DataFormDialog from '../domain-edit/DataFormDialog.vue'
+import DataDetailDialog from '../domain-detail/DataFormDailig.vue'
+import ConnectStatus from '@/components/ConnectStatus.vue'
 
 export default {
   name: '',
 
   components: {
     DataFormDialog,
+    DataDetailDialog,
+    ConnectStatus,
   },
 
   props: {
@@ -158,6 +198,7 @@ export default {
     return {
       currentRow: null,
       dialogVisible: false,
+      dialogDetailVisible: false,
     }
   },
 
@@ -197,8 +238,37 @@ export default {
       }
     },
 
+    async handleUpdateRowDomainInfo(row) {
+      let loading = this.$loading({
+        lock: true,
+        text: '更新中',
+      })
+
+      let params = {
+        id: row.id,
+      }
+
+      const res = await this.$http.updateDomainCertInfoById(params)
+
+      if (res.code == 0) {
+        this.$msg.success('操作成功')
+        this.$emit('on-success')
+      }
+
+      loading.close()
+    },
+
     handleUpdateSuccess() {
       this.$emit('on-success')
+    },
+
+    handleDetailSuccess() {
+      this.$emit('on-success')
+    },
+
+    handleShowDetail(row) {
+      this.currentRow = row
+      this.dialogDetailVisible = true
     },
   },
 

@@ -73,7 +73,7 @@
 
     <!-- 编辑框 -->
     <DataFormDailig
-      :visible.sync="dialogVisible"
+      v-model:visible="dialogVisible"
       :row="currentRow"
       @on-success="handleUpdateSuccess"
     ></DataFormDailig>

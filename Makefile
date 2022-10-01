@@ -28,6 +28,7 @@ list:
 	mcp list $(name) $(data) list/DataTable.vue DataTable.vue
 
 # make edit name= data=
+# make edit name=domain-1 data=./data/domain.cjs
 edit:
 	mcp edit $(name) $(data) edit/index.vue index.vue
 	mcp edit $(name) $(data) edit/DataForm.vue DataForm.vue

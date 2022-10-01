@@ -1,32 +1,51 @@
 <template>
   <div class="app-container">
     <!-- 操作按钮 -->
-    <div>
+    <div class="flex justify-between">
       <el-button
         type="primary"
         @click="handleAddRow"
-        >添加</el-button
+        ><el-icon><Plus /></el-icon>添加</el-button
       >
+
+      <div class="flex">
+        <el-button @click="updateAllDomainCertInfoOfUser"
+          ><el-icon><Refresh /></el-icon>全部更新</el-button
+        >
+
+        <el-upload
+          class="ml-sm"
+          action="action"
+          :limit="1"
+          :show-file-list="false"
+          :http-request="handleHttpRequest"
+        >
+          <el-button @click="importDomainFromFile"
+            ><el-icon><Upload /></el-icon>导入</el-button
+          >
+        </el-upload>
+      </div>
     </div>
 
     <!-- 数据列表 -->
     <DataTable
-      class="margin-top--20"
+      class="mt-md"
       v-loading="loading"
       :list="list"
       @on-success="resetData"
     />
 
     <!-- 翻页 -->
-    <div class="pagination">
-      <mo-pagination
-        :total="total"
-        :page-size.sync="size"
-        :current-page.sync="page"
-        @change="getData"
-        layout="total, sizes, prev, pager, next, jumper"
-      />
-    </div>
+
+    <el-pagination
+      class="mt-md justify-center"
+      background
+      layout="total, prev, pager, next"
+      :total="total"
+      v-model:page-size="size"
+      v-model:current-page="page"
+      @current-change="getData"
+    />
 
     <!-- 编辑框 -->
     <DataFormDialog
@@ -83,9 +102,8 @@ export default {
       this.loading = true
 
       let params = {
-        ticket: this.ticket,
         page: this.page,
-        num: this.size,
+        size: this.size,
         keywords: this.keywords,
       }
 
@@ -98,14 +116,45 @@ export default {
           } else {
             item.percentage = null
           }
+
           return item
         })
-        this.total = parseInt(res.data.count)
+        this.total = res.data.total
       } else {
         this.$msg.error(e.msg)
       }
 
       this.loading = false
+    },
+
+    async updateAllDomainCertInfoOfUser() {
+      let loading = this.$loading({ fullscreen: true })
+
+      const res = await this.$http.updateAllDomainCertInfoOfUser()
+
+      if (res.code == 0) {
+        this.$msg.success('操作成功')
+        this.resetData()
+      }
+
+      loading.close()
+    },
+
+    async handleHttpRequest(options) {
+      let loading = this.$loading({ fullscreen: true })
+
+      // console.log(options)
+      let form = new FormData()
+      form.append('file', options.file)
+
+      const res = await this.$http.importDomainFromFile(form)
+
+      if (res.code == 0) {
+        this.$msg.success(`导入成功：${res.data.count}`)
+        this.resetData()
+      }
+
+      loading.close()
     },
 
     handleAddRow() {

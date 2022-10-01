@@ -30,7 +30,7 @@
 
     <!-- 编辑框 -->
     <DataFormDailig
-      :visible.sync="dialogVisible"
+      v-model:visible="dialogVisible"
       @on-success="handleAddSuccess"
     ></DataFormDailig>
   </div>

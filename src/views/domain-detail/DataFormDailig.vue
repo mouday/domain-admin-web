@@ -1,11 +1,12 @@
 <template>
   <!-- 编辑框 -->
   <el-dialog
-    :title="dialogTitle"
+    title="域名详情"
     v-model="dialogVisible"
-    width="400px"
+    width="900px"
     center
     append-to-body
+    @close="handleDialogClose"
   >
     <DataForm
       v-if="dialogVisible"
@@ -18,7 +19,7 @@
 
 <script>
 /**
- * created {{time.date}}
+ * created 2022-10-01
  */
 import DataForm from './DataForm.vue'
 
@@ -73,15 +74,21 @@ export default {
 
   methods: {
     handleClose() {
-      this.dialogVisible = false
+      // this.dialogVisible = false
+      this.$emit('update:visible', false)
     },
 
     handleOpen() {
-      this.dialogVisible = true
+      // this.dialogVisible = true
+      this.$emit('update:visible', true)
     },
 
     handleSuccess() {
       this.handleClose()
+      this.$emit('on-success')
+    },
+
+    handleDialogClose() {
       this.$emit('on-success')
     },
   },

@@ -5,6 +5,13 @@ module.exports = {
   content: [],
   theme: {
     extend: {},
+
+    margin: {
+      sm: '10px',
+      md: '20px',
+      lg: '40px',
+      xl: '80px',
+    },
   },
   plugins: [],
 }

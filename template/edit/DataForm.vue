@@ -144,10 +144,9 @@ export default {
           id: this.row.id
         }
 
-        const res = await this.$Http.function(params)
+        const res = await this.$http.function(params)
 
         if (res.code != 0) {
-          this.$msg.error(res.msg)
           return
         }
 

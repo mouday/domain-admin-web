@@ -9,4 +9,7 @@ export default {
   getDomainById: '/getDomainById',
   deleteDomainById: '/deleteDomainById',
   updateDomainById: '/updateDomainById',
+  updateDomainCertInfoById: '/updateDomainCertInfoById',
+  updateAllDomainCertInfoOfUser: '/updateAllDomainCertInfoOfUser',
+  importDomainFromFile: '/importDomainFromFile',
 }
