@@ -1,0 +1,23 @@
+# http://editorconfig.org
+root = true
+
+# 对所有文件生效
+[*]
+# utf-8编码
+charset = utf-8
+# 空格形式缩进2空格
+indent_style = space
+indent_size = 2
+# Linux换行符
+end_of_line = lf
+# 使用单引号
+quote_type = single
+# 结尾插入新行
+insert_final_newline = true
+# 去除结尾空格
+trim_trailing_whitespace = true
+
+# 对后缀名为 md 的文件生效
+[*.md]
+insert_final_newline = false
+trim_trailing_whitespace = false
