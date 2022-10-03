@@ -4,7 +4,7 @@
 # 部署到线上环境
 dep-pro:
 	npm run build
-	bash deploy.sh
+	cp -r ./dist/* ../domain-admin/domain_admin/public/
 
 # 部署到测试环境
 dep-dev:

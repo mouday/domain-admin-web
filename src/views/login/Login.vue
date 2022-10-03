@@ -29,6 +29,7 @@
           type="password"
           auto-complete="off"
           placeholder="密码"
+          @keypress.enter="onSubmit"
         />
       </el-form-item>
     </el-form>
