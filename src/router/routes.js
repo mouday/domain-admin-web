@@ -14,6 +14,18 @@ export const routes = [
         name: 'domain-list',
         component: () => import('@/views/domain-list/index.vue'),
       },
+      {
+        path: '/system-list',
+        name: 'system-list',
+        component: () => import('@/views/system-list/index.vue'),
+      },
+      {
+        path: '/user-edit',
+        name: 'user-edit',
+        component: () => import('@/views/user-edit/index.vue'),
+      },
+      
+      
     ],
   },
   { path: '/admin', component: Admin },

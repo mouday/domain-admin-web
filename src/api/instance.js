@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { setToken, getToken, removeToken } from '@/utils/token-util.js'
 
-const VITE_APP_API = import.meta.env.VITE_APP_API
+export const VITE_APP_API = import.meta.env.VITE_APP_API
 
 const instance = axios.create({
   baseURL: VITE_APP_API,

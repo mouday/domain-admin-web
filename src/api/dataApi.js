@@ -12,4 +12,13 @@ export default {
   updateDomainCertInfoById: '/updateDomainCertInfoById',
   updateAllDomainCertInfoOfUser: '/updateAllDomainCertInfoOfUser',
   importDomainFromFile: '/importDomainFromFile',
+  getAllDomainListOfUser: '/getAllDomainListOfUser',
+  sendDomainInfoListEmail: '/sendDomainInfoListEmail',
+  checkDomainCert: '/checkDomainCert',
+  
+  getAllSystemConfig: '/getAllSystemConfig',
+  updateSystemConfig: '/updateSystemConfig',
+  
+  getUserInfo: '/getUserInfo',
+  updateUserInfo: '/updateUserInfo',
 }

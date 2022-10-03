@@ -1,9 +1,12 @@
-import DATA_API from './dataApi.js'
-import instance from './instance.js'
 import { ElMessage } from 'element-plus'
 
+import DATA_API from './dataApi.js'
+import instance from './instance.js'
+import { VITE_APP_API } from './instance.js'
+import { HttpCodeEnum } from './enums.js'
+
 function httpRequest(url) {
-  return async function (params = {}) {
+  return async function (params = {}, config) {
     let data = null
 
     // 可以加一些公共参数
@@ -13,13 +16,12 @@ function httpRequest(url) {
       data = params
     }
 
-    const res = await instance.post(url, data)
+    const res = await instance.post(url, data, config)
 
-    if (res.code == 0) {
-      return res
-    } else {
+    if (res.code != 0) {
       ElMessage.error(res.msg)
     }
+    return res
   }
 }
 
@@ -35,3 +37,7 @@ function getHttpRequest() {
 }
 
 export const Http = getHttpRequest()
+
+export function resolve_api_url(url) {
+  return VITE_APP_API + url
+}

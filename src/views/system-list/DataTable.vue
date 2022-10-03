@@ -1,9 +1,11 @@
 <template>
   <div>
-    <el-table :data="list" 
+    <el-table
+      :data="list"
       stripe
-      border>
-      {% raw %}
+      border
+    >
+      <!--       
       <el-table-column
         label="ID"
         align="center"
@@ -13,25 +15,40 @@
         <template #default="scope">
           <span>{{ scope.row.id || '-' }}</span>
         </template>
-      </el-table-column>
-      {% endraw %} {% for item in table.columns %}
-      <!-- {{item.comment}} -->
+      </el-table-column> -->
+
+      <!-- 配置项 -->
       <el-table-column
-        label="{{item.comment or item.name }}"
+        label="配置项"
         header-align="center"
-        align="center"
-        prop="{{ item.name }}"
+        align="right"
+        width="200"
+        prop="label"
       >
         <template #default="scope">
-          {% raw %}<span
-            >{{ scope.row.{% endraw %}{{ item.name }}{% raw %} || '-' }}</span
-          >{% endraw %}
+          <span>{{ scope.row.label || '-' }}</span>
         </template>
       </el-table-column>
-      {% endfor %}
+
+      <!-- 值 -->
+      <el-table-column
+        label="值"
+        header-align="center"
+        align="left"
+        prop="value"
+      >
+        <template #default="scope">
+          <el-input
+            v-if="scope.row.is_edit_mode"
+            v-model="scope.row.value"
+            :placeholder="scope.row.placeholder"
+          ></el-input>
+          <span v-else>{{ scope.row.value || '-' }}</span>
+        </template>
+      </el-table-column>
 
       <!-- 操作 -->
-      <el-table-column
+      <!-- <el-table-column
         label="状态"
         header-align="center"
         align="center"
@@ -43,25 +60,41 @@
             @change="handleStatusChange(scope.row, $event)"
           ></mo-switch>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column
         label="编辑"
-        width="60"
+        width="120"
         header-align="center"
         align="center"
       >
         <template #default="scope">
+          <template v-if="scope.row.is_edit_mode">
+            <el-link
+              :underline="false"
+              type="success"
+              @click="handleSaveRow(scope.row)"
+              ><el-icon><Select /></el-icon>保存</el-link
+            >
+            <el-link
+              class="ml-sm"
+              :underline="false"
+              type="warning"
+              @click="handleCancelRow(scope.row)"
+              ><el-icon><CloseBold /></el-icon>取消</el-link
+            >
+          </template>
           <el-link
+            v-else
             :underline="false"
             type="primary"
             @click="handleEditRow(scope.row)"
-            ><el-icon><Edit /></el-icon
-          ></el-link>
+            ><el-icon><Edit /></el-icon>编辑</el-link
+          >
         </template>
       </el-table-column>
 
-      <el-table-column
+      <!-- <el-table-column
         label="删除"
         width="50"
         align="center"
@@ -75,29 +108,29 @@
             <mo-delete-button slot="reference"></mo-delete-button>
           </el-popconfirm>
         </template>
-      </el-table-column>
+      </el-table-column> -->
     </el-table>
 
     <!-- 编辑框 -->
-    <DataFormDailig
+    <!-- <DataFormDailig
       v-model:visible="dialogVisible"
       :row="currentRow"
       @on-success="handleUpdateSuccess"
-    ></DataFormDailig>
+    ></DataFormDailig> -->
   </div>
 </template>
 
 <script>
 /**
- * created {{time.date}}
+ * created 2022-10-02
  */
-import DataFormDailig from '../{{edit_name}}/DataFormDailig.vue'
+// import DataFormDailig from '../system-edit/DataFormDailig.vue'
 
 export default {
   name: '',
 
   components: {
-    DataFormDailig,
+    // DataFormDailig,
   },
 
   props: {
@@ -117,8 +150,13 @@ export default {
 
   methods: {
     handleEditRow(row) {
-      this.currentRow = row
-      this.dialogVisible = true
+      row.is_edit_mode = true
+      // this.currentRow = row
+      // this.dialogVisible = true
+    },
+
+    handleCancelRow(row) {
+      row.is_edit_mode = false
     },
 
     async handleDeleteClick(row) {
@@ -151,6 +189,22 @@ export default {
       }
     },
 
+    async handleSaveRow(row) {
+      let params = {
+        key: row.key,
+        value: row.value,
+      }
+
+      const res = await this.$http.updateSystemConfig(params)
+
+      if (res.code == 0) {
+        this.$msg.success('操作成功')
+        row.is_edit_mode = false
+        // this.$emit('on-success')
+      } else {
+        this.$msg.error(res.msg)
+      }
+    },
     handleUpdateSuccess() {
       this.$emit('on-success')
     },

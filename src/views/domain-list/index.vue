@@ -24,6 +24,12 @@
             ><el-icon><Upload /></el-icon>导入</el-button
           >
         </el-upload>
+
+        <el-button
+          class="ml-sm"
+          @click="handleExportToFile"
+          ><el-icon><Download /></el-icon>导出</el-button
+        >
       </div>
     </div>
 
@@ -62,6 +68,9 @@
 
 import DataFormDialog from '../domain-edit/DataFormDialog.vue'
 import DataTable from './DataTable.vue'
+import dataApi from '@/api/dataApi.js'
+import { resolve_api_url } from '@/api/index.js'
+import FileSaver from 'file-saver'
 
 export default {
   name: 'domain-list',
@@ -75,6 +84,7 @@ export default {
 
   data() {
     return {
+      dataApi,
       list: [],
       total: 0,
       page: 1,
@@ -83,6 +93,7 @@ export default {
 
       loading: true,
       dialogVisible: false,
+      export_to_file_url: resolve_api_url(dataApi.exportDomainToFile),
     }
   },
 
@@ -163,6 +174,17 @@ export default {
 
     handleAddSuccess() {
       this.resetData()
+    },
+
+    async handleExportToFile() {
+      const res = await this.$http.getAllDomainListOfUser()
+      let content = res.data.list.map((item) => item.domain).join('\n')
+
+      var blob = new Blob([content], {
+        type: 'text/plain;charset=utf-8',
+      })
+
+      FileSaver.saveAs(blob, 'domain.txt')
     },
   },
 

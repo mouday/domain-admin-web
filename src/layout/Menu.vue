@@ -2,21 +2,24 @@
   <div class="">
     <el-menu
       :default-active="activeIndex"
+      :ellipsis="false"
       class="el-menu-demo"
       mode="horizontal"
+      router
       @select="handleSelect"
     >
       <el-menu-item index="domain-list">域名管理</el-menu-item>
 
-      <el-menu-item index="email">邮箱设置</el-menu-item>
+      <el-menu-item index="user-edit">个人设置</el-menu-item>
 
-      <el-menu-item index="system">系统设置</el-menu-item>
+      <el-menu-item index="system-list">系统设置</el-menu-item>
 
       <div class="self-center margin-left--auto">
         <el-dropdown>
-          <el-avatar
-            src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
-          />
+          <el-avatar :src="userInfo && userInfo.avatar_url">
+            <img src="https://api.multiavatar.com/domain-admin.png" />
+          </el-avatar>
+
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item @click="handleLogoutClick"
@@ -34,6 +37,8 @@
 // created at 2022-10-01
 
 import { removeToken } from '@/utils/token-util.js'
+import { useUserStore } from '@/store/user-store.js'
+import { mapState, mapActions } from 'pinia'
 
 export default {
   name: 'Menu',
@@ -44,18 +49,35 @@ export default {
 
   data() {
     return {
-      activeIndex: 'domain-list',
+      activeIndex: '',
     }
   },
 
-  computed: {},
+  computed: {
+    ...mapState(useUserStore, {
+      userInfo: 'userInfo',
+    }),
+  },
 
   methods: {
+    ...mapActions(useUserStore, {
+      updateUserInfo: 'updateUserInfo',
+      removeUserInfo: 'removeUserInfo',
+    }),
+
     async getData() {},
-    handleSelect() {},
+
+    handleSelect(index) {
+      // console.log(index)
+      // this.$router.push({
+      //   name: index,
+      // })
+    },
 
     handleLogoutClick(data) {
-    //   console.log(data)
+      //   console.log(data)
+      this.removeUserInfo()
+
       removeToken()
 
       this.$router.push({
@@ -65,6 +87,7 @@ export default {
   },
 
   created() {
+    this.activeIndex = this.$route.name
     this.getData()
   },
 }

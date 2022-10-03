@@ -1,10 +1,10 @@
 <template>
   <div class="login-wrap">
-    <div class="login rounded-sm border-gray-100">
+    <div class="login rounded-sm border-gray-100 p-md">
       <h1 class="text-4xl text-center">登录</h1>
 
       <el-form
-        class="m-8"
+        class="m-8 mt-md"
         ref="form"
         :model="form"
         :rules="rules"

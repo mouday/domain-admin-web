@@ -1,15 +1,21 @@
 import { getToken } from '@/utils/token-util.js'
+import { useUserStore } from '@/store/user-store.js'
 
 const WHITE_LIST = ['/login']
 
 export function routerPermission(router) {
-  router.beforeEach((to, from, next) => {
+  router.beforeEach(async (to, from, next) => {
+    let token = getToken()
+    const store = useUserStore()
+
+    if (token) {
+      await store.updateUserInfo()
+    }
+
     if (WHITE_LIST.includes(to.path)) {
       next()
     } else {
-      let token = getToken()
-
-      if (token) {
+      if (store.hasUserInfo) {
         next()
       } else {
         next({

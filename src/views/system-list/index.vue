@@ -1,13 +1,13 @@
 <template>
   <div class="app-container">
     <!-- 操作按钮 -->
-    <div class="margin-bottom--20">
+    <!-- <div class="margin-bottom--20">
       <el-button
         type="primary"
         @click="handleAddRow"
         >添加</el-button
       >
-    </div>
+    </div> -->
 
     <!-- 数据列表 -->
     <DataTable
@@ -29,28 +29,28 @@
     </div>
 
     <!-- 编辑框 -->
-    <DataFormDailig
+    <!-- <DataFormDailig
       v-model:visible="dialogVisible"
       @on-success="handleAddSuccess"
-    ></DataFormDailig>
+    ></DataFormDailig> -->
   </div>
 </template>
 
 <script>
 /**
- * created {{time.date}}
+ * created 2022-10-02
  */
 
-import DataFormDailig from '../{{edit_name}}/DataFormDailig.vue'
+// import DataFormDailig from '../system-edit/DataFormDailig.vue'
 import DataTable from './DataTable.vue'
 
 export default {
-  name: '{{list_name}}',
+  name: 'system-list',
 
   props: {},
 
   components: {
-    DataFormDailig,
+    // DataFormDailig,
     DataTable,
   },
 
@@ -89,13 +89,14 @@ export default {
         keywords: this.keywords,
       }
 
-      const res = await this.$http.function(params)
+      const res = await this.$http.getAllSystemConfig(params)
 
       if (res.code == 0) {
-        this.list = res.data.list
+        this.list = res.data.list.map((item) => {
+          item.is_edit_mode = false
+          return item
+        })
         this.total = parseInt(res.data.count)
-      } else {
-        this.$msg.error(e.msg)
       }
 
       this.loading = false

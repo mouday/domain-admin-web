@@ -1,12 +1,11 @@
 import { defineStore } from 'pinia'
-import Http from '../api/http-util/index.js'
+import { Http } from '@/api/index.js'
 
 export const useUserStore = defineStore({
   id: 'user-store', // id必填，且需要唯一
 
   state: () => {
     return {
-      // avatar_url nick_name
       _userInfo: null,
     }
   },
@@ -20,10 +19,15 @@ export const useUserStore = defineStore({
   // 修改数据的方法 methods
   actions: {
     async updateUserInfo() {
-      const res = await Http.getUserInfoForBasic()
+      const res = await Http.getUserInfo()
+      
       if (res.code == 0) {
         this._userInfo = res.data
       }
+    },
+
+    removeUserInfo() {
+      this._userInfo = null
     },
   },
 })
