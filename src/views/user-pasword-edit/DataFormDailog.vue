@@ -1,7 +1,7 @@
 <template>
   <!-- 编辑框 -->
   <el-dialog
-    :title="dialogTitle"
+    title="修改登录密码"
     v-model="dialogVisible"
     width="400px"
     center
@@ -18,7 +18,7 @@
 
 <script>
 /**
- * created {{time.date}}
+ * created 2022-10-03
  */
 import DataForm from './DataForm.vue'
 
@@ -73,15 +73,16 @@ export default {
 
   methods: {
     handleClose() {
-      this.dialogVisible = false
+      // this.dialogVisible = false
+      this.$emit('on-cancel')
     },
 
     handleOpen() {
-      this.dialogVisible = true
+      // this.dialogVisible = true
     },
 
     handleSuccess() {
-      this.handleClose()
+      // this.handleClose()
       this.$emit('on-success')
     },
   },

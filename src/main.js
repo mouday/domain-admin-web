@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import 'modern-css-reset'
+// import 'modern-css-reset'
 import './style/tailwind.css'
 
 import { createPinia } from 'pinia'

@@ -5,35 +5,80 @@
       stripe
       border
     >
-      {% raw %}
       <el-table-column
         label="ID"
         align="center"
         prop="id"
-        width="60"
+        width="100"
       >
         <template #default="scope">
           <span>{{ scope.row.id || '-' }}</span>
         </template>
       </el-table-column>
-      {% endraw %} {% for item in table.columns %}
-      <!-- {{item.comment}} -->
+
+      <!-- 状态 -->
+
+      <!-- 创建时间 -->
       <el-table-column
-        label="{{item.comment or item.name }}"
+        label="开始时间"
         header-align="center"
         align="center"
-        prop="{{ item.name }}"
+        prop="create_time"
       >
         <template #default="scope">
-          {% raw %}<span
-            >{{ scope.row.{% endraw %}{{ item.name }}{% raw %} || '-' }}</span
-          >{% endraw %}
+          <span>{{ scope.row.create_time || '-' }}</span>
         </template>
       </el-table-column>
-      {% endfor %}
+
+      <!-- 更新时间 -->
+      <el-table-column
+        label="结束时间"
+        header-align="center"
+        align="center"
+        prop="update_time"
+      >
+        <template #default="scope">
+          <span>{{ scope.row.update_time || '-' }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        label="持续时间"
+        header-align="center"
+        align="center"
+        prop="total_time_label"
+      >
+        <template #default="scope">
+          <span>{{ scope.row.total_time_label || '-' }}</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        label="状态"
+        header-align="center"
+        align="center"
+        prop="status"
+        width="60"
+      >
+        <template #default="scope">
+          <!-- <span>{{ scope.row.status || '-' }}</span> -->
+          <ConnectStatus :value="scope.row.status"></ConnectStatus>
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        label="错误信息"
+        header-align="center"
+        align="center"
+        prop="status"
+      >
+        <template #default="scope">
+          <span>{{ scope.row.error_message || '-' }}</span>
+        </template>
+      </el-table-column>
 
       <!-- 操作 -->
-      <el-table-column
+      <!-- <el-table-column
         label="状态"
         header-align="center"
         align="center"
@@ -83,29 +128,31 @@
             </template>
           </el-popconfirm>
         </template>
-      </el-table-column>
+      </el-table-column> -->
     </el-table>
 
     <!-- 编辑框 -->
-    <DataFormDailog
+    <!-- <DataFormDailog
       v-model:visible="dialogVisible"
       :row="currentRow"
       @on-success="handleUpdateSuccess"
-    ></DataFormDailog>
+    ></DataFormDailog> -->
   </div>
 </template>
 
 <script>
 /**
- * created {{time.date}}
+ * created 2022-10-03
  */
-import DataFormDailog from '../{{edit_name}}/DataFormDailog.vue'
+// import DataFormDailog from '../log_scheduler-edit/DataFormDailog.vue'
+import ConnectStatus from '@/components/ConnectStatus.vue'
 
 export default {
   name: '',
 
   components: {
-    DataFormDailog,
+    // DataFormDailog,
+    ConnectStatus,
   },
 
   props: {

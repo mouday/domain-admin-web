@@ -1,42 +1,46 @@
 <template>
-  <div class="login-wrap">
-    <div class="login rounded-sm border-gray-100 p-md">
-      <h1 class="text-4xl text-center">登录</h1>
+  <div class="login-container">
+    <h3 class="title">登录</h3>
 
-      <el-form
-        class="m-8 mt-md"
-        ref="form"
-        :model="form"
-        :rules="rules"
-        label-width="auto"
+    <el-form
+      class=""
+      ref="form"
+      :model="form"
+      :rules="rules"
+      label-width="auto"
+    >
+      <el-form-item
+        label=""
+        prop="username"
       >
-        <el-form-item
-          label="用户名"
-          prop="username"
-        >
-          <el-input v-model="form.username" />
-        </el-form-item>
+        <el-input
+          v-model="form.username"
+          auto-complete="off"
+          placeholder="用户名"
+        />
+      </el-form-item>
 
-        <el-form-item
-          label="密 码"
-          prop="password"
-        >
-          <el-input
-            v-model="form.password"
-            type="password"
-          />
-        </el-form-item>
+      <el-form-item
+        label=""
+        prop="password"
+      >
+        <el-input
+          v-model="form.password"
+          type="password"
+          auto-complete="off"
+          placeholder="密码"
+        />
+      </el-form-item>
+    </el-form>
 
-        <el-form-item class="text-center">
-          <el-button
-            class="w-full"
-            type="primary"
-            size="large"
-            @click="onSubmit"
-            >登 录</el-button
-          >
-        </el-form-item>
-      </el-form>
+    <div>
+      <el-button
+        class="w-full"
+        type="primary"
+        size="large"
+        @click.native.prevent="onSubmit"
+        >登 录</el-button
+      >
     </div>
   </div>
 </template>
@@ -128,15 +132,35 @@ export default {
 
 <style scoped>
 .login-wrap {
-  height: 100vh;
+  /* height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
+  /* background-image: url(https://api.isoyu.com/bing_images.php); */
 }
 
-.login {
-  width: 400px;
-  background-color: rgba(0, 0, 0, 0.02);
-  padding-top: 20px;
+.login-container {
+  /* width: 400px; */
+  /* background-color: rgba(0, 0, 0, 0.02); */
+  /* padding-top: 20px; */
+
+  /* -webkit-border-radius: 5px; */
+  border-radius: 5px;
+  /* -moz-border-radius: 5px; */
+  background-clip: padding-box;
+  margin: 180px auto;
+  width: 350px;
+  padding: 35px;
+  background: #fff;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 0 25px #cac6c6;
+}
+
+.title {
+  /* margin: 0px auto 40px auto; */
+  margin-bottom: 30px;
+  text-align: center;
+  color: #505458;
+  font-size: 26px;
 }
 </style>

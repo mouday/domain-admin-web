@@ -4,7 +4,7 @@
       ref="form"
       :model="form"
       :rules="rules"
-      label-width="50px"
+      label-width="100px"
     >
       {% for item in table.columns %}
       <!-- {{item.comment or item.name}} -->
@@ -72,7 +72,7 @@
     </el-form>
 
     <!-- 操作 -->
-    <div class="text-align--center">
+    <div class="text-center">
       <el-button @click="handleCancel">取 消</el-button>
       <el-button
         type="primary"
@@ -191,7 +191,7 @@ export default {
         params['id'] = this.row.id
       }
 
-      const res = await this.$Http.function(params)
+      const res = await this.$http.function(params)
 
       if (res.code == 0) {
         this.$msg.success('操作成功')

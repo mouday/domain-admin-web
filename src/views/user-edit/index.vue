@@ -4,13 +4,13 @@
       <el-button
         class="margin-left--auto"
         @click="sendDomainInfoListEmail"
-        ><el-icon><Position /></el-icon>发送测试邮件</el-button
+        ><el-icon><Position /></el-icon>发送邮件</el-button
       >
 
       <el-button
         class="margin-left--auto"
         @click="checkDomainCert"
-        ><el-icon><Promotion /></el-icon>域名证书到期检查</el-button
+        ><el-icon><Promotion /></el-icon>证书检查</el-button
       >
     </div>
 

@@ -2,11 +2,27 @@
   <div class="app-container">
     <!-- 操作按钮 -->
     <div class="flex justify-between">
-      <el-button
-        type="primary"
-        @click="handleAddRow"
-        ><el-icon><Plus /></el-icon>添加</el-button
-      >
+      <div>
+        <el-button
+          type="primary"
+          @click="handleAddRow"
+          ><el-icon><Plus /></el-icon>添加</el-button
+        >
+
+        <el-input
+          class="ml-sm"
+          style="width: 260px"
+          v-model="keyword"
+          placeholder="输入域名"
+          @keypress.enter="handleSearch"
+        >
+          <template #append>
+            <el-button @click="handleSearch">
+              <el-icon><Search /></el-icon
+            ></el-button>
+          </template>
+        </el-input>
+      </div>
 
       <div class="flex">
         <el-button @click="updateAllDomainCertInfoOfUser"
@@ -20,8 +36,7 @@
           :show-file-list="false"
           :http-request="handleHttpRequest"
         >
-          <el-button @click="importDomainFromFile"
-            ><el-icon><Upload /></el-icon>导入</el-button
+          <el-button><el-icon><Upload /></el-icon>导入</el-button
           >
         </el-upload>
 
@@ -89,7 +104,7 @@ export default {
       total: 0,
       page: 1,
       size: 20,
-      keywords: '',
+      keyword: '',
 
       loading: true,
       dialogVisible: false,
@@ -115,17 +130,27 @@ export default {
       let params = {
         page: this.page,
         size: this.size,
-        keywords: this.keywords,
+        keyword: this.keyword,
       }
 
       const res = await this.$http.getDomainList(params)
 
       if (res.code == 0) {
         this.list = res.data.list.map((item) => {
+          // 百分比
           if (item.expire_days && item.total_days) {
             item.percentage = (item.expire_days / item.total_days) * 100
           } else {
             item.percentage = null
+          }
+
+          // 状态栏颜色
+          item.percentage_status = 'exception'
+
+          if (item.expire_days >= 30) {
+            item.percentage_status = '' // success
+          } else if (item.expire_days >= 3) {
+            item.percentage_status = 'warning'
           }
 
           return item
@@ -185,6 +210,10 @@ export default {
       })
 
       FileSaver.saveAs(blob, 'domain.txt')
+    },
+
+    handleSearch() {
+      this.resetData()
     },
   },
 

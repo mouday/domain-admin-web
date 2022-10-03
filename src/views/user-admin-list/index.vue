@@ -9,23 +9,22 @@
       >
 
       <el-input
-        class="ml-sm"
-        style="width: 260px"
-        v-model="keyword"
-        placeholder="输入域名"
-        @keypress.enter="handleSearch"
-      >
-        <template #append>
-          <el-button @click="handleSearch">
-            <el-icon><Search /></el-icon
-          ></el-button>
-        </template>
-      </el-input>
+          class="ml-sm"
+          style="width: 260px"
+          v-model="keyword"
+          placeholder="输入用户名"
+          @keypress.enter="handleSearch"
+        >
+          <template #append>
+            <el-button @click="handleSearch">
+              <el-icon><Search /></el-icon
+            ></el-button>
+          </template>
+        </el-input>
     </div>
 
     <!-- 数据列表 -->
-    <DataTable
-      class="mt-md"
+    <DataTable class="mt-md"
       v-loading="loading"
       :list="list"
       @on-success="resetData"
@@ -53,14 +52,14 @@
 
 <script>
 /**
- * created {{time.date}}
+ * created 2022-10-03
  */
 
-import DataFormDailog from '../{{edit_name}}/DataFormDailog.vue'
+import DataFormDailog from '../user-admin-edit/DataFormDailog.vue'
 import DataTable from './DataTable.vue'
 
 export default {
-  name: '{{list_name}}',
+  name: 'user-admin-list',
 
   props: {},
 
@@ -90,27 +89,30 @@ export default {
       this.getData()
     },
 
+    refreshData() {
+      this.getData()
+    },
+
     async getData() {
       this.loading = true
 
       let params = {
+        ticket: this.ticket,
         page: this.page,
-        size: this.size,
-        keyword: this.keyword,
+        num: this.size,
+        keywords: this.keywords,
       }
 
-      try {
-        const res = await this.$http.function(params)
+      const res = await this.$http.getUserList(params)
 
-        if (res.code == 0) {
-          this.list = res.data.list
-          this.total = res.data.total
-        }
-      } catch (e) {
-        console.log(e)
-      } finally {
-        this.loading = false
+      if (res.code == 0) {
+        this.list = res.data.list
+        this.total = res.data.total
+      } else {
+        this.$msg.error(e.msg)
       }
+
+      this.loading = false
     },
 
     handleAddRow() {

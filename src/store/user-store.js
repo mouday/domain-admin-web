@@ -13,6 +13,12 @@ export const useUserStore = defineStore({
   getters: {
     hasUserInfo: (state) => state._userInfo != null,
 
+    isAdmin: (state) => {
+      if (state._userInfo) {
+        return state._userInfo.username == 'admin'
+      }
+    },
+
     userInfo: (state) => state._userInfo,
   },
 
@@ -20,7 +26,7 @@ export const useUserStore = defineStore({
   actions: {
     async updateUserInfo() {
       const res = await Http.getUserInfo()
-      
+
       if (res.code == 0) {
         this._userInfo = res.data
       }

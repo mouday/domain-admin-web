@@ -15,10 +15,18 @@ export default {
   getAllDomainListOfUser: '/getAllDomainListOfUser',
   sendDomainInfoListEmail: '/sendDomainInfoListEmail',
   checkDomainCert: '/checkDomainCert',
-  
+
   getAllSystemConfig: '/getAllSystemConfig',
   updateSystemConfig: '/updateSystemConfig',
-  
+
   getUserInfo: '/getUserInfo',
   updateUserInfo: '/updateUserInfo',
+  updateUserPassword: '/updateUserPassword',
+
+  getUserList: '/getUserList',
+  addUser: '/addUser',
+  deleteUser: '/deleteUser',
+  updateUserStatus: '/updateUserStatus',
+
+  getLogSchedulerList: '/getLogSchedulerList',
 }

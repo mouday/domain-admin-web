@@ -64,6 +64,7 @@
             v-if="scope.row.percentage"
             :percentage="scope.row.percentage"
             :show-text="false"
+            :status="scope.row.percentage_status"
           />
           <span
             >{{ scope.row.expire_days || '-' }} /

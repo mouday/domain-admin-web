@@ -1,31 +1,30 @@
 <template>
   <div class="app-container">
     <!-- 操作按钮 -->
-    <div class="margin-bottom--20">
-      <el-button
+    <!-- <div class="margin-bottom--20"> -->
+      <!-- <el-button
         type="primary"
         @click="handleAddRow"
         >添加</el-button
-      >
+      > -->
 
-      <el-input
-        class="ml-sm"
-        style="width: 260px"
-        v-model="keyword"
-        placeholder="输入域名"
-        @keypress.enter="handleSearch"
-      >
-        <template #append>
-          <el-button @click="handleSearch">
-            <el-icon><Search /></el-icon
-          ></el-button>
-        </template>
-      </el-input>
-    </div>
+      <!-- <el-input
+          class="ml-sm"
+          style="width: 260px"
+          v-model="keyword"
+          placeholder="输入域名"
+          @keypress.enter="handleSearch"
+        >
+          <template #append>
+            <el-button @click="handleSearch">
+              <el-icon><Search /></el-icon
+            ></el-button>
+          </template>
+        </el-input>
+    </div> -->
 
     <!-- 数据列表 -->
     <DataTable
-      class="mt-md"
       v-loading="loading"
       :list="list"
       @on-success="resetData"
@@ -44,28 +43,28 @@
     />
 
     <!-- 编辑框 -->
-    <DataFormDailog
+    <!-- <DataFormDailog
       v-model:visible="dialogVisible"
       @on-success="handleAddSuccess"
-    ></DataFormDailog>
+    ></DataFormDailog> -->
   </div>
 </template>
 
 <script>
 /**
- * created {{time.date}}
+ * created 2022-10-03
  */
 
-import DataFormDailog from '../{{edit_name}}/DataFormDailog.vue'
+// import DataFormDailog from '../log_scheduler-edit/DataFormDailog.vue'
 import DataTable from './DataTable.vue'
 
 export default {
-  name: '{{list_name}}',
+  name: 'log-scheduler-list',
 
   props: {},
 
   components: {
-    DataFormDailog,
+    // DataFormDailog,
     DataTable,
   },
 
@@ -90,27 +89,28 @@ export default {
       this.getData()
     },
 
+    refreshData() {
+      this.getData()
+    },
+
     async getData() {
       this.loading = true
 
       let params = {
+        ticket: this.ticket,
         page: this.page,
         size: this.size,
-        keyword: this.keyword,
+        keywords: this.keywords,
       }
 
-      try {
-        const res = await this.$http.function(params)
+      const res = await this.$http.getLogSchedulerList(params)
 
-        if (res.code == 0) {
-          this.list = res.data.list
-          this.total = res.data.total
-        }
-      } catch (e) {
-        console.log(e)
-      } finally {
-        this.loading = false
+      if (res.code == 0) {
+        this.list = res.data.list
+        this.total = res.data.total
       }
+
+      this.loading = false
     },
 
     handleAddRow() {

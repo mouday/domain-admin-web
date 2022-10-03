@@ -24,6 +24,21 @@ export const routes = [
         name: 'user-edit',
         component: () => import('@/views/user-edit/index.vue'),
       },
+
+      {
+        path: '/user-admin-list',
+        name: 'user-admin-list',
+        component: () => import('@/views/user-admin-list/index.vue'),
+      },
+      {
+        path: '/log-scheduler-list',
+        name: 'log-scheduler-list',
+        component: () => import('@/views/log-scheduler-list/index.vue'),
+      },
+      
+
+
+      
       
       
     ],
