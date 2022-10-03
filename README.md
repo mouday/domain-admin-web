@@ -1,4 +1,4 @@
-# Vue 3 + Vite
+# domain-admin-web
 
 Vite https://cn.vitejs.dev/
 
