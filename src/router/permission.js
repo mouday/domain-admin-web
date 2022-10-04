@@ -8,7 +8,7 @@ export function routerPermission(router) {
     let token = getToken()
     const store = useUserStore()
 
-    if (token) {
+    if (token && !store.hasUserInfo) {
       await store.updateUserInfo()
     }
 
