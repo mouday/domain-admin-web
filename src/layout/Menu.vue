@@ -27,7 +27,16 @@
 
       <el-menu-item index="log-scheduler-list">监测日志</el-menu-item>
 
-      <div class="self-center margin-left--auto">
+      <div class="self-center margin-left--auto flex items-center">
+        <a
+          href="https://github.com/mouday/domain-admin"
+          class="mr-md"
+          target="_blank"
+          ><img
+            alt="GitHub stars"
+            src="https://img.shields.io/github/stars/mouday/domain-admin.svg?style=social"
+        /></a>
+
         <el-dropdown trigger="hover">
           <el-avatar :src="userInfo && userInfo.avatar_url">
             <img src="https://api.multiavatar.com/domain-admin.png" />
