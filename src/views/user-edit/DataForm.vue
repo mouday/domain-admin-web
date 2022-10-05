@@ -47,7 +47,7 @@
       <!-- 邮件列表 -->
 
       <el-form-item
-        label="邮箱列表"
+        label="收件邮箱"
         prop="email_list"
       >
         <el-input
