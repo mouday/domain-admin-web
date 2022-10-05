@@ -1,5 +1,5 @@
 # 部署
-.PHONY: dep-pro dep-dev dev
+.PHONY: dep-pro dep-dev dev build
 
 # 部署到线上环境
 dep-pro:
@@ -14,6 +14,9 @@ dep-dev:
 # 测试环境
 dev:
 	npm run dev
+
+build:
+	npm run build
 
 # more-copy 创建指令
 .PHONY: list edit all
