@@ -2,6 +2,24 @@
   <router-view></router-view>
 </template>
 
-<script></script>
+<script>
+export default {
+  name: 'app',
+
+  props: {},
+
+  components: {},
+
+  data() {
+    return {}
+  },
+
+  computed: {},
+
+  methods: {},
+
+  created() {},
+}
+</script>
 
 <style scoped></style>

@@ -9,26 +9,26 @@
       >
 
       <el-input
-          class="ml-sm"
-          style="width: 260px"
-          v-model="keyword"
-          placeholder="输入用户名"
-          @keypress.enter="handleSearch"
-        >
-          <template #append>
-            <el-button @click="handleSearch">
-              <el-icon><Search /></el-icon
-            ></el-button>
-          </template>
-        </el-input>
+        class="ml-sm"
+        style="width: 260px"
+        v-model="keyword"
+        placeholder="输入用户名"
+        @keypress.enter="handleSearch"
+      >
+        <template #append>
+          <el-button @click="handleSearch">
+            <el-icon><Search /></el-icon
+          ></el-button>
+        </template>
+      </el-input>
     </div>
 
     <!-- 数据列表 -->
-    <DataTable class="mt-md"
+    <DataTable
+      class="mt-md"
       v-loading="loading"
       :list="list"
       @on-success="resetData"
-      @on-edit-row="handleEditRow"
     />
 
     <!-- 翻页 -->
@@ -74,7 +74,7 @@ export default {
       total: 0,
       page: 1,
       size: 20,
-      keywords: '',
+      keyword: '',
 
       loading: true,
       dialogVisible: false,
@@ -97,10 +97,10 @@ export default {
       this.loading = true
 
       let params = {
-        ticket: this.ticket,
+        // ticket: this.ticket,
         page: this.page,
-        num: this.size,
-        keywords: this.keywords,
+        size: this.size,
+        keyword: this.keyword,
       }
 
       const res = await this.$http.getUserList(params)
@@ -120,6 +120,10 @@ export default {
     },
 
     handleAddSuccess() {
+      this.resetData()
+    },
+
+    handleSearch() {
       this.resetData()
     },
   },

@@ -14,19 +14,7 @@
       v-loading="loading"
       :list="list"
       @on-success="resetData"
-      @on-edit-row="handleEditRow"
     />
-
-    <!-- 翻页 -->
-    <div class="pagination">
-      <mo-pagination
-        :total="total"
-        :page-size.sync="size"
-        :current-page.sync="page"
-        @change="getData"
-        layout="total, sizes, prev, pager, next, jumper"
-      />
-    </div>
 
     <!-- 编辑框 -->
     <!-- <DataFormDailig

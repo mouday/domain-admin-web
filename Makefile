@@ -18,6 +18,9 @@ dev:
 build:
 	npm run build
 
+build-visualizer:
+	npm run build:visualizer
+
 # more-copy 创建指令
 .PHONY: list edit all
 

@@ -107,7 +107,7 @@ export default {
         // 头像
         avatar_url: '',
         // 过期前多少天提醒
-        before_expire_days: '',
+        before_expire_days: 0,
         // 邮件列表
         email_list: '',
       },
@@ -178,7 +178,7 @@ export default {
       //   params['id'] = this.row.id
       // }
 
-      console.log(params);
+      // console.log(params);
       const res = await this.$http.updateUserInfo(params)
 
       if (res.code == 0) {

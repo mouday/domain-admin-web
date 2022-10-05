@@ -28,7 +28,6 @@
       v-loading="loading"
       :list="list"
       @on-success="resetData"
-      @on-edit-row="handleEditRow"
     />
 
     <!-- 翻页 -->

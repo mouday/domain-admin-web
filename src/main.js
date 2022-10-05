@@ -4,9 +4,9 @@ import './style/tailwind.css'
 
 import { createPinia } from 'pinia'
 
-import ElementPlus from 'element-plus'
-import langZhCn from 'element-plus/es/locale/lang/zh-cn'
-import 'element-plus/dist/index.css'
+// import ElementPlus from 'element-plus'
+// import langZhCn from 'element-plus/es/locale/lang/zh-cn'
+// import 'element-plus/dist/index.css'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
 import { Http } from './api/index.js'
@@ -25,9 +25,9 @@ app.config.globalProperties.$msg = SingleMessage
 app.use(router)
 
 // 使用 Element Plus
-app.use(ElementPlus, {
-  locale: langZhCn,
-})
+// app.use(ElementPlus, {
+//   locale: langZhCn,
+// })
 
 // 注册所有图标
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {

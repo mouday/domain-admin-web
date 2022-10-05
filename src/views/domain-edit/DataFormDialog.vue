@@ -48,7 +48,7 @@ export default {
   data() {
     return {
       // currentRow: null,
-      dialogVisible: false,
+      // dialogVisible: false,
     }
   },
 
@@ -74,7 +74,7 @@ export default {
 
   methods: {
     handleClose() {
-      console.log('handleClose');
+      // console.log('handleClose');
       // this.dialogVisible = false
       this.$emit('update:visible', false)
     },

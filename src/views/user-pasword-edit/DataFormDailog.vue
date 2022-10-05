@@ -48,7 +48,7 @@ export default {
   data() {
     return {
       // currentRow: null,
-      dialogVisible: false,
+      // dialogVisible: false,
     }
   },
 
@@ -73,8 +73,8 @@ export default {
 
   methods: {
     handleClose() {
-      // this.dialogVisible = false
-      this.$emit('on-cancel')
+      this.dialogVisible = false
+      // this.$emit('on-cancel')
     },
 
     handleOpen() {
