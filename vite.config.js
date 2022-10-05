@@ -51,7 +51,8 @@ export default defineConfig((config) => {
     build: {
       // 禁用 gzip 压缩大小报告
       reportCompressedSize: true,
-
+      chunkSizeWarningLimit: 1000,
+      
       rollupOptions: {
         output: {
           chunkFileNames: 'js/[name].[hash].js',
