@@ -1,9 +1,7 @@
-import Admin from '@/views/admin/Admin.vue'
-import Login from '@/views/login/Login.vue'
 import Layout from '@/layout/index.vue'
 
 export const routes = [
-  { path: '/login', component: Login },
+  { path: '/login', component: import('@/views/login/Login.vue') },
   {
     path: '/',
     component: Layout,
@@ -35,13 +33,6 @@ export const routes = [
         name: 'log-scheduler-list',
         component: () => import('@/views/log-scheduler-list/index.vue'),
       },
-      
-
-
-      
-      
-      
     ],
   },
-  { path: '/admin', component: Admin },
 ]

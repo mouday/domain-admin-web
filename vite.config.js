@@ -7,6 +7,11 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
+import {
+  createStyleImportPlugin,
+  ElementPlusResolve,
+} from 'vite-plugin-style-import'
+
 // https://vitejs.dev/config/
 export default defineConfig((config) => {
   console.log(config)
@@ -21,33 +26,46 @@ export default defineConfig((config) => {
     plugins: [
       vue(),
 
-      // splitVendorChunkPlugin(),
-
-      // Element Plus 按需导入 https://element-plus.gitee.io/zh-CN/guide/quickstart.html
+      // element-plus按需引入
       AutoImport({
         resolvers: [ElementPlusResolver()],
       }),
-
       Components({
         resolvers: [ElementPlusResolver()],
+      }),
+
+      createStyleImportPlugin({
+        resolves: [ElementPlusResolve()],
+        libs: [
+          {
+            libraryName: 'element-plus',
+            esModule: true,
+            resolveStyle: (name) => {
+              return `element-plus/theme-chalk/${name}.css`
+            },
+          },
+        ],
       }),
     ],
 
     build: {
       // 禁用 gzip 压缩大小报告
-      reportCompressedSize: false,
+      reportCompressedSize: true,
 
       rollupOptions: {
         output: {
+          chunkFileNames: 'js/[name].[hash].js',
+          entryFileNames: 'js/[name].[hash].js',
+          assetFileNames: '[ext]/[name].[hash].[ext]',
           manualChunks: {
             'vendor-vue': ['vue', 'vue-router', 'pinia'],
-            'vendor-icon': ['@element-plus/icons-vue'],
-            'vendor-lib': ['axios', 'file-saver', 'js-cookie']
-          }
-        }
-      }
+            'element-icon': ['@element-plus/icons-vue'],
+            // 'element-plus': ['element-plus'],
+            'vendor-lib': ['axios', 'file-saver', 'js-cookie'],
+          },
+        },
+      },
     },
-    
   }
 
   if (config.mode == 'visualizer') {
