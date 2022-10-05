@@ -1,7 +1,8 @@
 import Layout from '@/layout/index.vue'
+import Login from '@/views/login/Login.vue'
 
 export const routes = [
-  { path: '/login', component: import('@/views/login/Login.vue') },
+  { path: '/login', component: Login },
   {
     path: '/',
     component: Layout,
