@@ -28,7 +28,9 @@ app.config.globalProperties.$msg = SingleMessage
 app.use(router)
 
 // 使用 Element Plus
-app.use(ElementPlus)
+app.use(ElementPlus, {
+  locale: langZhCn,
+})
 
 // 注册所有图标
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
