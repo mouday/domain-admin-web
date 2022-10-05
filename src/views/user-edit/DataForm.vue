@@ -162,6 +162,12 @@ export default {
     async confirmSubmit() {
       let loading = this.$loading({ fullscreen: true })
 
+      // console.log(this.form.email_list);
+      let email_list = []
+      if (this.form.email_list && this.form.email_list.trim()) {
+        email_list = this.form.email_list.trim().split('\n')
+      }
+
       let params = {
         // 用户名
         // username: this.form.username,
@@ -170,7 +176,7 @@ export default {
         // 过期前多少天提醒
         before_expire_days: this.form.before_expire_days,
         // 邮件列表
-        email_list: this.form.email_list.split('\n'),
+        email_list: email_list,
       }
 
       // 编辑

@@ -3,14 +3,14 @@ import vue from '@vitejs/plugin-vue'
 import path from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
 
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+// import AutoImport from 'unplugin-auto-import/vite'
+// import Components from 'unplugin-vue-components/vite'
+// import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
-import {
-  createStyleImportPlugin,
-  ElementPlusResolve,
-} from 'vite-plugin-style-import'
+// import {
+//   createStyleImportPlugin,
+//   ElementPlusResolve,
+// } from 'vite-plugin-style-import'
 
 // https://vitejs.dev/config/
 export default defineConfig((config) => {
@@ -27,25 +27,25 @@ export default defineConfig((config) => {
       vue(),
 
       // element-plus按需引入
-      AutoImport({
-        resolvers: [ElementPlusResolver()],
-      }),
-      Components({
-        resolvers: [ElementPlusResolver()],
-      }),
+      // AutoImport({
+      //   resolvers: [ElementPlusResolver()],
+      // }),
+      // Components({
+      //   resolvers: [ElementPlusResolver()],
+      // }),
 
-      createStyleImportPlugin({
-        resolves: [ElementPlusResolve()],
-        libs: [
-          {
-            libraryName: 'element-plus',
-            esModule: true,
-            resolveStyle: (name) => {
-              return `element-plus/theme-chalk/${name}.css`
-            },
-          },
-        ],
-      }),
+      // createStyleImportPlugin({
+      //   resolves: [ElementPlusResolve()],
+      //   libs: [
+      //     {
+      //       libraryName: 'element-plus',
+      //       esModule: true,
+      //       resolveStyle: (name) => {
+      //         return `element-plus/theme-chalk/${name}.css`
+      //       },
+      //     },
+      //   ],
+      // }),
     ],
 
     build: {
@@ -60,7 +60,7 @@ export default defineConfig((config) => {
           manualChunks: {
             'vendor-vue': ['vue', 'vue-router', 'pinia'],
             'element-icon': ['@element-plus/icons-vue'],
-            // 'element-plus': ['element-plus'],
+            'element-plus': ['element-plus'],
             'vendor-lib': ['axios', 'file-saver', 'js-cookie'],
           },
         },
