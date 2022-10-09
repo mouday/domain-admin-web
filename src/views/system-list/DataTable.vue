@@ -22,7 +22,7 @@
         label="配置项"
         header-align="center"
         align="right"
-        width="200"
+        width="260"
         prop="label"
       >
         <template #default="scope">

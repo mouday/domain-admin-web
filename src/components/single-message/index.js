@@ -18,6 +18,7 @@ class SingleMessage {
     return this.message({
       message,
       type: 'success',
+      // duration: 0
     })
   }
 

@@ -1,3 +1,13 @@
+html {
+  // overflow-y: scroll;
+  // overflow-y: overlay;
+  margin-right: calc(100% - 100vw);
+  // padding-left: calc(100vw - 100%);
+  // scrollbar-gutter: stable;
+  // overflow-y: overlay;
+}
+
+
 .app-container {
   padding: 20px 0;
   // background: rgba(0,0,0,0.02);
@@ -33,4 +43,9 @@
 
 .color--info {
   color: #909399;
+}
+
+// fixbug: safari Message 消息提示 文字换行
+.el-message {
+  width: auto;
 }
