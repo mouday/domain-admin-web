@@ -1,11 +1,31 @@
+// html {
+//   // overflow-y: scroll;
+//   // overflow-y: overlay;
+//   margin-right: calc(100% - 100vw);
+//   // padding-left: calc(100vw - 100%);
+//   // scrollbar-gutter: stable;
+//   // overflow-y: overlay;
+// }
+
+
 html {
-  // overflow-y: scroll;
-  // overflow-y: overlay;
-  margin-right: calc(100% - 100vw);
-  // padding-left: calc(100vw - 100%);
-  // scrollbar-gutter: stable;
-  // overflow-y: overlay;
+  overflow-y: scroll;
 }
+
+:root {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+:root body {
+  position: absolute;
+}
+
+body {
+  width: 100vw;
+  overflow: hidden;
+}
+
 
 .app-container {
   padding: 20px 0;
