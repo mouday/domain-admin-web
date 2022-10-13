@@ -4,12 +4,14 @@
     <div>
       <router-view></router-view>
     </div>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
 // created at 2022-10-01
 import Menu from './Menu.vue'
+import Footer from './Footer.vue'
 
 export default {
   name: 'index',
@@ -18,6 +20,7 @@ export default {
 
   components: {
     Menu,
+    Footer
   },
 
   data() {

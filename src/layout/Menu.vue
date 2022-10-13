@@ -28,15 +28,6 @@
       <el-menu-item index="log-scheduler-list">监测日志</el-menu-item>
 
       <div class="self-center margin-left--auto flex items-center">
-        <a
-          href="https://github.com/mouday/domain-admin"
-          class="mr-md"
-          target="_blank"
-          ><img
-            alt="GitHub stars"
-            src="https://img.shields.io/github/stars/mouday/domain-admin.svg?style=social"
-        /></a>
-
         <el-dropdown trigger="hover">
           <el-avatar :src="userInfo && userInfo.avatar_url">
             <img src="https://api.multiavatar.com/domain-admin.png" />
@@ -44,11 +35,18 @@
 
           <template #dropdown>
             <el-dropdown-menu>
+              
               <el-dropdown-item
                 @click="handleUpdatePasswordClick"
                 class="justify-center"
                 >修改密码</el-dropdown-item
               >
+              <el-dropdown-item
+                @click="handleAboutClick"
+                class="justify-center"
+                >关于</el-dropdown-item
+              >
+              
               <el-dropdown-item
                 @click="handleLogoutClick"
                 class="justify-center"
@@ -60,11 +58,17 @@
       </div>
     </el-menu>
 
+    <!-- 修改密码 -->
     <UserPaswordEditDataFormDailog
       v-model:visible="dialogVisible"
       @on-success="handleUserPaswordEditSuccess"
       @on-cancel="handleUserPaswordEditClose"
     ></UserPaswordEditDataFormDailog>
+
+    <!-- 关于 -->
+    <AboutDataFormDailig
+      v-model:visible="aboutDialogVisible"
+    ></AboutDataFormDailig>
   </div>
 </template>
 
@@ -75,6 +79,7 @@ import { removeToken } from '@/utils/token-util.js'
 import { useUserStore } from '@/store/user-store.js'
 import { mapState, mapActions } from 'pinia'
 import UserPaswordEditDataFormDailog from '@/views/user-pasword-edit/DataFormDailog.vue'
+import AboutDataFormDailig from '@/views/about/DataFormDailig.vue'
 
 export default {
   name: 'Menu',
@@ -83,12 +88,14 @@ export default {
 
   components: {
     UserPaswordEditDataFormDailog,
+    AboutDataFormDailig,
   },
 
   data() {
     return {
       activeIndex: '',
       dialogVisible: false,
+      aboutDialogVisible: false,
     }
   },
 
@@ -135,6 +142,10 @@ export default {
 
     handleUserPaswordEditSuccess() {
       this.dialogVisible = false
+    },
+
+    handleAboutClick() {
+      this.aboutDialogVisible = true
     },
   },
 

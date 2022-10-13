@@ -1,0 +1,83 @@
+<template>
+  <div class="mo-form-detail about-system">
+    <el-form
+      ref="form"
+      :model="form"
+      label-width="130px"
+    >
+      <!-- 域名 -->
+
+      <el-form-item
+        label="当前版本"
+        prop="domain"
+      >
+        {{ version }}
+      </el-form-item>
+
+      <!-- ip -->
+
+      <el-form-item
+        label="最新版本"
+        prop="ip"
+      >
+        <a
+          href="https://pypi.org/project/domain-admin/"
+          target="_blank"
+          ><img
+            alt="Version"
+            src="https://img.shields.io/pypi/v/domain-admin.svg"
+        /></a>
+      </el-form-item>
+
+      <el-form-item
+        label="给我们点赞"
+        prop="connect_status"
+      >
+        <a
+          class="inline-block"
+          href="https://github.com/mouday/domain-admin"
+          target="_blank"
+          ><img
+            alt="GitHub stars"
+            src="https://img.shields.io/github/stars/mouday/domain-admin.svg?style=social"
+        /></a>
+      </el-form-item>
+
+      <!-- 创建时间 -->
+    </el-form>
+  </div>
+</template>
+
+<script>
+export default {
+  name: '',
+
+  props: {},
+
+  components: {},
+
+  data() {
+    return {
+      version: '',
+    }
+  },
+
+  computed: {},
+
+  methods: {
+    async getData() {
+      const res = await this.$http.getSystemVersion()
+      this.version = res.data.version
+    },
+  },
+
+  created() {
+    this.getData()
+  },
+}
+</script>
+
+<style lang="less">
+.about-system {
+}
+</style>

@@ -4,7 +4,7 @@
      
     </div> -->
 
-    <div class="grid grid-cols-2 mt-sm">
+    <div class="mo-form-detail grid grid-cols-2 mt-sm">
       <el-form
         ref="form"
         :model="form"
@@ -372,27 +372,5 @@ export default {
 <style lang="less"></style>
 
 <style lang="less" scoped>
-.domain-detail {
-  .el-form {
-    border: 1px solid #ebeef5;
-  }
 
-  .el-form-item {
-    margin-bottom: 0;
-  }
-
-  .el-form-item + .el-form-item {
-    border-top: 1px solid #ebeef5;
-  }
-
-  :deep(.el-form-item__label) {
-    background-color: #f5f7fa;
-    justify-content: center;
-    padding: 0;
-  }
-
-  :deep(.el-form-item__content) {
-    padding: 0 10px;
-  }
-}
 </style>

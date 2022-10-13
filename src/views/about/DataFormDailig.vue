@@ -1,13 +1,12 @@
 <template>
   <!-- 编辑框 -->
   <el-dialog
-    title="域名详情"
+    title="关于 Domain Admin"
     v-model="dialogVisible"
-    width="900px"
+    width="400px"
     center
     append-to-body
     :lock-scroll="false"
-    @close="handleDialogClose"
   >
     <DataForm
       v-if="dialogVisible"
@@ -20,7 +19,7 @@
 
 <script>
 /**
- * created 2022-10-01
+ * created 2022-10-03
  */
 import DataForm from './DataForm.vue'
 
@@ -50,7 +49,7 @@ export default {
   data() {
     return {
       // currentRow: null,
-      // dialogVisible: false,
+      dialogVisible: false,
     }
   },
 
@@ -76,20 +75,14 @@ export default {
   methods: {
     handleClose() {
       this.dialogVisible = false
-      // this.$emit('update:visible', false)
     },
 
     handleOpen() {
       this.dialogVisible = true
-      // this.$emit('update:visible', true)
     },
 
     handleSuccess() {
       this.handleClose()
-      // this.$emit('on-success')
-    },
-
-    handleDialogClose() {
       this.$emit('on-success')
     },
   },
