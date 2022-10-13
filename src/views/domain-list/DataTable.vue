@@ -56,7 +56,7 @@
         label="有效期天数"
         header-align="center"
         align="center"
-        width="140"
+        width="180"
         prop="total_days"
       >
         <template #default="scope">
@@ -66,15 +66,16 @@
             :show-text="false"
             :status="scope.row.percentage_status"
           />
-          <span
-            >{{ scope.row.expire_days || '-' }} /
-            {{ scope.row.total_days || '-' }}</span
-          >
+          <div>
+            <span class="el-text-color-primary">{{ scope.row.expire_days || '-' }}</span>
+            <span> / </span>
+            <span class="el-text-color-secondary">{{ scope.row.total_days || '-' }}</span>
+          </div>
         </template>
       </el-table-column>
 
       <!-- 创建时间 -->
-      <el-table-column
+      <!-- <el-table-column
         label="创建时间"
         header-align="center"
         align="center"
@@ -84,7 +85,7 @@
         <template #default="scope">
           <span>{{ scope.row.create_time_label || '-' }}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <!-- 创建时间 -->
       <el-table-column

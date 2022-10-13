@@ -1,15 +1,10 @@
 # 部署
-.PHONY: dep-pro dep-dev dev build
+.PHONY: dep-pro dev build build-visualizer
 
 # 部署到线上环境
 dep-pro:
 	npm run build
 	cp -r ./dist/* ../domain-admin/domain_admin/public/
-
-# 部署到测试环境
-dep-dev:
-	npm run build-dev
-	bash deploy-dev.sh
 
 # 测试环境
 dev:

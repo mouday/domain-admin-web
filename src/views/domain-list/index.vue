@@ -14,7 +14,9 @@
           style="width: 260px"
           v-model="keyword"
           placeholder="输入域名"
+          clearable
           @keypress.enter="handleSearch"
+          @clear="handleSearch"
         >
           <template #append>
             <el-button @click="handleSearch">
