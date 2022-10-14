@@ -5,6 +5,7 @@
     v-model="dialogVisible"
     width="400px"
     center
+    :lock-scroll="false"
     append-to-body
   >
     <DataForm

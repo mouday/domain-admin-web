@@ -30,4 +30,6 @@ export default {
   updateUserStatus: '/updateUserStatus',
 
   getLogSchedulerList: '/getLogSchedulerList',
+  
+  getIpInfo: '/getIpInfo',
 }

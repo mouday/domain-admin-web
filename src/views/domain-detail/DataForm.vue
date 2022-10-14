@@ -78,6 +78,17 @@
         >
           <span class="truncate">{{ form.detail.issuer.OU || '-' }}</span>
         </el-form-item>
+
+        <el-form-item
+          label="物理位置"
+          prop="isp"
+        >
+          <span>{{ ipInfo.country || '-' }}</span>
+          <span>&nbsp;</span>
+          <span>{{ ipInfo.city || '-' }}</span>
+          <span>&nbsp;</span>
+          <span>{{ ipInfo.county || '-' }}</span>
+        </el-form-item>
       </el-form>
 
       <el-form
@@ -138,7 +149,9 @@
           label="过期剩余天数"
           prop="expire_days"
         >
-          <span>{{ form.expire_days || '-' }}</span>
+          <span class="el-text-color-primary">{{
+            form.expire_days || '-'
+          }}</span>
         </el-form-item>
 
         <el-form-item
@@ -160,6 +173,13 @@
           prop="expire_days"
         >
           <span class="truncate">{{ form.detail.subject.OU || '-' }}</span>
+        </el-form-item>
+
+        <el-form-item
+          label="网络业务提供商"
+          prop="isp"
+        >
+          <span class="truncate">{{ ipInfo.isp || '-' }}</span>
         </el-form-item>
       </el-form>
     </div>
@@ -230,6 +250,11 @@ export default {
           subject: {},
         },
       },
+
+      // ip信息
+      ipInfo: {
+        isp: '',
+      },
     }
   },
 
@@ -277,69 +302,14 @@ export default {
           issuer: data.detail.issuer || {},
           subject: data.detail.subject || {},
         }
+
+        this.getIpInfo()
       }
     },
 
     // 取消
     handleCancel() {
       this.$emit('on-cancel')
-    },
-
-    // 提交
-    handleSubmit() {
-      this.$refs['form'].validate((valid) => {
-        if (valid) {
-          this.confirmSubmit()
-        } else {
-          return false
-        }
-      })
-    },
-
-    async confirmSubmit() {
-      let loading = this.$loading({ fullscreen: true })
-
-      let params = {
-        // 域名
-        domain: this.form.domain,
-
-        domain_url: this.form.domain_url,
-        // ip
-        ip: this.form.ip,
-        // 证书颁发时间
-        start_time: this.form.start_time,
-        // 证书过期时间
-        expire_time: this.form.expire_time,
-        // 证书检查时间
-        check_time: this.form.check_time,
-        // 域名连接状态
-        connect_status: this.form.connect_status,
-        // 有效期总天数
-        total_days: this.form.total_days,
-        // 过期剩余天数
-        expire_days: this.form.expire_days,
-        // 创建时间
-        create_time: this.form.create_time,
-      }
-
-      // 编辑
-      if (this.row) {
-        params['id'] = this.row.id
-      }
-
-      const res = await this.$Http.function(params)
-
-      if (res.code == 0) {
-        this.$msg.success('操作成功')
-        this.$emit('on-success')
-      } else {
-        this.$msg.error(res.msg)
-      }
-
-      this.$nextTick(() => {
-        // 以服务的方式调用的 Loading 需要异步关闭
-        loading.close()
-      })
     },
 
     async handleUpdateRowDomainInfo() {
@@ -361,6 +331,18 @@ export default {
 
       loading.close()
     },
+
+    async getIpInfo() {
+      let params = {
+        ip: this.form.ip,
+      }
+
+      const res = await this.$http.getIpInfo(params)
+
+      if (res.code == 0) {
+        this.ipInfo = res.data
+      }
+    },
   },
 
   created() {
@@ -371,6 +353,4 @@ export default {
 
 <style lang="less"></style>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

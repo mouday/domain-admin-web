@@ -6,6 +6,7 @@
     width="400px"
     center
     append-to-body
+    :lock-scroll="false"
   >
     <DataForm
       v-if="dialogVisible"

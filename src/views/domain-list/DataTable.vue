@@ -35,22 +35,6 @@
         </template>
       </el-table-column>
 
-      <!-- 域名连接状态 -->
-      <el-table-column
-        label="连接状态"
-        header-align="center"
-        align="center"
-        width="90"
-        prop="connect_status"
-      >
-        <template #default="scope">
-          <ConnectStatus
-            :value="scope.row.connect_status"
-            @on-click="handleShowDetail(scope.row)"
-          ></ConnectStatus>
-        </template>
-      </el-table-column>
-
       <!-- 有效期总天数 -->
       <el-table-column
         label="有效期天数"
@@ -67,9 +51,13 @@
             :status="scope.row.percentage_status"
           />
           <div>
-            <span class="el-text-color-primary">{{ scope.row.expire_days || '-' }}</span>
+            <span class="el-text-color-primary">{{
+              scope.row.expire_days || '-'
+            }}</span>
             <span> / </span>
-            <span class="el-text-color-secondary">{{ scope.row.total_days || '-' }}</span>
+            <span class="el-text-color-secondary">{{
+              scope.row.total_days || '-'
+            }}</span>
           </div>
         </template>
       </el-table-column>
@@ -92,7 +80,7 @@
         label="更新时间"
         header-align="center"
         align="center"
-        width="110"
+        width="120"
         prop="check_time"
       >
         <template #default="scope">
@@ -113,6 +101,22 @@
             @click="handleUpdateRowDomainInfo(scope.row)"
             ><el-icon><Refresh /></el-icon
           ></el-link>
+        </template>
+      </el-table-column>
+
+      <!-- 域名连接状态 -->
+      <el-table-column
+        label="状态"
+        header-align="center"
+        align="center"
+        width="60"
+        prop="connect_status"
+      >
+        <template #default="scope">
+          <ConnectStatus
+            :value="scope.row.connect_status"
+            @on-click="handleShowDetail(scope.row)"
+          ></ConnectStatus>
         </template>
       </el-table-column>
 
