@@ -52,7 +52,7 @@
           />
           <div>
             <span class="el-text-color-primary">{{
-              scope.row.expire_days || '-'
+              scope.row.real_time_expire_days || scope.row.expire_days || '-'
             }}</span>
             <span> / </span>
             <span class="el-text-color-secondary">{{

@@ -147,30 +147,30 @@
 
         <el-form-item
           label="过期剩余天数"
-          prop="expire_days"
+          prop="real_time_expire_days"
         >
           <span class="el-text-color-primary">{{
-            form.expire_days || '-'
+            form.real_time_expire_days || form.expire_days || '-'
           }}</span>
         </el-form-item>
 
         <el-form-item
           label="颁发对象.公用名"
-          prop="expire_days"
+          prop="subject"
         >
           <span class="truncate">{{ form.detail.subject.CN || '-' }}</span>
         </el-form-item>
 
         <el-form-item
           label="颁发对象.组织"
-          prop="expire_days"
+          prop="subject"
         >
           <span class="truncate">{{ form.detail.subject.O || '-' }}</span>
         </el-form-item>
 
         <el-form-item
           label="颁发对象.组织单位"
-          prop="expire_days"
+          prop="subject"
         >
           <span class="truncate">{{ form.detail.subject.OU || '-' }}</span>
         </el-form-item>

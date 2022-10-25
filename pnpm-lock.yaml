@@ -9,6 +9,7 @@ specifiers:
   file-saver: ^2.0.5
   js-cookie: ^3.0.1
   less: ^4.1.3
+  nprogress: ^0.2.0
   pinia: ^2.0.22
   postcss: ^8.4.17
   rollup-plugin-visualizer: ^5.8.2
@@ -27,6 +28,7 @@ dependencies:
   element-plus: 2.2.17_vue@3.2.40
   file-saver: 2.0.5
   js-cookie: 3.0.1
+  nprogress: 0.2.0
   pinia: 2.0.22_vue@3.2.40
   vue: 3.2.40
   vue-router: 4.1.5_vue@3.2.40
@@ -1233,6 +1235,10 @@ packages:
 
   /normalize-wheel-es/1.2.0:
     resolution: {integrity: sha512-Wj7+EJQ8mSuXr2iWfnujrimU35R2W4FAErEyTmJoJ7ucwTn2hOUSsRehMb5RSYkxXGTM7Y9QpvPmp++w5ftoJw==}
+    dev: false
+
+  /nprogress/0.2.0:
+    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
     dev: false
 
   /object-hash/3.0.0:
