@@ -19,9 +19,9 @@ export const routes = [
         component: () => import('@/views/system-list/index.vue'),
       },
       {
-        path: '/user-edit',
-        name: 'user-edit',
-        component: () => import('@/views/user-edit/index.vue'),
+        path: '/notify-edit',
+        name: 'notify-edit',
+        component: () => import('@/views/notify-edit/index.vue'),
       },
 
       {

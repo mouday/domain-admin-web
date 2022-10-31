@@ -11,7 +11,7 @@
     >
       <el-menu-item index="domain-list">域名管理</el-menu-item>
 
-      <el-menu-item index="user-edit">个人设置</el-menu-item>
+      <el-menu-item index="notify-edit">通知设置</el-menu-item>
 
       <el-menu-item
         v-if="isAdmin"
@@ -25,7 +25,11 @@
         >系统设置</el-menu-item
       >
 
-      <el-menu-item index="log-scheduler-list">监测日志</el-menu-item>
+      <el-menu-item
+        v-if="isAdmin"
+        index="log-scheduler-list"
+        >监测日志</el-menu-item
+      >
 
       <div class="self-center margin-left--auto flex items-center">
         <el-dropdown trigger="hover">
@@ -35,18 +39,24 @@
 
           <template #dropdown>
             <el-dropdown-menu>
-              
+              <el-dropdown-item
+                @click="handleUserInfoEditOpen"
+                class="justify-center"
+                >个人设置</el-dropdown-item
+              >
+
               <el-dropdown-item
                 @click="handleUpdatePasswordClick"
                 class="justify-center"
                 >修改密码</el-dropdown-item
               >
+
               <el-dropdown-item
                 @click="handleAboutClick"
                 class="justify-center"
                 >关于</el-dropdown-item
               >
-              
+
               <el-dropdown-item
                 @click="handleLogoutClick"
                 class="justify-center"
@@ -65,6 +75,13 @@
       @on-cancel="handleUserPaswordEditClose"
     ></UserPaswordEditDataFormDailog>
 
+    <!-- 修改个人设置 -->
+    <UserDataFormDailig
+      v-model:visible="userDialogVisible"
+      @on-success="handleUserInfoEditClose"
+      @on-cancel="handleUserInfoEditClose"
+    ></UserDataFormDailig>
+
     <!-- 关于 -->
     <AboutDataFormDailig
       v-model:visible="aboutDialogVisible"
@@ -80,6 +97,7 @@ import { useUserStore } from '@/store/user-store.js'
 import { mapState, mapActions } from 'pinia'
 import UserPaswordEditDataFormDailog from '@/views/user-pasword-edit/DataFormDailog.vue'
 import AboutDataFormDailig from '@/views/about/DataFormDailig.vue'
+import UserDataFormDailig from '@/views/user-edit/DataFormDailig.vue'
 
 export default {
   name: 'Menu',
@@ -89,6 +107,7 @@ export default {
   components: {
     UserPaswordEditDataFormDailog,
     AboutDataFormDailig,
+    UserDataFormDailig,
   },
 
   data() {
@@ -96,6 +115,7 @@ export default {
       activeIndex: '',
       dialogVisible: false,
       aboutDialogVisible: false,
+      userDialogVisible: false,
     }
   },
 
@@ -142,6 +162,14 @@ export default {
 
     handleUserPaswordEditSuccess() {
       this.dialogVisible = false
+    },
+
+    handleUserInfoEditOpen() {
+      this.userDialogVisible = true
+    },
+
+    handleUserInfoEditClose() {
+      this.userDialogVisible = false
     },
 
     handleAboutClick() {

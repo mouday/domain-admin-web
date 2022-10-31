@@ -1,7 +1,7 @@
 <template>
   <!-- 编辑框 -->
   <el-dialog
-    title="个人设置"
+    :title="dialogTitle"
     v-model="dialogVisible"
     width="400px"
     center
@@ -19,7 +19,7 @@
 
 <script>
 /**
- * created 2022-10-03
+ * created 2022-10-01
  */
 import DataForm from './DataForm.vue'
 
@@ -66,6 +66,7 @@ export default {
       get() {
         return this.visible
       },
+
       set(val) {
         this.$emit('update:visible', val)
       },
@@ -74,11 +75,14 @@ export default {
 
   methods: {
     handleClose() {
-      this.dialogVisible = false
+      // console.log('handleClose');
+      // this.dialogVisible = false
+      this.$emit('update:visible', false)
     },
 
     handleOpen() {
-      this.dialogVisible = true
+      // this.dialogVisible = true
+      this.$emit('update:visible', true)
     },
 
     handleSuccess() {

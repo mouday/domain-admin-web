@@ -4,7 +4,7 @@
       ref="form"
       :model="form"
       :rules="rules"
-      label-width="160px"
+      label-width="100px"
     >
       <!-- 用户名 -->
 
@@ -24,29 +24,31 @@
         <el-avatar :src="form.avatar_url">
           <img src="https://api.multiavatar.com/domain-admin.png" />
         </el-avatar>
-        <el-button
+
+        <el-link
           class="ml-md"
+          :underline="false"
           @click="handleRandomAvatar"
-          ><el-icon><Refresh /></el-icon>随机获取</el-button
+          ><el-icon><Refresh /></el-icon>随机获取</el-link
         >
       </el-form-item>
 
       <!-- 过期前多少天提醒 -->
 
       <el-form-item
-        label="过期前多少天提醒"
+        label="过期通知(天)"
         prop="before_expire_days"
       >
         <el-input-number
           v-model="form.before_expire_days"
           :min="0"
-          placeholder="请输入过期前多少天提醒"
+          placeholder="过期通知"
         ></el-input-number>
       </el-form-item>
 
       <!-- 邮件列表 -->
 
-      <el-form-item
+      <!-- <el-form-item
         label="收件邮箱"
         prop="email_list"
       >
@@ -56,16 +58,16 @@
           v-model="form.email_list"
           placeholder="邮箱列表，每行一个"
         ></el-input>
-      </el-form-item>
+      </el-form-item> -->
     </el-form>
 
     <!-- 操作 -->
     <div class="text-center">
-      <!-- <el-button @click="handleCancel">取 消</el-button> -->
+      <el-button @click="handleCancel">取 消</el-button>
       <el-button
         type="primary"
         @click="handleSubmit"
-        ><el-icon><Select /></el-icon>保 存</el-button
+        >确 定</el-button
       >
     </div>
   </div>
@@ -83,7 +85,8 @@
  * created 2022-10-03
  * */
 import { formRules } from './config.js'
-import { getUUID } from '@/utils/uuid.js'
+// import { getUUID } from '@/utils/uuid.js'
+import { getAvatarUrl } from '@/utils/avatar-util.js'
 
 export default {
   name: '',
@@ -109,7 +112,7 @@ export default {
         // 过期前多少天提醒
         before_expire_days: 0,
         // 邮件列表
-        email_list: '',
+        // email_list: '',
       },
     }
   },
@@ -133,7 +136,7 @@ export default {
       // 过期前多少天提醒
       this.form.before_expire_days = data.before_expire_days
       // 邮件列表
-      this.form.email_list = data.email_list.join('\n')
+      // this.form.email_list = data.email_list.join('\n')
     },
 
     // 取消
@@ -142,10 +145,8 @@ export default {
     },
 
     handleRandomAvatar() {
-      let uuid = getUUID()
-
-      this.form.avatar_url =
-        'https://api.multiavatar.com/' + uuid + '.png?apikey=mXMn18VQJxoH0P'
+      // let loading = this.$loading({ fullscreen: true })
+      this.form.avatar_url = getAvatarUrl()
     },
 
     // 提交
@@ -176,7 +177,7 @@ export default {
         // 过期前多少天提醒
         before_expire_days: this.form.before_expire_days,
         // 邮件列表
-        email_list: email_list,
+        // email_list: email_list,
       }
 
       // 编辑

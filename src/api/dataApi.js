@@ -32,4 +32,8 @@ export default {
   getLogSchedulerList: '/getLogSchedulerList',
   
   getIpInfo: '/getIpInfo',
+  
+  getNotifyOfUser: '/getNotifyOfUser',
+  updateNotifyOfUser: '/updateNotifyOfUser',
+  testWebhookNotifyOfUser: '/testWebhookNotifyOfUser',
 }

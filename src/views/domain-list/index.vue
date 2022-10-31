@@ -31,6 +31,12 @@
           ><el-icon><Refresh /></el-icon>全部更新</el-button
         >
 
+        <el-button
+          class="margin-left--auto"
+          @click="checkDomainCert"
+          ><el-icon><Promotion /></el-icon>证书检查</el-button
+        >
+
         <el-upload
           class="ml-sm"
           action="action"
@@ -38,7 +44,8 @@
           :show-file-list="false"
           :http-request="handleHttpRequest"
         >
-          <el-button><el-icon><Upload /></el-icon>导入</el-button
+          <el-button
+            ><el-icon><Upload /></el-icon>导入</el-button
           >
         </el-upload>
 
@@ -216,6 +223,24 @@ export default {
 
     handleSearch() {
       this.resetData()
+    },
+
+    async checkDomainCert() {
+      let loading = this.$loading({ fullscreen: true })
+
+      try {
+        const res = await this.$http.checkDomainCert()
+
+        if (res.code == 0) {
+          this.$msg.success('操作成功')
+          this.$emit('on-success')
+        }
+      } catch (e) {
+      } finally {
+        this.$nextTick(() => {
+          loading.close()
+        })
+      }
     },
   },
 

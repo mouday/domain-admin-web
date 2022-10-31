@@ -36,7 +36,7 @@
 
     <div>
       <el-button
-        class="w-full"
+        class="w-full mt-md"
         type="primary"
         size="large"
         @click.native.prevent="onSubmit"
