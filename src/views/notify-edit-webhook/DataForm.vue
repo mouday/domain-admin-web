@@ -116,7 +116,7 @@ export default {
 
       form: {
         // 域名
-        method: 'get',
+        method: 'GET',
         url: '',
         headers: JSON.stringify(
           {
