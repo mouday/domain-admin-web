@@ -116,7 +116,7 @@ export default {
 
       let params = {
         // 域名
-        domain: this.form.domain,
+        domain: this.form.domain.trim(),
       }
 
       let res = null

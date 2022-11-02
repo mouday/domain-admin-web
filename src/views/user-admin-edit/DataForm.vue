@@ -177,8 +177,8 @@ export default {
 
       let params = {
         // 用户名
-        username: this.form.username,
-        password: this.form.password,
+        username: this.form.username.trim(),
+        password: this.form.password.trim(),
         // 头像
         // avatar_url: this.form.avatar_url,
         // // 过期前多少天提醒
