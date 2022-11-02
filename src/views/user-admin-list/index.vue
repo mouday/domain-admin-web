@@ -37,11 +37,12 @@
     <el-pagination
       class="mt-md justify-center"
       background
-      layout="total, prev, pager, next"
+      layout="total, sizes, prev, pager, next"
       :total="total"
       v-model:page-size="size"
       v-model:current-page="page"
       @current-change="getData"
+      @size-change="handleSizeChange"
     />
 
     <!-- 编辑框 -->
@@ -77,6 +78,8 @@ export default {
       page: 1,
       size: 20,
       keyword: '',
+
+      pageSizeCachekey: 'pageSize',
 
       loading: true,
       dialogVisible: false,
@@ -128,9 +131,22 @@ export default {
     handleSearch() {
       this.resetData()
     },
+
+    handleSizeChange(value) {
+      localStorage.setItem(this.pageSizeCachekey, value)
+      this.resetData()
+    },
+
+    loadPageSize() {
+      let size = localStorage.getItem(this.pageSizeCachekey)
+      if (size) {
+        this.size = parseInt(size)
+      }
+    },
   },
 
   created() {
+    this.loadPageSize()
     this.getData()
   },
 }

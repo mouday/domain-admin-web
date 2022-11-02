@@ -34,7 +34,7 @@
         <el-button
           class="margin-left--auto"
           @click="checkDomainCert"
-          ><el-icon><Promotion /></el-icon>证书检查</el-button
+          ><el-icon><Position /></el-icon>证书检查</el-button
         >
 
         <el-upload
@@ -70,11 +70,12 @@
     <el-pagination
       class="mt-md justify-center"
       background
-      layout="total, prev, pager, next"
+      layout="total, sizes, prev, pager, next"
       :total="total"
       v-model:page-size="size"
       v-model:current-page="page"
       @current-change="getData"
+      @size-change="handleSizeChange"
     />
 
     <!-- 编辑框 -->
@@ -114,6 +115,8 @@ export default {
       page: 1,
       size: 20,
       keyword: '',
+
+      pageSizeCachekey: 'pageSize',
 
       loading: true,
       dialogVisible: false,
@@ -242,9 +245,22 @@ export default {
         })
       }
     },
+
+    handleSizeChange(value) {
+      localStorage.setItem(this.pageSizeCachekey, value)
+      this.resetData()
+    },
+
+    loadPageSize() {
+      let size = localStorage.getItem(this.pageSizeCachekey)
+      if (size) {
+        this.size = parseInt(size)
+      }
+    },
   },
 
   created() {
+    this.loadPageSize()
     this.getData()
   },
 }

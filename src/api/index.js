@@ -19,6 +19,7 @@ function httpRequest(url) {
     const res = await instance.post(url, data, config)
 
     if (res.code != 0) {
+      ElMessage.closeAll()
       ElMessage.error(res.msg)
     }
     return res

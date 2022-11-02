@@ -6,13 +6,13 @@
       border
     >
       <el-table-column
-        label="ID"
+        label="序号"
         align="center"
         prop="id"
-        width="100"
+        width="60"
       >
         <template #default="scope">
-          <span>{{ scope.row.id || '-' }}</span>
+          <span>{{ scope.$index + 1 }}</span>
         </template>
       </el-table-column>
 

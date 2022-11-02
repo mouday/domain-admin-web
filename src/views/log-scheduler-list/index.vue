@@ -2,13 +2,13 @@
   <div class="app-container">
     <!-- 操作按钮 -->
     <!-- <div class="margin-bottom--20"> -->
-      <!-- <el-button
+    <!-- <el-button
         type="primary"
         @click="handleAddRow"
         >添加</el-button
       > -->
 
-      <!-- <el-input
+    <!-- <el-input
           class="ml-sm"
           style="width: 260px"
           v-model="keyword"
@@ -34,11 +34,12 @@
     <el-pagination
       class="mt-md justify-center"
       background
-      layout="total, prev, pager, next"
+      layout="total, sizes, prev, pager, next"
       :total="total"
       v-model:page-size="size"
       v-model:current-page="page"
       @current-change="getData"
+      @size-change="handleSizeChange"
     />
 
     <!-- 编辑框 -->
@@ -77,6 +78,8 @@ export default {
 
       loading: true,
       dialogVisible: false,
+
+      pageSizeCachekey: 'pageSize',
     }
   },
 
@@ -119,9 +122,22 @@ export default {
     handleAddSuccess() {
       this.resetData()
     },
+
+    handleSizeChange(value) {
+      localStorage.setItem(this.pageSizeCachekey, value)
+      this.resetData()
+    },
+
+    loadPageSize() {
+      let size = localStorage.getItem(this.pageSizeCachekey)
+      if (size) {
+        this.size = parseInt(size)
+      }
+    },
   },
 
   created() {
+    this.loadPageSize()
     this.getData()
   },
 }

@@ -6,13 +6,13 @@
       border
     >
       <el-table-column
-        label="ID"
+        label="序号"
         align="center"
         prop="id"
         width="60"
       >
         <template #default="scope">
-          <span>{{ scope.row.id || '-' }}</span>
+          <span>{{ scope.$index + 1 }}</span>
         </template>
       </el-table-column>
 
@@ -56,7 +56,7 @@
       </el-table-column>
 
       <!-- 邮件列表 -->
-      <el-table-column
+      <!-- <el-table-column
         label="邮件列表"
         header-align="center"
         align="center"
@@ -70,7 +70,7 @@
           </template>
           <span v-else>-</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <!-- 操作 -->
       <el-table-column
