@@ -142,7 +142,7 @@ export default {
       let params = {
         page: this.page,
         size: this.size,
-        keyword: this.keyword,
+        keyword: this.keyword.trim(),
       }
 
       const res = await this.$http.getDomainList(params)

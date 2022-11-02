@@ -105,7 +105,7 @@ export default {
         // ticket: this.ticket,
         page: this.page,
         size: this.size,
-        keyword: this.keyword,
+        keyword: this.keyword.trim(),
       }
 
       const res = await this.$http.getUserList(params)
