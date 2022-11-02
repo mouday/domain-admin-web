@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { ElMessage } from 'element-plus'
 import { setToken, getToken, removeToken } from '@/utils/token-util.js'
 
 export const VITE_APP_API = import.meta.env.VITE_APP_API
@@ -30,6 +31,7 @@ instance.interceptors.response.use(
   },
   (err) => {
     console.log(err)
+    ElMessage.error(err)
   }
 )
 
