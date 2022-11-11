@@ -4,7 +4,8 @@
  * @returns {Boolean}
  */
 export function isEmail(value) {
-  var emailRegExp = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
+  // 增加公司邮箱中常见字符：.
+  var emailRegExp = /^[a-zA-Z0-9\._-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
   return emailRegExp.test(value)
 }
 
