@@ -37,10 +37,14 @@
           ><el-icon><Position /></el-icon>证书检查</el-button
         >
 
+        <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept -->
         <el-upload
           class="ml-sm"
+          ref="upload"
           action="action"
+          accept=".txt"
           :limit="1"
+          :on-exceed="handleExceed"
           :show-file-list="false"
           :http-request="handleHttpRequest"
         >
@@ -96,6 +100,7 @@ import DataTable from './DataTable.vue'
 import dataApi from '@/api/dataApi.js'
 import { resolve_api_url } from '@/api/index.js'
 import FileSaver from 'file-saver'
+import { genFileId } from 'element-plus'
 
 export default {
   name: 'domain-list',
@@ -198,7 +203,8 @@ export default {
       const res = await this.$http.importDomainFromFile(form)
 
       if (res.code == 0) {
-        this.$msg.success(`导入成功：${res.data.count}`)
+        // this.$msg.success(`导入成功：${res.data.count}`)
+        this.$msg.success('上传成功，后台导入中')
         this.resetData()
       }
 
@@ -256,6 +262,19 @@ export default {
       if (size) {
         this.size = parseInt(size)
       }
+    },
+
+    // 覆盖前一个文件
+    handleExceed(files) {
+      // console.log(files)
+      this.$refs.upload.clearFiles()
+      const file = files[0]
+      file.uid = genFileId()
+      // console.log(file)
+
+      this.handleHttpRequest({ file })
+
+      // this.$refs.upload.handleStart(file)
     },
   },
 
