@@ -121,6 +121,20 @@
       </el-table-column>
 
       <el-table-column
+        label="监测"
+        width="66"
+        header-align="center"
+        align="center"
+      >
+        <template #default="scope">
+          <el-switch
+            v-model="scope.row.is_monitor"
+            @change="handleMonitorStatusChange(scope.row, $event)"
+          />
+        </template>
+      </el-table-column>
+
+      <el-table-column
         label="编辑"
         width="60"
         header-align="center"
@@ -235,6 +249,24 @@ export default {
       }
 
       const res = await this.$Http.function(params)
+
+      if (res.code == 0) {
+        this.$msg.success('操作成功')
+        this.$emit('on-success')
+      } else {
+        this.$msg.error(res.msg)
+      }
+    },
+
+    async handleMonitorStatusChange(row, value) {
+      // console.log(row, value)
+
+      let params = {
+        id: row.id,
+        is_monitor: value,
+      }
+
+      const res = await this.$http.updateDomainById(params)
 
       if (res.code == 0) {
         this.$msg.success('操作成功')
