@@ -27,6 +27,7 @@
 // created at 2022-10-30
 import NotifyEditEmail from '@/views/notify-edit-email/DataForm.vue'
 import NotifyEditWebhook from '@/views/notify-edit-webhook/DataForm.vue'
+import NotifyEditWorkWeixin from '@/views/notify-edit-work-weixin/index.vue'
 
 export default {
   name: 'index',
@@ -36,6 +37,7 @@ export default {
   components: {
     NotifyEditEmail,
     NotifyEditWebhook,
+    NotifyEditWorkWeixin
   },
 
   data() {
@@ -54,6 +56,12 @@ export default {
           label: 'WebHook',
           icon: 'AlarmClock',
           component: NotifyEditWebhook,
+        },
+        {
+          value: 'work-weixin',
+          label: '企业微信',
+          icon: 'ChatSquare',
+          component: NotifyEditWorkWeixin,
         },
       ],
     }

@@ -8,4 +8,6 @@ export const NotifyTypeEnum = {
   Email: 1,
   // webkook
   Webkook: 2,
+  // 企业微信
+  WorkWeixin: 3,
 }
