@@ -13,12 +13,19 @@
         prop="domain"
       >
         <template #default="scope">
-          <el-link
-            :underline="false"
-            :href="scope.row.domain_url"
-            target="_blank"
-            >{{ scope.row.domain }}</el-link
-          >
+          <el-tooltip
+          :disabled="!scope.row.alias"
+          :content="scope.row.alias"
+        >
+        <el-link
+              :underline="false"
+              :href="scope.row.domain_url"
+              target="_blank"
+              >{{ scope.row.domain }}</el-link
+            >
+      </el-tooltip>
+
+          
         </template>
       </el-table-column>
 

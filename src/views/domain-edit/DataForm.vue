@@ -18,6 +18,18 @@
           placeholder="请输入域名"
         ></el-input>
       </el-form-item>
+
+      <el-form-item
+        label="备注"
+        prop="alias"
+      >
+        <el-input
+          type="textarea"
+          v-model="form.alias"
+          :rows="3"
+          placeholder="请输入备注"
+        ></el-input>
+      </el-form-item>
     </el-form>
 
     <!-- 操作 -->
@@ -69,6 +81,8 @@ export default {
       form: {
         // 域名
         domain: '',
+        // 备注
+        alias: ''
       },
     }
   },
@@ -90,6 +104,7 @@ export default {
         // let data = this.row
         // 域名
         this.form.domain = data.domain
+        this.form.alias = data.alias
       }
 
       this.loading = false
@@ -117,6 +132,7 @@ export default {
       let params = {
         // 域名
         domain: this.form.domain.trim(),
+        alias: this.form.alias.trim(),
       }
 
       let res = null
