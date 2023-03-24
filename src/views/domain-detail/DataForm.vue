@@ -294,6 +294,7 @@ export default {
         domain_start_time: '',
         domain_expire_time: '',
         real_time_domain_expire_days: '',
+        alias: ''
       },
 
       // ip信息
@@ -343,6 +344,9 @@ export default {
         // 创建时间
         this.form.create_time = data.create_time
         this.form.update_time = data.update_time
+        
+        // 备注
+        this.form.alias = data.alias
 
         // 域名信息
         this.form.domain_start_time = data.domain_start_time
