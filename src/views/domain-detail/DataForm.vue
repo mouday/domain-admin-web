@@ -33,6 +33,77 @@
           <span>{{ form.ip || '-' }}</span>
         </el-form-item>
 
+        <!-- 创建时间 -->
+
+        <el-form-item
+          label="域名注册时间"
+          prop="create_time"
+        >
+          <span>{{ form.domain_start_time || '-' }}</span>
+        </el-form-item>
+
+        <el-form-item
+          label="域名到期时间"
+          prop="create_time"
+        >
+          <span>{{ form.domain_expire_time || '-' }}</span>
+        </el-form-item>
+
+        <el-form-item
+          label="域名剩余天数"
+          prop="create_time"
+        >
+          <!-- <span>{{ form.real_time_domain_expire_days || '-' }}</span> -->
+          <ExpireDays :value="form.real_time_domain_expire_days"></ExpireDays>
+        </el-form-item>
+
+        <el-form-item
+          label="创建时间"
+          prop="create_time"
+        >
+          <span>{{ form.create_time || '-' }}</span>
+        </el-form-item>
+
+        <!-- <el-form-item
+          label="颁发者.公用名"
+          prop="expire_days"
+        >
+          <span class="truncate">{{ form.detail.issuer.CN || '-' }}</span> -->
+        <!-- </el-form-item> -->
+
+        <!-- <el-form-item
+          label="颁发者.组织"
+          prop="expire_days"
+        >
+          <span class="truncate">{{ form.detail.issuer.O || '-' }}</span>
+        </el-form-item> -->
+
+        <!-- <el-form-item
+          label="颁发者.组织单位"
+          prop="expire_days"
+        >
+          <span class="truncate">{{ form.detail.issuer.OU || '-' }}</span>
+        </el-form-item> -->
+
+        <!-- <el-form-item
+          label="物理位置"
+          prop="isp"
+        >
+          <span>{{ ipInfo.country || '-' }}</span>
+          <span>&nbsp;</span>
+          <span>{{ ipInfo.city || '-' }}</span>
+          <span>&nbsp;</span>
+          <span>{{ ipInfo.county || '-' }}</span>
+        </el-form-item> -->
+      </el-form>
+
+      <el-form
+        ref="form"
+        :model="form"
+        label-width="130px"
+      >
+        <!-- ip -->
+
         <!-- 域名连接状态 -->
 
         <el-form-item
@@ -42,61 +113,23 @@
           <ConnectStatus :value="form.connect_status"></ConnectStatus>
         </el-form-item>
 
-        <!-- 创建时间 -->
+        <!-- 证书检查时间 -->
 
         <el-form-item
-          label="创建时间"
-          prop="create_time"
+          label="检查时间"
+          prop="check_time"
         >
-          <span>{{ form.create_time || '-' }}</span>
-        </el-form-item>
+          <div class="flex justify-between flex-1">
+            <span>{{ form.check_time || '-' }}</span>
 
-        <el-form-item
-          label="更新时间"
-          prop="create_time"
-        >
-          <span>{{ form.update_time || '-' }}</span>
+            <el-link
+              :underline="false"
+              type="primary"
+              @click="handleUpdateRowDomainInfo"
+              ><el-icon><Refresh /></el-icon><span> 更新</span></el-link
+            >
+          </div>
         </el-form-item>
-
-        <el-form-item
-          label="颁发者.公用名"
-          prop="expire_days"
-        >
-          <span class="truncate">{{ form.detail.issuer.CN || '-' }}</span>
-        </el-form-item>
-
-        <el-form-item
-          label="颁发者.组织"
-          prop="expire_days"
-        >
-          <span class="truncate">{{ form.detail.issuer.O || '-' }}</span>
-        </el-form-item>
-
-        <el-form-item
-          label="颁发者.组织单位"
-          prop="expire_days"
-        >
-          <span class="truncate">{{ form.detail.issuer.OU || '-' }}</span>
-        </el-form-item>
-
-        <el-form-item
-          label="物理位置"
-          prop="isp"
-        >
-          <span>{{ ipInfo.country || '-' }}</span>
-          <span>&nbsp;</span>
-          <span>{{ ipInfo.city || '-' }}</span>
-          <span>&nbsp;</span>
-          <span>{{ ipInfo.county || '-' }}</span>
-        </el-form-item>
-      </el-form>
-
-      <el-form
-        ref="form"
-        :model="form"
-        label-width="130px"
-      >
-        <!-- ip -->
 
         <!-- 证书颁发时间 -->
 
@@ -116,70 +149,75 @@
           <span>{{ form.expire_time || '-' }}</span>
         </el-form-item>
 
-        <!-- 证书检查时间 -->
-
-        <el-form-item
-          label="证书检查时间"
-          prop="check_time"
-        >
-          <div class="flex justify-between flex-1">
-            <span>{{ form.check_time || '-' }}</span>
-
-            <el-link
-              :underline="false"
-              type="primary"
-              @click="handleUpdateRowDomainInfo"
-              ><el-icon><Refresh /></el-icon><span> 更新</span></el-link
-            >
-          </div>
-        </el-form-item>
-
-        <!-- 有效期总天数 -->
-
-        <el-form-item
-          label="有效期总天数"
-          prop="total_days"
-        >
-          <span>{{ form.total_days || '-' }}</span>
-        </el-form-item>
-
         <!-- 过期剩余天数 -->
 
         <el-form-item
           label="过期剩余天数"
           prop="real_time_expire_days"
         >
-          <span class="el-text-color-primary">{{
-            form.real_time_expire_days || form.expire_days || '-'
-          }}</span>
+          <!-- <span class="el-text-color-primary">{{
+             form.real_time_expire_days || form.expire_days || '-'
+          }}</span> -->
+
+          <ExpireDays :value="form.real_time_expire_days"></ExpireDays>
         </el-form-item>
 
-        <el-form-item
+        <!-- 有效期总天数 -->
+
+        <!-- <el-form-item
+          label="有效期总天数"
+          prop="total_days"
+        >
+          <span>{{ form.total_days || '-' }}</span>
+        </el-form-item> -->
+
+        <!-- <el-form-item
           label="颁发对象.公用名"
           prop="subject"
         >
           <span class="truncate">{{ form.detail.subject.CN || '-' }}</span>
-        </el-form-item>
+        </el-form-item> -->
 
-        <el-form-item
+        <!-- <el-form-item
           label="颁发对象.组织"
           prop="subject"
         >
           <span class="truncate">{{ form.detail.subject.O || '-' }}</span>
-        </el-form-item>
+        </el-form-item> -->
 
-        <el-form-item
+        <!-- <el-form-item
           label="颁发对象.组织单位"
           prop="subject"
         >
           <span class="truncate">{{ form.detail.subject.OU || '-' }}</span>
-        </el-form-item>
+        </el-form-item> -->
 
-        <el-form-item
+        <!-- <el-form-item
           label="网络业务提供商"
           prop="isp"
         >
           <span class="truncate">{{ ipInfo.isp || '-' }}</span>
+        </el-form-item> -->
+
+        <el-form-item
+          label="更新时间"
+          prop="create_time"
+        >
+          <span>{{ form.update_time || '-' }}</span>
+        </el-form-item>
+      </el-form>
+    </div>
+
+    <div
+      class="mo-form-detail"
+      style="margin-top: 20px"
+    >
+      <el-form label-width="130px">
+        <el-form-item
+          label="备注"
+          prop="isp"
+        >
+          <span class="truncate">{{ form.alias || '-' }}</span>
         </el-form-item>
       </el-form>
     </div>
@@ -207,6 +245,7 @@
  * created 2022-10-01
  * */
 import ConnectStatus from '@/components/ConnectStatus.vue'
+import ExpireDays from '@/components/ExpireDays.vue'
 
 export default {
   name: '',
@@ -218,6 +257,7 @@ export default {
 
   components: {
     ConnectStatus,
+    ExpireDays,
   },
 
   data() {
@@ -249,6 +289,11 @@ export default {
           issuer: {},
           subject: {},
         },
+
+        real_time_expire_days: '',
+        domain_start_time: '',
+        domain_expire_time: '',
+        real_time_domain_expire_days: '',
       },
 
       // ip信息
@@ -294,16 +339,23 @@ export default {
         this.form.total_days = data.total_days
         // 过期剩余天数
         this.form.expire_days = data.expire_days
+        this.form.real_time_expire_days = data.real_time_expire_days
         // 创建时间
         this.form.create_time = data.create_time
         this.form.update_time = data.update_time
+
+        // 域名信息
+        this.form.domain_start_time = data.domain_start_time
+        this.form.domain_expire_time = data.domain_expire_time
+        this.form.real_time_domain_expire_days =
+          data.real_time_domain_expire_days
 
         this.form.detail = {
           issuer: data.detail.issuer || {},
           subject: data.detail.subject || {},
         }
 
-        this.getIpInfo()
+        // this.getIpInfo()
       }
     },
 

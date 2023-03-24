@@ -14,23 +14,21 @@
       >
         <template #default="scope">
           <el-tooltip
-          :disabled="!scope.row.alias"
-          :content="scope.row.alias"
-        >
-        <el-link
+            :disabled="!scope.row.alias"
+            :content="scope.row.alias"
+          >
+            <el-link
               :underline="false"
               :href="scope.row.domain_url"
               target="_blank"
               >{{ scope.row.domain }}</el-link
             >
-      </el-tooltip>
-
-          
+          </el-tooltip>
         </template>
       </el-table-column>
 
       <!-- ip -->
-      <el-table-column
+      <!-- <el-table-column
         label="ip地址"
         header-align="center"
         align="center"
@@ -40,11 +38,53 @@
         <template #default="scope">
           <span>{{ scope.row.ip || '-' }}</span>
         </template>
+      </el-table-column> -->
+
+      <el-table-column
+        label="域名剩余天数"
+        header-align="center"
+        align="center"
+        width="140"
+        prop="ip"
+      >
+        <template #default="scope">
+          <ExpireDays
+            :value="scope.row.real_time_domain_expire_days"
+          ></ExpireDays>
+          <!-- <span>{{ scope.row.real_time_domain_expire_days || '-' }}</span> -->
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        label="SSL证书剩余天数"
+        header-align="center"
+        align="center"
+        width="180"
+        prop="total_days"
+      >
+        <template #default="scope">
+          <ExpireDays :value="scope.row.real_time_expire_days"></ExpireDays>
+
+          <!-- <span>{{ scope.row.real_time_expire_days }}</span> -->
+        </template>
+      </el-table-column>
+
+      <!-- 域名连接状态 -->
+      <el-table-column
+        label="状态"
+        header-align="center"
+        align="center"
+        width="60"
+        prop="connect_status"
+      >
+        <template #default="scope">
+          <ConnectStatus :value="scope.row.connect_status"></ConnectStatus>
+        </template>
       </el-table-column>
 
       <!-- 有效期总天数 -->
-      <el-table-column
-        label="有效期天数"
+      <!-- <el-table-column
+        label="SSL证书剩余天数"
         header-align="center"
         align="center"
         width="180"
@@ -67,7 +107,7 @@
             }}</span>
           </div>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <!-- 创建时间 -->
       <!-- <el-table-column
@@ -111,19 +151,20 @@
         </template>
       </el-table-column>
 
-      <!-- 域名连接状态 -->
       <el-table-column
-        label="状态"
+        label="详细"
         header-align="center"
         align="center"
         width="60"
         prop="connect_status"
       >
         <template #default="scope">
-          <ConnectStatus
-            :value="scope.row.connect_status"
-            @on-click="handleShowDetail(scope.row)"
-          ></ConnectStatus>
+          <el-link
+            :underline="false"
+            type="primary"
+            @click="handleShowDetail(scope.row)"
+            ><el-icon><Tickets /></el-icon
+          ></el-link>
         </template>
       </el-table-column>
 
@@ -203,6 +244,7 @@
 import DataFormDialog from '../domain-edit/DataFormDialog.vue'
 import DataDetailDialog from '../domain-detail/DataFormDailig.vue'
 import ConnectStatus from '@/components/ConnectStatus.vue'
+import ExpireDays from '@/components/ExpireDays.vue'
 
 export default {
   name: '',
@@ -211,6 +253,7 @@ export default {
     DataFormDialog,
     DataDetailDialog,
     ConnectStatus,
+    ExpireDays,
   },
 
   props: {
@@ -308,7 +351,7 @@ export default {
     },
 
     handleDetailSuccess() {
-      this.$emit('on-success')
+      // this.$emit('on-success')
     },
 
     handleShowDetail(row) {
