@@ -4,6 +4,8 @@
       :data="list"
       stripe
       border
+      v-bind="$attrs"
+      v-on="$events"
     >
       <!-- 域名 -->
       <el-table-column
@@ -45,7 +47,8 @@
         header-align="center"
         align="center"
         width="140"
-        prop="ip"
+        sortable="custom"
+        prop="domain_expire_days"
       >
         <template #default="scope">
           <ExpireDays
@@ -60,7 +63,8 @@
         header-align="center"
         align="center"
         width="180"
-        prop="total_days"
+        sortable="custom"
+        prop="expire_days"
       >
         <template #default="scope">
           <ExpireDays :value="scope.row.real_time_expire_days"></ExpireDays>

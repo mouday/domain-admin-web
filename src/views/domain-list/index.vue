@@ -67,6 +67,7 @@
       v-loading="loading"
       :list="list"
       @on-success="resetData"
+      @sort-change="handleSortChange"
     />
 
     <!-- 翻页 -->
@@ -126,6 +127,9 @@ export default {
       loading: true,
       dialogVisible: false,
       export_to_file_url: resolve_api_url(dataApi.exportDomainToFile),
+
+      order_type: 'ascending',
+      order_prop: 'expire_days',
     }
   },
 
@@ -148,6 +152,8 @@ export default {
         page: this.page,
         size: this.size,
         keyword: this.keyword.trim(),
+        order_type: this.order_type,
+        order_prop: this.order_prop,
       }
 
       const res = await this.$http.getDomainList(params)
@@ -275,6 +281,15 @@ export default {
       this.handleHttpRequest({ file })
 
       // this.$refs.upload.handleStart(file)
+    },
+
+    handleSortChange({ column, prop, order }) {
+      console.log(column, prop, order)
+
+      this.order_type = order
+      this.order_prop = prop
+
+      this.resetData()
     },
   },
 
