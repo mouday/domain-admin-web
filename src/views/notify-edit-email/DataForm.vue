@@ -21,6 +21,9 @@
       </el-form-item>
     </el-form>
 
+    <div class="text-[14px] color--info">
+      <span>提示：发件邮箱在[系统设置]中配置</span>
+    </div>
     <!-- 操作 -->
     <div class="text-center">
       <el-button @click="handleCancel">重 置</el-button>

@@ -37,4 +37,5 @@ export default {
   updateNotifyOfUser: '/updateNotifyOfUser',
   testWebhookNotifyOfUser: '/testWebhookNotifyOfUser',
   testWorkWeixinNotifyOfUser: '/testWorkWeixinNotifyOfUser',
+  getTemplateData: '/getTemplateData',
 }

@@ -55,13 +55,25 @@
           type="textarea"
           :rows="5"
           v-model="form.body"
-          placeholder="请求体"
+          placeholder="请求体，支持jinja2模板语法"
         ></el-input>
       </el-form-item>
     </el-form>
 
+    <div class="text-[14px] color--info">
+      <span>资源推荐：</span>
+      <a
+        href="https://pengshiyu.blog.csdn.net/article/details/124135877"
+        class="color--brand"
+        target="_blank"
+        >微信推送消息通知接口汇总</a
+      >
+    </div>
+
     <!-- 操作 -->
-    <div class="text-center">
+    <div class="text-center mt-md">
+      <el-button @click="handleOpenTemplateDataDialog">模板参数</el-button>
+
       <el-button @click="handleCancel">重 置</el-button>
       <el-button
         type="primary"
@@ -75,6 +87,11 @@
         <el-button @click="handleTest">测 试</el-button>
       </el-tooltip>
     </div>
+
+    <!-- 模板参数弹框 -->
+    <TemplateDataDialog
+      v-model:visible="templateDataDialogVisible"
+    ></TemplateDataDialog>
   </div>
 </template>
 
@@ -90,6 +107,7 @@
  * created 2022-10-01
  * */
 import { NotifyTypeEnum } from '@/emuns/notify-type-enums.js'
+import TemplateDataDialog from '@/components/template-data/DataFormDialog.vue'
 
 import {
   formRules,
@@ -104,13 +122,16 @@ export default {
     row: { type: Object, default: null },
   },
 
-  components: {},
+  components: { TemplateDataDialog },
 
   data() {
     return {
       loading: false,
 
       rules: formRules,
+
+      // 模板参数弹框
+      templateDataDialogVisible: false,
 
       // 引入枚举值
 
@@ -125,6 +146,7 @@ export default {
           null,
           4
         ),
+
         body: '',
       },
 
@@ -249,6 +271,10 @@ export default {
           loading.close()
         })
       }
+    },
+
+    handleOpenTemplateDataDialog() {
+      this.templateDataDialogVisible = true
     },
   },
 

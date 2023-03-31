@@ -1,14 +1,5 @@
 <template>
   <div v-loading="loading">
-    <div class="flex justify-end">
-      <el-link
-        href="https://developer.work.weixin.qq.com/document/path/90236"
-        target="_blank"
-        type="primary"
-        >企业微信-发送应用消息</el-link
-      >
-    </div>
-
     <el-form
       class="mt-md"
       ref="form"
@@ -50,6 +41,17 @@
         ></el-input>
       </el-form-item>
     </el-form>
+
+    <div class="text-[14px] color--info">
+      <span>开发文档：</span>
+
+      <a
+        href="https://developer.work.weixin.qq.com/document/path/90236"
+        class="color--brand"
+        target="_blank"
+        >企业微信-发送应用消息</a
+      >
+    </div>
 
     <!-- 操作 -->
     <div class="text-center">
