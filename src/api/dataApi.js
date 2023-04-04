@@ -30,12 +30,19 @@ export default {
   updateUserStatus: '/updateUserStatus',
 
   getLogSchedulerList: '/getLogSchedulerList',
-  
+
   getIpInfo: '/getIpInfo',
-  
+
   getNotifyOfUser: '/getNotifyOfUser',
   updateNotifyOfUser: '/updateNotifyOfUser',
   testWebhookNotifyOfUser: '/testWebhookNotifyOfUser',
   testWorkWeixinNotifyOfUser: '/testWorkWeixinNotifyOfUser',
   getTemplateData: '/getTemplateData',
+
+  // 分组管理
+  addGroup: '/addGroup',
+  updateGroupById: '/updateGroupById',
+  deleteGroupById: '/deleteGroupById',
+  getGroupList: '/getGroupList',
+  getGroupById: '/getGroupById',
 }

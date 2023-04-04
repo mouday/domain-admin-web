@@ -1,56 +1,91 @@
-const NunjucksPlugin = require('more-copy/plugins/nunjucks-plugin/index.js')
-const ReadFilePlugin = require('more-copy/plugins/read-file-plugin/index.js')
-const ConsolePlugin = require('more-copy/plugins/console-plugin/index.js')
-const TimePlugin = require('more-copy/plugins/time-plugin/index.js')
-const WriteFilePlugin = require('more-copy/plugins/write-file-plugin/index.js')
-
+const NunjucksPlugin = require('@more-copy/nunjucks-plugin')
+const ConsolePlugin = require('@more-copy/console-plugin')
+const TimePlugin = require('@more-copy/time-plugin')
+const ReadDataPlugin = require('@more-copy/read-data-plugin')
 const path = require('path')
 
-let params = process.argv.slice(2)
-console.log(params)
-
-let [type, name, dataFilename, input, output] = params
-
-// const data = JSON.parse(fs.readFileSync(dataFilename))
-const data = require(dataFilename)
-// console.log(data);
-
-// 模板目录
-const template = path.resolve('./template')
-
-// console.log(template)
-
-// 输出目录
-const output_dir = `src/views/${name}-${type}`
-
-function pathResolve(filename) {
-  return path.join(template, filename)
-}
-
-module.exports = {
-  // 数据
-  data: {
-    name,
-    edit_name: `${name}-edit`,
-    list_name: `${name}-list`,
-    ...data,
+let configMap = [
+  // mcp -m edit group ./data/group.json
+  {
+    mode: 'edit',
+    template: [
+      {
+        input: 'template/edit/config.js',
+        output: (name) => `src/components/${name}-edit/config.js`,
+      },
+      {
+        input: 'template/edit/DataForm.vue',
+        output: (name) => `src/components/${name}-edit/DataForm.vue`,
+      },
+      {
+        input: 'template/edit/DataFormDialog.vue',
+        output: (name) => `src/components/${name}-edit/DataFormDialog.vue`,
+      },
+      {
+        input: 'template/edit/index.vue',
+        output: (name) => `src/components/${name}-edit/index.vue`,
+      },
+    ],
   },
 
-  // 使用插件，有先后顺序
-  plugins: [
-    // new ParsePlugin(),
-    new TimePlugin(),
-    // new MkdirPlugin(),
-    new ConsolePlugin(),
-    
-    new ReadFilePlugin({
-      filename: pathResolve(input),
-    }),
-    
-    new NunjucksPlugin(),
-    new WriteFilePlugin({
-      filename: path.join(output_dir, output),
-      mkdir: true,
-    }),
-  ],
+  // mcp -m list group ./data/group.json
+  {
+    mode: 'list',
+    template: [
+      {
+        input: 'template/list/index.vue',
+        output: (name) => `src/components/${name}-list/index.vue`,
+      },
+      {
+        input: 'template/list/DataTable.vue',
+        output: (name) => `src/components/${name}-list/DataTable.vue`,
+      },
+      {
+        input: 'template/list/DataTableDialog.vue',
+        output: (name) => `src/components/${name}-list/DataTableDialog.vue`,
+      },
+    ],
+  },
+]
+
+module.exports = (options) => {
+  let mode = options.mode
+  let name = options.args[0]
+  let dataPath = options.args[1]
+
+  let config = configMap.find((item) => item.mode == mode)
+
+  let plugins = []
+  for (let item of config.template) {
+    plugins.push(
+      new NunjucksPlugin({
+        input: path.resolve(item.input),
+        output: path.resolve(item.output(name)),
+      })
+    )
+  }
+
+  return {
+    // 数据
+    data: {
+      name,
+      edit_name: `${name}-edit`,
+      list_name: `${name}-list`,
+    },
+
+    // 使用插件，有先后顺序
+    plugins: [
+      // new ParsePlugin(),
+      new TimePlugin(),
+      // new MkdirPlugin(),
+
+      new ReadDataPlugin({
+        filename: dataPath,
+      }),
+
+      new ConsolePlugin(),
+
+      ...plugins,
+    ],
+  }
 }

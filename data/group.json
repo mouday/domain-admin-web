@@ -1,0 +1,16 @@
+{
+  "table": {
+    "columns": [
+      {
+        "comment": "名称",
+        "name": "name",
+        "default": ""
+      },
+      {
+        "comment": "创建时间",
+        "name": "create_time",
+        "default": ""
+      }
+    ]
+  }
+}
