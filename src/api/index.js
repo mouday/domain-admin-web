@@ -18,10 +18,15 @@ function httpRequest(url) {
 
     const res = await instance.post(url, data, config)
 
-    if (res.code != 0) {
+    res.ok = false
+
+    if (res.code == 0) {
+      res.ok = true
+    } else {
       ElMessage.closeAll()
       ElMessage.error(res.msg)
     }
+
     return res
   }
 }

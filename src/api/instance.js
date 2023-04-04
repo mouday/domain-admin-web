@@ -30,8 +30,13 @@ instance.interceptors.response.use(
     return res.data
   },
   (err) => {
-    console.log(err)
-    ElMessage.error(err)
+    // console.log(err)
+    // ElMessage.error(err)
+    return {
+      data: null,
+      msg: err,
+      code: -1,
+    }
   }
 )
 

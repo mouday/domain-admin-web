@@ -34,15 +34,9 @@
       </div>
 
       <div class="flex">
-        <el-button @click="updateAllDomainCertInfoOfUser"
-          ><el-icon><Refresh /></el-icon>全部更新</el-button
-        >
+        <updateDomainInfo @on-success="resetData"></updateDomainInfo>
 
-        <el-button
-          class="margin-left--auto"
-          @click="checkDomainCert"
-          ><el-icon><Position /></el-icon>证书检查</el-button
-        >
+        <CheckDomainInfo @on-success="resetData"></CheckDomainInfo>
 
         <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept -->
         <el-upload
@@ -78,7 +72,6 @@
     />
 
     <!-- 翻页 -->
-
     <el-pagination
       class="mt-md justify-center"
       background
@@ -112,6 +105,8 @@ import { genFileId } from 'element-plus'
 import SelectGroup from '@/components/SelectGroup.vue'
 import { useGroupStore } from '@/store/group-store.js'
 import { mapState, mapActions } from 'pinia'
+import updateDomainInfo from './updateDomainInfo.vue'
+import CheckDomainInfo from './CheckDomainInfo.vue'
 
 export default {
   name: 'domain-list',
@@ -122,6 +117,8 @@ export default {
     DataFormDialog,
     DataTable,
     SelectGroup,
+    updateDomainInfo,
+    CheckDomainInfo,
   },
 
   data() {
@@ -196,19 +193,6 @@ export default {
       this.loading = false
     },
 
-    async updateAllDomainCertInfoOfUser() {
-      let loading = this.$loading({ fullscreen: true })
-
-      const res = await this.$http.updateAllDomainCertInfoOfUser()
-
-      if (res.code == 0) {
-        this.$msg.success('操作成功')
-        this.resetData()
-      }
-
-      loading.close()
-    },
-
     getGroupName(group_id) {
       let groupOption = this.groupOptions.find((x) => x.value == group_id)
 
@@ -256,24 +240,6 @@ export default {
 
     handleSearch() {
       this.resetData()
-    },
-
-    async checkDomainCert() {
-      let loading = this.$loading({ fullscreen: true })
-
-      try {
-        const res = await this.$http.checkDomainCert()
-
-        if (res.code == 0) {
-          this.$msg.success('操作成功')
-          this.$emit('on-success')
-        }
-      } catch (e) {
-      } finally {
-        this.$nextTick(() => {
-          loading.close()
-        })
-      }
     },
 
     handleSizeChange(value) {
