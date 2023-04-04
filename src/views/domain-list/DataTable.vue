@@ -233,7 +233,7 @@
 
           <el-popconfirm
             title="确定删除？"
-            @confirm="handleDeleteClick(row)"
+            @confirm="handleDeleteClick(scope.row)"
           >
             <template #reference>
               <el-link
