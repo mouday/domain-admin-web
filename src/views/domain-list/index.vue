@@ -9,6 +9,13 @@
           ><el-icon><Plus /></el-icon>添加</el-button
         >
 
+        <SelectGroup
+          class="w-[150px] ml-sm"
+          v-model="group_id"
+          clearable
+          @change="resetData"
+        ></SelectGroup>
+
         <el-input
           class="ml-sm"
           style="width: 260px"
@@ -102,6 +109,9 @@ import dataApi from '@/api/dataApi.js'
 import { resolve_api_url } from '@/api/index.js'
 import FileSaver from 'file-saver'
 import { genFileId } from 'element-plus'
+import SelectGroup from '@/components/SelectGroup.vue'
+import { useGroupStore } from '@/store/group-store.js'
+import { mapState, mapActions } from 'pinia'
 
 export default {
   name: 'domain-list',
@@ -111,6 +121,7 @@ export default {
   components: {
     DataFormDialog,
     DataTable,
+    SelectGroup,
   },
 
   data() {
@@ -121,6 +132,7 @@ export default {
       page: 1,
       size: 20,
       keyword: '',
+      group_id: '',
 
       pageSizeCachekey: 'pageSize',
 
@@ -133,9 +145,17 @@ export default {
     }
   },
 
-  computed: {},
+  computed: {
+    ...mapState(useGroupStore, {
+      groupOptions: 'getGroupOptions',
+    }),
+  },
 
   methods: {
+    ...mapActions(useGroupStore, {
+      updateGroupOptions: 'updateGroupOptions',
+    }),
+
     resetData() {
       this.page = 1
       this.getData()
@@ -151,6 +171,7 @@ export default {
       let params = {
         page: this.page,
         size: this.size,
+        group_id: this.group_id,
         keyword: this.keyword.trim(),
         order_type: this.order_type,
         order_prop: this.order_prop,
@@ -160,20 +181,9 @@ export default {
 
       if (res.code == 0) {
         this.list = res.data.list.map((item) => {
-          // 百分比
-          if (item.expire_days && item.total_days) {
-            item.percentage = (item.expire_days / item.total_days) * 100
-          } else {
-            item.percentage = null
-          }
-
-          // 状态栏颜色
-          item.percentage_status = 'exception'
-
-          if (item.expire_days >= 30) {
-            item.percentage_status = '' // success
-          } else if (item.expire_days >= 3) {
-            item.percentage_status = 'warning'
+          // 分组
+          if (item.group_id) {
+            item.group_name = this.getGroupName(item.group_id)
           }
 
           return item
@@ -197,6 +207,14 @@ export default {
       }
 
       loading.close()
+    },
+
+    getGroupName(group_id) {
+      let groupOption = this.groupOptions.find((x) => x.value == group_id)
+
+      if (groupOption) {
+        return groupOption.name
+      }
     },
 
     async handleHttpRequest(options) {
@@ -291,11 +309,18 @@ export default {
 
       this.resetData()
     },
+
+    async initData() {
+      this.loadPageSize()
+
+      await this.updateGroupOptions()
+
+      this.getData()
+    },
   },
 
   created() {
-    this.loadPageSize()
-    this.getData()
+    this.initData()
   },
 }
 </script>

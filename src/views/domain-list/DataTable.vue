@@ -12,6 +12,8 @@
         label="域名"
         header-align="center"
         align="center"
+        width="180"
+        show-overflow-tooltip
         prop="domain"
       >
         <template #default="scope">
@@ -43,10 +45,10 @@
       </el-table-column> -->
 
       <el-table-column
-        label="域名剩余天数"
+        label="域名天数"
         header-align="center"
         align="center"
-        width="140"
+        width="110"
         sortable="custom"
         prop="domain_expire_days"
       >
@@ -54,20 +56,30 @@
           <ExpireDays
             :value="scope.row.real_time_domain_expire_days"
           ></ExpireDays>
+
+          <!-- <ExpireProgress
+            :startTime="scope.row.domain_start_time"
+            :endTime="scope.row.domain_expire_time"
+          ></ExpireProgress> -->
           <!-- <span>{{ scope.row.real_time_domain_expire_days || '-' }}</span> -->
         </template>
       </el-table-column>
 
       <el-table-column
-        label="SSL证书剩余天数"
+        label="证书天数"
         header-align="center"
         align="center"
-        width="180"
+        width="120"
         sortable="custom"
         prop="expire_days"
       >
         <template #default="scope">
-          <ExpireDays :value="scope.row.real_time_expire_days"></ExpireDays>
+          <!-- <ExpireDays :value="scope.row.real_time_expire_days"></ExpireDays> -->
+
+          <ExpireProgress
+            :startTime="scope.row.start_time"
+            :endTime="scope.row.expire_time"
+          ></ExpireProgress>
 
           <!-- <span>{{ scope.row.real_time_expire_days }}</span> -->
         </template>
@@ -95,21 +107,7 @@
         prop="total_days"
       >
         <template #default="scope">
-          <el-progress
-            v-if="scope.row.percentage"
-            :percentage="scope.row.percentage"
-            :show-text="false"
-            :status="scope.row.percentage_status"
-          />
-          <div>
-            <span class="el-text-color-primary">{{
-              scope.row.real_time_expire_days || scope.row.expire_days || '-'
-            }}</span>
-            <span> / </span>
-            <span class="el-text-color-secondary">{{
-              scope.row.total_days || '-'
-            }}</span>
-          </div>
+          
         </template>
       </el-table-column> -->
 
@@ -126,34 +124,56 @@
         </template>
       </el-table-column> -->
 
+      <!-- 分组 -->
+      <el-table-column
+        label="分组"
+        header-align="center"
+        align="center"
+        width="100"
+        prop="check_time"
+      >
+        <template #default="scope">
+          <span>{{ scope.row.group_name || '-' }}</span>
+        </template>
+      </el-table-column>
+
+      <!-- 备注 -->
+      <el-table-column
+        label="备注"
+        header-align="center"
+        align="center"
+        prop="check_time"
+        show-overflow-tooltip
+      >
+        <template #default="scope">
+          <span>{{ scope.row.alias || '-' }}</span>
+        </template>
+      </el-table-column>
+
       <!-- 创建时间 -->
       <el-table-column
         label="更新时间"
         header-align="center"
         align="center"
-        width="120"
+        width="100"
         prop="check_time"
+        show-overflow-tooltip
       >
         <template #default="scope">
           <span>{{ scope.row.check_time_label || '-' }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column
+      <!-- <el-table-column
         label="更新"
         width="60"
         header-align="center"
         align="center"
       >
         <template #default="scope">
-          <el-link
-            :underline="false"
-            type="primary"
-            @click="handleUpdateRowDomainInfo(scope.row)"
-            ><el-icon><Refresh /></el-icon
-          ></el-link>
+          
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column
         label="详细"
@@ -180,15 +200,17 @@
       >
         <template #default="scope">
           <el-switch
+            style="transform: scale(0.8)"
             v-model="scope.row.is_monitor"
+            size="mini"
             @change="handleMonitorStatusChange(scope.row, $event)"
           />
         </template>
       </el-table-column>
 
       <el-table-column
-        label="编辑"
-        width="60"
+        label="操作"
+        width="100"
         header-align="center"
         align="center"
       >
@@ -196,19 +218,19 @@
           <el-link
             :underline="false"
             type="primary"
+            class="mr-sm"
+            @click="handleUpdateRowDomainInfo(scope.row)"
+            ><el-icon><Refresh /></el-icon
+          ></el-link>
+
+          <el-link
+            :underline="false"
+            type="primary"
+            class="mr-sm"
             @click="handleEditRow(scope.row)"
             ><el-icon><Edit /></el-icon
           ></el-link>
-        </template>
-      </el-table-column>
 
-      <el-table-column
-        label="删除"
-        width="60"
-        align="center"
-        prop="tag"
-      >
-        <template v-slot="{ row }">
           <el-popconfirm
             title="确定删除？"
             @confirm="handleDeleteClick(row)"
@@ -221,8 +243,20 @@
               ></el-link>
             </template>
           </el-popconfirm>
+
         </template>
       </el-table-column>
+
+      <!-- <el-table-column
+        label="删除"
+        width="60"
+        align="center"
+        prop="tag"
+      >
+        <template v-slot="{ row }">
+          
+        </template>
+      </el-table-column> -->
     </el-table>
 
     <!-- 编辑框 -->
@@ -249,6 +283,7 @@ import DataFormDialog from '../domain-edit/DataFormDialog.vue'
 import DataDetailDialog from '../domain-detail/DataFormDailig.vue'
 import ConnectStatus from '@/components/ConnectStatus.vue'
 import ExpireDays from '@/components/ExpireDays.vue'
+import ExpireProgress from '@/components/ExpireProgress.vue'
 
 export default {
   name: '',
@@ -258,6 +293,7 @@ export default {
     DataDetailDialog,
     ConnectStatus,
     ExpireDays,
+    ExpireProgress,
   },
 
   props: {

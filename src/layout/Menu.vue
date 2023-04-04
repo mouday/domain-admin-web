@@ -10,6 +10,8 @@
       @select="handleSelect"
     >
       <el-menu-item index="domain-list">域名管理</el-menu-item>
+      
+      <el-menu-item index="group-list">分组管理</el-menu-item>
 
       <el-menu-item index="notify-edit">通知设置</el-menu-item>
 

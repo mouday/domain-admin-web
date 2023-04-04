@@ -34,6 +34,11 @@ export const routes = [
         name: 'log-scheduler-list',
         component: () => import('@/views/log-scheduler-list/index.vue'),
       },
+      {
+        path: '/group-list',
+        name: 'group-list',
+        component: () => import('@/views/group-list/index.vue'),
+      },
     ],
   },
 ]

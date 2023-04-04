@@ -5,7 +5,6 @@
       stripe
       border
     >
-      {% raw %}
       <el-table-column
         label="ID"
         align="center"
@@ -16,24 +15,33 @@
           <span>{{ scope.row.id || '-' }}</span>
         </template>
       </el-table-column>
-      {% endraw %} {% for item in table.columns %}
-      <!-- {{item.comment}} -->
+
+      <!-- 名称 -->
       <el-table-column
-        label="{{item.comment or item.name }}"
+        label="名称"
         header-align="center"
         align="center"
-        prop="{{ item.name }}"
+        prop="name"
       >
         <template #default="scope">
-          {% raw %}<span
-            >{{ scope.row.{% endraw %}{{ item.name }}{% raw %} || '-' }}</span
-          >{% endraw %}
+          <span>{{ scope.row.name || '-' }}</span>
         </template>
       </el-table-column>
-      {% endfor %}
+
+      <!-- 创建时间 -->
+      <el-table-column
+        label="创建时间"
+        header-align="center"
+        align="center"
+        prop="create_time"
+      >
+        <template #default="scope">
+          <span>{{ scope.row.create_time || '-' }}</span>
+        </template>
+      </el-table-column>
 
       <!-- 操作 -->
-      <el-table-column
+      <!-- <el-table-column
         label="状态"
         header-align="center"
         align="center"
@@ -45,7 +53,7 @@
             @change="handleStatusChange(scope.row, $event)"
           />
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column
         label="编辑"
@@ -97,9 +105,9 @@
 
 <script>
 /**
- * created {{time.date}}
+ * created 2023-04-04
  */
-import DataFormDialog from '../{{edit_name}}/DataFormDialog.vue'
+import DataFormDialog from '../group-edit/DataFormDialog.vue'
 
 export default {
   name: '',
@@ -134,7 +142,7 @@ export default {
         id: row.id,
       }
 
-      const res = await this.$http.function(params)
+      const res = await this.$http.deleteGroupById(params)
 
       if (res.code == 0) {
         this.$msg.success('操作成功')

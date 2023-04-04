@@ -12,8 +12,8 @@
         class="ml-sm"
         style="width: 260px"
         v-model="keyword"
-        placeholder="输入域名"
         clearable
+        placeholder="输入分组"
         @keypress.enter="handleSearch"
         @clear="handleSearch"
       >
@@ -55,14 +55,17 @@
 
 <script>
 /**
- * created {{time.date}}
+ * created 2023-04-04
  */
 
-import DataFormDialog from '../{{edit_name}}/DataFormDialog.vue'
+import DataFormDialog from '../group-edit/DataFormDialog.vue'
 import DataTable from './DataTable.vue'
 
+import { useGroupStore } from '@/store/group-store.js'
+import { mapState, mapActions } from 'pinia'
+
 export default {
-  name: '{{list_name}}',
+  name: 'group-list',
 
   props: {},
 
@@ -77,7 +80,7 @@ export default {
       total: 0,
       page: 1,
       size: 20,
-      keywords: '',
+      keyword: '',
 
       loading: true,
       dialogVisible: false,
@@ -87,6 +90,10 @@ export default {
   computed: {},
 
   methods: {
+    ...mapActions(useGroupStore, {
+      setGroupOptions: 'setGroupOptions',
+    }),
+
     resetData() {
       this.page = 1
       this.getData()
@@ -98,15 +105,18 @@ export default {
       let params = {
         page: this.page,
         size: this.size,
-        keyword: this.keyword,
+        keyword: this.keyword.trim(),
       }
 
       try {
-        const res = await this.$http.function(params)
+        const res = await this.$http.getGroupList(params)
 
         if (res.code == 0) {
           this.list = res.data.list
           this.total = res.data.total
+
+          // 更新全局的选项配置
+          this.setGroupOptions(res.data.list)
         }
       } catch (e) {
         console.log(e)

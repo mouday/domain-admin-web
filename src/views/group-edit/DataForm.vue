@@ -1,48 +1,36 @@
 <template>
-  <div v-loading="loading">
+  <div>
     <el-form
       ref="form"
       :model="form"
       :rules="rules"
-      label-width="80px"
+      label-width="60px"
     >
-      <!-- 域名 -->
+      <!-- 名称 -->
 
       <el-form-item
-        label="域名"
-        prop="domain"
+        label="名称"
+        prop="name"
       >
         <el-input
           type="text"
-          v-model="form.domain"
-          placeholder="请输入域名"
+          v-model="form.name"
+          placeholder="请输入名称"
         ></el-input>
       </el-form-item>
 
-      <!-- 分组 -->
+      <!-- 创建时间 -->
 
-      <el-form-item
-        label="分组"
-        prop="group_id"
-      >
-        <SelectGroup
-          class="w-[150px]"
-          v-model="form.group_id"
-          clearable
-        ></SelectGroup>
-      </el-form-item>
-
-      <el-form-item
-        label="备注"
-        prop="alias"
+      <!-- <el-form-item
+        label="创建时间"
+        prop="create_time"
       >
         <el-input
-          type="textarea"
-          v-model="form.alias"
-          :rows="3"
-          placeholder="请输入备注"
+          type="text"
+          v-model="form.create_time"
+          placeholder="请输入创建时间"
         ></el-input>
-      </el-form-item>
+      </el-form-item> -->
     </el-form>
 
     <!-- 操作 -->
@@ -66,11 +54,12 @@
  *  on-cancel
  *  on-success
  *
- * created 2022-10-01
+ * created 2023-04-04
  * */
-// 引入枚举值
-import { formRules } from './config.js'
-import SelectGroup from '@/components/SelectGroup.vue'
+import {
+  formRules,
+  // 引入枚举值
+} from './config.js'
 
 export default {
   name: '',
@@ -80,26 +69,19 @@ export default {
     row: { type: Object, default: null },
   },
 
-  components: {
-    SelectGroup,
-  },
+  components: {},
 
   data() {
     return {
-      loading: false,
-
       rules: formRules,
 
       // 引入枚举值
 
       form: {
-        // 域名
-        domain: '',
-        // 备注
-        alias: '',
-
-        // 分组
-        group_id: '',
+        // 名称
+        name: '',
+        // 创建时间
+        // create_time: '',
       },
     }
   },
@@ -108,28 +90,24 @@ export default {
 
   methods: {
     async getData() {
-      this.loading = true
-
       if (this.row) {
         let params = {
           id: this.row.id,
         }
 
-        const res = await this.$http.getDomainById(params)
+        const res = await this.$http.getGroupById(params)
+
+        if (res.code != 0) {
+          return
+        }
 
         let data = res.data
         // let data = this.row
-        // 域名
-        this.form.domain = data.domain
-        this.form.alias = data.alias
-        this.form.group_id = data.group_id
-        
-        if (this.form.group_id == 0) {
-          this.form.group_id = ''
-        }
+        // 名称
+        this.form.name = data.name
+        // 创建时间
+        // this.form.create_time = data.create_time
       }
-
-      this.loading = false
     },
 
     // 取消
@@ -152,21 +130,20 @@ export default {
       let loading = this.$loading({ fullscreen: true })
 
       let params = {
-        // 域名
-        domain: this.form.domain.trim(),
-        alias: this.form.alias.trim(),
-        group_id: this.form.group_id,
+        // 名称
+        name: this.form.name,
+        // 创建时间
+        // create_time: this.form.create_time,
       }
 
       let res = null
 
+      // 编辑
       if (this.row) {
-        // 编辑
         params['id'] = this.row.id
-        res = await this.$http.updateDomainById(params)
+        res = await this.$http.updateGroupById(params)
       } else {
-        // 添加
-        res = await this.$http.addDomain(params)
+        res = await this.$http.addGroup(params)
       }
 
       if (res.code == 0) {
