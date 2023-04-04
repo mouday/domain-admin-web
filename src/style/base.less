@@ -22,7 +22,9 @@ html {
 
 body {
   width: 100vw;
-  overflow: hidden;
+  // 该属性导致bug
+  // 使用检索功能精准检索，检索结果只有一条，然后编辑这一条，“分组”下拉列表打不开
+  // overflow: hidden;
 }
 
 .app-container {
