@@ -6,13 +6,13 @@
       border
     >
       <el-table-column
-        label="ID"
+        label="序号"
         align="center"
         prop="id"
         width="60"
       >
         <template #default="scope">
-          <span>{{ scope.row.id || '-' }}</span>
+          <span>{{ scope.$index + 1 }}</span>
         </template>
       </el-table-column>
 
@@ -25,6 +25,18 @@
       >
         <template #default="scope">
           <span>{{ scope.row.name || '-' }}</span>
+        </template>
+      </el-table-column>
+
+      <!-- 域名数量 -->
+      <el-table-column
+        label="域名数量"
+        header-align="center"
+        align="center"
+        prop="name"
+      >
+        <template #default="scope">
+          <span>{{ scope.row.domain_count || '-' }}</span>
         </template>
       </el-table-column>
 
@@ -54,6 +66,23 @@
           />
         </template>
       </el-table-column> -->
+
+      <!-- 关联域名 -->
+      <el-table-column
+        label="关联域名"
+        width="90"
+        header-align="center"
+        align="center"
+      >
+        <template #default="scope">
+          <el-link
+            :underline="false"
+            type="primary"
+            @click="handleCountClick(scope.row)"
+            ><el-icon><Link /></el-icon
+          ></el-link>
+        </template>
+      </el-table-column>
 
       <el-table-column
         label="编辑"
@@ -100,6 +129,13 @@
       :row="currentRow"
       @on-success="handleUpdateSuccess"
     ></DataFormDialog>
+
+    <!-- 分组 + 域名 关联-->
+    <GroupDomainListDialog
+      :row="currentRow"
+      v-model:visible="groupDomainListDialogVisible"
+      @on-success="handleUpdateSuccess"
+    ></GroupDomainListDialog>
   </div>
 </template>
 
@@ -109,11 +145,14 @@
  */
 import DataFormDialog from '../group-edit/DataFormDialog.vue'
 
+import GroupDomainListDialog from '@/components/group-domain-list/DataTableDialog.vue'
+
 export default {
   name: '',
 
   components: {
     DataFormDialog,
+    GroupDomainListDialog,
   },
 
   props: {
@@ -128,6 +167,7 @@ export default {
     return {
       currentRow: null,
       dialogVisible: false,
+      groupDomainListDialogVisible: false,
     }
   },
 
@@ -169,6 +209,13 @@ export default {
 
     handleUpdateSuccess() {
       this.$emit('on-success')
+    },
+
+    handleCountClick(row) {
+      console.log('handleCountClick');
+      // this.$emit('on-count-click', row)
+      this.currentRow = row
+      this.groupDomainListDialogVisible = true
     },
   },
 

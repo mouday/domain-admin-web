@@ -40,7 +40,7 @@
       background
       layout="total, prev, pager, next"
       :total="total"
-      v-model:page-size="size"
+      v-model:page-size="total"
       v-model:current-page="page"
       @current-change="getData"
     />
@@ -103,8 +103,8 @@ export default {
       this.loading = true
 
       let params = {
-        page: this.page,
-        size: this.size,
+        // page: this.page,
+        // size: this.size,
         keyword: this.keyword.trim(),
       }
 

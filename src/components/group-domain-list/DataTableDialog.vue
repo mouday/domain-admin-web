@@ -3,7 +3,7 @@
   <el-dialog
     :title="dialogTitle"
     v-model="dialogVisible"
-    width="340px"
+    width="800px"
     center
     append-to-body
   >
@@ -53,9 +53,9 @@ export default {
   computed: {
     dialogTitle() {
       if (this.row) {
-        return '编辑'
+        return `分组关联域名：${this.row.name}`
       } else {
-        return '添加'
+        return '-'
       }
     },
 
@@ -84,7 +84,9 @@ export default {
     },
   },
 
-  created() {},
+  created() {
+    console.log('created')
+  },
 }
 </script>
 

@@ -228,14 +228,16 @@ export default {
     },
 
     async handleExportToFile() {
-      const res = await this.$http.getAllDomainListOfUser()
-      let content = res.data.list.map((item) => item.domain).join('\n')
+      // const res = await this.$http.getAllDomainListOfUser()
+      // let content = res.data.list.map((item) => item.domain).join('\n')
 
-      var blob = new Blob([content], {
-        type: 'text/plain;charset=utf-8',
-      })
-
-      FileSaver.saveAs(blob, 'domain.txt')
+      // var blob = new Blob([content], {
+      //   type: 'text/plain;charset=utf-8',
+      // })
+      const res = await this.$http.exportDomainFile()
+      if (res.ok) {
+        FileSaver.saveAs(res.data.url, 'domain.txt')
+      }
     },
 
     handleSearch() {

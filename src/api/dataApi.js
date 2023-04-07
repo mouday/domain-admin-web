@@ -14,9 +14,11 @@ export default {
   getCheckDomainStatusOfUser: '/getCheckDomainStatusOfUser',
   updateAllDomainCertInfoOfUser: '/updateAllDomainCertInfoOfUser',
   importDomainFromFile: '/importDomainFromFile',
+  exportDomainFile: '/exportDomainFile',
   getAllDomainListOfUser: '/getAllDomainListOfUser',
   sendDomainInfoListEmail: '/sendDomainInfoListEmail',
   checkDomainCert: '/checkDomainCert',
+  
 
   getAllSystemConfig: '/getAllSystemConfig',
   updateSystemConfig: '/updateSystemConfig',
@@ -47,4 +49,6 @@ export default {
   deleteGroupById: '/deleteGroupById',
   getGroupList: '/getGroupList',
   getGroupById: '/getGroupById',
+  
+  domainRelationGroup: '/domainRelationGroup',
 }
