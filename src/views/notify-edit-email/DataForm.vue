@@ -87,7 +87,7 @@ export default {
       },
 
       emailListExample: JSON.stringify(
-        ['123@qq.com', 'doamin@163.com'],
+        ['123@qq.com', 'domain@163.com'],
         null,
         4
       ),
