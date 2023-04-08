@@ -30,7 +30,7 @@ jobs:
         run: pnpm install
 
       - name: Build package
-        run: npm run build
+        run: pnpm run build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.1

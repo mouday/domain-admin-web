@@ -34,7 +34,7 @@
       </div>
 
       <div class="flex">
-        <updateDomainInfo @on-success="resetData"></updateDomainInfo>
+        <UpdateDomainInfo @on-success="resetData"></UpdateDomainInfo>
 
         <CheckDomainInfo @on-success="resetData"></CheckDomainInfo>
 
@@ -105,7 +105,7 @@ import { genFileId } from 'element-plus'
 import SelectGroup from '@/components/SelectGroup.vue'
 import { useGroupStore } from '@/store/group-store.js'
 import { mapState, mapActions } from 'pinia'
-import updateDomainInfo from './updateDomainInfo.vue'
+import UpdateDomainInfo from './UpdateDomainInfo.vue'
 import CheckDomainInfo from './CheckDomainInfo.vue'
 
 export default {
@@ -117,7 +117,7 @@ export default {
     DataFormDialog,
     DataTable,
     SelectGroup,
-    updateDomainInfo,
+    UpdateDomainInfo,
     CheckDomainInfo,
   },
 
