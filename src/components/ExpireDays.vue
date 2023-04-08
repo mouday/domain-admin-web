@@ -34,7 +34,7 @@ export default {
     
     className() {
       if (this.showValue) {
-        if (this.value < 3) {
+        if (this.value < 7) {
           return ['color--danger']
         } else if (this.value < 30) {
           return ['color--warning']
