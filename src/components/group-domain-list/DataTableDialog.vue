@@ -6,6 +6,7 @@
     width="800px"
     center
     append-to-body
+    :lock-scroll="false"
   >
     <DataTableIndex
       v-if="dialogVisible"

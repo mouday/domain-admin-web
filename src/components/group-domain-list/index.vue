@@ -17,10 +17,18 @@
         </template>
       </el-input>
 
+      <SelectGroup
+        class="w-[150px] ml-sm"
+        v-model="group_id"
+        clearable
+        @change="resetData"
+      ></SelectGroup>
+
       <el-button
         class="ml-sm"
         type="primary"
         @click="handleRelation"
+        :disabled="disableRelationButton"
         >关联</el-button
       >
     </div>
@@ -39,7 +47,7 @@
     <el-pagination
       class="mt-md justify-center"
       background
-      layout="total, prev, pager, next"
+      layout="total, sizes, prev, pager, next"
       :total="total"
       v-model:page-size="size"
       v-model:current-page="page"
@@ -63,6 +71,7 @@
 import DataTable from './DataTable.vue'
 import { useGroupStore } from '@/store/group-store.js'
 import { mapState, mapActions } from 'pinia'
+import SelectGroup from '@/components/SelectGroup.vue'
 
 export default {
   name: 'group-domain-list',
@@ -76,6 +85,7 @@ export default {
   components: {
     // DataFormDialog,
     DataTable,
+    SelectGroup,
   },
 
   data() {
@@ -83,12 +93,13 @@ export default {
       list: [],
       total: 0,
       page: 1,
-      size: 20,
+      size: 10,
       keyword: '',
 
       loading: true,
       dialogVisible: false,
       selection: [],
+      group_id: '',
     }
   },
 
@@ -96,6 +107,10 @@ export default {
     ...mapState(useGroupStore, {
       groupOptions: 'getGroupOptions',
     }),
+
+    disableRelationButton() {
+      return this.selection.length == 0
+    },
   },
 
   methods: {
@@ -111,6 +126,7 @@ export default {
         page: this.page,
         size: this.size,
         keyword: this.keyword,
+        group_id: this.group_id,
       }
 
       try {
@@ -167,7 +183,8 @@ export default {
 
       if (res.code == 0) {
         this.$msg.success('操作成功')
-        this.$emit('on-success')
+        // this.$emit('on-success')
+        this.getData()
       } else {
         this.$msg.error(res.msg)
       }
@@ -180,6 +197,10 @@ export default {
   },
 
   created() {
+    if (this.row) {
+      this.group_id = this.row.id
+    }
+
     this.getData()
   },
 }

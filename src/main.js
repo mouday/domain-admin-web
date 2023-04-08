@@ -16,6 +16,7 @@ import { ElLoading } from 'element-plus'
 import { router } from './router/index.js'
 
 import './style/base.less'
+import './style/element-plus.less'
 
 import App from './App.vue'
 

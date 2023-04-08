@@ -5,7 +5,7 @@
     placeholder="分组"
   >
     <el-option
-      v-for="item in groupOptions"
+      v-for="item in options"
       :key="item.value"
       :label="item.label"
       :value="item.value"
@@ -33,6 +33,15 @@ export default {
     ...mapState(useGroupStore, {
       groupOptions: 'getGroupOptions',
     }),
+    options() {
+      return [
+        ...this.groupOptions,
+        {
+          value: 0,
+          label: '未分组',
+        },
+      ]
+    },
   },
 
   methods: {
