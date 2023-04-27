@@ -56,6 +56,9 @@ export default {
         if (res.data.status == false) {
           clearInterval(this.updateTimer)
           this.updateTimer = null
+          
+          this.$msg.success('操作成功')
+
           this.$emit('on-success')
         }
       }
