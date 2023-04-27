@@ -1,15 +1,22 @@
 <template>
-  <div class="">
+  <div class="ExpireProgress">
     <el-progress
       v-if="percentage"
       :percentage="percentage"
       :show-text="false"
       :status="percentageStatus"
     />
-    <div>
+    <div class="ExpireProgress__info">
       <span class="el-text-color-primary">{{ expireDays || '-' }}</span>
       <span> / </span>
       <span class="el-text-color-secondary">{{ totalDays || '-' }}</span>
+      <el-tag
+        v-if="isManual"
+        type="info"
+        class="mo-table-tag  ml-[1px]"
+        size="small"
+        >手动</el-tag
+      >
     </div>
   </div>
 </template>
@@ -29,6 +36,11 @@ export default {
     // 结束时间
     endTime: {
       type: String,
+    },
+
+    // 手动标签
+    isManual: {
+      type: Boolean,
     },
   },
 
@@ -94,6 +106,10 @@ export default {
 }
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+.ExpireProgress {
+}
 
-<style lang="less" scoped></style>
+.ExpireProgress__info {
+}
+</style>

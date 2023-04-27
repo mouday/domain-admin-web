@@ -55,7 +55,14 @@
         <template #default="scope">
           <ExpireDays
             :value="scope.row.real_time_domain_expire_days"
-          ></ExpireDays>
+          ></ExpireDays
+          ><el-tag
+            v-if="!scope.row.domain_auto_update"
+            class="ml-[5px] mo-table-tag"
+            type="info"
+            size="small"
+            >手动</el-tag
+          >
 
           <!-- <ExpireProgress
             :startTime="scope.row.domain_start_time"
@@ -79,6 +86,7 @@
           <ExpireProgress
             :startTime="scope.row.start_time"
             :endTime="scope.row.expire_time"
+            :isManual="!scope.row.auto_update"
           ></ExpireProgress>
 
           <!-- <span>{{ scope.row.real_time_expire_days }}</span> -->
@@ -160,7 +168,7 @@
         show-overflow-tooltip
       >
         <template #default="scope">
-          <span>{{ scope.row.check_time_label || '-' }}</span>
+          <span>{{ scope.row.update_time_label || '-' }}</span>
         </template>
       </el-table-column>
 
@@ -175,7 +183,7 @@
         </template>
       </el-table-column> -->
 
-      <el-table-column
+      <!-- <el-table-column
         label="详细"
         header-align="center"
         align="center"
@@ -183,14 +191,9 @@
         prop="connect_status"
       >
         <template #default="scope">
-          <el-link
-            :underline="false"
-            type="primary"
-            @click="handleShowDetail(scope.row)"
-            ><el-icon><Tickets /></el-icon
-          ></el-link>
+         
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column
         label="监测"
@@ -210,7 +213,7 @@
 
       <el-table-column
         label="操作"
-        width="100"
+        width="140"
         header-align="center"
         align="center"
       >
@@ -219,8 +222,24 @@
             :underline="false"
             type="primary"
             class="mr-sm"
+            @click="handleShowDetail(scope.row)"
+            ><el-icon><Tickets /></el-icon
+          ></el-link>
+
+          <el-link
+            :underline="false"
+            type="primary"
+            class="mr-sm"
             @click="handleUpdateRowDomainInfo(scope.row)"
             ><el-icon><Refresh /></el-icon
+          ></el-link>
+
+          <el-link
+            :underline="false"
+            type="primary"
+            class="mr-sm"
+            @click="handleDomainSettingDialogShow(scope.row)"
+            ><el-icon><Setting /></el-icon
           ></el-link>
 
           <el-link
@@ -243,7 +262,6 @@
               ></el-link>
             </template>
           </el-popconfirm>
-
         </template>
       </el-table-column>
 
@@ -272,6 +290,13 @@
       v-model:visible="dialogDetailVisible"
       @on-success="handleDetailSuccess"
     ></DataDetailDialog>
+
+    <!-- 域名设置 -->
+    <DomainSettingDialog
+      :row="currentRow"
+      v-model:visible="DomainSettingDialogVisible"
+      @on-success="handleUpdateSuccess"
+    ></DomainSettingDialog>
   </div>
 </template>
 
@@ -284,6 +309,7 @@ import DataDetailDialog from '../domain-detail/DataFormDailig.vue'
 import ConnectStatus from '@/components/ConnectStatus.vue'
 import ExpireDays from '@/components/ExpireDays.vue'
 import ExpireProgress from '@/components/ExpireProgress.vue'
+import DomainSettingDialog from '@/views/domain-setting/DomainSettingDialog.vue'
 
 export default {
   name: '',
@@ -294,6 +320,7 @@ export default {
     ConnectStatus,
     ExpireDays,
     ExpireProgress,
+    DomainSettingDialog,
   },
 
   props: {
@@ -309,6 +336,8 @@ export default {
       currentRow: null,
       dialogVisible: false,
       dialogDetailVisible: false,
+
+      DomainSettingDialogVisible: false,
     }
   },
 
@@ -397,6 +426,11 @@ export default {
     handleShowDetail(row) {
       this.currentRow = row
       this.dialogDetailVisible = true
+    },
+
+    handleDomainSettingDialogShow(row) {
+      this.currentRow = row
+      this.DomainSettingDialogVisible = true
     },
   },
 

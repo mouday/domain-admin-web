@@ -18,6 +18,7 @@ export default {
   getAllDomainListOfUser: '/getAllDomainListOfUser',
   sendDomainInfoListEmail: '/sendDomainInfoListEmail',
   checkDomainCert: '/checkDomainCert',
+  updateDomainSetting: '/updateDomainSetting',
   
 
   getAllSystemConfig: '/getAllSystemConfig',

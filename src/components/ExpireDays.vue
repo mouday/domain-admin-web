@@ -31,7 +31,7 @@ export default {
     showValue() {
       return Number.isInteger(this.value)
     },
-    
+
     className() {
       if (this.showValue) {
         if (this.value < 7) {
@@ -60,5 +60,6 @@ export default {
 <style lang="less">
 .ExpireDays {
   // font-weight: bold;
+  display: inline-block;
 }
 </style>
