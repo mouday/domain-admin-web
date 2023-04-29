@@ -46,7 +46,7 @@ export default {
           options: [
             {
               label: '已过期',
-              value: 0,
+              value: [null, 3],
             },
             {
               label: '3天内过期',
@@ -71,7 +71,7 @@ export default {
           options: [
             {
               label: '已过期',
-              value: 0,
+              value: [null, 3],
             },
             {
               label: '3天内过期',
@@ -96,15 +96,15 @@ export default {
           options: [
             {
               label: '连接异常',
-              value: 3,
+              value: 'error',
             },
             {
               label: '连接正常',
-              value: 1,
+              value: 'success',
             },
             {
               label: '状态未知',
-              value: 2,
+              value: 'unknown',
             },
           ],
         },
