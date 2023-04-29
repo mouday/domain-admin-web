@@ -13,7 +13,7 @@
         style="width: 260px"
         v-model="keyword"
         clearable
-        placeholder="输入分组"
+        placeholder="搜索分组"
         @keypress.enter="handleSearch"
         @clear="handleSearch"
       >

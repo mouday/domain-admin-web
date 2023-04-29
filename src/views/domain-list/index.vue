@@ -1,74 +1,121 @@
 <template>
   <div class="app-container">
     <!-- 操作按钮 -->
-    <div class="flex justify-between">
-      <div>
-        <el-button
-          type="primary"
-          @click="handleAddRow"
-          ><el-icon><Plus /></el-icon>添加</el-button
-        >
+    <div
+      class="flex"
+      style="justify-content: space-between"
+    >
+      <el-button
+        type="primary"
+        @click="handleAddRow"
+        ><el-icon><Plus /></el-icon>添加</el-button
+      >
 
-        <SelectGroup
+      <!-- <SelectGroup
           class="w-[150px] ml-sm"
           v-model="group_id"
           clearable
           @change="resetData"
-        ></SelectGroup>
+        ></SelectGroup> -->
 
-        <el-input
-          class="ml-sm"
-          style="width: 260px"
-          v-model="keyword"
-          placeholder="搜索域名"
-          clearable
-          @keypress.enter="handleSearch"
-          @clear="handleSearch"
+      <el-input
+        class="ml-sm"
+        style="width: 260px"
+        v-model="keyword"
+        placeholder="搜索域名"
+        clearable
+        @keypress.enter="handleSearch"
+        @clear="handleSearch"
+      >
+        <template #append>
+          <el-button @click="handleSearch">
+            <el-icon><Search /></el-icon
+          ></el-button>
+        </template>
+      </el-input>
+    </div>
+
+    <!-- 筛选器 -->
+    <ConditionFilter
+      v-if="hasInitData"
+      class="mt-md"
+      @on-change="handleConditionFilterChange"
+    ></ConditionFilter>
+
+    <!-- 工具栏 -->
+    <div
+      class="flex mt-sm"
+      style="align-items: center"
+    >
+      <div style="font-size: 14px; color: #333333">共计 {{ total }} 条数据</div>
+
+      <div
+        class="flex"
+        style="margin-left: auto"
+      >
+        <el-popconfirm
+          
+          v-if="showBatchDeleteButton"
+          title="确定删除选中？"
+          @confirm="handleBatchDeleteConfirm"
         >
-          <template #append>
-            <el-button @click="handleSearch">
-              <el-icon><Search /></el-icon
-            ></el-button>
+          <template #reference>
+            <el-link
+              :underline="false"
+              type="danger"
+              class="mr-sm"
+              ><el-icon><Delete /></el-icon>批量删除</el-link
+            >
           </template>
-        </el-input>
-      </div>
+        </el-popconfirm>
 
-      <div class="flex">
         <UpdateDomainInfo @on-success="resetData"></UpdateDomainInfo>
 
-        <CheckDomainInfo @on-success="resetData"></CheckDomainInfo>
+        <CheckDomainInfo
+          class="ml-sm"
+          @on-success="resetData"
+        ></CheckDomainInfo>
 
         <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept -->
-        <el-upload
+        <el-link
+          :underline="false"
+          type="primary"
           class="ml-sm"
-          ref="upload"
-          action="action"
-          accept=".txt"
-          :limit="1"
-          :on-exceed="handleExceed"
-          :show-file-list="false"
-          :http-request="handleHttpRequest"
-        >
-          <el-button
-            ><el-icon><Upload /></el-icon>导入</el-button
+          style="position: relative"
+          ><el-icon><Upload /></el-icon>导入
+          <el-upload
+            ref="upload"
+            action="action"
+            accept=".txt"
+            :limit="1"
+            :on-exceed="handleExceed"
+            :show-file-list="false"
+            :http-request="handleHttpRequest"
           >
-        </el-upload>
+            <div
+              style="position: absolute; top: 0; left: 0; right: 0; bottom: 0"
+            ></div>
+          </el-upload>
+        </el-link>
 
-        <el-button
+        <el-link
+          :underline="false"
+          type="primary"
           class="ml-sm"
           @click="handleExportToFile"
-          ><el-icon><Download /></el-icon>导出</el-button
+          ><el-icon><Download /></el-icon>导出</el-link
         >
       </div>
     </div>
 
     <!-- 数据列表 -->
     <DataTable
-      class="mt-md"
+      class="mt-sm"
       v-loading="loading"
-      :list="list"
+      :data="list"
       @on-success="resetData"
       @sort-change="handleSortChange"
+      @selection-change="handleSelectionChange"
     />
 
     <!-- 翻页 -->
@@ -107,6 +154,7 @@ import { useGroupStore } from '@/store/group-store.js'
 import { mapState, mapActions } from 'pinia'
 import UpdateDomainInfo from './UpdateDomainInfo.vue'
 import CheckDomainInfo from './CheckDomainInfo.vue'
+import ConditionFilter from './ConditionFilter.vue'
 
 export default {
   name: 'domain-list',
@@ -119,6 +167,7 @@ export default {
     SelectGroup,
     UpdateDomainInfo,
     CheckDomainInfo,
+    ConditionFilter,
   },
 
   data() {
@@ -139,6 +188,11 @@ export default {
 
       order_type: 'ascending',
       order_prop: 'expire_days',
+
+      hasInitData: false,
+
+      ConditionFilterParams: [],
+      selectedRows: [],
     }
   },
 
@@ -146,6 +200,13 @@ export default {
     ...mapState(useGroupStore, {
       groupOptions: 'getGroupOptions',
     }),
+    showBatchDeleteButton() {
+      if (this.selectedRows && this.selectedRows.length > 0) {
+        return true
+      } else {
+        return false
+      }
+    },
   },
 
   methods: {
@@ -174,6 +235,17 @@ export default {
         order_prop: this.order_prop,
       }
 
+      // 筛选参数
+      for (let item of this.ConditionFilterParams) {
+        if (item.selected && item.selected.length > 0) {
+          if (item.maxCount == 1) {
+            params[item.field] = item.selected[0]
+          } else {
+            params[item.field] = item.selected
+          }
+        }
+      }
+
       const res = await this.$http.getDomainList(params)
 
       if (res.code == 0) {
@@ -187,7 +259,7 @@ export default {
         })
         this.total = res.data.total
       } else {
-        this.$msg.error(e.msg)
+        this.$msg.error(res.msg)
       }
 
       this.loading = false
@@ -283,7 +355,45 @@ export default {
 
       await this.updateGroupOptions()
 
+      this.hasInitData = true
       this.getData()
+    },
+
+    handleSelectionChange(val) {
+      this.selectedRows = val
+      // console.log(val.map((item) => item.id))
+    },
+
+    handleConditionFilterChange(data) {
+      console.log(data)
+      this.ConditionFilterParams = data
+      this.resetData()
+    },
+
+    async handleBatchDeleteConfirm() {
+      let loading = this.$loading({ fullscreen: true })
+
+      let params = {
+        ids: this.selectedRows.map((item) => item.id),
+      }
+
+      try {
+        const res = await this.$http.deleteDomainByIds(params)
+
+        if (res.code == 0) {
+          this.$msg.success('操作成功')
+          this.resetData()
+        } else {
+          this.$msg.error(res.msg)
+        }
+      } catch (e) {
+        console.log(e)
+      } finally {
+        this.$nextTick(() => {
+          // 以服务的方式调用的 Loading 需要异步关闭
+          loading.close()
+        })
+      }
     },
   },
 

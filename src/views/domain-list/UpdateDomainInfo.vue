@@ -1,8 +1,10 @@
 <template>
-  <el-button
+  <el-link
+    :underline="false"
+    type="primary"
     @click="updateAllDomainCertInfoOfUser"
     :disabled="disableUpdateButton"
-    ><el-icon><Refresh /></el-icon>{{ updateText }}</el-button
+    ><el-icon><Refresh /></el-icon>{{ updateText }}</el-link
   >
 </template>
 

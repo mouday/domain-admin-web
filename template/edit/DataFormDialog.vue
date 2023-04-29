@@ -48,7 +48,7 @@ export default {
   data() {
     return {
       // currentRow: null,
-      dialogVisible: false,
+      // dialogVisible: false,
     }
   },
 

@@ -1,9 +1,10 @@
 <template>
-  <el-button
-    class="margin-left--auto"
+  <el-link
+    :underline="false"
+    type="primary"
     @click="checkDomainCert"
     :disabled="disableUpdateButton"
-    ><el-icon><Position /></el-icon>{{ updateText }}</el-button
+    ><el-icon><Position /></el-icon>{{ updateText }}</el-link
   >
 </template>
 
@@ -56,7 +57,7 @@ export default {
         if (res.data.status == false) {
           clearInterval(this.updateTimer)
           this.updateTimer = null
-          
+
           this.$msg.success('操作成功')
 
           this.$emit('on-success')

@@ -8,6 +8,7 @@ export default {
   addDomain: '/addDomain',
   getDomainById: '/getDomainById',
   deleteDomainById: '/deleteDomainById',
+  deleteDomainByIds: '/deleteDomainByIds',
   updateDomainById: '/updateDomainById',
   updateDomainCertInfoById: '/updateDomainCertInfoById',
   getUpdateDomainStatusOfUser: '/getUpdateDomainStatusOfUser',
@@ -19,6 +20,7 @@ export default {
   sendDomainInfoListEmail: '/sendDomainInfoListEmail',
   checkDomainCert: '/checkDomainCert',
   updateDomainSetting: '/updateDomainSetting',
+  getDomainFilterData: '/getDomainFilterData',
   
 
   getAllSystemConfig: '/getAllSystemConfig',

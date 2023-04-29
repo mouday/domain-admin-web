@@ -1,12 +1,16 @@
 <template>
   <div>
     <el-table
-      :data="list"
       stripe
       border
       v-bind="$attrs"
       v-on="$events"
     >
+      <el-table-column
+        type="selection"
+        width="40"
+      />
+
       <!-- 域名 -->
       <el-table-column
         label="域名"
@@ -203,9 +207,8 @@
       >
         <template #default="scope">
           <el-switch
-            style="transform: scale(0.8)"
+            style="transform: scale(0.8);"
             v-model="scope.row.is_monitor"
-            size="mini"
             @change="handleMonitorStatusChange(scope.row, $event)"
           />
         </template>
@@ -323,10 +326,10 @@ export default {
     DomainSettingDialog,
   },
 
+  emits: ['on-success'],
+  
   props: {
-    list: {
-      type: Array,
-    },
+    
   },
 
   computed: {},
