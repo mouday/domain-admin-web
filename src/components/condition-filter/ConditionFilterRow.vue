@@ -231,7 +231,9 @@ export default {
   //   align-items: center;
   //   flex-wrap: wrap;
 
-  font-size: 14px;
+  font-size: 12px;
+  line-height: 18px;
+
   // line-height: 18px;
 }
 
@@ -255,7 +257,7 @@ export default {
 // 标签样式
 .condition-filter__tag {
   cursor: pointer;
-  padding: 1px 6px;
+  padding: 0 6px;
   // margin-right: 8px;
   // height: 18px;
   // margin: 1px;
