@@ -1,0 +1,26 @@
+{
+  "code": 0,
+  "data": {
+    "list": [
+      {
+        "alias": "百度",
+        "check_time": "2022-09-24 22:31:55",
+        "connect_status": true,
+        "create_time": "2022-09-24 22:29:02",
+        "domain": "www.baidu.com",
+        "expire_days": 315,
+        "real_time_expire_days": 314,
+        "expire_time": "2023-08-06 13:16:01",
+        "group_id": 2,
+        "id": 3,
+        "start_time": "2022-07-05 13:16:02",
+        "total_days": 396,
+        "update_time": "2022-09-24 22:29:02",
+        "ip": "110.242.68.3",
+        "notify_status": true
+      }
+    ],
+    "total": 3
+  },
+  "msg": "success"
+}

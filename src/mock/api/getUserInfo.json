@@ -1,0 +1,14 @@
+{
+  "code": 0,
+  "data": {
+    "id": 1,
+    "username": "admin",
+    "avatar_url": "",
+    "before_expire_days": 3,
+    "email_list": ["email@qq.com"],
+    "status": true,
+    "create_time": "2022-10-03 23:07:21",
+    "update_time": "2022-10-08 16:54:08"
+  },
+  "msg": "success"
+}

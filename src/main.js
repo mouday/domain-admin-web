@@ -17,8 +17,14 @@ import { router } from './router/index.js'
 
 import './style/base.less'
 import './style/element-plus.less'
+import { useMock } from './mock/index.js'
 
 import App from './App.vue'
+
+// 使用虚拟数据
+if (import.meta.env.VITE_MODE == 'preview') {
+  useMock()
+}
 
 const app = createApp(App)
 

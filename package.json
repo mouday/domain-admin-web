@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:preview": "vite --mode preview-dev",
     "build": "vite build",
     "build:visualizer": "vite build --mode visualizer",
+    "build:preview": "vite build --mode preview-pro",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -17,6 +19,7 @@
     "file-saver": "^2.0.5",
     "js-cookie": "^3.0.1",
     "lodash": "^4.17.21",
+    "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.22",
     "vue": "^3.2.37",

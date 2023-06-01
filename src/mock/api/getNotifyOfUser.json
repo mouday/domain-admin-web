@@ -1,0 +1,16 @@
+{
+    "code": 0,
+    "data": {
+      "create_time": "2022-10-14 18:15:21",
+      "id": 1,
+      "type_id": 1,
+      "update_time": "2022-10-14 18:15:21",
+      "user_id": 1,
+      "value": {
+        "email_list": [
+          "123456@qq.com"
+        ]
+      }
+    },
+    "msg": "success"
+  }

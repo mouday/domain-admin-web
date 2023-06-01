@@ -1,0 +1,21 @@
+{
+    "code": 0,
+    "data": {
+      "list": [
+        {
+          "id": 1,
+          "username": "admin",
+          "status": true,
+          "avatar_url": "https://www.image.com/image.png",
+          "before_expire_days": 1,
+          "email_list": [
+            "123@qq.com"
+          ],
+          "create_time": "2022-10-03 23:07:21",
+          "update_time": "2022-10-11 17:52:56"
+        }
+      ],
+      "total": 1
+    },
+    "msg": "success"
+  }
