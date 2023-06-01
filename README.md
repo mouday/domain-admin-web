@@ -6,6 +6,8 @@
 
 预览地址：[https://mouday.github.io/domain-admin-web/](https://mouday.github.io/domain-admin-web/)
 
+账号密码随意，预览模式仅提供模拟数据，无法操作修改
+
 ## 分支说明
 
 - `master` 分支为源码
