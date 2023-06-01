@@ -1,6 +1,10 @@
 # domain-admin-web
 
+项目地址：[https://github.com/mouday/domain-admin-web](https://github.com/mouday/domain-admin-web)
+
 该项目是 [domain-admin](https://github.com/mouday/domain-admin) 的前端代码
+
+预览地址：[https://mouday.github.io/domain-admin-web/](https://mouday.github.io/domain-admin-web/)
 
 ## 分支说明
 

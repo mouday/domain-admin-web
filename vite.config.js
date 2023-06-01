@@ -9,7 +9,6 @@ export default defineConfig((config) => {
   console.log(config)
 
   const viteConfig = {
-    base: './',
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
