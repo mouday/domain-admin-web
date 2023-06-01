@@ -12,6 +12,7 @@
 
 - `master` 分支为源码
 - `dist` 分支为打包产物，直接clone到目录即可：`domain_admin/public`
+- `preview` 分支为在线预览分支：[https://mouday.github.io/domain-admin-web/](https://mouday.github.io/domain-admin-web/)
 
 ### 使用master分支
 
