@@ -39,6 +39,12 @@ export const routes = [
         name: 'group-list',
         component: () => import('@/views/group-list/index.vue'),
       },
+      {
+        path: '/lab',
+        name: 'lab',
+        component: () => import('../views/lab/index.vue'),
+      },
+      
     ],
   },
 ]

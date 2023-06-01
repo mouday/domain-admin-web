@@ -33,6 +33,12 @@
         >监测日志</el-menu-item
       >
 
+      <el-menu-item
+        v-if="isAdmin"
+        index="lab"
+        >实验室</el-menu-item
+      >
+
       <div class="self-center margin-left--auto flex items-center">
         <el-dropdown trigger="hover">
           <el-avatar :src="userInfo && userInfo.avatar_url">

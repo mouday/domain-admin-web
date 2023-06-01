@@ -54,4 +54,7 @@ export default {
   getGroupById: '/getGroupById',
   
   domainRelationGroup: '/domainRelationGroup',
+  
+  // 实验室
+  getWhoisRaw: '/getWhoisRaw',
 }
