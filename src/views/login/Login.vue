@@ -1,47 +1,49 @@
 <template>
-  <div class="login-container">
-    <h3 class="title">Domain Admin</h3>
+  <div class="login-container-wrap">
+    <div class="login-container">
+      <h3 class="title">Domain Admin</h3>
 
-    <el-form
-      class=""
-      ref="form"
-      :model="form"
-      :rules="rules"
-      label-width="auto"
-    >
-      <el-form-item
-        label=""
-        prop="username"
+      <el-form
+        class=""
+        ref="form"
+        :model="form"
+        :rules="rules"
+        label-width="auto"
       >
-        <el-input
-          v-model="form.username"
-          auto-complete="off"
-          placeholder="用户名"
-        />
-      </el-form-item>
+        <el-form-item
+          label=""
+          prop="username"
+        >
+          <el-input
+            v-model="form.username"
+            auto-complete="off"
+            placeholder="用户名"
+          />
+        </el-form-item>
 
-      <el-form-item
-        label=""
-        prop="password"
-      >
-        <el-input
-          v-model="form.password"
-          type="password"
-          auto-complete="off"
-          placeholder="密码"
-          @keypress.enter="onSubmit"
-        />
-      </el-form-item>
-    </el-form>
+        <el-form-item
+          label=""
+          prop="password"
+        >
+          <el-input
+            v-model="form.password"
+            type="password"
+            auto-complete="off"
+            placeholder="密码"
+            @keypress.enter="onSubmit"
+          />
+        </el-form-item>
+      </el-form>
 
-    <div>
-      <el-button
-        class="w-full mt-md"
-        type="primary"
-        size="large"
-        @click.native.prevent="onSubmit"
-        >登 录</el-button
-      >
+      <div>
+        <el-button
+          class="w-full mt-md"
+          type="primary"
+          size="large"
+          @click.native.prevent="onSubmit"
+          >登 录</el-button
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -132,6 +134,19 @@ export default {
 <style lang="less"></style>
 
 <style scoped>
+.login-container-wrap {
+  height: 100%;
+  /* background-color: #1e222d; */
+
+  
+  background-color: #1e222d;
+  /* padding-top: 180px; */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .login-wrap {
   /* height: 100vh;
   display: flex;
@@ -149,12 +164,14 @@ export default {
   border-radius: 5px;
   /* -moz-border-radius: 5px; */
   background-clip: padding-box;
-  margin: 180px auto;
+  /* margin: 180px auto; */
   width: 350px;
   padding: 35px;
-  background: #fff;
+  /* background: #fff; */
   border: 1px solid #eaeaea;
-  box-shadow: 0 0 25px #cac6c6;
+  /* background-color: #1e222d; */
+  background-color: #f3f4f7;
+  /* box-shadow: 0 0 25px #cac6c6; */
 }
 
 .title {
@@ -162,6 +179,8 @@ export default {
   margin-bottom: 30px;
   text-align: center;
   color: #505458;
+  /* color: #ffffff; */
+  font-weight: bold;
   font-size: 26px;
 }
 </style>
