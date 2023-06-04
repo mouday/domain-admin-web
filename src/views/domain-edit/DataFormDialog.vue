@@ -56,9 +56,9 @@ export default {
   computed: {
     dialogTitle() {
       if (this.row) {
-        return '编辑'
+        return '编辑域名'
       } else {
-        return '添加'
+        return '添加域名'
       }
     },
 
@@ -77,6 +77,7 @@ export default {
     handleClose() {
       // console.log('handleClose');
       // this.dialogVisible = false
+      this.$emit('on-success')
       this.$emit('update:visible', false)
     },
 

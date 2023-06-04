@@ -12,18 +12,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@element-plus/icons-vue": "^2.0.9",
+    "@element-plus/icons-vue": "^2.1.0",
     "axios": "^0.27.2",
     "dayjs": "^1.11.7",
-    "element-plus": "^2.2.17",
+    "element-plus": "^2.3.6",
     "file-saver": "^2.0.5",
     "js-cookie": "^3.0.1",
     "lodash": "^4.17.21",
     "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
-    "pinia": "^2.0.22",
-    "vue": "^3.2.37",
-    "vue-router": "^4.0.13"
+    "pinia": "^2.1.3",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.2"
   },
   "devDependencies": {
     "@more-copy/console-plugin": "^1.0.0",

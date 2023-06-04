@@ -1,17 +1,16 @@
 <template>
   <!-- 编辑框 -->
   <el-dialog
-    title="域名详情"
+    :title="dialogTitle"
     v-model="dialogVisible"
     width="400px"
     center
     append-to-body
-    :lock-scroll="false"
-    @close="handleDialogClose"
   >
     <DataForm
       v-if="dialogVisible"
       :row="row"
+      :domainId="domainId"
       @on-cancel="handleClose"
       @on-success="handleSuccess"
     ></DataForm>
@@ -20,7 +19,7 @@
 
 <script>
 /**
- * created 2022-10-01
+ * created 2023-06-03
  */
 import DataForm from './DataForm.vue'
 
@@ -38,6 +37,11 @@ export default {
     visible: {
       type: Boolean,
       default: false,
+    },
+
+    domainId: {
+      type: Number,
+      default: null,
     },
   },
 
@@ -57,9 +61,9 @@ export default {
   computed: {
     dialogTitle() {
       if (this.row) {
-        return '编辑'
+        return '编辑主机地址'
       } else {
-        return '添加'
+        return '添加主机地址'
       }
     },
 
@@ -67,6 +71,7 @@ export default {
       get() {
         return this.visible
       },
+
       set(val) {
         this.$emit('update:visible', val)
       },
@@ -75,21 +80,15 @@ export default {
 
   methods: {
     handleClose() {
-      this.dialogVisible = false
-      // this.$emit('update:visible', false)
+      this.$emit('update:visible', false)
     },
 
     handleOpen() {
-      this.dialogVisible = true
-      // this.$emit('update:visible', true)
+      this.$emit('update:visible', true)
     },
 
     handleSuccess() {
       this.handleClose()
-      // this.$emit('on-success')
-    },
-
-    handleDialogClose() {
       this.$emit('on-success')
     },
   },

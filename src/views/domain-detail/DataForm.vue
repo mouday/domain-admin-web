@@ -4,88 +4,52 @@
      
     </div> -->
 
-    <div class="mo-form-detail grid grid-cols-2 mt-sm">
-      <el-form
+    <!-- <div class="mo-form-detail grid grid-cols-2"> -->
+    <!-- <el-form
         ref="form"
         :model="form"
         label-width="130px"
-      >
-        <!-- 域名 -->
+      > -->
+    <!-- 域名 -->
 
-        <el-form-item
-          label="域名"
-          prop="domain"
-        >
-          <el-link
-            :underline="false"
-            :href="form.domain_url"
-            target="_blank"
-            >{{ form.domain }}</el-link
-          >
-        </el-form-item>
+    <!-- ip -->
 
-        <!-- ip -->
-
-        <el-form-item
+    <!-- <el-form-item
           label="ip"
           prop="ip"
         >
           <span>{{ form.ip || '-' }}</span>
-        </el-form-item>
+        </el-form-item> -->
 
-        <!-- 创建时间 -->
-
-        <el-form-item
-          label="域名注册时间"
-          prop="create_time"
-        >
-          <span>{{ form.domain_start_time || '-' }}</span>
-        </el-form-item>
-
-        <el-form-item
-          label="域名到期时间"
-          prop="create_time"
-        >
-          <span>{{ form.domain_expire_time || '-' }}</span>
-        </el-form-item>
-
-        <el-form-item
-          label="域名剩余天数"
-          prop="create_time"
-        >
-          <!-- <span>{{ form.real_time_domain_expire_days || '-' }}</span> -->
-          <ExpireDays :value="form.real_time_domain_expire_days"></ExpireDays>
-        </el-form-item>
-
-        <el-form-item
+    <!-- <el-form-item
           label="创建时间"
           prop="create_time"
         >
           <span>{{ form.create_time || '-' }}</span>
-        </el-form-item>
+        </el-form-item> -->
 
-        <!-- <el-form-item
+    <!-- <el-form-item
           label="颁发者.公用名"
           prop="expire_days"
         >
           <span class="truncate">{{ form.detail.issuer.CN || '-' }}</span> -->
-        <!-- </el-form-item> -->
+    <!-- </el-form-item> -->
 
-        <!-- <el-form-item
+    <!-- <el-form-item
           label="颁发者.组织"
           prop="expire_days"
         >
           <span class="truncate">{{ form.detail.issuer.O || '-' }}</span>
         </el-form-item> -->
 
-        <!-- <el-form-item
+    <!-- <el-form-item
           label="颁发者.组织单位"
           prop="expire_days"
         >
           <span class="truncate">{{ form.detail.issuer.OU || '-' }}</span>
         </el-form-item> -->
 
-        <!-- <el-form-item
+    <!-- <el-form-item
           label="物理位置"
           prop="isp"
         >
@@ -95,27 +59,29 @@
           <span>&nbsp;</span>
           <span>{{ ipInfo.county || '-' }}</span>
         </el-form-item> -->
-      </el-form>
+    <!-- </el-form> -->
 
-      <el-form
+    <!-- <el-form
         ref="form"
         :model="form"
         label-width="130px"
-      >
-        <!-- ip -->
+      > -->
+    <!-- 创建时间 -->
 
-        <!-- 域名连接状态 -->
+    <!-- ip -->
 
-        <el-form-item
+    <!-- 域名连接状态 -->
+
+    <!-- <el-form-item
           label="域名连接状态"
           prop="connect_status"
         >
           <ConnectStatus :value="form.connect_status"></ConnectStatus>
-        </el-form-item>
+        </el-form-item> -->
 
-        <!-- 证书检查时间 -->
+    <!-- 证书检查时间 -->
 
-        <el-form-item
+    <!-- <el-form-item
           label="检查时间"
           prop="check_time"
         >
@@ -129,90 +95,164 @@
               ><el-icon><Refresh /></el-icon><span> 更新</span></el-link
             >
           </div>
-        </el-form-item>
+        </el-form-item> -->
 
-        <!-- 证书颁发时间 -->
+    <!-- 证书颁发时间 -->
 
-        <el-form-item
+    <!-- <el-form-item
           label="证书颁发时间"
           prop="start_time"
         >
           <span>{{ form.start_time || '-' }}</span>
-        </el-form-item>
+        </el-form-item> -->
 
-        <!-- 证书过期时间 -->
+    <!-- 证书过期时间 -->
 
-        <el-form-item
+    <!-- <el-form-item
           label="证书过期时间"
           prop="expire_time"
         >
           <span>{{ form.expire_time || '-' }}</span>
-        </el-form-item>
+        </el-form-item> -->
 
-        <!-- 过期剩余天数 -->
+    <!-- 过期剩余天数 -->
 
-        <el-form-item
+    <!-- <el-form-item
           label="过期剩余天数"
           prop="real_time_expire_days"
-        >
-          <!-- <span class="el-text-color-primary">{{
+        > -->
+    <!-- <span class="el-text-color-primary">{{
              form.real_time_expire_days || form.expire_days || '-'
           }}</span> -->
 
-          <ExpireDays :value="form.real_time_expire_days"></ExpireDays>
-        </el-form-item>
+    <!-- <ExpireDays :value="form.real_time_expire_days"></ExpireDays>
+        </el-form-item> -->
 
-        <!-- 有效期总天数 -->
+    <!-- 有效期总天数 -->
 
-        <!-- <el-form-item
+    <!-- <el-form-item
           label="有效期总天数"
           prop="total_days"
         >
           <span>{{ form.total_days || '-' }}</span>
         </el-form-item> -->
 
-        <!-- <el-form-item
+    <!-- <el-form-item
           label="颁发对象.公用名"
           prop="subject"
         >
           <span class="truncate">{{ form.detail.subject.CN || '-' }}</span>
         </el-form-item> -->
 
-        <!-- <el-form-item
+    <!-- <el-form-item
           label="颁发对象.组织"
           prop="subject"
         >
           <span class="truncate">{{ form.detail.subject.O || '-' }}</span>
         </el-form-item> -->
 
-        <!-- <el-form-item
+    <!-- <el-form-item
           label="颁发对象.组织单位"
           prop="subject"
         >
           <span class="truncate">{{ form.detail.subject.OU || '-' }}</span>
         </el-form-item> -->
 
-        <!-- <el-form-item
+    <!-- <el-form-item
           label="网络业务提供商"
           prop="isp"
         >
           <span class="truncate">{{ ipInfo.isp || '-' }}</span>
         </el-form-item> -->
 
-        <el-form-item
+    <!-- <el-form-item
           label="更新时间"
           prop="create_time"
         >
           <span>{{ form.update_time || '-' }}</span>
-        </el-form-item>
-      </el-form>
-    </div>
+        </el-form-item> -->
+    <!-- </el-form>
+    </div> -->
 
     <div
       class="mo-form-detail"
-      style="margin-top: 20px"
+      style="margin-top: -1px"
     >
       <el-form label-width="130px">
+        <el-form-item
+          label="域名"
+          prop="domain"
+        >
+          <el-link
+            :underline="false"
+            :href="form.domain_url"
+            target="_blank"
+            >{{ form.domain }}</el-link
+          >
+        </el-form-item>
+
+        <el-form-item
+          label="端口号"
+          prop="domain"
+        >
+          <span>{{ form.port || '-' }}</span>
+        </el-form-item>
+
+        <el-form-item
+          label="注册时间"
+          prop="create_time"
+        >
+          <span>{{ form.domain_start_time || '-' }}</span>
+        </el-form-item>
+
+        <el-form-item
+          label="到期时间"
+          prop="create_time"
+        >
+          <span>{{ form.domain_expire_time || '-' }}</span>
+        </el-form-item>
+
+        <el-form-item
+          label="剩余天数"
+          prop="create_time"
+        >
+          <!-- <span>{{ form.real_time_domain_expire_days || '-' }}</span> -->
+          <ExpireDays :value="form.real_time_domain_expire_days"></ExpireDays>
+        </el-form-item>
+
+        <el-form-item
+          label="检查时间"
+          prop="isp"
+        >
+          <div class="flex justify-between flex-1">
+            <span class="truncate">{{
+              form.domain_check_time_label || '-'
+            }}</span>
+
+            <el-link
+              :underline="false"
+              type="primary"
+              class="mr-sm"
+              @click="handleUpdateRowDomainInfo"
+              ><el-icon><Refresh /></el-icon
+            ></el-link>
+          </div>
+        </el-form-item>
+
+        <el-form-item
+          label="自动更新"
+          prop="isp"
+        >
+          <span class="truncate">{{ form.domain_auto_update || '-' }}</span>
+        </el-form-item>
+
+        <el-form-item
+          label="过期监测"
+          prop="isp"
+        >
+          <span class="truncate">{{ form.domain_expire_monitor || '-' }}</span>
+        </el-form-item>
+
         <el-form-item
           label="备注"
           prop="isp"
@@ -222,14 +262,16 @@
       </el-form>
     </div>
 
+    <!-- <AddressList :domainId="row.id"></AddressList> -->
+
     <!-- 操作 -->
-    <div class="text-center mt-md">
+    <!-- <div class="text-center mt-md">
       <el-button
         type="primary"
         @click="handleCancel"
         >关 闭</el-button
       >
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -246,6 +288,7 @@
  * */
 import ConnectStatus from '@/components/ConnectStatus.vue'
 import ExpireDays from '@/components/ExpireDays.vue'
+import AddressList from '@/components/address-list/index.vue'
 
 export default {
   name: '',
@@ -258,6 +301,7 @@ export default {
   components: {
     ConnectStatus,
     ExpireDays,
+    AddressList,
   },
 
   data() {
@@ -294,7 +338,11 @@ export default {
         domain_start_time: '',
         domain_expire_time: '',
         real_time_domain_expire_days: '',
-        alias: ''
+        alias: '',
+        domain_auto_update: '',
+        domain_expire_monitor: '',
+        domain_check_time_label: '',
+        port: '',
       },
 
       // ip信息
@@ -344,7 +392,14 @@ export default {
         // 创建时间
         this.form.create_time = data.create_time
         this.form.update_time = data.update_time
-        
+
+        this.form.domain_auto_update =
+          data.domain_auto_update == true ? '是' : '否'
+        this.form.domain_expire_monitor =
+          data.domain_expire_monitor == true ? '是' : '否'
+        this.form.domain_check_time_label = data.domain_check_time_label
+        this.form.port = data.port
+
         // 备注
         this.form.alias = data.alias
 
@@ -375,7 +430,7 @@ export default {
       })
 
       let params = {
-        id: this.row.id,
+        domain_id: this.row.id,
       }
 
       const res = await this.$http.updateDomainCertInfoById(params)

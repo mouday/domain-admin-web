@@ -37,7 +37,7 @@ edit:
 	mcp edit $(name) $(data) edit/DataFormDailog.vue DataFormDailog.vue
 
 # make all name= data=
-# eg: $ make all name=user-admin data=./data/user.cjs
+# eg: $ make all name=address data=./data/address.json
 all:
 	make list
 	make edit

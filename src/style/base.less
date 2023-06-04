@@ -7,21 +7,30 @@
 //   // overflow-y: overlay;
 // }
 
-html {
-  overflow-y: scroll;
-}
+// html {
+//   overflow-y: scroll;
+// }
 
-:root {
-  overflow-y: auto;
-  overflow-x: hidden;
-}
+// :root {
+//   overflow-y: auto;
+//   overflow-x: hidden;
+// }
 
-:root body {
-  position: absolute;
+// :root body {
+//   position: absolute;
+// }
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  width: 100vw;
+  // width: 100vw;
+  // height: 100%;
   // 该属性导致bug
   // 使用检索功能精准检索，检索结果只有一条，然后编辑这一条，“分组”下拉列表打不开
   // overflow: hidden;
@@ -34,7 +43,8 @@ body {
 }
 
 .app-container {
-  padding: 20px 0;
+  padding: 20px;
+  background-color: #ffffff;
   // background: rgba(0,0,0,0.02);
 }
 

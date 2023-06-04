@@ -1,0 +1,15 @@
+{
+    "table": {
+      "columns": [
+        { "comment": "主机地址", "name": "host", "default": "" },
+        { "comment": "主机连接状态", "name": "host_connect_status", "default": "" },
+        { "comment": "主机检查时间", "name": "host_check_time", "default": "" },
+
+        { "comment": "证书颁发时间", "name": "ssl_start_time", "default": "" },
+        { "comment": "证书过期时间", "name": "ssl_expire_time", "default": "" },
+        { "comment": "证书检查时间", "name": "ssl_check_time", "default": "" },
+        { "comment": "过期剩余天数", "name": "ssl_expire_days", "default": "" }
+      ]
+    }
+  }
+  

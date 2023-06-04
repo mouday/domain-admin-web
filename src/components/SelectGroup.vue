@@ -33,14 +33,17 @@ export default {
     ...mapState(useGroupStore, {
       groupOptions: 'getGroupOptions',
     }),
+    
     options() {
-      return [
-        ...this.groupOptions,
-        {
-          value: 0,
-          label: '未分组',
-        },
-      ]
+      return this.groupOptions;
+
+      // [
+      //   ...this.groupOptions,
+      //   {
+      //     value: 0,
+      //     label: '未分组',
+      //   },
+      // ]
     },
   },
 

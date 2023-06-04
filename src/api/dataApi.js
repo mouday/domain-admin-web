@@ -11,6 +11,7 @@ export default {
   deleteDomainByIds: '/deleteDomainByIds',
   updateDomainById: '/updateDomainById',
   updateDomainCertInfoById: '/updateDomainCertInfoById',
+  updateDomainRowInfoById: '/updateDomainRowInfoById',
   getUpdateDomainStatusOfUser: '/getUpdateDomainStatusOfUser',
   getCheckDomainStatusOfUser: '/getCheckDomainStatusOfUser',
   updateAllDomainCertInfoOfUser: '/updateAllDomainCertInfoOfUser',
@@ -57,4 +58,14 @@ export default {
   
   // 实验室
   getWhoisRaw: '/getWhoisRaw',
+
+  // 主机地址
+  getAddressListByDomainId: '/getAddressListByDomainId',
+  addAddress: '/addAddress',
+  deleteAddressById: '/deleteAddressById',
+  getAddressById: '/getAddressById',
+  updateAddressById: '/updateAddressById',
+  updateAddressListInfoByDomainId: '/updateAddressListInfoByDomainId',
+  updateAddressRowInfoById: '/updateAddressRowInfoById',
+
 }

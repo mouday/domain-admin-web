@@ -1,8 +1,16 @@
 <template>
   <div class="app-layout">
-    <Menu></Menu>
-    <div>
-      <router-view></router-view>
+    <Header></Header>
+
+    <div class="app-layout__main">
+      <Menu></Menu>
+
+      <div class="app-layout__body">
+        <!-- <div class="app-layout__path">{{ currentPathName }}</div> -->
+        <div class="app-layout__view">
+          <router-view></router-view>
+        </div>
+      </div>
     </div>
     <Footer></Footer>
   </div>
@@ -12,6 +20,7 @@
 // created at 2022-10-01
 import Menu from './Menu.vue'
 import Footer from './Footer.vue'
+import Header from './Header.vue'
 
 export default {
   name: 'index',
@@ -20,14 +29,20 @@ export default {
 
   components: {
     Menu,
-    Footer
+    Footer,
+    Header,
   },
 
   data() {
     return {}
   },
 
-  computed: {},
+  computed: {
+    currentPathName() {
+      console.log(this.$route)
+      return this.$route.meta.title
+    },
+  },
 
   methods: {
     async getData() {},
@@ -41,7 +56,34 @@ export default {
 
 <style lang="less">
 .app-layout {
-  width: 1000px;
+  // width: 1000px;
+  height: 100%;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-layout__main {
+  display: flex;
+  flex: 1;
+  height: 0;
+}
+
+.app-layout__body {
+  flex: 1;
+  background-color: #f3f4f7;
+  height: 100%;
+  overflow: auto;
+  overflow-y: overlay;
+  padding: 10px 20px 20px;
+}
+
+.app-layout__path {
+  color: #333;
+  font-size: 12px;
+}
+
+.app-layout__view {
+  padding-top: 10px;
 }
 </style>

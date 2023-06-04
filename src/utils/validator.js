@@ -31,3 +31,18 @@ export function isJson(value) {
 export function isObject(value) {
   return Object.prototype.toString.call(value) == '[object Object]'
 }
+
+/**
+ * 判断字符串是否为纯数字
+ * @param {*} value
+ * @returns
+ */
+export function isNumber(value) {
+  // 转为字符串
+  if (typeof value != 'string') {
+    value = '' + value
+  }
+
+  let reg = /^\d+$/
+  return reg.test(value)
+}

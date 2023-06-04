@@ -1,6 +1,6 @@
 <template>
   <div class="login-container">
-    <h3 class="title">登录</h3>
+    <h3 class="title">Domain Admin</h3>
 
     <el-form
       class=""

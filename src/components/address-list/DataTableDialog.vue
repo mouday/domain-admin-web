@@ -1,28 +1,28 @@
 <template>
   <!-- 编辑框 -->
   <el-dialog
-    title="域名详情"
+    title="域名主机"
     v-model="dialogVisible"
-    width="400px"
+    width="900px"
     center
     append-to-body
-    :lock-scroll="false"
     @close="handleDialogClose"
   >
-    <DataForm
+    <DataTableIndex
       v-if="dialogVisible"
       :row="row"
+      :domainId="domainId"
       @on-cancel="handleClose"
       @on-success="handleSuccess"
-    ></DataForm>
+    ></DataTableIndex>
   </el-dialog>
 </template>
 
 <script>
 /**
- * created 2022-10-01
+ * created 2022-10-11
  */
-import DataForm from './DataForm.vue'
+import DataTableIndex from './index.vue'
 
 export default {
   name: '',
@@ -39,12 +39,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    domainId: {
+      type: Number,
+      default: null,
+    },
   },
 
-  emits: ['update:visible'],
-
   components: {
-    DataForm,
+    DataTableIndex,
   },
 
   data() {
@@ -76,22 +78,18 @@ export default {
   methods: {
     handleClose() {
       this.dialogVisible = false
-      // this.$emit('update:visible', false)
     },
 
     handleOpen() {
       this.dialogVisible = true
-      // this.$emit('update:visible', true)
     },
 
     handleSuccess() {
       this.handleClose()
-      // this.$emit('on-success')
-    },
-
-    handleDialogClose() {
       this.$emit('on-success')
     },
+
+    handleDialogClose() {},
   },
 
   created() {},

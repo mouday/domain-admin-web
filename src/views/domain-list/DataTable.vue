@@ -16,7 +16,7 @@
         label="域名"
         header-align="center"
         align="center"
-        width="180"
+        width="250"
         show-overflow-tooltip
         prop="domain"
       >
@@ -80,10 +80,24 @@
         label="证书天数"
         header-align="center"
         align="center"
-        width="120"
+        width="150"
         sortable="custom"
         prop="expire_days"
       >
+        <template #header>
+          <el-tooltip
+            effect="dark"
+            content="如有多个主机IP地址，此处仅显示到期时间最短的证书"
+            placement="top-start"
+            :show-after="800"
+          >
+            <div class="inline-flex items-center">
+              <span class="mr-[2px]">证书天数</span>
+              <el-icon><Warning /></el-icon>
+            </div>
+          </el-tooltip>
+        </template>
+
         <template #default="scope">
           <!-- <ExpireDays :value="scope.row.real_time_expire_days"></ExpireDays> -->
 
@@ -99,10 +113,10 @@
 
       <!-- 域名连接状态 -->
       <el-table-column
-        label="状态"
+        label="主机状态"
         header-align="center"
         align="center"
-        width="60"
+        width="120"
         prop="connect_status"
       >
         <template #default="scope">
@@ -199,7 +213,7 @@
         </template>
       </el-table-column> -->
 
-      <el-table-column
+      <!-- <el-table-column
         label="监测"
         width="66"
         header-align="center"
@@ -212,11 +226,11 @@
             @change="handleMonitorStatusChange(scope.row, $event)"
           />
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column
         label="操作"
-        width="140"
+        width="160"
         header-align="center"
         align="center"
       >
@@ -233,6 +247,15 @@
             :underline="false"
             type="primary"
             class="mr-sm"
+            @click="handleShowAddressListgDialog(scope.row)"
+            ><el-icon><Files /></el-icon
+          ></el-link>
+
+          <el-link
+            :underline="false"
+            type="primary"
+            class="mr-sm"
+            :disabled="!scope.row.domain_auto_update"
             @click="handleUpdateRowDomainInfo(scope.row)"
             ><el-icon><Refresh /></el-icon
           ></el-link>
@@ -300,6 +323,14 @@
       v-model:visible="DomainSettingDialogVisible"
       @on-success="handleUpdateSuccess"
     ></DomainSettingDialog>
+
+    <!-- 域名主机列表 -->
+    <AddressListgDialog
+      v-if="currentRow"
+      :domainId="currentRow.id"
+      v-model:visible="AddressListgDialogVisible"
+      @on-success="handleUpdateSuccess"
+    ></AddressListgDialog>
   </div>
 </template>
 
@@ -313,6 +344,7 @@ import ConnectStatus from '@/components/ConnectStatus.vue'
 import ExpireDays from '@/components/ExpireDays.vue'
 import ExpireProgress from '@/components/ExpireProgress.vue'
 import DomainSettingDialog from '@/views/domain-setting/DomainSettingDialog.vue'
+import AddressListgDialog from '@/components/address-list/DataTableDialog.vue'
 
 export default {
   name: '',
@@ -324,13 +356,12 @@ export default {
     ExpireDays,
     ExpireProgress,
     DomainSettingDialog,
+    AddressListgDialog,
   },
 
   emits: ['on-success'],
-  
-  props: {
-    
-  },
+
+  props: {},
 
   computed: {},
 
@@ -341,6 +372,7 @@ export default {
       dialogDetailVisible: false,
 
       DomainSettingDialogVisible: false,
+      AddressListgDialogVisible: false,
     }
   },
 
@@ -408,7 +440,7 @@ export default {
         id: row.id,
       }
 
-      const res = await this.$http.updateDomainCertInfoById(params)
+      const res = await this.$http.updateDomainRowInfoById(params)
 
       if (res.code == 0) {
         this.$msg.success('操作成功')
@@ -434,6 +466,11 @@ export default {
     handleDomainSettingDialogShow(row) {
       this.currentRow = row
       this.DomainSettingDialogVisible = true
+    },
+
+    handleShowAddressListgDialog(row) {
+      this.currentRow = row
+      this.AddressListgDialogVisible = true
     },
   },
 

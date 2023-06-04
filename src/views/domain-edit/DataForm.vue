@@ -4,10 +4,9 @@
       ref="form"
       :model="form"
       :rules="rules"
-      label-width="80px"
+      label-width="60px"
     >
       <!-- 域名 -->
-
       <el-form-item
         label="域名"
         prop="domain"
@@ -16,11 +15,23 @@
           type="text"
           v-model="form.domain"
           placeholder="请输入域名"
+          :disabled="disabledDomain"
+        ></el-input>
+      </el-form-item>
+
+      <!-- 端口 -->
+      <el-form-item
+        label="端口"
+        prop="port"
+      >
+        <el-input
+          type="text"
+          v-model="form.port"
+          placeholder="请输入端口"
         ></el-input>
       </el-form-item>
 
       <!-- 分组 -->
-
       <el-form-item
         label="分组"
         prop="group_id"
@@ -32,6 +43,7 @@
         ></SelectGroup>
       </el-form-item>
 
+      <!-- 备注 -->
       <el-form-item
         label="备注"
         prop="alias"
@@ -88,23 +100,30 @@ export default {
     return {
       loading: false,
 
-      rules: formRules,
-
-      // 引入枚举值
-
       form: {
         // 域名
         domain: '',
         // 备注
         alias: '',
-
+        // 端口
+        port: 443,
         // 分组
         group_id: '',
       },
+
+      rules: formRules,
     }
   },
 
-  computed: {},
+  computed: {
+    disabledDomain() {
+      if (this.row) {
+        return true
+      } else {
+        return false
+      }
+    },
+  },
 
   methods: {
     async getData() {
@@ -123,7 +142,8 @@ export default {
         this.form.domain = data.domain
         this.form.alias = data.alias
         this.form.group_id = data.group_id
-        
+        this.form.port = data.port
+
         if (this.form.group_id == 0) {
           this.form.group_id = ''
         }
@@ -139,7 +159,11 @@ export default {
 
     // 提交
     handleSubmit() {
+      console.log('handleSubmit', this.form)
+
       this.$refs['form'].validate((valid) => {
+        console.log(valid)
+
         if (valid) {
           this.confirmSubmit()
         } else {
@@ -156,6 +180,7 @@ export default {
         domain: this.form.domain.trim(),
         alias: this.form.alias.trim(),
         group_id: this.form.group_id,
+        port: this.form.port,
       }
 
       let res = null

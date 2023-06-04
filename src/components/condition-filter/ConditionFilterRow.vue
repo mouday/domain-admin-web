@@ -223,7 +223,7 @@ export default {
 </script>
 
 <style lang="less">
-@base-color: #409eff;
+@base-color: var(--el-color-primary, #409eff);
 
 // 筛选器
 .condition-filter {

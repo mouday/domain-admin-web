@@ -7,6 +7,7 @@
     center
     append-to-body
     :lock-scroll="false"
+    @close="handleDialogClose"
   >
     <DataTableIndex
       v-if="dialogVisible"
@@ -81,6 +82,9 @@ export default {
 
     handleSuccess() {
       this.handleClose()
+    },
+
+    handleDialogClose() {
       this.$emit('on-success')
     },
   },

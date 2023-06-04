@@ -1,129 +1,67 @@
 <template>
-  <div class="">
+  <div class="layout__menu-wrap">
     <el-menu
       :default-active="activeIndex"
       :ellipsis="false"
-      class="el-menu-demo"
-      mode="horizontal"
+      class="layout__menu"
+      mode="vertical"
       router
       menu-trigger="click"
       @select="handleSelect"
+      :collapse="isCollapse"
     >
-      <el-menu-item index="domain-list">域名管理</el-menu-item>
-      
-      <el-menu-item index="group-list">分组管理</el-menu-item>
-
-      <el-menu-item index="notify-edit">通知设置</el-menu-item>
-
       <el-menu-item
-        v-if="isAdmin"
-        index="user-admin-list"
-        >用户管理</el-menu-item
+        v-for="route in showRoutes"
+        :index="route.name"
       >
-
-      <el-menu-item
-        v-if="isAdmin"
-        index="system-list"
-        >系统设置</el-menu-item
-      >
-
-      <el-menu-item
-        v-if="isAdmin"
-        index="log-scheduler-list"
-        >监测日志</el-menu-item
-      >
-
-      <el-menu-item
-        v-if="isAdmin"
-        index="lab"
-        >实验室</el-menu-item
-      >
-
-      <div class="self-center margin-left--auto flex items-center">
-        <el-dropdown trigger="hover">
-          <el-avatar :src="userInfo && userInfo.avatar_url">
-            <img src="https://api.multiavatar.com/domain-admin.png" />
-          </el-avatar>
-
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item
-                @click="handleUserInfoEditOpen"
-                class="justify-center"
-                >个人设置</el-dropdown-item
-              >
-
-              <el-dropdown-item
-                @click="handleUpdatePasswordClick"
-                class="justify-center"
-                >修改密码</el-dropdown-item
-              >
-
-              <el-dropdown-item
-                @click="handleAboutClick"
-                class="justify-center"
-                >关于</el-dropdown-item
-              >
-
-              <el-dropdown-item
-                @click="handleLogoutClick"
-                class="justify-center"
-                >退出</el-dropdown-item
-              >
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
-      </div>
+        <el-icon>
+          <component :is="route.meta.icon"></component>
+        </el-icon>
+        <span>{{ route.meta.title }}</span>
+      </el-menu-item>
     </el-menu>
 
-    <!-- 修改密码 -->
-    <UserPaswordEditDataFormDailog
-      v-model:visible="dialogVisible"
-      @on-success="handleUserPaswordEditSuccess"
-      @on-cancel="handleUserPaswordEditClose"
-    ></UserPaswordEditDataFormDailog>
-
-    <!-- 修改个人设置 -->
-    <UserDataFormDailig
-      v-model:visible="userDialogVisible"
-      @on-success="handleUserInfoEditClose"
-      @on-cancel="handleUserInfoEditClose"
-    ></UserDataFormDailig>
-
-    <!-- 关于 -->
-    <AboutDataFormDailig
-      v-model:visible="aboutDialogVisible"
-    ></AboutDataFormDailig>
+    <!-- 展开收起 -->
+    <div class="layout__menu__collapse-wrap">
+      <div class="layout__menu__collapse">
+        <el-link
+          v-if="isCollapse"
+          :underline="false"
+          @click="handleOpen"
+          ><el-icon><CaretRight /></el-icon
+        ></el-link>
+        <el-link
+          v-else
+          :underline="false"
+          @click="handleClose"
+          ><el-icon><CaretLeft /></el-icon
+        ></el-link>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 // created at 2022-10-01
 
-import { removeToken } from '@/utils/token-util.js'
+import { routes } from '@/router/routes.js'
+import { hasPermission } from '@/router/util.js'
 import { useUserStore } from '@/store/user-store.js'
+import { useSystemStore } from '@/store/system-store.js'
 import { mapState, mapActions } from 'pinia'
-import UserPaswordEditDataFormDailog from '@/views/user-pasword-edit/DataFormDailog.vue'
-import AboutDataFormDailig from '@/views/about/DataFormDailig.vue'
-import UserDataFormDailig from '@/views/user-edit/DataFormDailig.vue'
 
 export default {
   name: 'Menu',
 
   props: {},
 
-  components: {
-    UserPaswordEditDataFormDailog,
-    AboutDataFormDailig,
-    UserDataFormDailig,
-  },
+  components: {},
 
   data() {
     return {
       activeIndex: '',
-      dialogVisible: false,
-      aboutDialogVisible: false,
-      userDialogVisible: false,
+
+      // isCollapse: false,
     }
   },
 
@@ -131,13 +69,25 @@ export default {
     ...mapState(useUserStore, {
       userInfo: 'userInfo',
       isAdmin: 'isAdmin',
+      userRoles: 'userRoles',
     }),
+
+    ...mapState(useSystemStore, {
+      isCollapse: 'isCollapse',
+    }),
+
+    showRoutes() {
+      return routes
+        .filter((route) => route.name == 'index')[0]
+        .children.filter((x) => {
+          return hasPermission(x.meta.roles, this.userRoles)
+        })
+    },
   },
 
   methods: {
-    ...mapActions(useUserStore, {
-      updateUserInfo: 'updateUserInfo',
-      removeUserInfo: 'removeUserInfo',
+    ...mapActions(useSystemStore, {
+      setIsCollapse: 'setIsCollapse',
     }),
 
     async getData() {},
@@ -149,39 +99,12 @@ export default {
       // })
     },
 
-    handleLogoutClick(data) {
-      //   console.log(data)
-      this.removeUserInfo()
-
-      removeToken()
-
-      this.$router.push({
-        path: '/login',
-      })
+    handleOpen() {
+      this.setIsCollapse(false)
     },
-
-    handleUpdatePasswordClick() {
-      this.dialogVisible = true
-    },
-
-    handleUserPaswordEditClose() {
-      this.dialogVisible = false
-    },
-
-    handleUserPaswordEditSuccess() {
-      this.dialogVisible = false
-    },
-
-    handleUserInfoEditOpen() {
-      this.userDialogVisible = true
-    },
-
-    handleUserInfoEditClose() {
-      this.userDialogVisible = false
-    },
-
-    handleAboutClick() {
-      this.aboutDialogVisible = true
+    
+    handleClose() {
+      this.setIsCollapse(true)
     },
   },
 
@@ -192,6 +115,49 @@ export default {
 }
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+.layout__menu-wrap {
+  flex-shrink: 0;
+  height: 100%;
+  position: relative;
+}
+
+.layout__menu__collapse-wrap {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  cursor: pointer;
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.layout__menu__collapse {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+}
+
+.layout__menu {
+  height: 100%;
+  background-color: #1e222d;
+}
+
+.layout__menu .el-menu-item {
+  // background-color: #1e222d;
+  color: #c1c6c8;
+  height: 50px;
+}
+
+.layout__menu .el-menu-item:hover {
+  background-color: #262f3e;
+}
+
+.layout__menu .el-menu-item.is-active {
+  background-color: #006eff;
+  color: #ffffff;
+}
+</style>
 
 <style lang="less" scoped></style>
