@@ -9,57 +9,59 @@
       {{ title }}
     </div>
 
-    <!-- 清空 -->
-    <div
-      class="condition-filter__tag condition-filter__clear"
-      :class="{ 'condition-filter__tag--seleted': selectedIsEmpty }"
-      @click="handleClear"
-    >
-      不限
-    </div>
-
-    <!-- 筛选项 -->
-    <div class="condition-filter__list-wrap">
-      <!-- 筛选项列表 -->
-      <div class="condition-item__list-box">
-        <div :class="{ 'condition-item__list--overflow': hiddenMore }">
-          <div
-            class="condition-item__list"
-            ref="condition-item__list"
-          >
-            <template v-for="item in options">
-              <div
-                class="condition-filter__tag"
-                :class="{
-                  'condition-filter__tag--seleted':
-                    selected.indexOf(item[valueKey]) > -1,
-                }"
-                @click="handleClick(item)"
-              >
-                <span>{{ item[labelKey] }}</span>
-                <span class="condition-filter__tag__close">
-                  <el-icon><Close /></el-icon>
-                </span>
-              </div>
-            </template>
-          </div>
-        </div>
+    <div class="condition-filter__group_button">
+      <!-- 清空 -->
+      <div
+        class="condition-filter__tag condition-filter__clear"
+        :class="{ 'condition-filter__tag--seleted': selectedIsEmpty }"
+        @click="handleClear"
+      >
+        不限
       </div>
 
-      <!-- 子级 -->
-      <div class="condition-filter__children">
-        <template v-for="item in options">
-          <template v-if="selected.indexOf(item[valueKey]) > -1 && item.child">
-            <ConditionFilter
-              :key="childrenKey"
-              class="condition-filter__child"
-              ref="child"
-              v-bind="item.child"
-              :level="item.level || level + 1"
-              @on-change="handleChildrenChange"
-            ></ConditionFilter>
+      <!-- 筛选项 -->
+      <div class="condition-filter__list-wrap">
+        <!-- 筛选项列表 -->
+        <div class="condition-item__list-box">
+          <div :class="{ 'condition-item__list--overflow': hiddenMore }">
+            <div
+              class="condition-item__list"
+              ref="condition-item__list"
+            >
+              <template v-for="item in options">
+                <div
+                  class="condition-filter__tag"
+                  :class="{
+                    'condition-filter__tag--seleted':
+                      selected.indexOf(item[valueKey]) > -1,
+                  }"
+                  @click="handleClick(item)"
+                >
+                  <span>{{ item[labelKey] }}</span>
+                  <span class="condition-filter__tag__close">
+                    <el-icon><Close /></el-icon>
+                  </span>
+                </div>
+              </template>
+            </div>
+          </div>
+        </div>
+
+        <!-- 子级 -->
+        <div class="condition-filter__children">
+          <template v-for="item in options">
+            <template v-if="selected.indexOf(item[valueKey]) > -1 && item.child">
+              <ConditionFilter
+                :key="childrenKey"
+                class="condition-filter__child"
+                ref="child"
+                v-bind="item.child"
+                :level="item.level || level + 1"
+                @on-change="handleChildrenChange"
+              ></ConditionFilter>
+            </template>
           </template>
-        </template>
+        </div>
       </div>
     </div>
   </div>
@@ -230,18 +232,30 @@ export default {
   display: flex;
   //   align-items: center;
   //   flex-wrap: wrap;
-
   font-size: 12px;
   line-height: 18px;
 
   // line-height: 18px;
 }
 
+.condition-filter__group_button {
+  display: flex;
+  background: #F8F8F8;
+  align-items: center;
+  padding: 0 10px;
+  height: 40px;
+  border: 1px solid transparent;
+  border-radius: 40px;
+}
+
 // 标题
 .condition-filter__title {
+  height: 40px;
   margin-right: 10px;
   margin-top: 1px;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
 }
 
 .condition-filter__clear {
@@ -257,7 +271,9 @@ export default {
 // 标签样式
 .condition-filter__tag {
   cursor: pointer;
-  padding: 0 6px;
+  padding: 3px 6px;
+  border: 1px solid transparent;
+  border-radius: 40px;
   // margin-right: 8px;
   // height: 18px;
   // margin: 1px;
@@ -271,6 +287,7 @@ export default {
 .condition-filter__tag:hover {
   background-color: @base-color; // 全局主题色
   color: #fff;
+  // border-radius: 10px;
 }
 
 // 关闭x

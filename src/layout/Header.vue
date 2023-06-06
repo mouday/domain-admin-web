@@ -1,17 +1,27 @@
 <template>
   <div class="layout__header">
+
+    <div class="menu__button" @click="handleMenuClick">
+      <el-icon style="color: #4F5A76  ; font-size: 20px;"><Menu /></el-icon>
+    </div>
+
+    <img class="layout__header__logo" src="../assets/logo.svg" alt="" srcset="">
     <a
-      class="layout__header__logo"
+      class="layout__header__logo__span"
       href="#"
       >Domain Admin</a
     >
 
     <div class="self-center margin-left--auto flex items-center">
       <el-dropdown trigger="hover">
-        <el-avatar :src="userInfo && userInfo.avatar_url">
-          <img src="https://api.multiavatar.com/domain-admin.png" />
-        </el-avatar>
-
+        <div class="avatar-group">
+          <el-avatar :src="userInfo && userInfo.avatar_url">
+            <img src="https://api.multiavatar.com/domain-admin.png" />
+          </el-avatar>
+          <span>{{username}}</span>
+        </div>
+        
+      
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item
@@ -70,6 +80,7 @@ import AboutDataFormDailig from '@/views/about/DataFormDailig.vue'
 import UserDataFormDailig from '@/views/user-edit/DataFormDailig.vue'
 import { removeToken } from '@/utils/token-util.js'
 import { useUserStore } from '@/store/user-store.js'
+import { useSystemStore } from '@/store/system-store.js'
 import { mapState, mapActions } from 'pinia'
 
 export default {
@@ -88,13 +99,20 @@ export default {
       dialogVisible: false,
       aboutDialogVisible: false,
       userDialogVisible: false,
+      username: '',
     }
+  },
+  created() {
+    this.getData()
   },
 
   computed: {
     ...mapState(useUserStore, {
       userInfo: 'userInfo',
       isAdmin: 'isAdmin',
+    }),
+    ...mapState(useSystemStore, {
+      isCollapse: 'isCollapse',
     }),
   },
 
@@ -103,8 +121,20 @@ export default {
       updateUserInfo: 'updateUserInfo',
       removeUserInfo: 'removeUserInfo',
     }),
+    ...mapActions(useSystemStore, {
+      setIsCollapse: 'setIsCollapse',
+    }),
 
-    async getData() {},
+    async getData() {
+      const res = await this.$http.getUserInfo()
+
+      if (res.code != 0) {
+        return
+      }
+
+      let data = res.data
+      this.username = data.username
+    },
 
     handleLogoutClick(data) {
       //   console.log(data)
@@ -140,6 +170,10 @@ export default {
     handleAboutClick() {
       this.aboutDialogVisible = true
     },
+
+    handleMenuClick() {
+      this.setIsCollapse()
+    },
   },
 
   created() {
@@ -154,18 +188,49 @@ export default {
   justify-content: space-between;
   align-items: center;
 
-  height: 50px;
+  height: 80px;
   padding: 0 20px;
-  background-color: #262f3e;
-  box-shadow: inset 0 -1px 0 0 #344258;
+  background-color: #F6F8FA;
+  box-shadow: inset 0 -1px 0 0 #EDEFF1;
   font-size: 12px;
   color: #ffffff;
+
+  .menu__button {
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+    background-color: #fff;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 4px 30px 0 rgba(223,225,230,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .layout__header__logo {
+    margin-right: 10px;
+    color: #4F5A76;
+  }
+
+  .layout__header__logo__span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #4F5A76;
+  }
+
+  .avatar-group {
+    display: flex;
+    align-items: center;
+    span {
+      margin-left: 10px;
+      font-weight: bold;
+    }
+  }
 }
 
-.layout__header__logo {
-  font-size: 16px;
-  font-weight: bold;
-}
+
 </style>
 
 <style lang="less" scoped></style>

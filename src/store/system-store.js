@@ -6,7 +6,7 @@ export const useSystemStore = defineStore({
   state: () => {
     return {
       // 侧面导航栏展开关闭
-      _isCollapse: false,
+      _isCollapse: true,
     }
   },
 
@@ -18,8 +18,8 @@ export const useSystemStore = defineStore({
 
   // 修改数据的方法 methods
   actions: {
-    setIsCollapse(value) {
-      this._isCollapse = value
+    setIsCollapse() {
+      this._isCollapse = !this._isCollapse
     },
   },
 })

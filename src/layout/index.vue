@@ -76,7 +76,7 @@ export default {
 
 .app-layout__body {
   flex: 1;
-  background-color: #f3f4f7;
+  background-color: #F6F8FA;
   height: 100%;
   overflow: auto;
   overflow-y: overlay;

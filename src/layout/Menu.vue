@@ -1,44 +1,30 @@
 <template>
-  <div class="layout__menu-wrap">
-    <el-menu
-      :default-active="activeIndex"
-      :ellipsis="false"
-      class="layout__menu"
-      mode="vertical"
-      router
-      menu-trigger="click"
-      @select="handleSelect"
-      :collapse="isCollapse"
-    >
-      <el-menu-item
-        v-for="route in showRoutes"
-        :index="route.name"
+  <div class="layout-container">
+    <div class="layout__menu-wrap">
+      <el-menu
+        :default-active="activeIndex"
+        :ellipsis="false"
+        class="layout__menu"
+        mode="vertical"
+        router
+        menu-trigger="click"
+        @select="handleSelect"
+        :collapse="isCollapse"
       >
-        <el-icon>
-          <component :is="route.meta.icon"></component>
-        </el-icon>
-        <span>{{ route.meta.title }}</span>
-      </el-menu-item>
-    </el-menu>
-
-    <!-- 展开收起 -->
-    <div class="layout__menu__collapse-wrap">
-      <div class="layout__menu__collapse">
-        <el-link
-          v-if="isCollapse"
-          :underline="false"
-          @click="handleOpen"
-          ><el-icon><CaretRight /></el-icon
-        ></el-link>
-        <el-link
-          v-else
-          :underline="false"
-          @click="handleClose"
-          ><el-icon><CaretLeft /></el-icon
-        ></el-link>
-      </div>
+        <el-menu-item
+          v-for="(route, index) in showRoutes"
+          :index="route.name"
+          :key="index"
+        >
+          <el-icon>
+            <component :is="route.meta.icon"></component>
+          </el-icon>
+          <span>{{ route.meta.title }}</span>
+        </el-menu-item>
+      </el-menu>
     </div>
   </div>
+  
 </template>
 
 <script>
@@ -116,6 +102,27 @@ export default {
 </script>
 
 <style lang="less">
+.layout-container {
+  position: relative;
+  background: #F8F9FD;
+  padding: 20px 20px;
+  .logo-view {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .logo {
+      width: 30px;
+      height: 30px;
+      // margin-right: 10px;
+    }
+    span {
+      margin-left: 10px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+}
 .layout__menu-wrap {
   flex-shrink: 0;
   height: 100%;
@@ -125,39 +132,62 @@ export default {
 .layout__menu__collapse-wrap {
   position: absolute;
   top: 0;
-  left: 100%;
+  left: calc(100% - 15px);
   cursor: pointer;
-  height: 50px;
+  height: 80px;
   display: flex;
   align-items: center;
 }
 
 .layout__menu__collapse {
   height: 30px;
+  width: 30px;
   display: flex;
   align-items: center;
-  background-color: #ffffff;
+  justify-content: center;
+  background-color: red;
+  border: 1px solid #030303;
+  border-radius: 30px;
 }
 
 .layout__menu {
-  height: 100%;
-  background-color: #1e222d;
+  background-color: #F8F9FD;
 }
 
 .layout__menu .el-menu-item {
-  // background-color: #1e222d;
-  color: #c1c6c8;
+  padding-right: 60px;
+  color: #A2A4A6;
   height: 50px;
 }
 
 .layout__menu .el-menu-item:hover {
-  background-color: #262f3e;
+  background-color: #F8F9FD;
+}
+
+.el-menu--collapse .el-menu-item {
+  padding-right: 14px;
 }
 
 .layout__menu .el-menu-item.is-active {
-  background-color: #006eff;
+  // padding-left: 10px;
+  // padding-right: 10px;
+  // width: 40px;
+  // padding: 0;
+  background-color: #030303;
   color: #ffffff;
+  border: 1px solid #030303;
+  border-radius: 50px;
 }
+
+// .el-menu--collapse .el-menu .el-submenu, .el-menu--popup {
+//   border: 0;
+//   max-width: 178px !important;
+// }
+
+.el-menu {
+  border: 0;
+}
+
 </style>
 
 <style lang="less" scoped></style>
