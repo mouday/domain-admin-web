@@ -54,9 +54,10 @@ export default {
 .ConditionFilterGroup{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  row-gap: 10px;
 }
 
 .ConditionFilterGroup__row + .ConditionFilterGroup__row {
-  margin-top: 10px;
+  // margin-top: 10px;
 }
 </style>
