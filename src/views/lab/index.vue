@@ -2,12 +2,14 @@
   <div class="app-container">
     <h2 class="text-center">域名信息查询（WHOIS）</h2>
 
+    <!-- 阻止默认行为 -->
     <el-form
       class="mt-md"
       ref="form"
       :model="form"
       :rules="rules"
       label-width="100px"
+      @submit.native.prevent
     >
       <!-- 域名 -->
       <el-form-item
@@ -19,7 +21,7 @@
           style="width: 300px; margin-right: 20px"
           placeholder="输入域名"
           clearable
-          @keypress.enter="handleSearch"
+          @keypress.enter.native="handleSearch"
         ></el-input>
 
         <el-button @click="handleSearch"
