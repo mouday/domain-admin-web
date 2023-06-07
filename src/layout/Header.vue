@@ -221,8 +221,8 @@ export default {
 
   created() {
     // 初始化风格
-    let theme = localStorage.getItem('theme') || this.theme
-    this.handleThemeChange(theme)
+    this.theme = localStorage.getItem('theme') || this.theme
+    this.handleThemeChange(this.theme)
   },
 }
 </script>
