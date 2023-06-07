@@ -3,7 +3,7 @@
   <el-dialog
     title="域名详情"
     v-model="dialogVisible"
-    width="400px"
+    width="800px"
     center
     append-to-body
     :lock-scroll="false"

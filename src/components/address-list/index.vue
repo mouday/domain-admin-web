@@ -42,15 +42,16 @@
     />
 
     <!-- 翻页 -->
-    <!-- <el-pagination
+    <el-pagination
       class="mt-md justify-center"
       background
-      layout="total, prev, pager, next"
+      layout="total, sizes, prev, pager, next"
       :total="total"
       v-model:page-size="size"
       v-model:current-page="page"
       @current-change="getData"
-    /> -->
+      @size-change="handleSizeChange"
+    />
 
     <!-- 编辑框 -->
     <DataFormDialog
@@ -89,7 +90,7 @@ export default {
       list: [],
       total: 0,
       page: 1,
-      size: 20,
+      size: 10,
       keyword: '',
 
       loading: true,
@@ -114,6 +115,8 @@ export default {
 
       let params = {
         domain_id: this.domainId,
+        page: this.page,
+        size: this.size,
       }
 
       try {
@@ -163,6 +166,10 @@ export default {
         // 以服务的方式调用的 Loading 需要异步关闭
         loading.close()
       })
+    },
+
+    handleSizeChange(value) {
+      this.resetData()
     },
   },
 

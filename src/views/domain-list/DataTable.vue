@@ -4,10 +4,13 @@
       stripe
       border
       v-bind="$attrs"
-      v-on="$events"
+      @sort-change="$emit('sort-change', $event)"
+      @selection-change="$emit('selection-change', $event)"
     >
       <el-table-column
         type="selection"
+        header-align="center"
+        align="center"
         width="40"
       />
 
@@ -36,23 +39,24 @@
       </el-table-column>
 
       <!-- ip -->
-      <!-- <el-table-column
-        label="ip地址"
+      <el-table-column
+        label="端口"
         header-align="center"
         align="center"
-        width="140"
-        prop="ip"
+        width="60"
+        sortable="custom"
+        prop="port"
       >
         <template #default="scope">
-          <span>{{ scope.row.ip || '-' }}</span>
+          <span>{{ scope.row.port || '-' }}</span>
         </template>
-      </el-table-column> -->
+      </el-table-column>
 
       <el-table-column
         label="域名天数"
         header-align="center"
         align="center"
-        width="110"
+        width="90"
         sortable="custom"
         prop="domain_expire_days"
       >
@@ -80,7 +84,7 @@
         label="证书天数"
         header-align="center"
         align="center"
-        width="150"
+        width="110"
         sortable="custom"
         prop="expire_days"
       >
@@ -113,14 +117,18 @@
 
       <!-- 域名连接状态 -->
       <el-table-column
-        label="主机状态"
+        label="状态"
         header-align="center"
         align="center"
-        width="120"
+        width="60"
+        sortable="custom"
         prop="connect_status"
       >
         <template #default="scope">
-          <ConnectStatus :value="scope.row.connect_status"></ConnectStatus>
+          <ConnectStatus
+            :value="scope.row.connect_status"
+            @on-click="handleShowAddressListgDialog(scope.row)"
+          ></ConnectStatus>
         </template>
       </el-table-column>
 
@@ -156,7 +164,8 @@
         header-align="center"
         align="center"
         width="100"
-        prop="check_time"
+        sortable="custom"
+        prop="group_name"
       >
         <template #default="scope">
           <span>{{ scope.row.group_name || '-' }}</span>
@@ -167,7 +176,7 @@
       <el-table-column
         label="备注"
         header-align="center"
-        align="center"
+        align="left"
         prop="check_time"
         show-overflow-tooltip
       >
@@ -181,8 +190,9 @@
         label="更新时间"
         header-align="center"
         align="center"
-        width="100"
-        prop="check_time"
+        width="90"
+        prop="update_time"
+        sortable="custom"
         show-overflow-tooltip
       >
         <template #default="scope">
@@ -213,24 +223,26 @@
         </template>
       </el-table-column> -->
 
-      <!-- <el-table-column
+      <el-table-column
         label="监测"
-        width="66"
+        width="60"
         header-align="center"
         align="center"
+        sortable="custom"
+        prop="domain_expire_monitor"
       >
         <template #default="scope">
           <el-switch
-            style="transform: scale(0.8);"
-            v-model="scope.row.is_monitor"
+            style="transform: scale(0.8)"
+            v-model="scope.row.domain_expire_monitor"
             @change="handleMonitorStatusChange(scope.row, $event)"
           />
         </template>
-      </el-table-column> -->
+      </el-table-column>
 
       <el-table-column
         label="操作"
-        width="160"
+        width="140"
         header-align="center"
         align="center"
       >
@@ -243,13 +255,13 @@
             ><el-icon><Tickets /></el-icon
           ></el-link>
 
-          <el-link
+          <!-- <el-link
             :underline="false"
             type="primary"
             class="mr-sm"
             @click="handleShowAddressListgDialog(scope.row)"
             ><el-icon><Files /></el-icon
-          ></el-link>
+          ></el-link> -->
 
           <el-link
             :underline="false"
@@ -359,7 +371,7 @@ export default {
     AddressListgDialog,
   },
 
-  emits: ['on-success'],
+  emits: ['on-success', 'selection-change', 'sort-change'],
 
   props: {},
 
@@ -416,15 +428,15 @@ export default {
       // console.log(row, value)
 
       let params = {
-        id: row.id,
-        is_monitor: value,
+        domain_id: row.id,
+        domain_expire_monitor: value,
       }
 
-      const res = await this.$http.updateDomainById(params)
+      const res = await this.$http.updateDomainExpireMonitorById(params)
 
       if (res.code == 0) {
         this.$msg.success('操作成功')
-        this.$emit('on-success')
+        // this.$emit('on-success')
       } else {
         this.$msg.error(res.msg)
       }

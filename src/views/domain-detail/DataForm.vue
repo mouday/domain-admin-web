@@ -174,10 +174,8 @@
     <!-- </el-form>
     </div> -->
 
-    <div
-      class="mo-form-detail"
-      style="margin-top: -1px"
-    >
+    <!-- <div class="mo-form-detail"> -->
+    <div class="mo-form-detail grid grid-cols-2">
       <el-form label-width="130px">
         <el-form-item
           label="域名"
@@ -192,13 +190,6 @@
         </el-form-item>
 
         <el-form-item
-          label="端口号"
-          prop="domain"
-        >
-          <span>{{ form.port || '-' }}</span>
-        </el-form-item>
-
-        <el-form-item
           label="注册时间"
           prop="create_time"
         >
@@ -210,6 +201,25 @@
           prop="create_time"
         >
           <span>{{ form.domain_expire_time || '-' }}</span>
+        </el-form-item>
+
+        <el-form-item
+          label="自动更新"
+          prop="isp"
+        >
+          <span class="truncate">{{ form.domain_auto_update || '-' }}</span>
+        </el-form-item>
+      </el-form>
+
+      <el-form
+        label-width="130px"
+        style="margin-right: -1px"
+      >
+        <el-form-item
+          label="端口号"
+          prop="domain"
+        >
+          <span>{{ form.port || '-' }}</span>
         </el-form-item>
 
         <el-form-item
@@ -240,19 +250,16 @@
         </el-form-item>
 
         <el-form-item
-          label="自动更新"
-          prop="isp"
-        >
-          <span class="truncate">{{ form.domain_auto_update || '-' }}</span>
-        </el-form-item>
-
-        <el-form-item
           label="过期监测"
           prop="isp"
         >
           <span class="truncate">{{ form.domain_expire_monitor || '-' }}</span>
         </el-form-item>
+      </el-form>
+    </div>
 
+    <div class="mo-form-detail mt-[20px]">
+      <el-form label-width="130px">
         <el-form-item
           label="备注"
           prop="isp"
@@ -265,13 +272,13 @@
     <!-- <AddressList :domainId="row.id"></AddressList> -->
 
     <!-- 操作 -->
-    <!-- <div class="text-center mt-md">
+    <div class="text-center mt-md">
       <el-button
         type="primary"
         @click="handleCancel"
         >关 闭</el-button
       >
-    </div> -->
+    </div>
   </div>
 </template>
 
