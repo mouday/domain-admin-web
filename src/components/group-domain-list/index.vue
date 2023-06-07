@@ -194,6 +194,8 @@ export default {
       console.log(selection)
       this.selection = selection
     },
+
+    handleEditRow(row) {},
   },
 
   created() {

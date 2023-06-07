@@ -117,12 +117,12 @@ export default {
   data() {
     let themeList = [
       {
-        value: 'theme--dark',
-        label: '极客',
-      },
-      {
         value: 'theme--blue',
         label: '经典',
+      },
+      {
+        value: 'theme--dark',
+        label: '极客',
       },
     ]
     return {
