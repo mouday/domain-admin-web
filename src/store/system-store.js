@@ -18,7 +18,11 @@ export const useSystemStore = defineStore({
 
   // 修改数据的方法 methods
   actions: {
-    setIsCollapse() {
+    setIsCollapse(value) {
+      this._isCollapse = value
+    },
+
+    toggleCollapse() {
       this._isCollapse = !this._isCollapse
     },
   },

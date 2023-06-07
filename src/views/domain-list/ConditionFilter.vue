@@ -31,14 +31,6 @@ export default {
 
       options: [
         {
-          title: '域名分组',
-          field: 'group_ids',
-          hidden: false,
-          selected: [],
-          options: [],
-        },
-
-        {
           title: '域名状态',
           field: 'domain_expire_days',
           selected: [],
@@ -107,6 +99,13 @@ export default {
               value: 'unknown',
             },
           ],
+        },
+        {
+          title: '域名分组',
+          field: 'group_ids',
+          hidden: false,
+          selected: [],
+          options: [],
         },
       ],
     }

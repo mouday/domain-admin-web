@@ -45,8 +45,7 @@ body {
 .app-container {
   padding: 20px;
   background-color: #ffffff;
-  border: 1px solid #fff;
-  border-radius: 10px;
+
   // box-shadow: inset 0 -1px 0 0 #EDEFF1;
 }
 
@@ -55,21 +54,6 @@ body {
 }
 .margin-left--auto {
   margin-left: auto;
-}
-
-.el-input-group--append>.el-input__wrapper {
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-}
-
-.el-input-group__append {
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
-}
-
-.el-button--primary {
-  border: 1px solid transparent;
-  // border-radius: 20px;
 }
 
 .color--danger {
@@ -137,4 +121,31 @@ body {
 
 .mo-table-tag.el-tag {
   padding: 0 1px;
+}
+
+// 黑色主题
+.theme--dark {
+  .app-container {
+    border: 1px solid #fff;
+    border-radius: 10px;
+  }
+
+  .el-input-group--append > .el-input__wrapper {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+  }
+
+  .el-input-group__append {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+
+  .el-button--primary {
+    border: 1px solid transparent;
+    // border-radius: 20px;
+  }
+}
+
+// 蓝色主题
+.theme--blue {
 }

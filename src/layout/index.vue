@@ -76,7 +76,6 @@ export default {
 
 .app-layout__body {
   flex: 1;
-  background-color: #F6F8FA;
   height: 100%;
   overflow: auto;
   overflow-y: overlay;
@@ -95,7 +94,7 @@ export default {
 /* fade-transform */
 .fade-transform-leave-active,
 .fade-transform-enter-active {
-  transition: all .5s;
+  transition: all 0.5s;
 }
 
 .fade-transform-enter {
@@ -106,5 +105,19 @@ export default {
 .fade-transform-leave-to {
   opacity: 0;
   transform: translateX(30px);
+}
+
+// 黑色主题
+.theme--dark {
+  .app-layout__body {
+    background-color: #f6f8fa;
+  }
+}
+
+// 蓝色主题
+.theme--blue {
+  .app-layout__body {
+    background-color: #f3f4f7;
+  }
 }
 </style>

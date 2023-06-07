@@ -7,17 +7,18 @@
       <el-icon style="color: #4f5a76; font-size: 20px"><Menu /></el-icon>
     </div>
 
-    <img
-      class="layout__header__logo"
-      src="../assets/logo.svg"
-      alt=""
-      srcset=""
-    />
     <a
       class="layout__header__logo__span"
       href="#"
-      >Domain Admin</a
     >
+      <img
+        class="layout__header__logo"
+        src="../assets/logo.svg"
+        alt=""
+        srcset=""
+      />
+      <span>Domain Admin</span>
+    </a>
 
     <div class="self-center margin-left--auto flex items-center">
       <el-radio-group
@@ -128,7 +129,8 @@ export default {
       dialogVisible: false,
       aboutDialogVisible: false,
       userDialogVisible: false,
-      username: '',
+
+      // 主题
       themeList,
       theme: themeList[0].value,
     }
@@ -145,6 +147,14 @@ export default {
     ...mapState(useSystemStore, {
       isCollapse: 'isCollapse',
     }),
+
+    username() {
+      if (this.userInfo) {
+        return this.userInfo.username
+      } else {
+        return ''
+      }
+    },
   },
 
   methods: {
@@ -152,20 +162,10 @@ export default {
       updateUserInfo: 'updateUserInfo',
       removeUserInfo: 'removeUserInfo',
     }),
+
     ...mapActions(useSystemStore, {
-      setIsCollapse: 'setIsCollapse',
+      toggleCollapse: 'toggleCollapse',
     }),
-
-    async getData() {
-      const res = await this.$http.getUserInfo()
-
-      if (res.code != 0) {
-        return
-      }
-
-      let data = res.data
-      this.username = data.username
-    },
 
     handleLogoutClick(data) {
       //   console.log(data)
@@ -203,11 +203,13 @@ export default {
     },
 
     handleMenuClick() {
-      this.setIsCollapse()
+      this.toggleCollapse()
     },
 
     handleThemeChange(val) {
       console.log(val)
+
+      localStorage.setItem('theme', val)
 
       for (let item of this.themeList) {
         document.querySelector('body').classList.remove(item.value)
@@ -219,9 +221,8 @@ export default {
 
   created() {
     // 初始化风格
-    this.handleThemeChange(this.theme)
-
-    this.getData()
+    let theme = localStorage.getItem('theme') || this.theme
+    this.handleThemeChange(theme)
   },
 }
 </script>
@@ -231,46 +232,88 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  height: 80px;
   padding: 0 20px;
-  background-color: #f6f8fa;
-  box-shadow: inset 0 -1px 0 0 #edeff1;
-  font-size: 12px;
-  color: #ffffff;
+}
 
-  .menu__button {
-    width: 50px;
-    height: 50px;
-    margin-right: 20px;
-    background-color: #fff;
-    border: 1px solid #fff;
-    border-radius: 50%;
-    box-shadow: 0 4px 30px 0 rgba(223, 225, 230, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+.layout__header__logo__span {
+  font-size: 16px;
+  font-weight: bold;
+
+  display: flex;
+  align-items: center;
+}
+
+.layout__header__logo {
+  margin-right: 10px;
+}
+
+.avatar-group {
+  display: flex;
+  align-items: center;
+  span {
+    margin-left: 10px;
+    font-weight: bold;
   }
+}
 
-  .layout__header__logo {
-    margin-right: 10px;
-    color: #4f5a76;
+// 黑色主题
+.theme--dark {
+  .layout__header {
+    height: 80px;
+    background-color: #f6f8fa;
+    box-shadow: inset 0 -1px 0 0 #edeff1;
+    font-size: 12px;
+    color: #ffffff;
+
+    .layout__header__logo__span {
+      color: #4f5a76;
+    }
+
+    .layout__header__logo {
+      color: #4f5a76;
+    }
+
+    .menu__button {
+      width: 50px;
+      height: 50px;
+      margin-right: 20px;
+      background-color: #fff;
+      border: 1px solid #fff;
+      border-radius: 50%;
+      box-shadow: 0 4px 30px 0 rgba(223, 225, 230, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+  }
+}
+
+// 蓝色主题
+.theme--blue {
+  .layout__header {
+    height: 50px;
+    background-color: #262f3e;
+    box-shadow: inset 0 -1px 0 0 #344258;
   }
 
   .layout__header__logo__span {
+    color: #ffffff;
     font-size: 16px;
     font-weight: bold;
-    color: #4f5a76;
+  }
+
+  .layout__header__logo {
+    color: #ffffff;
+    display: none;
+  }
+
+  .menu__button {
+    display: none;
   }
 
   .avatar-group {
-    display: flex;
-    align-items: center;
-    span {
-      margin-left: 10px;
-      font-weight: bold;
-    }
+    color: #ffffff;
   }
 }
 </style>

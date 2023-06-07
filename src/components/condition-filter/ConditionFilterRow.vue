@@ -50,7 +50,9 @@
         <!-- 子级 -->
         <div class="condition-filter__children">
           <template v-for="item in options">
-            <template v-if="selected.indexOf(item[valueKey]) > -1 && item.child">
+            <template
+              v-if="selected.indexOf(item[valueKey]) > -1 && item.child"
+            >
               <ConditionFilter
                 :key="childrenKey"
                 class="condition-filter__child"
@@ -238,21 +240,18 @@ export default {
   // line-height: 18px;
 }
 
-.condition-filter__group_button {
-  display: flex;
-  background: #F8F8F8;
+// 标签样式
+.condition-filter__tag {
+  cursor: pointer;
+  margin: 1px 2px;
+  display: inline-flex;
   align-items: center;
-  padding: 0 10px;
-  height: 40px;
-  border: 1px solid transparent;
-  border-radius: 40px;
 }
 
 // 标题
 .condition-filter__title {
-  height: 40px;
   margin-right: 10px;
-  margin-top: 1px;
+  // margin-top: 1px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -266,20 +265,6 @@ export default {
 .condition-filter__list {
   display: flex;
   flex-wrap: wrap;
-}
-
-// 标签样式
-.condition-filter__tag {
-  cursor: pointer;
-  padding: 3px 6px;
-  border: 1px solid transparent;
-  border-radius: 40px;
-  // margin-right: 8px;
-  // height: 18px;
-  // margin: 1px;
-  margin: 1px 2px;
-  display: inline-flex;
-  align-items: center;
 }
 
 // 选中
@@ -344,5 +329,37 @@ export default {
   cursor: pointer;
   line-height: 20px;
   margin-left: auto;
+}
+
+.theme--dark {
+  .condition-filter__title {
+    height: 40px;
+  }
+  .condition-filter__group_button {
+    display: flex;
+    background: #f8f8f8;
+    align-items: center;
+    padding: 0 10px;
+    height: 40px;
+    border: 1px solid transparent;
+    border-radius: 40px;
+  }
+  .condition-filter__tag {
+    cursor: pointer;
+    padding: 3px 6px;
+    border: 1px solid transparent;
+    border-radius: 40px;
+  }
+}
+
+.theme--blue {
+  .condition-filter__group_button {
+    display: flex;
+    align-items: center;
+  }
+
+  .condition-filter__tag {
+    padding: 0 6px;
+  }
 }
 </style>

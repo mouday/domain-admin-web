@@ -22,6 +22,25 @@
           <span>{{ route.meta.title }}</span>
         </el-menu-item>
       </el-menu>
+
+      <!-- 展开收起 -->
+      <div class="layout__menu__collapse-wrap">
+        <div
+          class="layout__menu__collapse"
+          @click="toggleCollapse"
+        >
+          <el-link
+            v-if="isCollapse"
+            :underline="false"
+            ><el-icon><CaretRight /></el-icon
+          ></el-link>
+          <el-link
+            v-else
+            :underline="false"
+            ><el-icon><CaretLeft /></el-icon
+          ></el-link>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -72,7 +91,7 @@ export default {
 
   methods: {
     ...mapActions(useSystemStore, {
-      setIsCollapse: 'setIsCollapse',
+      toggleCollapse: 'toggleCollapse',
     }),
 
     async getData() {},
@@ -82,14 +101,6 @@ export default {
       // this.$router.push({
       //   name: index,
       // })
-    },
-
-    handleOpen() {
-      this.setIsCollapse(false)
-    },
-
-    handleClose() {
-      this.setIsCollapse(true)
     },
   },
 
@@ -101,73 +112,52 @@ export default {
 </script>
 
 <style lang="less">
-.layout-container {
-  position: relative;
-  background: #f8f9fd;
-  padding: 20px 20px;
-  .logo-view {
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    .logo {
-      width: 30px;
-      height: 30px;
-      // margin-right: 10px;
-    }
-    span {
-      margin-left: 10px;
-      font-size: 16px;
-      font-weight: bold;
-    }
-  }
-}
 .layout__menu-wrap {
   flex-shrink: 0;
   height: 100%;
   position: relative;
 }
 
-.layout__menu__collapse-wrap {
-  position: absolute;
-  top: 0;
-  left: calc(100% - 15px);
-  cursor: pointer;
-  height: 80px;
-  display: flex;
-  align-items: center;
-}
-
 .layout__menu__collapse {
-  height: 30px;
-  width: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: red;
-  border: 1px solid #030303;
-  border-radius: 30px;
 }
 
-.layout__menu {
-  background-color: #f8f9fd;
-}
-
-.layout__menu .el-menu-item {
-  padding-right: 60px;
-  color: #a2a4a6;
-  height: 50px;
-}
-
-.layout__menu .el-menu-item:hover {
-  background-color: #f8f9fd;
-}
-
-.el-menu--collapse .el-menu-item {
-  padding-right: 14px;
-}
-
+// 黑色主题
 .theme--dark {
+  .layout-container {
+    position: relative;
+    background: #f8f9fd;
+    padding: 20px 20px;
+    .logo-view {
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .logo {
+        width: 30px;
+        height: 30px;
+        // margin-right: 10px;
+      }
+      span {
+        margin-left: 10px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .layout__menu .el-menu-item {
+    padding-right: 60px;
+    color: #a2a4a6;
+    height: 50px;
+  }
+
+  .layout__menu .el-menu-item:hover {
+    background-color: #f8f9fd;
+  }
+
   .layout__menu .el-menu-item.is-active {
     // padding-left: 10px;
     // padding-right: 10px;
@@ -177,6 +167,68 @@ export default {
     color: #ffffff;
     border: 1px solid #030303;
     border-radius: 50px;
+  }
+
+  .layout__menu__collapse {
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // background-color: red;
+    border: 1px solid #030303;
+    border-radius: 30px;
+  }
+
+  .layout__menu {
+    background-color: #f8f9fd;
+  }
+
+  .el-menu--collapse .el-menu-item {
+    padding-right: 14px;
+  }
+
+  .layout__menu__collapse-wrap {
+    display: none;
+  }
+}
+
+// 蓝色主题
+.theme--blue {
+  .layout__menu__collapse-wrap {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    height: 50px;
+    // background-color: red;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+  }
+
+  .layout__menu__collapse {
+    height: 30px;
+    background-color: #ffffff;
+  }
+
+  .layout__menu {
+    height: 100%;
+    background-color: #1e222d;
+  }
+
+  .layout__menu .el-menu-item {
+    background-color: #1e222d;
+    color: #c1c6c8;
+  }
+
+  .layout__menu .el-menu-item:hover {
+    background-color: #262f3e;
+  }
+
+  .layout__menu .el-menu-item.is-active {
+    background-color: #006eff;
+    color: #ffffff;
   }
 }
 
