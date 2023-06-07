@@ -1,8 +1,25 @@
 {
   "code": 0,
   "data": {
-    "list": [],
-    "total": 0
+    "list": [
+      {
+        "create_time": "2023-06-04 15:19:39",
+        "domain_count": 1,
+        "id": 1,
+        "name": "\u767e\u5ea6\u7cfb",
+        "update_time": "2023-06-04 15:19:39",
+        "user_id": 1
+      },
+      {
+        "create_time": "2023-06-04 17:45:58",
+        "domain_count": 1,
+        "id": 2,
+        "name": "\u817e\u8baf\u7cfb",
+        "update_time": "2023-06-04 17:45:58",
+        "user_id": 1
+      }
+    ],
+    "total": 2
   },
   "msg": "success"
 }
