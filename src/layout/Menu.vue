@@ -24,7 +24,6 @@
       </el-menu>
     </div>
   </div>
-  
 </template>
 
 <script>
@@ -88,7 +87,7 @@ export default {
     handleOpen() {
       this.setIsCollapse(false)
     },
-    
+
     handleClose() {
       this.setIsCollapse(true)
     },
@@ -104,7 +103,7 @@ export default {
 <style lang="less">
 .layout-container {
   position: relative;
-  background: #F8F9FD;
+  background: #f8f9fd;
   padding: 20px 20px;
   .logo-view {
     height: 80px;
@@ -151,32 +150,34 @@ export default {
 }
 
 .layout__menu {
-  background-color: #F8F9FD;
+  background-color: #f8f9fd;
 }
 
 .layout__menu .el-menu-item {
   padding-right: 60px;
-  color: #A2A4A6;
+  color: #a2a4a6;
   height: 50px;
 }
 
 .layout__menu .el-menu-item:hover {
-  background-color: #F8F9FD;
+  background-color: #f8f9fd;
 }
 
 .el-menu--collapse .el-menu-item {
   padding-right: 14px;
 }
 
-.layout__menu .el-menu-item.is-active {
-  // padding-left: 10px;
-  // padding-right: 10px;
-  // width: 40px;
-  // padding: 0;
-  background-color: #030303;
-  color: #ffffff;
-  border: 1px solid #030303;
-  border-radius: 50px;
+.theme--dark {
+  .layout__menu .el-menu-item.is-active {
+    // padding-left: 10px;
+    // padding-right: 10px;
+    // width: 40px;
+    // padding: 0;
+    background-color: #030303;
+    color: #ffffff;
+    border: 1px solid #030303;
+    border-radius: 50px;
+  }
 }
 
 // .el-menu--collapse .el-menu .el-submenu, .el-menu--popup {
@@ -187,7 +188,6 @@ export default {
 .el-menu {
   border: 0;
 }
-
 </style>
 
 <style lang="less" scoped></style>

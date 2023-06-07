@@ -1,11 +1,18 @@
 <template>
   <div class="layout__header">
-
-    <div class="menu__button" @click="handleMenuClick">
-      <el-icon style="color: #4F5A76  ; font-size: 20px;"><Menu /></el-icon>
+    <div
+      class="menu__button"
+      @click="handleMenuClick"
+    >
+      <el-icon style="color: #4f5a76; font-size: 20px"><Menu /></el-icon>
     </div>
 
-    <img class="layout__header__logo" src="../assets/logo.svg" alt="" srcset="">
+    <img
+      class="layout__header__logo"
+      src="../assets/logo.svg"
+      alt=""
+      srcset=""
+    />
     <a
       class="layout__header__logo__span"
       href="#"
@@ -13,15 +20,27 @@
     >
 
     <div class="self-center margin-left--auto flex items-center">
+      <el-radio-group
+        v-model="theme"
+        size="small"
+        @change="handleThemeChange"
+      >
+        <el-radio-button
+          v-for="item in themeList"
+          :key="item.value"
+          :label="item.value"
+          >{{ item.label }}</el-radio-button
+        >
+      </el-radio-group>
+
       <el-dropdown trigger="hover">
-        <div class="avatar-group">
+        <div class="avatar-group ml-sm">
           <el-avatar :src="userInfo && userInfo.avatar_url">
             <img src="https://api.multiavatar.com/domain-admin.png" />
           </el-avatar>
-          <span>{{username}}</span>
+          <span>{{ username }}</span>
         </div>
-        
-      
+
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item
@@ -95,11 +114,23 @@ export default {
   },
 
   data() {
+    let themeList = [
+      {
+        value: 'theme--dark',
+        label: '极客',
+      },
+      {
+        value: 'theme--blue',
+        label: '经典',
+      },
+    ]
     return {
       dialogVisible: false,
       aboutDialogVisible: false,
       userDialogVisible: false,
       username: '',
+      themeList,
+      theme: themeList[0].value,
     }
   },
   created() {
@@ -174,9 +205,22 @@ export default {
     handleMenuClick() {
       this.setIsCollapse()
     },
+
+    handleThemeChange(val) {
+      console.log(val)
+
+      for (let item of this.themeList) {
+        document.querySelector('body').classList.remove(item.value)
+      }
+
+      document.querySelector('body').classList.add(val)
+    },
   },
 
   created() {
+    // 初始化风格
+    this.handleThemeChange(this.theme)
+
     this.getData()
   },
 }
@@ -190,8 +234,8 @@ export default {
 
   height: 80px;
   padding: 0 20px;
-  background-color: #F6F8FA;
-  box-shadow: inset 0 -1px 0 0 #EDEFF1;
+  background-color: #f6f8fa;
+  box-shadow: inset 0 -1px 0 0 #edeff1;
   font-size: 12px;
   color: #ffffff;
 
@@ -202,7 +246,7 @@ export default {
     background-color: #fff;
     border: 1px solid #fff;
     border-radius: 50%;
-    box-shadow: 0 4px 30px 0 rgba(223,225,230,0.5);
+    box-shadow: 0 4px 30px 0 rgba(223, 225, 230, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -211,13 +255,13 @@ export default {
 
   .layout__header__logo {
     margin-right: 10px;
-    color: #4F5A76;
+    color: #4f5a76;
   }
 
   .layout__header__logo__span {
     font-size: 16px;
     font-weight: bold;
-    color: #4F5A76;
+    color: #4f5a76;
   }
 
   .avatar-group {
@@ -229,8 +273,6 @@ export default {
     }
   }
 }
-
-
 </style>
 
 <style lang="less" scoped></style>
