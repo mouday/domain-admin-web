@@ -2,9 +2,31 @@
   <div class="app-container notify-edit-container">
     <!-- 菜单 -->
     <div class="notify-edit__menu">
-      <el-menu
+      <el-tabs
+        v-model="activeName"
+        class="demo-tabs"
+        @tab-click="handleClick"
+      >
+        <template v-for="item in options">
+          <el-tab-pane
+            :label="item.label"
+            :name="item.value"
+          >
+            <div class="notify-edit__main">
+              <component :is="item.component" /></div
+          ></el-tab-pane>
+
+          <!-- <el-menu-item :index="item.value">
+            <el-icon><component :is="item.icon" /></el-icon>
+            <span>{{ item.label }}</span>
+          </el-menu-item> -->
+        </template>
+      </el-tabs>
+
+      <!-- <el-menu
         :default-active="active"
         menu-trigger="click"
+        mode="horizontal"
         @select="handleMenuSelect"
       >
         <template v-for="item in options">
@@ -13,13 +35,13 @@
             <span>{{ item.label }}</span>
           </el-menu-item>
         </template>
-      </el-menu>
+      </el-menu> -->
     </div>
 
     <!-- 编辑区 -->
-    <div class="notify-edit__main">
+    <!-- <div class="notify-edit__main">
       <component :is="currentComponent" />
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -37,12 +59,12 @@ export default {
   components: {
     NotifyEditEmail,
     NotifyEditWebhook,
-    NotifyEditWorkWeixin
+    NotifyEditWorkWeixin,
   },
 
   data() {
     return {
-      active: 'email',
+      activeName: 'email',
 
       options: [
         {
@@ -81,6 +103,8 @@ export default {
       // console.log(index, indexPath, item, routeResult)
       this.active = index
     },
+
+    handleClick() {},
   },
 
   created() {
@@ -93,17 +117,17 @@ export default {
 
 <style lang="less" scoped>
 .notify-edit-container {
-  display: flex;
+  // display: flex;
 }
 
 .notify-edit__menu {
-  width: 200px;
-  flex-shrink: 0;
+  // width: 200px;
+  // flex-shrink: 0;
 }
 
 .notify-edit__main {
-  box-sizing: border-box;
-  padding-left: 20px;
-  flex: 1;
+  // box-sizing: border-box;
+  padding-top: 20px;
+  // flex: 1;
 }
 </style>

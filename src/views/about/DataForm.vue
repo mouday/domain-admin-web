@@ -43,6 +43,13 @@
         /></a>
       </el-form-item>
 
+      <el-form-item
+        label="QQ群号"
+        prop="domain"
+      >
+        <span>731742868</span>
+      </el-form-item>
+
       <!-- 创建时间 -->
     </el-form>
   </div>

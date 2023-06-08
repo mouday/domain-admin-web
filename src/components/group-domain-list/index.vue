@@ -21,6 +21,7 @@
         class="w-[150px] ml-sm"
         v-model="group_id"
         clearable
+        showNotGroup
         @change="resetData"
       ></SelectGroup>
 

@@ -7,7 +7,7 @@ export const useSystemStore = defineStore({
   state: () => {
     return {
       // 侧面导航栏展开关闭
-      _isCollapse: true,
+      _isCollapse: false,
 
       // 系统版本号
       _version: '',
@@ -28,10 +28,11 @@ export const useSystemStore = defineStore({
   actions: {
     setIsCollapse(value) {
       this._isCollapse = value
+      localStorage.setItem("isCollapse", value)
     },
 
     toggleCollapse() {
-      this._isCollapse = !this._isCollapse
+      this.setIsCollapse(!this._isCollapse)
     },
 
     async updateVersion() {

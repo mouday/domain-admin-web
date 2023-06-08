@@ -21,7 +21,13 @@ import { mapState, mapActions } from 'pinia'
 export default {
   name: 'SelectGroup',
 
-  props: {},
+  props: {
+    // 显示未分组
+    showNotGroup: {
+      type: Boolean,
+      default: false,
+    },
+  },
 
   components: {},
 
@@ -33,17 +39,19 @@ export default {
     ...mapState(useGroupStore, {
       groupOptions: 'getGroupOptions',
     }),
-    
-    options() {
-      return this.groupOptions;
 
-      // [
-      //   ...this.groupOptions,
-      //   {
-      //     value: 0,
-      //     label: '未分组',
-      //   },
-      // ]
+    options() {
+      if (this.showNotGroup) {
+        return [
+          ...this.groupOptions,
+          {
+            value: 0,
+            label: '未分组',
+          },
+        ]
+      } else {
+        return this.groupOptions
+      }
     },
   },
 

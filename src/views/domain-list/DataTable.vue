@@ -64,13 +64,14 @@
           <ExpireDays
             :value="scope.row.real_time_domain_expire_days"
           ></ExpireDays
-          ><el-tag
+          >
+          <!-- <el-tag
             v-if="!scope.row.domain_auto_update"
             class="ml-[5px] mo-table-tag"
             type="info"
             size="small"
             >手动</el-tag
-          >
+          > -->
 
           <!-- <ExpireProgress
             :startTime="scope.row.domain_start_time"
@@ -263,6 +264,7 @@
             ><el-icon><Files /></el-icon
           ></el-link> -->
 
+          <!-- 更新 -->
           <el-link
             :underline="false"
             type="primary"

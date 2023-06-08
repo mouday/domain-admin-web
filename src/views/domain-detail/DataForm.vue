@@ -207,7 +207,7 @@
           label="自动更新"
           prop="isp"
         >
-          <span class="truncate">{{ form.domain_auto_update || '-' }}</span>
+          <span class="truncate">{{ form.domain_auto_update_label || '-' }}</span>
         </el-form-item>
       </el-form>
 
@@ -243,6 +243,7 @@
               :underline="false"
               type="primary"
               class="mr-sm"
+              :disabled="!form.domain_auto_update"
               @click="handleUpdateRowDomainInfo"
               ><el-icon><Refresh /></el-icon
             ></el-link>
@@ -347,6 +348,7 @@ export default {
         real_time_domain_expire_days: '',
         alias: '',
         domain_auto_update: '',
+        domain_auto_update_label: '',
         domain_expire_monitor: '',
         domain_check_time_label: '',
         port: '',
@@ -400,7 +402,9 @@ export default {
         this.form.create_time = data.create_time
         this.form.update_time = data.update_time
 
-        this.form.domain_auto_update =
+        this.form.domain_auto_update = data.domain_auto_update
+
+        this.form.domain_auto_update_label =
           data.domain_auto_update == true ? '是' : '否'
         this.form.domain_expire_monitor =
           data.domain_expire_monitor == true ? '是' : '否'

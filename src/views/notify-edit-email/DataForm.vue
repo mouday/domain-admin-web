@@ -22,7 +22,10 @@
     </el-form>
 
     <div class="text-[14px] color--info">
-      <span>提示：发件邮箱在[系统设置]中配置</span>
+      <span
+        >提示：发件邮箱在<span class="cursor-pointer color--brand" @click="handleToSystemSetting">[系统设置]</span
+        >中配置</span
+      >
     </div>
     <!-- 操作 -->
     <div class="text-center">
@@ -187,6 +190,12 @@ export default {
           loading.close()
         })
       }
+    },
+
+    handleToSystemSetting() {
+      this.$router.push({
+        name: 'system-list',
+      })
     },
   },
 

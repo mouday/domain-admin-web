@@ -20,7 +20,9 @@
 
       <el-table-column
         type="selection"
-        width="55"
+        width="40"
+        header-align="center"
+        align="center"
         :selectable="handleSelectable"
       />
 

@@ -1,7 +1,6 @@
 <template>
   <div v-loading="loading">
     <el-form
-      class="mt-md"
       ref="form"
       :model="form"
       :rules="rules"
