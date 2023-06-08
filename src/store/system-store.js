@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { Http } from '@/api/index.js'
 
 export const useSystemStore = defineStore({
   id: 'system-store', // id必填，且需要唯一
@@ -7,12 +8,19 @@ export const useSystemStore = defineStore({
     return {
       // 侧面导航栏展开关闭
       _isCollapse: true,
+
+      // 系统版本号
+      _version: '',
     }
   },
 
   getters: {
     isCollapse(state) {
       return state._isCollapse
+    },
+
+    version(state) {
+      return state._version
     },
   },
 
@@ -24,6 +32,13 @@ export const useSystemStore = defineStore({
 
     toggleCollapse() {
       this._isCollapse = !this._isCollapse
+    },
+
+    async updateVersion() {
+      const res = await Http.getSystemVersion()
+      if (res.code == 0) {
+        this._version = res.data.version
+      }
     },
   },
 })

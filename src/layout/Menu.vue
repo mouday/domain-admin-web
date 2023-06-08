@@ -42,6 +42,9 @@
         </div>
       </div>
     </div>
+
+    <!-- 收起时不显示 -->
+    <Info v-show="!isCollapse" />
   </div>
 </template>
 
@@ -53,13 +56,16 @@ import { hasPermission } from '@/router/util.js'
 import { useUserStore } from '@/store/user-store.js'
 import { useSystemStore } from '@/store/system-store.js'
 import { mapState, mapActions } from 'pinia'
+import Info from './Info.vue'
 
 export default {
   name: 'Menu',
 
   props: {},
 
-  components: {},
+  components: {
+    Info,
+  },
 
   data() {
     return {
@@ -116,6 +122,8 @@ export default {
   flex-shrink: 0;
   height: 100%;
   position: relative;
+  flex: 1;
+  
 }
 
 .layout__menu__collapse {
@@ -124,12 +132,20 @@ export default {
   justify-content: center;
 }
 
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #1e222d;
+}
+
 // 黑色主题
 .theme--dark {
   .layout-container {
     position: relative;
     background: #f8f9fd;
     padding: 20px 20px;
+    
     .logo-view {
       height: 80px;
       display: flex;

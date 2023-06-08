@@ -38,6 +38,7 @@ export default {
     Menu,
     Footer,
     Header,
+   
   },
 
   data() {

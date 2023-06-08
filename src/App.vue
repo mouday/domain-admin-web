@@ -3,6 +3,9 @@
 </template>
 
 <script>
+import { useSystemStore } from '@/store/system-store.js'
+import { mapState, mapActions } from 'pinia'
+
 export default {
   name: 'app',
 
@@ -16,9 +19,15 @@ export default {
 
   computed: {},
 
-  methods: {},
+  methods: {
+    ...mapActions(useSystemStore, {
+      updateVersion: 'updateVersion',
+    }),
+  },
 
-  created() {},
+  created() {
+    this.updateVersion()
+  },
 }
 </script>
 
