@@ -54,7 +54,6 @@
         style="margin-left: auto"
       >
         <el-popconfirm
-          
           v-if="showBatchDeleteButton"
           title="确定删除选中？"
           @confirm="handleBatchDeleteConfirm"
@@ -344,8 +343,15 @@ export default {
     handleSortChange({ column, prop, order }) {
       console.log(column, prop, order)
 
-      this.order_type = order
-      this.order_prop = prop
+      // 先清空
+      this.order_prop = ''
+      this.order_type = ''
+
+      // 如果有排序字段，再赋值
+      if (order) {
+        this.order_type = order
+        this.order_prop = prop
+      }
 
       this.resetData()
     },
