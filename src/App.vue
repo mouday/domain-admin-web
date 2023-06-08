@@ -22,10 +22,14 @@ export default {
   methods: {
     ...mapActions(useSystemStore, {
       updateVersion: 'updateVersion',
+      setIsCollapse: 'setIsCollapse',
     }),
   },
 
   created() {
+    let isCollapse = localStorage.getItem('isCollapse')
+    this.setIsCollapse(isCollapse == 'true')
+
     this.updateVersion()
   },
 }
