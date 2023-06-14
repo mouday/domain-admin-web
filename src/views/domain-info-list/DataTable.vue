@@ -24,35 +24,15 @@
         prop="domain"
       >
         <template #default="scope">
-          <el-tooltip
-            :disabled="!scope.row.alias"
-            :content="scope.row.alias"
+          <el-link
+            :underline="false"
+            @click="handleShowDetail(scope.row)"
+            >{{ scope.row.domain }}</el-link
           >
-            <el-link
-              :underline="false"
-              :href="scope.row.domain_url"
-              target="_blank"
-              >{{ scope.row.domain }}</el-link
-            >
-          </el-tooltip>
         </template>
       </el-table-column>
 
-      <!-- ip -->
       <el-table-column
-        label="端口"
-        header-align="center"
-        align="center"
-        width="60"
-        sortable="custom"
-        prop="port"
-      >
-        <template #default="scope">
-          <span>{{ scope.row.port || '-' }}</span>
-        </template>
-      </el-table-column>
-
-      <!-- <el-table-column
         label="域名天数"
         header-align="center"
         align="center"
@@ -61,115 +41,29 @@
         prop="domain_expire_days"
       >
         <template #default="scope">
-          <ExpireDays
-            :value="scope.row.real_time_domain_expire_days"
-          ></ExpireDays
-          > -->
-      <!-- <el-tag
-            v-if="!scope.row.domain_auto_update"
-            class="ml-[5px] mo-table-tag"
-            type="info"
-            size="small"
-            >手动</el-tag
-          > -->
+          <ExpireDays :value="scope.row.real_domain_expire_days"></ExpireDays>
+        </template>
+      </el-table-column>
 
-      <!-- <ExpireProgress
-            :startTime="scope.row.domain_start_time"
-            :endTime="scope.row.domain_expire_time"
-          ></ExpireProgress> -->
-      <!-- <span>{{ scope.row.real_time_domain_expire_days || '-' }}</span> -->
-      <!-- </template>
-      </el-table-column> -->
-
+      <!-- 证书个数 -->
       <el-table-column
-        label="证书天数"
+        label="证书数量"
         header-align="center"
         align="center"
-        width="110"
+        width="100"
         sortable="custom"
-        prop="expire_days"
+        prop="group_name"
       >
-        <template #header>
-          <el-tooltip
-            effect="dark"
-            content="如有多个主机IP地址，此处仅显示到期时间最短的证书"
-            placement="top-start"
-            :show-after="800"
+        <template #default="scope">
+          <el-link
+            v-if="scope.row.ssl_count && scope.row.ssl_count > 0"
+            :underline="false"
+            @click="handleCertCountClick(scope.row)"
+            >{{ scope.row.ssl_count }}</el-link
           >
-            <div class="inline-flex items-center">
-              <span class="mr-[2px]">证书天数</span>
-              <el-icon><Warning /></el-icon>
-            </div>
-          </el-tooltip>
-        </template>
-
-        <template #default="scope">
-          <!-- <ExpireDays :value="scope.row.real_time_expire_days"></ExpireDays> -->
-
-          <ExpireProgress
-            :startTime="scope.row.start_time"
-            :endTime="scope.row.expire_time"
-            :isManual="!scope.row.auto_update"
-          ></ExpireProgress>
-
-          <!-- <span>{{ scope.row.real_time_expire_days }}</span> -->
+          <span v-else>-</span>
         </template>
       </el-table-column>
-
-      <el-table-column
-        label="主机数量"
-        header-align="center"
-        align="center"
-        width="80"
-        prop="address_count"
-      >
-        <template #default="scope">
-          <span>{{ scope.row.address_count || '-' }}</span>
-        </template>
-      </el-table-column>
-
-      <!-- 域名连接状态 -->
-      <el-table-column
-        label="状态"
-        header-align="center"
-        align="center"
-        width="60"
-        sortable="custom"
-        prop="connect_status"
-      >
-        <template #default="scope">
-          <ConnectStatus
-            :value="scope.row.connect_status"
-            @on-click="handleShowAddressListgDialog(scope.row)"
-          ></ConnectStatus>
-        </template>
-      </el-table-column>
-
-      <!-- 有效期总天数 -->
-      <!-- <el-table-column
-        label="SSL证书剩余天数"
-        header-align="center"
-        align="center"
-        width="180"
-        prop="total_days"
-      >
-        <template #default="scope">
-          
-        </template>
-      </el-table-column> -->
-
-      <!-- 创建时间 -->
-      <!-- <el-table-column
-        label="创建时间"
-        header-align="center"
-        align="center"
-        width="110"
-        prop="create_time"
-      >
-        <template #default="scope">
-          <span>{{ scope.row.create_time_label || '-' }}</span>
-        </template>
-      </el-table-column> -->
 
       <!-- 分组 -->
       <el-table-column
@@ -237,6 +131,23 @@
       </el-table-column> -->
 
       <el-table-column
+        label="自动更新"
+        width="90"
+        header-align="center"
+        align="center"
+        sortable="custom"
+        prop="domain_expire_monitor"
+      >
+        <template #default="scope">
+          <el-switch
+            style="transform: scale(0.8)"
+            v-model="scope.row.is_auto_update"
+            @change="handleAutoUpdateStatusChange(scope.row, $event)"
+          />
+        </template>
+      </el-table-column>
+
+      <el-table-column
         label="监测"
         width="60"
         header-align="center"
@@ -247,7 +158,7 @@
         <template #default="scope">
           <el-switch
             style="transform: scale(0.8)"
-            v-model="scope.row.domain_expire_monitor"
+            v-model="scope.row.is_expire_monitor"
             @change="handleMonitorStatusChange(scope.row, $event)"
           />
         </template>
@@ -260,13 +171,13 @@
         align="center"
       >
         <template #default="scope">
-          <el-link
+          <!-- <el-link
             :underline="false"
             type="primary"
             class="mr-sm"
             @click="handleShowDetail(scope.row)"
             ><el-icon><Tickets /></el-icon
-          ></el-link>
+          ></el-link> -->
 
           <!-- <el-link
             :underline="false"
@@ -281,7 +192,6 @@
             :underline="false"
             type="primary"
             class="mr-sm"
-            :disabled="!scope.row.domain_auto_update"
             @click="handleUpdateRowDomainInfo(scope.row)"
             ><el-icon><Refresh /></el-icon
           ></el-link>
@@ -364,8 +274,8 @@
 /**
  * created 2022-10-01
  */
-import DataFormDialog from '../domain-edit/DataFormDialog.vue'
-import DataDetailDialog from '../domain-detail/DataFormDailig.vue'
+import DataFormDialog from '../domain-info-edit/DataFormDialog.vue'
+import DataDetailDialog from '../domain-info-detail/DataFormDailig.vue'
 import ConnectStatus from '@/components/ConnectStatus.vue'
 import ExpireDays from '@/components/ExpireDays.vue'
 import ExpireProgress from '@/components/ExpireProgress.vue'
@@ -410,10 +320,10 @@ export default {
 
     async handleDeleteClick(row) {
       let params = {
-        id: row.id,
+        domain_info_id: row.id,
       }
 
-      const res = await this.$http.deleteDomainById(params)
+      const res = await this.$http.deleteDomainInfoById(params)
 
       if (res.code == 0) {
         this.$msg.success('操作成功')
@@ -442,11 +352,31 @@ export default {
       // console.log(row, value)
 
       let params = {
-        domain_id: row.id,
-        domain_expire_monitor: value,
+        domain_info_id: row.id,
+        field: 'is_expire_monitor',
+        value: value,
       }
 
-      const res = await this.$http.updateDomainExpireMonitorById(params)
+      const res = await this.$http.updateDomainInfoFieldById(params)
+
+      if (res.code == 0) {
+        this.$msg.success('操作成功')
+        // this.$emit('on-success')
+      } else {
+        this.$msg.error(res.msg)
+      }
+    },
+
+    async handleAutoUpdateStatusChange(row, value) {
+      // console.log(row, value)
+
+      let params = {
+        domain_info_id: row.id,
+        field: 'is_auto_update',
+        value: value,
+      }
+
+      const res = await this.$http.updateDomainInfoFieldById(params)
 
       if (res.code == 0) {
         this.$msg.success('操作成功')
@@ -463,10 +393,10 @@ export default {
       })
 
       let params = {
-        id: row.id,
+        domain_info_id: row.id,
       }
 
-      const res = await this.$http.updateDomainRowInfoById(params)
+      const res = await this.$http.updateDomainInfoRowById(params)
 
       if (res.code == 0) {
         this.$msg.success('操作成功')
@@ -497,6 +427,15 @@ export default {
     handleShowAddressListgDialog(row) {
       this.currentRow = row
       this.AddressListgDialogVisible = true
+    },
+
+    handleCertCountClick(row) {
+      this.$router.push({
+        name: 'domain-list',
+        query: {
+          keyword: row.domain,
+        },
+      })
     },
   },
 

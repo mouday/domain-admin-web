@@ -30,36 +30,11 @@ export default {
       loading: true,
 
       options: [
-        // {
-        //   title: '域名状态',
-        //   field: 'domain_expire_days',
-        //   selected: [],
-        //   maxCount: 1,
-        //   options: [
-        //     {
-        //       label: '已过期',
-        //       value: [null, 3],
-        //     },
-        //     {
-        //       label: '3天内过期',
-        //       value: [0, 3],
-        //     },
-        //     {
-        //       label: '7天内过期',
-        //       value: [0, 7],
-        //     },
-        //     {
-        //       label: '30天内过期',
-        //       value: [0, 30],
-        //     },
-        //   ],
-        // },
-
         {
-          title: '证书状态',
-          maxCount: 1,
-          field: 'expire_days',
+          title: '域名状态',
+          field: 'domain_expire_days',
           selected: [],
+          maxCount: 1,
           options: [
             {
               label: '已过期',
@@ -80,26 +55,6 @@ export default {
           ],
         },
 
-        {
-          title: '网站状态',
-          field: 'connect_status',
-          selected: [],
-          maxCount: 1,
-          options: [
-            {
-              label: '连接异常',
-              value: 'error',
-            },
-            {
-              label: '连接正常',
-              value: 'success',
-            },
-            {
-              label: '状态未知',
-              value: 'unknown',
-            },
-          ],
-        },
         {
           title: '域名分组',
           field: 'group_ids',

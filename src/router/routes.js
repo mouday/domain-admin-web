@@ -16,8 +16,18 @@ export const routes = [
         name: 'domain-list',
         component: () => import('../views/domain-list/index.vue'),
         meta: {
-          title: '域名管理',
+          title: '证书管理',
           icon: 'Tickets',
+        },
+      },
+
+      {
+        path: '/domain-info-list',
+        name: 'domain-info-list',
+        component: () => import('../views/domain-info-list/index.vue'),
+        meta: {
+          title: '域名管理',
+          icon: 'Coin',
         },
       },
 

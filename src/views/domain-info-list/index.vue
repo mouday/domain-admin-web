@@ -68,15 +68,15 @@
           </template>
         </el-popconfirm>
 
-        <UpdateDomainInfo @on-success="resetData"></UpdateDomainInfo>
+        <!-- <UpdateDomainInfo @on-success="resetData"></UpdateDomainInfo> -->
 
-        <CheckDomainInfo
+        <!-- <CheckDomainInfo
           class="ml-sm"
           @on-success="resetData"
-        ></CheckDomainInfo>
+        ></CheckDomainInfo> -->
 
         <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept -->
-        <el-link
+        <!-- <el-link
           :underline="false"
           type="primary"
           class="ml-sm"
@@ -95,15 +95,15 @@
               style="position: absolute; top: 0; left: 0; right: 0; bottom: 0"
             ></div>
           </el-upload>
-        </el-link>
+        </el-link> -->
 
-        <el-link
+        <!-- <el-link
           :underline="false"
           type="primary"
           class="ml-sm"
           @click="handleExportToFile"
           ><el-icon><Download /></el-icon>导出</el-link
-        >
+        > -->
       </div>
     </div>
 
@@ -142,7 +142,7 @@
  * created 2022-10-01
  */
 
-import DataFormDialog from '../domain-edit/DataFormDialog.vue'
+import DataFormDialog from '../domain-info-edit/DataFormDialog.vue'
 import DataTable from './DataTable.vue'
 import dataApi from '@/api/dataApi.js'
 import { resolve_api_url } from '@/api/index.js'
@@ -245,7 +245,7 @@ export default {
         }
       }
 
-      const res = await this.$http.getDomainList(params)
+      const res = await this.$http.getDomainInfoList(params)
 
       if (res.code == 0) {
         this.list = res.data.list.map((item) => {
@@ -404,7 +404,6 @@ export default {
   },
 
   created() {
-    this.keyword = this.$route.query.keyword
     this.initData()
   },
 }

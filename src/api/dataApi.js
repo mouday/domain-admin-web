@@ -23,7 +23,6 @@ export default {
   checkDomainCert: '/checkDomainCert',
   updateDomainSetting: '/updateDomainSetting',
   getDomainFilterData: '/getDomainFilterData',
-  
 
   getAllSystemConfig: '/getAllSystemConfig',
   updateSystemConfig: '/updateSystemConfig',
@@ -55,9 +54,9 @@ export default {
   deleteGroupById: '/deleteGroupById',
   getGroupList: '/getGroupList',
   getGroupById: '/getGroupById',
-  
+
   domainRelationGroup: '/domainRelationGroup',
-  
+
   // 实验室
   getWhoisRaw: '/getWhoisRaw',
 
@@ -70,4 +69,12 @@ export default {
   updateAddressListInfoByDomainId: '/updateAddressListInfoByDomainId',
   updateAddressRowInfoById: '/updateAddressRowInfoById',
 
+  // 域名列表
+  getDomainInfoList: '/getDomainInfoList',
+  addDomainInfo: '/addDomainInfo',
+  updateDomainInfoRowById: '/updateDomainInfoRowById',  
+  deleteDomainInfoById: '/deleteDomainInfoById',
+  getDomainInfoById: '/getDomainInfoById',
+  updateDomainInfoById: '/updateDomainInfoById',
+  updateDomainInfoFieldById: '/updateDomainInfoFieldById',
 }
