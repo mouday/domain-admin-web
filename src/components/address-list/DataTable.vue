@@ -94,7 +94,7 @@
         prop="ssl_check_time"
       >
         <template #default="scope">
-          <span>{{ scope.row.ssl_check_time_label || '-' }}</span>
+          <span>{{ scope.row.update_time_label || '-' }}</span>
         </template>
       </el-table-column>
 
@@ -140,7 +140,7 @@
             :underline="false"
             type="primary"
             class="mr-sm"
-            :disabled="!scope.row.ssl_auto_update"
+            :disabled="disableUpdateButton"
             @click="handleUpdateRowDomainInfo(scope.row)"
             ><el-icon><Refresh /></el-icon
           ></el-link>
@@ -173,6 +173,7 @@
     <DataFormDialog
       v-model:visible="dialogVisible"
       :row="currentRow"
+      :domainId="domainId"
       @on-success="handleUpdateSuccess"
     ></DataFormDialog>
   </div>
@@ -196,6 +197,14 @@ export default {
     list: {
       type: Array,
     },
+    domainId: {
+      type: Number,
+      default: null,
+    },
+    disableUpdateButton: {
+      type: Boolean,
+      default: false,
+    }
   },
 
   computed: {},

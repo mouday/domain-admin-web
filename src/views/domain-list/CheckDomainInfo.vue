@@ -39,9 +39,11 @@ export default {
 
   methods: {
     async checkDomainCert() {
-      this.updateTimer = setInterval(() => {
-        this.getUpdateDomainStatusOfUser()
-      }, 2000)
+      // this.updateTimer = setInterval(() => {
+      //   this.getUpdateDomainStatusOfUser()
+      // }, 2000)
+
+      // this.updateTimer = true
 
       const res = await this.$http.checkDomainCert()
 

@@ -80,26 +80,26 @@ export default {
           ],
         },
 
-        {
-          title: '网站状态',
-          field: 'connect_status',
-          selected: [],
-          maxCount: 1,
-          options: [
-            {
-              label: '连接异常',
-              value: 'error',
-            },
-            {
-              label: '连接正常',
-              value: 'success',
-            },
-            {
-              label: '状态未知',
-              value: 'unknown',
-            },
-          ],
-        },
+        // {
+        //   title: '网站状态',
+        //   field: 'connect_status',
+        //   selected: [],
+        //   maxCount: 1,
+        //   options: [
+        //     {
+        //       label: '连接异常',
+        //       value: 'error',
+        //     },
+        //     {
+        //       label: '连接正常',
+        //       value: 'success',
+        //     },
+        //     {
+        //       label: '状态未知',
+        //       value: 'unknown',
+        //     },
+        //   ],
+        // },
         {
           title: '域名分组',
           field: 'group_ids',

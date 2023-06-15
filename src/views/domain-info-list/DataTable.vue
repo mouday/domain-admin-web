@@ -130,6 +130,7 @@
         </template>
       </el-table-column> -->
 
+      <!-- 自动更新 -->
       <el-table-column
         label="自动更新"
         width="90"
@@ -147,6 +148,7 @@
         </template>
       </el-table-column>
 
+      <!-- 监测 -->
       <el-table-column
         label="监测"
         width="60"

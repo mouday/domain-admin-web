@@ -54,26 +54,26 @@
         />
       </el-form-item>
 
-      <el-form-item
+      <!-- <el-form-item
         label="证书自动更新"
         prop="ssl_auto_update"
       >
         <el-switch v-model="form.ssl_auto_update" />
-      </el-form-item>
+      </el-form-item> -->
 
-      <el-form-item
+      <!-- <el-form-item
         label="证书到期监控"
         prop="ssl_expire_monitor"
       >
         <el-switch v-model="form.ssl_expire_monitor" />
-      </el-form-item>
+      </el-form-item> -->
 
       <!-- 证书检查时间 -->
     </el-form>
 
-    <div class="text-[12px] color--info">
+    <!-- <div class="text-[12px] color--info">
       提示：如需手动设置，请关闭自动更新
-    </div>
+    </div> -->
 
     <!-- 操作 -->
     <div class="text-center mt-md">
@@ -123,6 +123,8 @@ export default {
       rules: formRules,
 
       // 引入枚举值
+      // 是否自动更新
+      is_auto_update: true,
 
       form: {
         // 主机地址
@@ -149,12 +151,26 @@ export default {
 
   computed: {
     disabledTime() {
-      return this.form.ssl_auto_update
+      return this.is_auto_update
     },
   },
 
   methods: {
+    async getDomainById() {
+      let params = {
+        domain_id: this.domainId,
+      }
+
+      const res = await this.$http.getDomainById(params)
+
+      if (res.ok) {
+        this.is_auto_update = res.data.auto_update
+      }
+    },
+
     async getData() {
+      // await this.getDomainById()
+
       if (this.row) {
         let params = {
           address_id: this.row.id,
@@ -184,7 +200,7 @@ export default {
         this.form.ssl_expire_days = data.ssl_expire_days
 
         this.form.ssl_auto_update = data.ssl_auto_update
-        this.form.ssl_expire_monitor  = data.ssl_expire_monitor
+        this.form.ssl_expire_monitor = data.ssl_expire_monitor
       }
     },
 
@@ -223,8 +239,8 @@ export default {
         // ssl_check_time: this.form.ssl_check_time,
         // 过期剩余天数
         // ssl_expire_days: this.form.ssl_expire_days,
-        ssl_auto_update: this.form.ssl_auto_update,
-        ssl_expire_monitor: this.form.ssl_expire_monitor,
+        // ssl_auto_update: this.form.ssl_auto_update,
+        // ssl_expire_monitor: this.form.ssl_expire_monitor,
       }
 
       // 编辑

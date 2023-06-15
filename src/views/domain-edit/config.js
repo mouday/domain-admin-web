@@ -14,7 +14,7 @@ export const formRules = {
   // 端口号
   port: [
     {
-      required: false,
+      required: true,
       trigger: 'blur',
       validator: (rule, value, callback) => {
         if (!value) {

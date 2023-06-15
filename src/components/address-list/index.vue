@@ -11,6 +11,7 @@
       <el-link
         :underline="false"
         type="primary"
+        :disabled="disableUpdateButton"
         @click="updateAllAddress"
         ><el-icon><Refresh /></el-icon>全部更新</el-link
       >
@@ -37,6 +38,8 @@
       class="mt-md"
       v-loading="loading"
       :list="list"
+      :domainId="domainId"
+      :disableUpdateButton="disableUpdateButton"
       @on-success="resetData"
       @on-edit-row="handleEditRow"
     />
@@ -95,19 +98,34 @@ export default {
 
       loading: true,
       dialogVisible: false,
+      is_auto_update: true,
     }
   },
 
   computed: {
     disableUpdateButton() {
-      return !(this.list && this.list.length > 0)
+      return !this.is_auto_update
     },
   },
 
   methods: {
-    resetData() {
+    async resetData() {
       this.page = 1
-      this.getData()
+
+      // await this.getDomainById()
+      await this.getData()
+    },
+
+    async getDomainById() {
+      let params = {
+        domain_id: this.domainId,
+      }
+
+      const res = await this.$http.getDomainById(params)
+
+      if (res.ok) {
+        this.is_auto_update = res.data.auto_update
+      }
     },
 
     async getData() {
@@ -174,7 +192,7 @@ export default {
   },
 
   created() {
-    this.getData()
+    this.resetData()
   },
 }
 </script>

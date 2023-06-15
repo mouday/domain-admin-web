@@ -24,17 +24,11 @@
         prop="domain"
       >
         <template #default="scope">
-          <el-tooltip
-            :disabled="!scope.row.alias"
-            :content="scope.row.alias"
+          <el-link
+            :underline="false"
+            @click="handleShowDetail(scope.row)"
+            >{{ scope.row.domain }}</el-link
           >
-            <el-link
-              :underline="false"
-              :href="scope.row.domain_url"
-              target="_blank"
-              >{{ scope.row.domain }}</el-link
-            >
-          </el-tooltip>
         </template>
       </el-table-column>
 
@@ -109,7 +103,6 @@
           <ExpireProgress
             :startTime="scope.row.start_time"
             :endTime="scope.row.expire_time"
-            :isManual="!scope.row.auto_update"
           ></ExpireProgress>
 
           <!-- <span>{{ scope.row.real_time_expire_days }}</span> -->
@@ -124,7 +117,13 @@
         prop="address_count"
       >
         <template #default="scope">
-          <span>{{ scope.row.address_count || '-' }}</span>
+          <el-link
+            v-if="scope.row.address_count && scope.row.address_count > 0"
+            :underline="false"
+            @click="handleShowAddressListgDialog(scope.row)"
+            >{{ scope.row.address_count }}</el-link
+          >
+          <span v-else>-</span>
         </template>
       </el-table-column>
 
@@ -236,6 +235,25 @@
         </template>
       </el-table-column> -->
 
+      <!-- 自动更新 -->
+      <el-table-column
+        label="自动更新"
+        width="90"
+        header-align="center"
+        align="center"
+        sortable="custom"
+        prop="domain_expire_monitor"
+      >
+        <template #default="scope">
+          <el-switch
+            style="transform: scale(0.8)"
+            v-model="scope.row.auto_update"
+            @change="handleAutoUpdateStatusChange(scope.row, $event)"
+          />
+        </template>
+      </el-table-column>
+
+      <!-- 监测 -->
       <el-table-column
         label="监测"
         width="60"
@@ -255,18 +273,18 @@
 
       <el-table-column
         label="操作"
-        width="140"
+        width="100"
         header-align="center"
         align="center"
       >
         <template #default="scope">
-          <el-link
+          <!-- <el-link
             :underline="false"
             type="primary"
             class="mr-sm"
             @click="handleShowDetail(scope.row)"
             ><el-icon><Tickets /></el-icon
-          ></el-link>
+          ></el-link> -->
 
           <!-- <el-link
             :underline="false"
@@ -281,18 +299,17 @@
             :underline="false"
             type="primary"
             class="mr-sm"
-            :disabled="!scope.row.domain_auto_update"
             @click="handleUpdateRowDomainInfo(scope.row)"
             ><el-icon><Refresh /></el-icon
           ></el-link>
 
-          <el-link
+          <!-- <el-link
             :underline="false"
             type="primary"
             class="mr-sm"
             @click="handleDomainSettingDialogShow(scope.row)"
             ><el-icon><Setting /></el-icon
-          ></el-link>
+          ></el-link> -->
 
           <el-link
             :underline="false"
@@ -497,6 +514,25 @@ export default {
     handleShowAddressListgDialog(row) {
       this.currentRow = row
       this.AddressListgDialogVisible = true
+    },
+
+    async handleAutoUpdateStatusChange(row, value) {
+      // console.log(row, value)
+
+      let params = {
+        domain_id: row.id,
+        field: 'auto_update',
+        value: value,
+      }
+
+      const res = await this.$http.updateDomainFieldById(params)
+
+      if (res.code == 0) {
+        this.$msg.success('操作成功')
+        // this.$emit('on-success')
+      } else {
+        this.$msg.error(res.msg)
+      }
     },
   },
 

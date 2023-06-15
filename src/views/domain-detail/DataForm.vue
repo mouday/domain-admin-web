@@ -190,25 +190,33 @@
         </el-form-item>
 
         <el-form-item
-          label="注册时间"
+          label="证书颁发时间"
           prop="create_time"
         >
-          <span>{{ form.domain_start_time || '-' }}</span>
+          <span>{{ form.start_time || '-' }}</span>
         </el-form-item>
 
         <el-form-item
-          label="到期时间"
+          label="证书过期时间"
           prop="create_time"
         >
-          <span>{{ form.domain_expire_time || '-' }}</span>
+          <span>{{ form.expire_time || '-' }}</span>
         </el-form-item>
 
         <el-form-item
+          label="分组"
+          prop="create_time"
+        >
+          <span v-if="form.group">{{ form.group.name || '-' }}</span>
+          <span v-else>-</span>
+        </el-form-item>
+
+        <!-- <el-form-item
           label="自动更新"
           prop="isp"
         >
           <span class="truncate">{{ form.domain_auto_update_label || '-' }}</span>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
 
       <el-form
@@ -227,7 +235,7 @@
           prop="create_time"
         >
           <!-- <span>{{ form.real_time_domain_expire_days || '-' }}</span> -->
-          <ExpireDays :value="form.real_time_domain_expire_days"></ExpireDays>
+          <ExpireDays :value="form.real_time_expire_days"></ExpireDays>
         </el-form-item>
 
         <el-form-item
@@ -235,15 +243,12 @@
           prop="isp"
         >
           <div class="flex justify-between flex-1">
-            <span class="truncate">{{
-              form.domain_check_time_label || '-'
-            }}</span>
+            <span class="truncate">{{ form.update_time_label || '-' }}</span>
 
             <el-link
               :underline="false"
               type="primary"
               class="mr-sm"
-              :disabled="!form.domain_auto_update"
               @click="handleUpdateRowDomainInfo"
               ><el-icon><Refresh /></el-icon
             ></el-link>
@@ -251,11 +256,18 @@
         </el-form-item>
 
         <el-form-item
+          label="主机数量"
+          prop="create_time"
+        >
+          <span>{{ form.address_count || '-' }}</span>
+        </el-form-item>
+
+        <!-- <el-form-item
           label="过期监测"
           prop="isp"
         >
           <span class="truncate">{{ form.domain_expire_monitor || '-' }}</span>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
     </div>
 
@@ -352,6 +364,8 @@ export default {
         domain_expire_monitor: '',
         domain_check_time_label: '',
         port: '',
+        address_count: 0,
+        group: null,
       },
 
       // ip信息
@@ -400,7 +414,7 @@ export default {
         this.form.real_time_expire_days = data.real_time_expire_days
         // 创建时间
         this.form.create_time = data.create_time
-        this.form.update_time = data.update_time
+        this.form.update_time_label = data.update_time_label
 
         this.form.domain_auto_update = data.domain_auto_update
 
@@ -419,6 +433,9 @@ export default {
         this.form.domain_expire_time = data.domain_expire_time
         this.form.real_time_domain_expire_days =
           data.real_time_domain_expire_days
+
+        this.form.address_count = data.address_count
+        this.form.group = data.group
 
         this.form.detail = {
           issuer: data.detail.issuer || {},
