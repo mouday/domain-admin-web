@@ -82,5 +82,6 @@ export default {
   updateDomainInfoFieldById: '/updateDomainInfoFieldById',
   checkDomainExpire: '/checkDomainExpire',
   importDomainInFromFile: '/importDomainInFromFile',
+  exportDomainInfoFile: '/exportDomainInfoFile',
   
 }
