@@ -349,10 +349,10 @@ export default {
         // 创建时间
         create_time: '',
         update_time: '',
-        detail: {
-          issuer: {},
-          subject: {},
-        },
+        // detail: {
+        //   issuer: {},
+        //   subject: {},
+        // },
 
         real_time_expire_days: '',
         domain_start_time: '',
@@ -386,7 +386,7 @@ export default {
 
         const res = await this.$http.getDomainById(params)
 
-        if (res.code != 0) {
+        if (!res.ok) {
           return
         }
 
@@ -437,10 +437,10 @@ export default {
         this.form.address_count = data.address_count
         this.form.group = data.group
 
-        this.form.detail = {
-          issuer: data.detail.issuer || {},
-          subject: data.detail.subject || {},
-        }
+        // this.form.detail = {
+        //   issuer: data.detail.issuer || {},
+        //   subject: data.detail.subject || {},
+        // }
 
         // this.getIpInfo()
       }

@@ -44,7 +44,7 @@
       </el-form-item>
 
       <el-form-item
-        label="QQ群号"
+        label="QQ交流群"
         prop="domain"
       >
         <span>731742868</span>

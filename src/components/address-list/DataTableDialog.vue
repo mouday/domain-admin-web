@@ -89,7 +89,9 @@ export default {
       this.$emit('on-success')
     },
 
-    handleDialogClose() {},
+    handleDialogClose() {
+      this.$emit('on-close')
+    },
   },
 
   created() {},

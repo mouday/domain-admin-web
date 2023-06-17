@@ -117,6 +117,12 @@
         prop="address_count"
       >
         <template #default="scope">
+          <!-- 动态主机 -->
+          <span
+            v-if="scope.row.is_dynamic_host"
+            class="color--danger"
+            >*</span
+          >
           <el-link
             v-if="scope.row.address_count && scope.row.address_count > 0"
             :underline="false"
@@ -242,7 +248,7 @@
         header-align="center"
         align="center"
         sortable="custom"
-        prop="domain_expire_monitor"
+        prop="auto_update"
       >
         <template #default="scope">
           <el-switch
@@ -350,21 +356,21 @@
     <DataFormDialog
       v-model:visible="dialogVisible"
       :row="currentRow"
-      @on-success="handleUpdateSuccess"
+      @on-success="handleRefreshRow(currentRow)"
     ></DataFormDialog>
 
     <!-- 详情 -->
     <DataDetailDialog
       :row="currentRow"
       v-model:visible="dialogDetailVisible"
-      @on-success="handleDetailSuccess"
+      @on-success="handleRefreshRow(currentRow)"
     ></DataDetailDialog>
 
     <!-- 域名设置 -->
     <DomainSettingDialog
       :row="currentRow"
       v-model:visible="DomainSettingDialogVisible"
-      @on-success="handleUpdateSuccess"
+      @on-success="handleRefreshRow(currentRow)"
     ></DomainSettingDialog>
 
     <!-- 域名主机列表 -->
@@ -372,7 +378,7 @@
       v-if="currentRow"
       :domainId="currentRow.id"
       v-model:visible="AddressListgDialogVisible"
-      @on-success="handleUpdateSuccess"
+      @on-close="handleRefreshRow(currentRow)"
     ></AddressListgDialog>
   </div>
 </template>
@@ -402,7 +408,7 @@ export default {
     AddressListgDialog,
   },
 
-  emits: ['on-success', 'selection-change', 'sort-change'],
+  emits: ['on-success', 'selection-change', 'sort-change', 'on-refresh-row'],
 
   props: {},
 
@@ -533,6 +539,10 @@ export default {
       } else {
         this.$msg.error(res.msg)
       }
+    },
+
+    handleRefreshRow(row) {
+      this.$emit('on-refresh-row', row)
     },
   },
 

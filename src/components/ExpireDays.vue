@@ -12,11 +12,11 @@
 <script>
 // created at 2023-03-24
 export default {
-  name: 'ExpiredDays',
+  name: 'ExpireDays',
 
   props: {
     value: {
-      type: Number,
+      type: [Number, String],
       default: null,
     },
   },

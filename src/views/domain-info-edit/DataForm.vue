@@ -4,7 +4,7 @@
       ref="form"
       :model="form"
       :rules="rules"
-      label-width="60px"
+      label-width="70px"
     >
       <!-- 域名 -->
       <el-form-item
@@ -15,12 +15,39 @@
           type="text"
           v-model="form.domain"
           placeholder="请输入域名"
-          :disabled="disabledDomain"
         ></el-input>
       </el-form-item>
 
+      <!-- 域名注册时间 -->
+      <el-form-item
+        label="注册时间"
+        prop="domain_start_time"
+      >
+        <el-date-picker
+          v-model="form.domain_start_time"
+          type="date"
+          value-format="YYYY-MM-DD HH:mm:ss"
+          placeholder="域名注册时间"
+          :disabled="disabledTime"
+        />
+      </el-form-item>
+
+      <!-- 域名到期时间 -->
+      <el-form-item
+        label="到期时间"
+        prop="domain_expire_time"
+      >
+        <el-date-picker
+          v-model="form.domain_expire_time"
+          value-format="YYYY-MM-DD HH:mm:ss"
+          type="date"
+          placeholder="域名到期时间"
+          :disabled="disabledTime"
+        />
+      </el-form-item>
+
       <!-- 分组 -->
-      <!-- <el-form-item
+      <el-form-item
         label="分组"
         prop="group_id"
       >
@@ -29,20 +56,20 @@
           v-model="form.group_id"
           clearable
         ></SelectGroup>
-      </el-form-item> -->
+      </el-form-item>
 
       <!-- 备注 -->
-      <!-- <el-form-item
+      <el-form-item
         label="备注"
-        prop="alias"
+        prop="comment"
       >
         <el-input
           type="textarea"
-          v-model="form.alias"
+          v-model="form.comment"
           :rows="3"
           placeholder="请输入备注"
         ></el-input>
-      </el-form-item> -->
+      </el-form-item>
     </el-form>
 
     <!-- 操作 -->
@@ -92,14 +119,18 @@ export default {
         // 域名
         domain: '',
         // 备注
-        alias: '',
+        comment: '',
         // 端口
         port: 443,
         // 分组
         group_id: '',
+
+        domain_start_time: '',
+        domain_expire_time: '',
       },
 
       rules: formRules,
+      disabledTime: false,
     }
   },
 
@@ -119,21 +150,27 @@ export default {
 
       if (this.row) {
         let params = {
-          id: this.row.id,
+          domain_info_id: this.row.id,
         }
 
-        const res = await this.$http.getDomainById(params)
+        const res = await this.$http.getDomainInfoById(params)
 
         let data = res.data
         // let data = this.row
         // 域名
         this.form.domain = data.domain
-        // this.form.alias = data.alias
-        // this.form.group_id = data.group_id
+        this.form.comment = data.comment
+        this.form.group_id = data.group_id
+        this.form.domain_start_time = data.domain_start_time
+        this.form.domain_expire_time = data.domain_expire_time
         // this.form.port = data.port
 
         if (this.form.group_id == 0) {
           this.form.group_id = ''
+        }
+
+        if (data.is_auto_update) {
+          this.disabledTime = true
         }
       }
 
@@ -166,16 +203,17 @@ export default {
       let params = {
         // 域名
         domain: this.form.domain.trim(),
-        // alias: this.form.alias.trim(),
-        // group_id: this.form.group_id,
-        // port: this.form.port,
+        comment: this.form.comment.trim(),
+        group_id: this.form.group_id,
+        domain_start_time: this.form.domain_start_time,
+        domain_expire_time: this.form.domain_expire_time,
       }
 
       let res = null
 
       if (this.row) {
         // 编辑
-        params['id'] = this.row.id
+        params['domain_info_id'] = this.row.id
         res = await this.$http.updateDomainInfoById(params)
       } else {
         // 添加

@@ -68,15 +68,15 @@
           </template>
         </el-popconfirm>
 
-        <!-- <UpdateDomainInfo @on-success="resetData"></UpdateDomainInfo> -->
+        <UpdateDomainInfo @on-success="resetData"></UpdateDomainInfo>
 
-        <!-- <CheckDomainInfo
+        <CheckDomainInfo
           class="ml-sm"
           @on-success="resetData"
-        ></CheckDomainInfo> -->
+        ></CheckDomainInfo>
 
         <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept -->
-        <!-- <el-link
+        <el-link
           :underline="false"
           type="primary"
           class="ml-sm"
@@ -95,15 +95,15 @@
               style="position: absolute; top: 0; left: 0; right: 0; bottom: 0"
             ></div>
           </el-upload>
-        </el-link> -->
+        </el-link>
 
-        <!-- <el-link
+        <el-link
           :underline="false"
           type="primary"
           class="ml-sm"
           @click="handleExportToFile"
           ><el-icon><Download /></el-icon>导出</el-link
-        > -->
+        >
       </div>
     </div>
 
@@ -115,6 +115,7 @@
       @on-success="resetData"
       @sort-change="handleSortChange"
       @selection-change="handleSelectionChange"
+      @on-refresh-row="handleRefreshRow"
     />
 
     <!-- 翻页 -->
@@ -154,6 +155,7 @@ import { mapState, mapActions } from 'pinia'
 import UpdateDomainInfo from './UpdateDomainInfo.vue'
 import CheckDomainInfo from './CheckDomainInfo.vue'
 import ConditionFilter from './ConditionFilter.vue'
+import { getUUID } from '@/utils/uuid.js'
 
 export default {
   name: 'domain-list',
@@ -186,7 +188,7 @@ export default {
       export_to_file_url: resolve_api_url(dataApi.exportDomainToFile),
 
       order_type: 'ascending',
-      order_prop: 'expire_days',
+      order_prop: 'domain_expire_days',
 
       hasInitData: false,
 
@@ -249,12 +251,7 @@ export default {
 
       if (res.code == 0) {
         this.list = res.data.list.map((item) => {
-          // 分组
-          if (item.group_id) {
-            item.group_name = this.getGroupName(item.group_id)
-          }
-
-          return item
+          return this.preHandleRow(item)
         })
         this.total = res.data.total
       } else {
@@ -264,6 +261,16 @@ export default {
       this.loading = false
     },
 
+    preHandleRow(row) {
+      row._uuid = getUUID()
+
+      // 分组
+      if (row.group_id) {
+        row.group_name = this.getGroupName(row.group_id)
+      }
+
+      return row
+    },
     getGroupName(group_id) {
       let groupOption = this.groupOptions.find((x) => x.value == group_id)
 
@@ -279,7 +286,7 @@ export default {
       let form = new FormData()
       form.append('file', options.file)
 
-      const res = await this.$http.importDomainFromFile(form)
+      const res = await this.$http.importDomainInFromFile(form)
 
       if (res.code == 0) {
         // this.$msg.success(`导入成功：${res.data.count}`)
@@ -305,7 +312,7 @@ export default {
       // var blob = new Blob([content], {
       //   type: 'text/plain;charset=utf-8',
       // })
-      const res = await this.$http.exportDomainFile()
+      const res = await this.$http.exportDomainInfoFile()
       if (res.ok) {
         FileSaver.saveAs(res.data.url, 'domain.txt')
       }
@@ -380,11 +387,11 @@ export default {
       let loading = this.$loading({ fullscreen: true })
 
       let params = {
-        ids: this.selectedRows.map((item) => item.id),
+        domain_info_ids: this.selectedRows.map((item) => item.id),
       }
 
       try {
-        const res = await this.$http.deleteDomainByIds(params)
+        const res = await this.$http.deleteDomainInfoByIds(params)
 
         if (res.code == 0) {
           this.$msg.success('操作成功')
@@ -399,6 +406,21 @@ export default {
           // 以服务的方式调用的 Loading 需要异步关闭
           loading.close()
         })
+      }
+    },
+
+    async handleRefreshRow(row) {
+      let params = {
+        domain_info_id: row.id,
+      }
+
+      const res = await this.$http.getDomainInfoById(params)
+
+      if (res.ok) {
+        let index = this.list.find((item) => item.id == row.id)
+
+        this.list.splice(index, 1, this.preHandleRow(res.data))
+        console.log(this.list)
       }
     },
   },

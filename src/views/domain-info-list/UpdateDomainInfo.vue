@@ -39,14 +39,16 @@ export default {
 
   methods: {
     async updateAllDomainCertInfoOfUser() {
-      this.updateTimer = setInterval(() => {
-        this.getUpdateDomainStatusOfUser()
-      }, 2000)
+      // this.updateTimer = setInterval(() => {
+      //   this.getUpdateDomainStatusOfUser()
+      // }, 2000)
 
-      const res = await this.$http.updateAllDomainCertInfoOfUser()
+      this.updateTimer  = true
+
+      const res = await this.$http.updateDomainInfoOfUser()
 
       if (res.code == 0) {
-        this.$msg.success('操作成功')
+        this.$msg.success('后台更新中，刷新查看')
       }
     },
 

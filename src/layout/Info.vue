@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar-info">
-    <div v-if="version">当前版本：{{ version }}</div>
+    <div v-if="version">{{ version }}</div>
 
     <a
       href="https://pypi.org/project/domain-admin/"

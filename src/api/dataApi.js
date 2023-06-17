@@ -74,8 +74,13 @@ export default {
   getDomainInfoList: '/getDomainInfoList',
   addDomainInfo: '/addDomainInfo',
   updateDomainInfoRowById: '/updateDomainInfoRowById',  
+  updateDomainInfoOfUser: '/updateDomainInfoOfUser',
   deleteDomainInfoById: '/deleteDomainInfoById',
+  deleteDomainInfoByIds: '/deleteDomainInfoByIds',
   getDomainInfoById: '/getDomainInfoById',
   updateDomainInfoById: '/updateDomainInfoById',
   updateDomainInfoFieldById: '/updateDomainInfoFieldById',
+  checkDomainExpire: '/checkDomainExpire',
+  importDomainInFromFile: '/importDomainInFromFile',
+  
 }

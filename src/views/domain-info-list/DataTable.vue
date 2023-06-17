@@ -51,8 +51,6 @@
         header-align="center"
         align="center"
         width="100"
-        sortable="custom"
-        prop="group_name"
       >
         <template #default="scope">
           <el-link
@@ -84,11 +82,11 @@
         label="备注"
         header-align="center"
         align="left"
-        prop="check_time"
+        prop="comment"
         show-overflow-tooltip
       >
         <template #default="scope">
-          <span>{{ scope.row.alias || '-' }}</span>
+          <span>{{ scope.row.comment || '-' }}</span>
         </template>
       </el-table-column>
 
@@ -168,7 +166,7 @@
 
       <el-table-column
         label="操作"
-        width="140"
+        width="100"
         header-align="center"
         align="center"
       >
@@ -198,13 +196,13 @@
             ><el-icon><Refresh /></el-icon
           ></el-link>
 
-          <el-link
+          <!-- <el-link
             :underline="false"
             type="primary"
             class="mr-sm"
             @click="handleDomainSettingDialogShow(scope.row)"
             ><el-icon><Setting /></el-icon
-          ></el-link>
+          ></el-link> -->
 
           <el-link
             :underline="false"
@@ -245,14 +243,14 @@
     <DataFormDialog
       v-model:visible="dialogVisible"
       :row="currentRow"
-      @on-success="handleUpdateSuccess"
+      @on-success="handleRefreshRow(currentRow)"
     ></DataFormDialog>
 
     <!-- 详情 -->
     <DataDetailDialog
       :row="currentRow"
       v-model:visible="dialogDetailVisible"
-      @on-success="handleDetailSuccess"
+      @on-success="handleRefreshRow(currentRow)"
     ></DataDetailDialog>
 
     <!-- 域名设置 -->
@@ -297,7 +295,7 @@ export default {
     AddressListgDialog,
   },
 
-  emits: ['on-success', 'selection-change', 'sort-change'],
+  emits: ['on-success', 'selection-change', 'sort-change', 'on-refresh-row'],
 
   props: {},
 
@@ -432,12 +430,18 @@ export default {
     },
 
     handleCertCountClick(row) {
-      this.$router.push({
+      let route = this.$router.resolve({
         name: 'domain-list',
         query: {
           keyword: row.domain,
         },
       })
+
+      window.open(route.href, '_blank')
+    },
+
+    handleRefreshRow(row) {
+      this.$emit('on-refresh-row', row)
     },
   },
 

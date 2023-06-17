@@ -113,6 +113,7 @@
       v-loading="loading"
       :data="list"
       @on-success="resetData"
+      @on-refresh-row="handleRefreshRow"
       @sort-change="handleSortChange"
       @selection-change="handleSelectionChange"
     />
@@ -154,6 +155,7 @@ import { mapState, mapActions } from 'pinia'
 import UpdateDomainInfo from './UpdateDomainInfo.vue'
 import CheckDomainInfo from './CheckDomainInfo.vue'
 import ConditionFilter from './ConditionFilter.vue'
+import { getUUID } from '@/utils/uuid.js'
 
 export default {
   name: 'domain-list',
@@ -249,12 +251,7 @@ export default {
 
       if (res.code == 0) {
         this.list = res.data.list.map((item) => {
-          // 分组
-          if (item.group_id) {
-            item.group_name = this.getGroupName(item.group_id)
-          }
-
-          return item
+          return this.preHandleRow(item)
         })
         this.total = res.data.total
       } else {
@@ -262,6 +259,17 @@ export default {
       }
 
       this.loading = false
+    },
+
+    preHandleRow(row) {
+      row._uuid = getUUID()
+
+      // 分组
+      if (row.group_id) {
+        row.group_name = this.getGroupName(row.group_id)
+      }
+
+      return row
     },
 
     getGroupName(group_id) {
@@ -399,6 +407,21 @@ export default {
           // 以服务的方式调用的 Loading 需要异步关闭
           loading.close()
         })
+      }
+    },
+
+    async handleRefreshRow(row) {
+      let params = {
+        id: row.id,
+      }
+
+      const res = await this.$http.getDomainById(params)
+      
+      if (res.ok) {
+        let index = this.list.find((item) => item.id == row.id)
+
+        this.list.splice(index, 1, this.preHandleRow(res.data))
+        console.log(this.list)
       }
     },
   },

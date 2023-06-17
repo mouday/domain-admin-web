@@ -75,15 +75,11 @@ export default {
 
   methods: {
     handleClose() {
-      // console.log('handleClose');
-      // this.dialogVisible = false
-      this.$emit('on-success')
-      this.$emit('update:visible', false)
+      this.dialogVisible = false
     },
 
     handleOpen() {
-      // this.dialogVisible = true
-      this.$emit('update:visible', true)
+      this.dialogVisible = true
     },
 
     handleSuccess() {

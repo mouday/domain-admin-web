@@ -4,7 +4,7 @@
       ref="form"
       :model="form"
       :rules="rules"
-      label-width="60px"
+      label-width="70px"
     >
       <!-- 域名 -->
       <el-form-item
@@ -15,7 +15,6 @@
           type="text"
           v-model="form.domain"
           placeholder="请输入域名"
-          :disabled="disabledDomain"
         ></el-input>
       </el-form-item>
 
@@ -29,6 +28,25 @@
           v-model="form.port"
           placeholder="请输入端口"
         ></el-input>
+      </el-form-item>
+
+      <!-- 动态主机 -->
+      <el-form-item
+        label="动态主机"
+        prop="is_dynamic_host"
+      >
+        <el-switch v-model="form.is_dynamic_host" />
+
+        <el-tooltip
+          effect="dark"
+          content="动态主机IP地址：每次自动更新将会重新获取主机列表"
+          placement="top-start"
+          :show-after="500"
+        >
+          <el-link :underline="false"
+            ><el-icon class="ml-sm"><Warning /></el-icon
+          ></el-link>
+        </el-tooltip>
       </el-form-item>
 
       <!-- 分组 -->
@@ -109,6 +127,9 @@ export default {
         port: 443,
         // 分组
         group_id: '',
+
+        // 动态ip
+        is_dynamic_host: false,
       },
 
       rules: formRules,
@@ -143,6 +164,7 @@ export default {
         this.form.alias = data.alias
         this.form.group_id = data.group_id
         this.form.port = data.port
+        this.form.is_dynamic_host = data.is_dynamic_host
 
         if (this.form.group_id == 0) {
           this.form.group_id = ''
@@ -181,6 +203,7 @@ export default {
         alias: this.form.alias.trim(),
         group_id: this.form.group_id,
         port: this.form.port,
+        is_dynamic_host: this.form.is_dynamic_host,
       }
 
       let res = null
@@ -194,11 +217,9 @@ export default {
         res = await this.$http.addDomain(params)
       }
 
-      if (res.code == 0) {
+      if (res.ok) {
         this.$msg.success('操作成功')
         this.$emit('on-success')
-      } else {
-        this.$msg.error(res.msg)
       }
 
       this.$nextTick(() => {

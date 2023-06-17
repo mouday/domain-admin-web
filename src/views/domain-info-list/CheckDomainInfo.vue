@@ -39,11 +39,7 @@ export default {
 
   methods: {
     async checkDomainCert() {
-      this.updateTimer = setInterval(() => {
-        this.getUpdateDomainStatusOfUser()
-      }, 2000)
-
-      const res = await this.$http.checkDomainCert()
+      const res = await this.$http.checkDomainExpire()
 
       if (res.ok) {
         this.$msg.success('操作成功')

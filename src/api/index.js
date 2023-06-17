@@ -7,16 +7,17 @@ import { HttpCodeEnum } from './enums.js'
 
 function httpRequest(url) {
   return async function (params = {}, config) {
-    let data = null
+    // let data = null
+    // console.log(params)
 
     // 可以加一些公共参数
-    if (params instanceof FormData) {
-      data = params
-    } else {
-      data = params
-    }
+    // if (params instanceof FormData) {
+    //   data = params
+    // } else {
+    //   data = params
+    // }
 
-    const res = await instance.post(url, data, config)
+    const res = await instance.post(url, params, config)
 
     res.ok = false
 

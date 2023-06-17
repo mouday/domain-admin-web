@@ -16,7 +16,7 @@ export const routes = [
         name: 'domain-list',
         component: () => import('../views/domain-list/index.vue'),
         meta: {
-          title: '证书管理',
+          title: '证书列表',
           icon: 'Tickets',
         },
       },
@@ -26,7 +26,7 @@ export const routes = [
         name: 'domain-info-list',
         component: () => import('../views/domain-info-list/index.vue'),
         meta: {
-          title: '域名管理',
+          title: '域名列表',
           icon: 'Coin',
         },
       },
