@@ -226,7 +226,7 @@ export default {
       let params = {
         domain_id: this.domainId,
         // 主机地址
-        host: this.form.host,
+        host: this.form.host.trim(),
         // 主机连接状态
         // host_connect_status: this.form.host_connect_status,
         // 主机检查时间
