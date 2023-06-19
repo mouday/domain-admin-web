@@ -417,7 +417,7 @@ export default {
       const res = await this.$http.getDomainInfoById(params)
 
       if (res.ok) {
-        let index = this.list.find((item) => item.id == row.id)
+        let index = this.list.findIndex((item) => item.id == row.id)
 
         this.list.splice(index, 1, this.preHandleRow(res.data))
         console.log(this.list)
