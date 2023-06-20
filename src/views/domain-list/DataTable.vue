@@ -266,12 +266,12 @@
         header-align="center"
         align="center"
         sortable="custom"
-        prop="domain_expire_monitor"
+        prop="is_monitor"
       >
         <template #default="scope">
           <el-switch
             style="transform: scale(0.8)"
-            v-model="scope.row.domain_expire_monitor"
+            v-model="scope.row.is_monitor"
             @change="handleMonitorStatusChange(scope.row, $event)"
           />
         </template>
@@ -466,7 +466,7 @@ export default {
 
       let params = {
         domain_id: row.id,
-        domain_expire_monitor: value,
+        is_monitor: value,
       }
 
       const res = await this.$http.updateDomainExpireMonitorById(params)

@@ -76,13 +76,13 @@
           <!-- <span>{{ scope.row.real_time_ssl_expire_days || '-' }}</span> -->
           <ExpireDays :value="scope.row.real_time_ssl_expire_days"></ExpireDays>
 
-          <el-tag
+          <!-- <el-tag
             v-if="!scope.row.ssl_auto_update"
             class="ml-[5px] mo-table-tag"
             type="info"
             size="small"
             >手动</el-tag
-          >
+          > -->
         </template>
       </el-table-column>
 
