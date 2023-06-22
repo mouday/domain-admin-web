@@ -315,7 +315,7 @@ export default {
       // })
       const res = await this.$http.exportDomainFile()
       if (res.ok) {
-        FileSaver.saveAs(res.data.url, 'domain.txt')
+        FileSaver.saveAs(res.data.url, res.data.name)
       }
     },
 
