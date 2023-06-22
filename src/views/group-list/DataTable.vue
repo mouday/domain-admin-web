@@ -28,6 +28,18 @@
         </template>
       </el-table-column>
 
+      <!-- 证书数量 -->
+      <el-table-column
+        label="证书数量"
+        header-align="center"
+        align="center"
+        prop="name"
+      >
+        <template #default="scope">
+          <span>{{ scope.row.cert_count || '-' }}</span>
+        </template>
+      </el-table-column>
+
       <!-- 域名数量 -->
       <el-table-column
         label="域名数量"
@@ -40,6 +52,7 @@
         </template>
       </el-table-column>
 
+      
       <!-- 创建时间 -->
       <el-table-column
         label="创建时间"
@@ -67,9 +80,9 @@
         </template>
       </el-table-column> -->
 
-      <!-- 关联域名 -->
+      <!-- 关联证书 -->
       <el-table-column
-        label="关联域名"
+        label="关联证书"
         width="90"
         header-align="center"
         align="center"
