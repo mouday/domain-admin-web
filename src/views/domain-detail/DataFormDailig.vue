@@ -1,7 +1,7 @@
 <template>
   <!-- 编辑框 -->
   <el-dialog
-    title="域名详情"
+    title="证书详情"
     v-model="dialogVisible"
     width="800px"
     center

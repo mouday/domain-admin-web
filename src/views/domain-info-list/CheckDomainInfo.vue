@@ -34,7 +34,7 @@ export default {
       if (this.disableUpdateButton) {
         return '正在检查'
       } else {
-        return '证书检查'
+        return '域名检查'
       }
     },
   },

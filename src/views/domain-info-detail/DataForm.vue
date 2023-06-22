@@ -228,9 +228,9 @@ export default {
         this.form.domain_auto_update = data.domain_auto_update
 
         this.form.domain_auto_update_label =
-          data.domain_auto_update == true ? '是' : '否'
+          data.is_auto_update == true ? '是' : '否'
         this.form.domain_expire_monitor =
-          data.domain_expire_monitor == true ? '是' : '否'
+          data.is_expire_monitor == true ? '是' : '否'
         this.form.domain_check_time_label = data.domain_check_time_label
         this.form.port = data.port
         this.form.real_domain_expire_days = data.real_domain_expire_days
