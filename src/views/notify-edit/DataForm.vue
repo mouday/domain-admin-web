@@ -61,6 +61,7 @@
         :is="currentComponent"
         :rowData="rowData"
         @on-submit="handleSubmit"
+        @on-cancel="handleClose"
     /></template>
   </div>
 </template>
@@ -94,7 +95,7 @@ export default {
     row: { type: Object, default: null },
   },
 
-  emits: ['on-success'],
+  emits: ['on-success', 'on-cancel'],
 
   components: {
     NotifyEditEmail,
@@ -244,6 +245,10 @@ export default {
         loading.close()
       })
     },
+
+    handleClose(){
+      this.$emit('on-cancel')
+    }
   },
 
   created() {

@@ -61,7 +61,7 @@
 
     <!-- 操作 -->
     <div class="text-center">
-      <el-button @click="handleCancel">重 置</el-button>
+      <el-button @click="handleCancel">取 消</el-button>
       <el-button
         type="primary"
         @click="handleSubmit"
@@ -106,7 +106,7 @@ export default {
     rowData: { type: Object, default: null },
   },
 
-  emits: ['on-submit'],
+  emits: ['on-submit', 'on-cancel'],
 
   components: {
     CodeEditor
@@ -178,9 +178,9 @@ export default {
 
     // 取消
     handleCancel() {
-      // this.$emit('on-cancel')
+      this.$emit('on-cancel')
       // this.getData()
-      this.$refs.form.resetFields()
+      // this.$refs.form.resetFields()
     },
 
     // 提交
