@@ -8,13 +8,30 @@
         ><el-icon><Plus /></el-icon>添加</el-button
       >
 
-      <el-link
-        :underline="false"
-        type="primary"
-        :disabled="disableUpdateButton"
-        @click="updateAllAddress"
-        ><el-icon><Refresh /></el-icon>全部更新</el-link
-      >
+      <div>
+        <el-popconfirm
+          v-if="showBatchDeleteButton"
+          title="确定删除选中？"
+          @confirm="handleBatchDeleteConfirm"
+        >
+          <template #reference>
+            <el-link
+              :underline="false"
+              type="danger"
+              class="mr-sm"
+              ><el-icon><Delete /></el-icon>批量删除</el-link
+            >
+          </template>
+        </el-popconfirm>
+
+        <el-link
+          :underline="false"
+          type="primary"
+          :disabled="disableUpdateButton"
+          @click="updateAllAddress"
+          ><el-icon><Refresh /></el-icon>全部更新</el-link
+        >
+      </div>
 
       <!-- <el-input
         class="ml-sm"
@@ -41,7 +58,7 @@
       :domainId="domainId"
       :disableUpdateButton="disableUpdateButton"
       @on-success="resetData"
-      @on-edit-row="handleEditRow"
+      @on-selection-change="handleSelectionChange"
     />
 
     <!-- 翻页 -->
@@ -95,7 +112,7 @@ export default {
       page: 1,
       size: 10,
       keyword: '',
-
+      selectedRows: [],
       loading: true,
       dialogVisible: false,
       is_auto_update: true,
@@ -105,6 +122,14 @@ export default {
   computed: {
     disableUpdateButton() {
       return !this.is_auto_update
+    },
+
+    showBatchDeleteButton() {
+      if (this.selectedRows && this.selectedRows.length > 0) {
+        return true
+      } else {
+        return false
+      }
     },
   },
 
@@ -188,6 +213,35 @@ export default {
 
     handleSizeChange(value) {
       this.resetData()
+    },
+
+    handleSelectionChange(val) {
+      this.selectedRows = val
+      // console.log(val.map((item) => item.id))
+    },
+
+    async handleBatchDeleteConfirm() {
+      let loading = this.$loading({ fullscreen: true })
+
+      let params = {
+        address_ids: this.selectedRows.map((item) => item.id),
+      }
+
+      try {
+        const res = await this.$http.deleteAddressByIds(params)
+
+        if (res.ok) {
+          this.$msg.success('操作成功')
+          this.resetData()
+        }
+      } catch (e) {
+        console.log(e)
+      } finally {
+        this.$nextTick(() => {
+          // 以服务的方式调用的 Loading 需要异步关闭
+          loading.close()
+        })
+      }
     },
   },
 

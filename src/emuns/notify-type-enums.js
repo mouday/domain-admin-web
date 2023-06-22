@@ -1,5 +1,3 @@
-import { createEnumObject } from '@/utils/enums-util.js'
-
 // 枚举值，用于逻辑判断
 export const NotifyTypeEnum = {
   // 未知
@@ -10,4 +8,27 @@ export const NotifyTypeEnum = {
   Webkook: 2,
   // 企业微信
   WorkWeixin: 3,
+}
+
+export const NotifyTypeOptions = [
+  {
+    value: NotifyTypeEnum.Email,
+    label: '邮件',
+  },
+  {
+    value: NotifyTypeEnum.Webkook,
+    label: 'Webkook',
+  },
+  {
+    value: NotifyTypeEnum.WorkWeixin,
+    label: '企业微信',
+  },
+]
+
+export function notifyTypeFilter(value) {
+  const item = NotifyTypeOptions.find((item) => item.value == value)
+  if (item) {
+    return item.label
+  }
+  return
 }

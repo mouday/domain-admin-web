@@ -16,116 +16,91 @@
         </template>
       </el-table-column>
 
-      <!-- 用户名 -->
+      <!-- 事件类型 -->
       <el-table-column
-        label="用户名"
+        label="事件类型"
         header-align="center"
         align="center"
-        prop="username"
+        prop="event_id"
       >
         <template #default="scope">
-          <span>{{ scope.row.username || '-' }}</span>
+          <span>{{ scope.row.event_label || '-' }}</span>
         </template>
       </el-table-column>
 
-      <!-- 头像 -->
-      <!-- <el-table-column
-        label="头像"
-        header-align="center"
-        align="center"
-        prop="avatar_url"
-        width="70"
-      >
-        <template #default="scope">
-          <el-avatar :src="scope.row.avatar_url">
-            <img src="https://api.multiavatar.com/domain-admin.png" />
-          </el-avatar>
-        </template>
-      </el-table-column> -->
-
-      <!-- 过期前多少天提醒 -->
-      <!-- <el-table-column
-        label="过期前多少天提醒"
-        header-align="center"
-        align="center"
-        prop="before_expire_days"
-      >
-        <template #default="scope">
-          <span>{{ scope.row.before_expire_days || '-' }}</span>
-        </template>
-      </el-table-column> -->
-
-
-      <!-- 证书数量 -->
+      <!-- 通知方式 -->
       <el-table-column
-        label="证书数量"
+        label="通知方式"
         header-align="center"
         align="center"
-        prop="notify_count"
+        prop="type_id"
       >
         <template #default="scope">
-          <span>{{ scope.row.cert_count || '-' }}</span>
+          <span>{{ scope.row.type_label || '-' }}</span>
         </template>
       </el-table-column>
 
-      <!-- 域名数量 -->
+      <!-- 通知配置 -->
       <el-table-column
-        label="域名数量"
+        label="通知配置"
         header-align="center"
         align="center"
-        prop="notify_count"
+        prop="value"
       >
         <template #default="scope">
-          <span>{{ scope.row.domain_count || '-' }}</span>
-        </template>
-      </el-table-column>
+          <!-- 邮件方式 -->
+          <template v-if="NotifyTypeEnum.Email">
+            <template
+              v-if="
+                scope.row.value &&
+                scope.row.value.email_list &&
+                scope.row.value.email_list.length > 0
+              "
+            >
+              <template v-for="item in scope.row.value.email_list">
+                <div>{{ item }}</div>
+              </template>
+            </template>
 
-      <!-- 通知渠道 -->
-      <el-table-column
-        label="通知渠道"
-        header-align="center"
-        align="center"
-        prop="notify_count"
-      >
-        <template #default="scope">
-          <span>{{ scope.row.notify_count || '-' }}</span>
-        </template>
-      </el-table-column>
-
-      <!-- 邮件列表 -->
-      <!-- <el-table-column
-        label="邮件列表"
-        header-align="center"
-        align="center"
-        prop="email_list"
-      >
-        <template #default="scope">
-          <template
-            v-if="scope.row.email_list && scope.row.email_list.length > 0"
-          >
-            <div v-for="item in scope.row.email_list">{{ item }}</div>
+            <span v-else>-</span>
           </template>
           <span v-else>-</span>
         </template>
-      </el-table-column> -->
+      </el-table-column>
 
       <!-- 操作 -->
       <el-table-column
-        label="状态"
+        label="启用"
         header-align="center"
         align="center"
         width="80"
       >
         <template #default="scope">
           <el-switch
-            :disabled="scope.row.username == 'admin'"
             v-model="scope.row.status"
             @change="handleStatusChange(scope.row, $event)"
           />
         </template>
       </el-table-column>
 
-      <!-- <el-table-column
+      <!-- 操作 -->
+      <el-table-column
+        label="测试"
+        header-align="center"
+        align="center"
+        width="80"
+      >
+        <template #default="scope">
+          <el-link
+            :underline="false"
+            type="primary"
+            @click="handleTestRow(scope.row)"
+            ><el-icon><Position /></el-icon
+          ></el-link>
+        </template>
+      </el-table-column>
+
+      <el-table-column
         label="编辑"
         width="60"
         header-align="center"
@@ -139,7 +114,7 @@
             ><el-icon><Edit /></el-icon
           ></el-link>
         </template>
-      </el-table-column> -->
+      </el-table-column>
 
       <el-table-column
         label="删除"
@@ -151,11 +126,9 @@
           <el-popconfirm
             title="确定删除？"
             @confirm="handleDeleteClick(scope.row)"
-            :disabled="scope.row.username == 'admin'"
           >
             <template #reference>
               <el-link
-                :disabled="scope.row.username == 'admin'"
                 :underline="false"
                 type="danger"
                 ><el-icon><Delete /></el-icon
@@ -167,25 +140,26 @@
     </el-table>
 
     <!-- 编辑框 -->
-    <DataFormDailog
+    <DataFormDialog
       v-model:visible="dialogVisible"
       :row="currentRow"
       @on-success="handleUpdateSuccess"
-    ></DataFormDailog>
+    ></DataFormDialog>
   </div>
 </template>
 
 <script>
 /**
- * created 2022-10-03
+ * created 2023-06-20
  */
-import DataFormDailog from '../user-admin-edit/DataFormDailog.vue'
+import DataFormDialog from '../notify-edit/DataFormDialog.vue'
 
+import { NotifyTypeEnum } from '@/emuns/notify-type-enums.js'
 export default {
   name: '',
 
   components: {
-    DataFormDailog,
+    DataFormDialog,
   },
 
   props: {
@@ -200,6 +174,7 @@ export default {
     return {
       currentRow: null,
       dialogVisible: false,
+      NotifyTypeEnum,
     }
   },
 
@@ -211,33 +186,66 @@ export default {
 
     async handleDeleteClick(row) {
       let params = {
-        user_id: row.id,
+        notify_id: row.id,
       }
 
-      const res = await this.$http.deleteUser(params)
+      const res = await this.$http.deleteNotifyById(params)
 
       if (res.code == 0) {
         this.$msg.success('操作成功')
         this.$emit('on-success')
+      } else {
+        this.$msg.error(res.msg)
       }
     },
 
-    async handleStatusChange(row, value) {
+    async handleStatusChange(row, val) {
       let params = {
-        user_id: row.id,
-        status: value,
+        notify_id: row.id,
+        status: val,
       }
 
-      const res = await this.$http.updateUserStatus(params)
+      const res = await this.$http.updateNotifyStatusById(params)
 
       if (res.code == 0) {
         this.$msg.success('操作成功')
         // this.$emit('on-success')
+      } else {
+        this.$msg.error(res.msg)
       }
     },
 
     handleUpdateSuccess() {
       this.$emit('on-success')
+    },
+
+    async handleTestRow(row) {
+      let loading = this.$loading({ fullscreen: true })
+
+      let params = {
+        notify_id: row.id,
+      }
+
+      const res = await this.$http.handleTestNotifyById(params)
+
+      if (res.code == 0) {
+        // this.$msg.success('操作成功')
+        let msg = res.data
+        try {
+          msg = JSON.parse(msg)
+        } catch (e) {}
+
+        this.$msg.success(msg)
+
+        // this.$emit('on-success')
+      } else {
+        this.$msg.error(res.msg)
+      }
+
+      this.$nextTick(() => {
+        // 以服务的方式调用的 Loading 需要异步关闭
+        loading.close()
+      })
     },
   },
 

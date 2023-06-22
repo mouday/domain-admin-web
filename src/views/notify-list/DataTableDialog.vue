@@ -3,11 +3,9 @@
   <el-dialog
     :title="dialogTitle"
     v-model="dialogVisible"
-    width="800px"
+    width="340px"
     center
     append-to-body
-    :lock-scroll="false"
-    @close="handleDialogClose"
   >
     <DataTableIndex
       v-if="dialogVisible"
@@ -55,9 +53,9 @@ export default {
   computed: {
     dialogTitle() {
       if (this.row) {
-        return `分组关联域名：${this.row.name}`
+        return '编辑'
       } else {
-        return '-'
+        return '添加'
       }
     },
 
@@ -82,16 +80,11 @@ export default {
 
     handleSuccess() {
       this.handleClose()
-    },
-
-    handleDialogClose() {
       this.$emit('on-success')
     },
   },
 
-  created() {
-    // console.log('created')
-  },
+  created() {},
 }
 </script>
 

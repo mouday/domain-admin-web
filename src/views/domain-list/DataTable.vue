@@ -252,7 +252,6 @@
       >
         <template #default="scope">
           <el-switch
-            style="transform: scale(0.8)"
             v-model="scope.row.auto_update"
             @change="handleAutoUpdateStatusChange(scope.row, $event)"
           />
@@ -270,7 +269,6 @@
       >
         <template #default="scope">
           <el-switch
-            style="transform: scale(0.8)"
             v-model="scope.row.is_monitor"
             @change="handleMonitorStatusChange(scope.row, $event)"
           />

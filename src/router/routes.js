@@ -44,7 +44,8 @@ export const routes = [
       {
         path: '/notify-edit',
         name: 'notify-edit',
-        component: () => import('../views/notify-edit/index.vue'),
+        // component: () => import('../views/notify-edit/index.vue'),
+        component: () => import('../views/notify-list/index.vue'),
         meta: {
           title: '通知设置',
           icon: 'Message',

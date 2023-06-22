@@ -169,7 +169,7 @@ export default {
     },
 
     async getData() {
-      // await this.getDomainById()
+      await this.getDomainById()
 
       if (this.row) {
         let params = {

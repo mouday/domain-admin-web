@@ -39,24 +39,37 @@
         label="请求头"
         prop="headers"
       >
-        <el-input
+        <!-- <el-input
           type="textarea"
           :rows="5"
           v-model="form.headers"
           :placeholder="`示例: \n${headerExample}`"
-        ></el-input>
+        ></el-input> -->
+
+        <CodeEditor
+          v-model="form.headers"
+          height="100px"
+          :placeholder="`示例: \n${headerExample}`"
+        ></CodeEditor>
       </el-form-item>
 
       <el-form-item
         label="请求体"
         prop="body"
       >
-        <el-input
+        <!-- <el-input
           type="textarea"
           :rows="5"
           v-model="form.body"
           placeholder="请求体，支持jinja2模板语法"
-        ></el-input>
+        ></el-input> -->
+
+        <CodeEditor
+          mode="twig"
+          v-model="form.body"
+          height="140px"
+          :placeholder="bodyPlaceholder"
+        ></CodeEditor>
       </el-form-item>
     </el-form>
 
@@ -72,20 +85,20 @@
 
     <!-- 操作 -->
     <div class="text-center mt-md">
-      <el-button @click="handleOpenTemplateDataDialog">模板参数</el-button>
+      <!-- <el-button @click="handleOpenTemplateDataDialog">模板参数</el-button> -->
 
-      <el-button @click="handleCancel">重 置</el-button>
+      <!-- <el-button @click="handleCancel">重 置</el-button> -->
       <el-button
         type="primary"
         @click="handleSubmit"
         >保 存</el-button
       >
-      <el-tooltip
+      <!-- <el-tooltip
         content="请保存后再测试"
         placement="top"
       >
         <el-button @click="handleTest">测 试</el-button>
-      </el-tooltip>
+      </el-tooltip> -->
     </div>
 
     <!-- 模板参数弹框 -->
@@ -108,6 +121,8 @@
  * */
 import { NotifyTypeEnum } from '@/emuns/notify-type-enums.js'
 import TemplateDataDialog from '@/components/template-data/DataFormDialog.vue'
+import { deepCopy } from '@/utils/copy-util.js'
+import CodeEditor from '@/components/code-editor/CodeEditor.vue'
 
 import {
   formRules,
@@ -119,10 +134,12 @@ export default {
 
   props: {
     // 数据行
-    row: { type: Object, default: null },
+    rowData: { type: Object, default: null },
   },
 
-  components: { TemplateDataDialog },
+  emits: ['on-submit'],
+
+  components: { TemplateDataDialog, CodeEditor },
 
   data() {
     return {
@@ -137,7 +154,7 @@ export default {
 
       form: {
         // 域名
-        method: 'GET',
+        method: 'POST',
         url: '',
         headers: JSON.stringify(
           {
@@ -147,8 +164,14 @@ export default {
           4
         ),
 
-        body: '',
+        body: `{
+  "title": "到期提醒",
+  "content": "{% for row in list %}{{row.domain}} {{row.start_date or '-' }} - {{row.expire_date or '-' }} ({{row.expire_days}}){% endfor %}"
+}
+`,
       },
+
+      bodyPlaceholder: '支持jinja2模板语法',
 
       methodOptions: [
         {
@@ -176,15 +199,16 @@ export default {
 
   methods: {
     async getData() {
-      this.loading = true
+      // this.loading = true
 
-      let params = {
-        type_id: NotifyTypeEnum.Webkook,
-      }
+      // let params = {
+      //   type_id: NotifyTypeEnum.Webkook,
+      // }
 
-      const res = await this.$http.getNotifyOfUser(params)
+      // const res = await this.$http.getNotifyOfUser(params)
+      console.log(this.rowData)
 
-      let data = res.data
+      let data = this.rowData
 
       if (data && data.value) {
         let headers = ''
@@ -201,7 +225,7 @@ export default {
         }
       }
 
-      this.loading = false
+      // this.loading = false
     },
 
     // 取消
@@ -223,7 +247,7 @@ export default {
     },
 
     async confirmSubmit() {
-      let loading = this.$loading({ fullscreen: true })
+      // let loading = this.$loading({ fullscreen: true })
 
       let headers = null
       if (this.form.headers) {
@@ -231,7 +255,7 @@ export default {
       }
 
       let params = {
-        type_id: NotifyTypeEnum.Webkook,
+        // type_id: NotifyTypeEnum.Webkook,
         value: {
           method: this.form.method,
           url: this.form.url,
@@ -240,19 +264,21 @@ export default {
         },
       }
 
-      let res = await this.$http.updateNotifyOfUser(params)
+      this.$emit('on-submit', deepCopy(params))
 
-      if (res.code == 0) {
-        this.$msg.success('操作成功')
-        this.$emit('on-success')
-      } else {
-        this.$msg.error(res.msg)
-      }
+      // let res = await this.$http.updateNotifyOfUser(params)
 
-      this.$nextTick(() => {
-        // 以服务的方式调用的 Loading 需要异步关闭
-        loading.close()
-      })
+      // if (res.code == 0) {
+      //   this.$msg.success('操作成功')
+      //   this.$emit('on-success')
+      // } else {
+      //   this.$msg.error(res.msg)
+      // }
+
+      // this.$nextTick(() => {
+      //   // 以服务的方式调用的 Loading 需要异步关闭
+      //   loading.close()
+      // })
     },
 
     async handleTest() {

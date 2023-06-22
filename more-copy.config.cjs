@@ -28,7 +28,7 @@ let configMap = [
     ],
   },
 
-  // mcp -m list group-domain data/domain.json
+  // mcp -m list notify data/notify.json
   //  mcp -m list address ./data/address.json
   {
     mode: 'list',

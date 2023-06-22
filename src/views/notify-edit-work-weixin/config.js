@@ -1,6 +1,6 @@
 import { isJson, isObject } from '@/utils/validator.js'
 
-const validateHeaders = (rule, value, callback) => {
+const validateBody = (rule, value, callback) => {
   if (!value) {
     return callback()
   }
@@ -22,7 +22,28 @@ const validateHeaders = (rule, value, callback) => {
 export const formRules = {
   body: [
     {
-      validator: validateHeaders,
+      message: '请求体不能为空',
+      required: true,
+      trigger: 'blur',
+    },
+    {
+      validator: validateBody,
+      trigger: 'blur',
+    },
+  ],
+
+  corpid: [
+    {
+      message: '企业ID不能为空',
+      required: true,
+      trigger: 'blur',
+    },
+  ],
+
+  corpsecret: [
+    {
+      message: '凭证密钥不能为空',
+      required: true,
       trigger: 'blur',
     },
   ],

@@ -48,6 +48,14 @@ export default {
   testWebhookNotifyOfUser: '/testWebhookNotifyOfUser',
   testWorkWeixinNotifyOfUser: '/testWorkWeixinNotifyOfUser',
   getTemplateData: '/getTemplateData',
+  getNotifyListOfUser: '/getNotifyListOfUser',
+  addNotify: '/addNotify',
+  deleteNotifyById: '/deleteNotifyById',
+  updateNotifyStatusById: '/updateNotifyStatusById',
+  updateNotifyById: '/updateNotifyById',
+  getNotifyById: '/getNotifyById',
+  handleTestNotifyById: '/handleTestNotifyById',
+  handleNotifyByEventId: '/handleNotifyByEventId',
 
   // 分组管理
   addGroup: '/addGroup',
@@ -65,6 +73,7 @@ export default {
   getAddressListByDomainId: '/getAddressListByDomainId',
   addAddress: '/addAddress',
   deleteAddressById: '/deleteAddressById',
+  deleteAddressByIds: '/deleteAddressByIds',
   getAddressById: '/getAddressById',
   updateAddressById: '/updateAddressById',
   updateAddressListInfoByDomainId: '/updateAddressListInfoByDomainId',

@@ -26,6 +26,14 @@ export const formRules = {
       trigger: 'blur',
     },
   ],
+
+  url: [
+    {
+      message: '请求地址不能为空',
+      required: true,
+      trigger: 'blur',
+    },
+  ],
 }
 
 // 引入枚举值

@@ -5,24 +5,23 @@
     v-model="dialogVisible"
     width="800px"
     center
+    top="8vh"
     append-to-body
-    :lock-scroll="false"
-    @close="handleDialogClose"
   >
-    <DataTableIndex
+    <DataForm
       v-if="dialogVisible"
       :row="row"
       @on-cancel="handleClose"
       @on-success="handleSuccess"
-    ></DataTableIndex>
+    ></DataForm>
   </el-dialog>
 </template>
 
 <script>
 /**
- * created 2022-10-11
+ * created 2023-06-20
  */
-import DataTableIndex from './index.vue'
+import DataForm from './DataForm.vue'
 
 export default {
   name: '',
@@ -41,8 +40,10 @@ export default {
     },
   },
 
+  emits: ['update:visible'],
+
   components: {
-    DataTableIndex,
+    DataForm,
   },
 
   data() {
@@ -55,9 +56,9 @@ export default {
   computed: {
     dialogTitle() {
       if (this.row) {
-        return `分组关联域名：${this.row.name}`
+        return '编辑通知'
       } else {
-        return '-'
+        return '添加通知'
       }
     },
 
@@ -65,6 +66,7 @@ export default {
       get() {
         return this.visible
       },
+
       set(val) {
         this.$emit('update:visible', val)
       },
@@ -73,25 +75,20 @@ export default {
 
   methods: {
     handleClose() {
-      this.dialogVisible = false
+      this.$emit('update:visible', false)
     },
 
     handleOpen() {
-      this.dialogVisible = true
+      this.$emit('update:visible', true)
     },
 
     handleSuccess() {
       this.handleClose()
-    },
-
-    handleDialogClose() {
       this.$emit('on-success')
     },
   },
 
-  created() {
-    // console.log('created')
-  },
+  created() {},
 }
 </script>
 

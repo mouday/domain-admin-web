@@ -10,6 +10,8 @@
 
 <script>
 // created at 2023-04-04
+import {EventEnum} from "@/emuns/event-enums.js"
+
 export default {
   name: 'updateDomainInfo',
 
@@ -39,10 +41,13 @@ export default {
 
   methods: {
     async checkDomainCert() {
-      const res = await this.$http.checkDomainExpire()
+      
+      const res = await this.$http.handleNotifyByEventId({
+        event_id: EventEnum.DOMAIN_EXPIRE, // 域名到期
+      })
 
       if (res.ok) {
-        this.$msg.success('操作成功')
+        this.$msg.success(`成功渠道：${res.data.success}`)
       }
     },
 

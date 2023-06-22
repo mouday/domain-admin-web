@@ -1,7 +1,7 @@
 <template>
   <!-- 编辑框 -->
   <el-dialog
-    title="域名主机"
+    title="域名主机列表"
     v-model="dialogVisible"
     width="900px"
     center

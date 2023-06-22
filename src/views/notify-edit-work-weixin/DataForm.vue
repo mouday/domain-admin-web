@@ -32,12 +32,19 @@
         label="请求体"
         prop="body"
       >
-        <el-input
+        <!-- <el-input
           type="textarea"
-          :rows="16"
+          :rows="10"
           v-model="form.body"
           placeholder="请求体"
-        ></el-input>
+        ></el-input> -->
+
+        <CodeEditor
+          mode="json"
+          v-model="form.body"
+          height="200px"
+          placeholder="请求体"
+        ></CodeEditor>
       </el-form-item>
     </el-form>
 
@@ -60,12 +67,12 @@
         @click="handleSubmit"
         >保 存</el-button
       >
-      <el-tooltip
+      <!-- <el-tooltip
         content="请保存后再测试"
         placement="top"
       >
         <el-button @click="handleTest">测 试</el-button>
-      </el-tooltip>
+      </el-tooltip> -->
     </div>
   </div>
 </template>
@@ -82,6 +89,9 @@
  * created 2022-10-01
  * */
 import { NotifyTypeEnum } from '@/emuns/notify-type-enums.js'
+import { deepCopy } from '@/utils/copy-util.js'
+import CodeEditor from '@/components/code-editor/CodeEditor.vue'
+
 
 import {
   formRules,
@@ -93,10 +103,14 @@ export default {
 
   props: {
     // 数据行
-    row: { type: Object, default: null },
+    rowData: { type: Object, default: null },
   },
 
-  components: {},
+  emits: ['on-submit'],
+
+  components: {
+    CodeEditor
+  },
 
   data() {
     return {
@@ -137,15 +151,17 @@ export default {
 
   methods: {
     async getData() {
-      this.loading = true
+      // this.loading = true
 
-      let params = {
-        type_id: NotifyTypeEnum.WorkWeixin,
-      }
+      // let params = {
+      //   type_id: NotifyTypeEnum.WorkWeixin,
+      // }
 
-      const res = await this.$http.getNotifyOfUser(params)
+      // const res = await this.$http.getNotifyOfUser(params)
 
-      let data = res.data
+      let data = this.rowData
+
+      console.log(this.rowData);
 
       if (data && data.value) {
         this.form = {
@@ -157,7 +173,7 @@ export default {
         this.form.body = this.defaultBody
       }
 
-      this.loading = false
+      // this.loading = false
     },
 
     // 取消
@@ -169,25 +185,28 @@ export default {
 
     // 提交
     handleSubmit() {
+      console.log('handleSubmit');
       this.$refs['form'].validate((valid) => {
         if (valid) {
           this.confirmSubmit()
         } else {
+          console.log('err');
           return false
         }
       })
     },
 
     async confirmSubmit() {
-      let loading = this.$loading({ fullscreen: true })
+      console.log('confirmSubmit');
+      // let loading = this.$loading({ fullscreen: true })
 
-      let headers = null
-      if (this.form.headers) {
-        headers = JSON.parse(this.form.headers)
-      }
+      // let headers = null
+      // if (this.form.headers) {
+      //   headers = JSON.parse(this.form.headers)
+      // }
 
       let params = {
-        type_id: NotifyTypeEnum.WorkWeixin,
+        // type_id: NotifyTypeEnum.WorkWeixin,
         value: {
           corpid: this.form.corpid,
           corpsecret: this.form.corpsecret,
@@ -195,19 +214,21 @@ export default {
         },
       }
 
-      let res = await this.$http.updateNotifyOfUser(params)
+      this.$emit('on-submit', deepCopy(params))
 
-      if (res.code == 0) {
-        this.$msg.success('操作成功')
-        this.$emit('on-success')
-      } else {
-        this.$msg.error(res.msg)
-      }
+      // let res = await this.$http.updateNotifyOfUser(params)
 
-      this.$nextTick(() => {
-        // 以服务的方式调用的 Loading 需要异步关闭
-        loading.close()
-      })
+      // if (res.code == 0) {
+      //   this.$msg.success('操作成功')
+      //   this.$emit('on-success')
+      // } else {
+      //   this.$msg.error(res.msg)
+      // }
+
+      // this.$nextTick(() => {
+      //   // 以服务的方式调用的 Loading 需要异步关闭
+      //   loading.close()
+      // })
     },
 
     async handleTest() {

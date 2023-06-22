@@ -1,0 +1,27 @@
+{
+  "table": {
+    "columns": [
+      {
+        "comment": "事件类型",
+        "name": "event_id",
+        "default": ""
+      },
+      {
+        "comment": "通知方式",
+        "name": "type_id",
+        "default": ""
+      },
+      {
+        "comment": "状态",
+        "name": "status",
+        "default": ""
+      },
+
+      {
+        "comment": "通知配置",
+        "name": "value",
+        "default": ""
+      }
+    ]
+  }
+}

@@ -36,19 +36,17 @@
 
       <el-dropdown trigger="hover">
         <div class="avatar-group ml-sm">
-          <el-avatar :src="userInfo && userInfo.avatar_url">
-            <img src="https://api.multiavatar.com/domain-admin.png" />
-          </el-avatar>
+          <el-avatar :src="avatar"></el-avatar>
           <span>{{ username }}</span>
         </div>
 
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item
+            <!-- <el-dropdown-item
               @click="handleUserInfoEditOpen"
               class="justify-center"
               >个人设置</el-dropdown-item
-            >
+            > -->
 
             <el-dropdown-item
               @click="handleUpdatePasswordClick"
@@ -102,6 +100,7 @@ import { removeToken } from '@/utils/token-util.js'
 import { useUserStore } from '@/store/user-store.js'
 import { useSystemStore } from '@/store/system-store.js'
 import { mapState, mapActions } from 'pinia'
+import avatar from '@/assets/user-avatar.gif'
 
 export default {
   name: 'Header',
@@ -133,6 +132,7 @@ export default {
       // 主题
       themeList,
       theme: themeList[0].value,
+      avatar
     }
   },
   created() {

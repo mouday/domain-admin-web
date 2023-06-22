@@ -21,21 +21,19 @@
         label="头像"
         prop="avatar_url"
       >
-        <el-avatar :src="form.avatar_url">
-          <img src="https://api.multiavatar.com/domain-admin.png" />
-        </el-avatar>
+        <el-avatar :src="avatar"> </el-avatar>
 
-        <el-link
+        <!-- <el-link
           class="ml-md"
           :underline="false"
           @click="handleRandomAvatar"
           ><el-icon><Refresh /></el-icon>随机获取</el-link
-        >
+        > -->
       </el-form-item>
 
       <!-- 过期前多少天提醒 -->
 
-      <el-form-item
+      <!-- <el-form-item
         label="过期通知(天)"
         prop="before_expire_days"
       >
@@ -44,7 +42,7 @@
           :min="0"
           placeholder="过期通知"
         ></el-input-number>
-      </el-form-item>
+      </el-form-item> -->
 
       <!-- 邮件列表 -->
 
@@ -87,6 +85,7 @@
 import { formRules } from './config.js'
 // import { getUUID } from '@/utils/uuid.js'
 import { getAvatarUrl } from '@/utils/avatar-util.js'
+import avatar from '@/assets/user-avatar.gif'
 
 export default {
   name: '',
@@ -103,7 +102,7 @@ export default {
       rules: formRules,
 
       // 引入枚举值
-
+      avatar,
       form: {
         // 用户名
         username: '',
@@ -134,7 +133,7 @@ export default {
       // 头像
       this.form.avatar_url = data.avatar_url
       // 过期前多少天提醒
-      this.form.before_expire_days = data.before_expire_days
+      // this.form.before_expire_days = data.before_expire_days
       // 邮件列表
       // this.form.email_list = data.email_list.join('\n')
     },

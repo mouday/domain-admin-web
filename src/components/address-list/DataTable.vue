@@ -4,7 +4,15 @@
       :data="list"
       stripe
       border
+      @selection-change="$emit('on-selection-change', $event)"
     >
+    <el-table-column
+        type="selection"
+        header-align="center"
+        align="center"
+        width="40"
+      />
+
       <!-- 主机地址 -->
       <el-table-column
         label="主机IP地址"
@@ -206,6 +214,9 @@ export default {
       default: false,
     }
   },
+
+  
+  emits: ['on-selection-change'],
 
   computed: {},
 

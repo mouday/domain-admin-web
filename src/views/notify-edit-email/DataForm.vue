@@ -12,39 +12,47 @@
         label="邮件列表"
         prop="email_list"
       >
-        <el-input
+        <!-- <el-input
           type="textarea"
           :rows="5"
-          :placeholder="`示例:\n${emailListExample}`"
           v-model="form.email_list"
-        ></el-input>
+        ></el-input> -->
+
+        <CodeEditor
+          v-model="form.email_list"
+          :placeholder="`示例:\n${emailListExample}`"
+        ></CodeEditor>
       </el-form-item>
     </el-form>
 
     <div class="text-[14px] color--info">
       <span
-        >提示：发件邮箱在<span class="cursor-pointer color--brand" @click="handleToSystemSetting">[系统设置]</span
+        >提示：发件邮箱在<span
+          class="cursor-pointer color--brand"
+          @click="handleToSystemSetting"
+          >[系统设置]</span
         >中配置</span
       >
     </div>
     <!-- 操作 -->
     <div class="text-center">
-      <el-button @click="handleCancel">重 置</el-button>
+      <!-- <el-button @click="handleCancel">重 置</el-button> -->
       <el-button
         type="primary"
         @click="handleSubmit"
         >保 存</el-button
       >
-      <el-tooltip
+      <!-- <el-tooltip
         content="请保存后再测试"
         placement="top"
       >
         <el-button
           class="margin-left--auto"
+          :disabled="disabledTestButton"
           @click="sendDomainInfoListEmail"
           >测 试</el-button
         >
-      </el-tooltip>
+      </el-tooltip> -->
     </div>
   </div>
 </template>
@@ -65,16 +73,23 @@ import {
   // 引入枚举值
 } from './config.js'
 import { NotifyTypeEnum } from '../../emuns/notify-type-enums.js'
+import { EventOptions, EventEnum } from '@/emuns/event-enums.js'
+import { deepCopy } from '@/utils/copy-util.js'
+import CodeEditor from '@/components/code-editor/CodeEditor.vue'
 
 export default {
   name: '',
 
   props: {
     // 数据行
-    row: { type: Object, default: null },
+    rowData: { type: Object, default: null },
   },
 
-  components: {},
+  emits: ['on-submit'],
+
+  components: {
+    CodeEditor,
+  },
 
   data() {
     return {
@@ -89,40 +104,46 @@ export default {
         email_list: '',
       },
 
+      EventOptions,
+
       emailListExample: JSON.stringify(
-        ['123@qq.com', 'domain@163.com'],
+        ['123456@qq.com', 'domain@163.com'],
         null,
         4
       ),
     }
   },
 
-  computed: {},
+  computed: {
+    disabledTestButton() {
+      return !(this.rowData && this.rowData.id)
+    },
+  },
 
   methods: {
     async getData() {
-      let loading = this.$loading()
+      // let loading = this.$loading()
 
-      let params = {
-        type_id: NotifyTypeEnum.Email,
-      }
+      // let params = {
+      //   type_id: NotifyTypeEnum.Email,
+      // }
 
-      const res = await this.$http.getNotifyOfUser(params)
+      // const res = await this.$http.getNotifyOfUser(params)
 
-      if (res.data) {
-        if (res.data.value && res.data.value.email_list) {
+      if (this.rowData) {
+        if (this.rowData.value && this.rowData.value.email_list) {
           this.form.email_list = JSON.stringify(
-            res.data.value.email_list,
+            this.rowData.value.email_list,
             null,
             4
           )
         }
       }
 
-      this.$nextTick(() => {
-        // 以服务的方式调用的 Loading 需要异步关闭
-        loading.close()
-      })
+      // this.$nextTick(() => {
+      //   // 以服务的方式调用的 Loading 需要异步关闭
+      //   loading.close()
+      // })
     },
 
     // 取消
@@ -145,33 +166,34 @@ export default {
     },
 
     async confirmSubmit() {
-      let loading = this.$loading({ fullscreen: true })
-
       let email_list = null
       if (this.form.email_list) {
         email_list = JSON.parse(this.form.email_list)
       }
 
       let params = {
-        type_id: NotifyTypeEnum.Email,
         value: {
           email_list: email_list,
         },
       }
 
-      let res = await this.$http.updateNotifyOfUser(params)
+      this.$emit('on-submit', deepCopy(params))
 
-      if (res.code == 0) {
-        this.$msg.success('操作成功')
-        this.$emit('on-success')
-      } else {
-        this.$msg.error(res.msg)
-      }
+      // let loading = this.$loading({ fullscreen: true })
 
-      this.$nextTick(() => {
-        // 以服务的方式调用的 Loading 需要异步关闭
-        loading.close()
-      })
+      // let res = await this.$http.updateNotifyOfUser(params)
+
+      // if (res.code == 0) {
+      //   this.$msg.success('操作成功')
+      //   this.$emit('on-success')
+      // } else {
+      //   this.$msg.error(res.msg)
+      // }
+
+      // this.$nextTick(() => {
+      //   // 以服务的方式调用的 Loading 需要异步关闭
+      //   loading.close()
+      // })
     },
 
     async sendDomainInfoListEmail() {
@@ -193,9 +215,11 @@ export default {
     },
 
     handleToSystemSetting() {
-      this.$router.push({
+      let route = this.$router.resolve({
         name: 'system-list',
       })
+
+      window.open(route.href, '_blank')
     },
   },
 
