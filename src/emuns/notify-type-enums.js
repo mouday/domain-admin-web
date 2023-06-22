@@ -2,12 +2,21 @@
 export const NotifyTypeEnum = {
   // 未知
   Unknown: 0,
+
   // 邮件
   Email: 1,
+
   // webkook
   Webhook: 2,
+
   // 企业微信
   WorkWeixin: 3,
+
+  // 钉钉
+  DingTalk: 4,
+
+  // 飞书
+  Feishu: 5,
 }
 
 export const NotifyTypeOptions = [
@@ -22,6 +31,14 @@ export const NotifyTypeOptions = [
   {
     value: NotifyTypeEnum.WorkWeixin,
     label: '企业微信',
+  },
+  {
+    value: NotifyTypeEnum.DingTalk,
+    label: '钉钉',
+  },
+  {
+    value: NotifyTypeEnum.Feishu,
+    label: '飞书',
   },
 ]
 

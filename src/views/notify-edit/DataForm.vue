@@ -53,6 +53,16 @@
           placeholder="过期通知"
         ></el-input-number>
       </el-form-item>
+
+      <el-form-item
+        label="备注"
+        prop="comment"
+      >
+        <el-input
+          v-model="form.comment"
+          placeholder="备注"
+        ></el-input>
+      </el-form-item>
     </el-form>
 
     <!-- 等待初始化 -->
@@ -84,6 +94,8 @@ import {
 import NotifyEditEmail from '@/views/notify-edit-email/DataForm.vue'
 import NotifyEditWebhook from '@/views/notify-edit-webhook/DataForm.vue'
 import NotifyEditWorkWeixin from '@/views/notify-edit-work-weixin/DataForm.vue'
+import NotifyEditDingTalk from '@/views/notify-edit-ding-talk/DataForm.vue'
+import NotifyEditFeishu from '@/views/notify-edit-feishu/DataForm.vue'
 import { NotifyTypeEnum } from '@/emuns/notify-type-enums.js'
 import { EventOptions, EventEnum } from '@/emuns/event-enums.js'
 
@@ -101,6 +113,8 @@ export default {
     NotifyEditEmail,
     NotifyEditWebhook,
     NotifyEditWorkWeixin,
+    NotifyEditDingTalk,
+    NotifyEditFeishu
   },
 
   data() {
@@ -131,6 +145,19 @@ export default {
           icon: 'ChatSquare',
           component: NotifyEditWorkWeixin,
         },
+        {
+          value: NotifyTypeEnum.DingTalk,
+          label: '钉钉',
+          icon: 'ChatSquare',
+          component: NotifyEditDingTalk,
+        },
+        {
+          value: NotifyTypeEnum.Feishu,
+          label: '飞书',
+          icon: 'ChatSquare',
+          component: NotifyEditFeishu,
+        },
+        
       ],
 
       rules: formRules,
@@ -143,7 +170,9 @@ export default {
         // 通知方式
         type_id: NotifyTypeEnum.Email,
         // 过期通知
-        expire_days: 3
+        expire_days: 3,
+        // 备注
+        comment: '',
       },
     }
   },
@@ -183,6 +212,7 @@ export default {
           // 通知配置
           this.form.value = data.value
           this.form.expire_days = data.expire_days
+          this.form.comment = data.comment
         }
       }
 
@@ -216,6 +246,7 @@ export default {
         // 通知方式
         type_id: this.form.type_id,
         expire_days: this.form.expire_days,
+        comment: this.form.comment,
         // 状态
         // status: this.form.status,
         // 通知配置
@@ -246,9 +277,9 @@ export default {
       })
     },
 
-    handleClose(){
+    handleClose() {
       this.$emit('on-cancel')
-    }
+    },
   },
 
   created() {

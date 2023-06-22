@@ -60,15 +60,15 @@
       </el-table-column>
 
       <!-- 通知配置 -->
-      <el-table-column
+      <!-- <el-table-column
         label="通知配置"
         header-align="center"
         align="left"
         prop="value"
       >
-        <template #default="scope">
-          <!-- 邮件方式 -->
-          <template v-if="NotifyTypeEnum.Email">
+        <template #default="scope">-->
+      <!-- 邮件方式 -->
+      <!-- <template v-if="NotifyTypeEnum.Email">
             <template
               v-if="
                 scope.row.value &&
@@ -84,6 +84,18 @@
             <span v-else>-</span>
           </template>
           <span v-else>-</span>
+        </template> -->
+      <!-- </el-table-column>  -->
+
+      <!-- 备注 -->
+      <el-table-column
+        label="备注"
+        header-align="center"
+        align="left"
+        prop="comment"
+      >
+        <template #default="scope">
+          <span>{{ scope.row.comment || '-' }}</span>
         </template>
       </el-table-column>
 
