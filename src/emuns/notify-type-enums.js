@@ -5,7 +5,7 @@ export const NotifyTypeEnum = {
   // 邮件
   Email: 1,
   // webkook
-  Webkook: 2,
+  Webhook: 2,
   // 企业微信
   WorkWeixin: 3,
 }
@@ -16,8 +16,8 @@ export const NotifyTypeOptions = [
     label: '邮件',
   },
   {
-    value: NotifyTypeEnum.Webkook,
-    label: 'Webkook',
+    value: NotifyTypeEnum.Webhook,
+    label: 'Webhook',
   },
   {
     value: NotifyTypeEnum.WorkWeixin,

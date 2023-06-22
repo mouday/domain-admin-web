@@ -120,7 +120,7 @@ export default {
           component: NotifyEditEmail,
         },
         {
-          value: NotifyTypeEnum.Webkook,
+          value: NotifyTypeEnum.Webhook,
           label: 'WebHook',
           icon: 'AlarmClock',
           component: NotifyEditWebhook,
