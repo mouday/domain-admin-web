@@ -1,0 +1,72 @@
+{
+    "code": 0,
+    "data": {
+        "list": [
+            {
+                "create_time": "2023-06-22 09:40:36",
+                "event_id": 0,
+                "expire_days": 3,
+                "id": 14,
+                "status": false,
+                "type_id": 1,
+                "update_time": "2023-06-22 09:40:36",
+                "user_id": 1,
+                "value": {
+                    "email_list": [
+                        "123456@qq.com"
+                    ]
+                }
+            },
+            {
+                "create_time": "2023-06-22 09:18:02",
+                "event_id": 1,
+                "expire_days": 3,
+                "id": 13,
+                "status": true,
+                "type_id": 2,
+                "update_time": "2023-06-22 09:18:02",
+                "user_id": 1,
+                "value": {
+                    "body": "{\n  \"title\": \"\u5230\u671f\u63d0\u9192\",\n  \"content\": \"{% for row in list %}{{row.domain}} {{row.start_date or '-' }} - {{row.expire_date or '-' }}({{row.expire_days}}){% endfor %}\"\n}",
+                    "headers": {
+                        "Content-Type": "application/json"
+                    },
+                    "method": "POST",
+                    "url": ""
+                }
+            },
+            {
+                "create_time": "2023-06-22 08:12:32",
+                "event_id": 0,
+                "expire_days": 3,
+                "id": 12,
+                "status": true,
+                "type_id": 1,
+                "update_time": "2023-06-22 08:12:32",
+                "user_id": 1,
+                "value": {
+                    "email_list": [
+                        "123456@qq.com"
+                    ]
+                }
+            },
+            {
+                "create_time": "2023-06-20 21:50:19",
+                "event_id": 0,
+                "expire_days": 3,
+                "id": 8,
+                "status": true,
+                "type_id": 3,
+                "update_time": "2023-06-20 21:50:19",
+                "user_id": 1,
+                "value": {
+                    "body": "{\n    \"touser\": \"@all\",\n    \"msgtype\": \"text\",\n    \"agentid\": 1000002,\n    \"text\": {\n        \"content\": \"\u4f60\u7684\u57df\u540d\u8bc1\u4e66\u5373\u5c06\u5230\u671f\\n\u70b9\u51fb\u67e5\u770b<a href=\\\"http://127.0.0.1:5173/#/notify-edit\\\">Domain Admin</a>\"\n    },\n    \"safe\": 0,\n    \"enable_id_trans\": 0,\n    \"enable_duplicate_check\": 0,\n    \"duplicate_check_interval\": 1800\n}",
+                    "corpid": "",
+                    "corpsecret": ""
+                }
+            }
+        ],
+        "total": 4
+    },
+    "msg": "success"
+}
