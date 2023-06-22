@@ -54,7 +54,7 @@
 
       
       <!-- 创建时间 -->
-      <el-table-column
+      <!-- <el-table-column
         label="创建时间"
         header-align="center"
         align="center"
@@ -63,7 +63,7 @@
         <template #default="scope">
           <span>{{ scope.row.create_time || '-' }}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <!-- 操作 -->
       <!-- <el-table-column

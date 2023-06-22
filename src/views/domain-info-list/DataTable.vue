@@ -152,7 +152,7 @@
         header-align="center"
         align="center"
         sortable="custom"
-        prop="domain_expire_monitor"
+        prop="is_expire_monitor"
       >
         <template #default="scope">
           <el-switch

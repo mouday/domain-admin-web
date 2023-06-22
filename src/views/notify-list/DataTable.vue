@@ -4,6 +4,7 @@
       :data="list"
       stripe
       border
+      @sort-change="$emit('on-sort-change', $event)"
     >
       <el-table-column
         label="序号"
@@ -20,8 +21,10 @@
       <el-table-column
         label="事件类型"
         header-align="center"
-        align="center"
+        align="left"
+        width="150"
         prop="event_id"
+        sortable="custom"
       >
         <template #default="scope">
           <span>{{ scope.row.event_label || '-' }}</span>
@@ -32,11 +35,27 @@
       <el-table-column
         label="通知方式"
         header-align="center"
-        align="center"
+        align="left"
+        width="150"
         prop="type_id"
+        sortable="custom"
       >
         <template #default="scope">
           <span>{{ scope.row.type_label || '-' }}</span>
+        </template>
+      </el-table-column>
+
+      <!-- 剩余天数 -->
+      <el-table-column
+        label="剩余天数"
+        header-align="center"
+        align="center"
+        width="90"
+        prop="expire_days"
+        sortable="custom"
+      >
+        <template #default="scope">
+          <span>{{ scope.row.expire_days || '-' }}</span>
         </template>
       </el-table-column>
 
@@ -44,7 +63,7 @@
       <el-table-column
         label="通知配置"
         header-align="center"
-        align="center"
+        align="left"
         prop="value"
       >
         <template #default="scope">
@@ -74,6 +93,8 @@
         header-align="center"
         align="center"
         width="80"
+        prop="status"
+        sortable="custom"
       >
         <template #default="scope">
           <el-switch
@@ -167,6 +188,8 @@ export default {
       type: Array,
     },
   },
+
+  emits: ['on-sort-change'],
 
   computed: {},
 
