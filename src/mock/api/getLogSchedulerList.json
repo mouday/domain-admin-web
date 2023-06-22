@@ -1,18 +1,99 @@
 {
-    "code": 0,
-    "data": {
+  "code": 0,
+  "data": {
       "list": [
-        {
-          "create_time": "2022-10-09 18:10:00",
-          "error_message": "",
-          "id": 423,
-          "status": true,
-          "total_time": 11,
-          "total_time_label": "11s",
-          "update_time": "2022-10-09 18:10:11"
-        }
+          {
+              "create_time": "2023-06-22 10:01:00",
+              "error_message": "",
+              "id": 38,
+              "status": true,
+              "total_time": null,
+              "total_time_label": null,
+              "update_time": null
+          },
+          {
+              "create_time": "2023-06-21 16:01:00",
+              "error_message": "",
+              "id": 37,
+              "status": true,
+              "total_time": 111,
+              "total_time_label": "1m 51s",
+              "update_time": "2023-06-21 16:02:51"
+          },
+          {
+              "create_time": "2023-06-21 14:01:00",
+              "error_message": "",
+              "id": 36,
+              "status": true,
+              "total_time": 106,
+              "total_time_label": "1m 46s",
+              "update_time": "2023-06-21 14:02:46"
+          },
+          {
+              "create_time": "2023-06-21 12:01:00",
+              "error_message": "",
+              "id": 35,
+              "status": true,
+              "total_time": 106,
+              "total_time_label": "1m 46s",
+              "update_time": "2023-06-21 12:02:46"
+          },
+          {
+              "create_time": "2023-06-21 10:01:00",
+              "error_message": "",
+              "id": 34,
+              "status": true,
+              "total_time": 92,
+              "total_time_label": "1m 32s",
+              "update_time": "2023-06-21 10:02:32"
+          },
+          {
+              "create_time": "2023-06-20 22:01:00",
+              "error_message": "",
+              "id": 33,
+              "status": true,
+              "total_time": 99,
+              "total_time_label": "1m 39s",
+              "update_time": "2023-06-20 22:02:39"
+          },
+          {
+              "create_time": "2023-06-20 18:01:00",
+              "error_message": "",
+              "id": 32,
+              "status": true,
+              "total_time": null,
+              "total_time_label": null,
+              "update_time": null
+          },
+          {
+              "create_time": "2023-06-17 12:01:00",
+              "error_message": "",
+              "id": 31,
+              "status": true,
+              "total_time": 101,
+              "total_time_label": "1m 41s",
+              "update_time": "2023-06-17 12:02:41"
+          },
+          {
+              "create_time": "2023-06-17 10:57:00",
+              "error_message": "",
+              "id": 30,
+              "status": true,
+              "total_time": 76,
+              "total_time_label": "1m 16s",
+              "update_time": "2023-06-17 10:58:16"
+          },
+          {
+              "create_time": "2023-06-17 10:55:00",
+              "error_message": "",
+              "id": 29,
+              "status": true,
+              "total_time": 71,
+              "total_time_label": "1m 11s",
+              "update_time": "2023-06-17 10:56:11"
+          }
       ],
-      "total": 423
-    },
-    "msg": "success"
-  }
+      "total": 38
+  },
+  "msg": "success"
+}

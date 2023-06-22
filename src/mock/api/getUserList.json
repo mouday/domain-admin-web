@@ -1,21 +1,31 @@
 {
-    "code": 0,
-    "data": {
+  "code": 0,
+  "data": {
       "list": [
-        {
-          "id": 1,
-          "username": "admin",
-          "status": true,
-          "avatar_url": "https://www.image.com/image.png",
-          "before_expire_days": 1,
-          "email_list": [
-            "123@qq.com"
-          ],
-          "create_time": "2022-10-03 23:07:21",
-          "update_time": "2022-10-11 17:52:56"
-        }
+          {
+              "avatar_url": "",
+              "cert_count": 0,
+              "create_time": "2023-06-04 11:10:09",
+              "domain_count": 0,
+              "id": 2,
+              "notify_count": 0,
+              "status": true,
+              "update_time": "2023-06-04 11:10:09",
+              "username": "user01"
+          },
+          {
+              "avatar_url": "",
+              "cert_count": 89,
+              "create_time": "2023-05-30 15:42:07",
+              "domain_count": 19,
+              "id": 1,
+              "notify_count": 4,
+              "status": true,
+              "update_time": "2023-06-15 22:33:35",
+              "username": "admin"
+          }
       ],
-      "total": 1
-    },
-    "msg": "success"
-  }
+      "total": 2
+  },
+  "msg": "success"
+}

@@ -1,19 +1,79 @@
 {
-    "code": 0,
-    "data": {
-      "list": [
-        {
-          "id": 1,
-          "is_show_value": true,
-          "key": "mail_host",
-          "value": "smtp.163.com",
-          "label": "发件邮箱服务器地址",
-          "placeholder": "发件邮箱服务器地址",
-          "create_time": "2022-10-03 23:07:21",
-          "update_time": "2022-10-03 23:07:21"
-        }
+  "code":0,
+  "data":{
+      "list":[
+          {
+              "create_time":"2023-05-30 15:42:07",
+              "id":1,
+              "is_show_value":true,
+              "key":"mail_host",
+              "label":"发件邮箱服务器地址",
+              "placeholder":"发件邮箱服务器地址",
+              "update_time":"2023-05-30 15:42:07",
+              "value":"smtp.163.com"
+          },
+          {
+              "create_time":"2023-05-30 15:42:07",
+              "id":2,
+              "is_show_value":true,
+              "key":"mail_port",
+              "label":"发件邮箱服务器端口",
+              "placeholder":"发件邮箱服务器端口：25 或者 465(ssl)",
+              "update_time":"2023-05-30 15:42:07",
+              "value":"465"
+          },
+          {
+              "create_time":"2023-05-30 15:42:07",
+              "id":3,
+              "is_show_value":true,
+              "key":"mail_alias",
+              "label":"发件人邮箱名称",
+              "placeholder":"发件人邮箱名称",
+              "update_time":"2023-05-30 15:42:07",
+              "value":"Domain Admin"
+          },
+          {
+              "create_time":"2023-05-30 15:42:07",
+              "id":4,
+              "is_show_value":true,
+              "key":"mail_username",
+              "label":"发件人邮箱账号",
+              "placeholder":"发件人邮箱账号",
+              "update_time":"2023-06-22 09:38:50",
+              "value":"root@163.com"
+          },
+          {
+              "create_time":"2023-05-30 15:42:07",
+              "id":5,
+              "is_show_value":false,
+              "key":"mail_password",
+              "label":"发件人邮箱密码",
+              "placeholder":"发件人邮箱密码",
+              "update_time":"2023-06-06 11:41:54",
+              "value":"123456"
+          },
+          {
+              "create_time":"2023-05-30 15:42:07",
+              "id":7,
+              "is_show_value":true,
+              "key":"scheduler_cron",
+              "label":"定时检测时间（crontab 表达式）",
+              "placeholder":"分 时 日 月 周",
+              "update_time":"2023-06-17 11:08:51",
+              "value":"1 */2 * * *"
+          },
+          {
+              "create_time":"2023-05-30 15:42:07",
+              "id":9,
+              "is_show_value":true,
+              "key":"token_expire_days",
+              "label":"Token有效期（天）",
+              "placeholder":"Token有效期（天）",
+              "update_time":"2023-05-30 15:42:07",
+              "value":"7"
+          }
       ],
-      "total": 9
-    },
-    "msg": "success"
-  }
+      "total":7
+  },
+  "msg":"success"
+}
