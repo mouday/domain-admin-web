@@ -128,18 +128,12 @@ export default {
 
       defaultBody: JSON.stringify(
         {
-          touser: 'UserID1|UserID2|UserID3',
-          toparty: 'PartyID1|PartyID2',
-          totag: 'TagID1 | TagID2',
+          touser: '@all',
           msgtype: 'text',
           agentid: 1,
           text: {
             content: `你的域名证书即将到期\n点击查看<a href="${window.location.href}">Domain Admin</a>`,
-          },
-          safe: 0,
-          enable_id_trans: 0,
-          enable_duplicate_check: 0,
-          duplicate_check_interval: 1800,
+          }
         },
         null,
         4
