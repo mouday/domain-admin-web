@@ -112,12 +112,18 @@
         width="80"
       >
         <template #default="scope">
-          <el-link
-            :underline="false"
-            type="primary"
-            @click="handleTestRow(scope.row)"
-            ><el-icon><Position /></el-icon
-          ></el-link>
+          <el-popconfirm
+            title="确定发送？"
+            @confirm="handleTestRow(scope.row)"
+          >
+            <template #reference>
+              <el-link
+                :underline="false"
+                type="primary"
+                ><el-icon><Position /></el-icon
+              ></el-link>
+            </template>
+          </el-popconfirm>
         </template>
       </el-table-column>
 
