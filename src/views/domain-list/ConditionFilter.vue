@@ -103,7 +103,7 @@ export default {
         {
           title: '域名分组',
           field: 'group_ids',
-          hidden: false,
+          hidden: true,
           selected: [],
           options: [],
         },
@@ -119,14 +119,17 @@ export default {
 
   methods: {
     async getData() {
-      this.options.map((item) => {
-        if (item.field == 'group_ids') {
-          if (this.groupOptions && this.groupOptions.length > 0) {
-            item.options = [
-              ...this.groupOptions.map((groupItem) => {
+      const res = await this.$http.getDomainGroupFilter()
+
+      if (res.ok) {
+        this.options.forEach((item) => {
+          if (item.field == 'group_ids') {
+            if (res.data.list && res.data.list.length > 0) {
+              item.options = res.data.list.map((groupItem) => {
                 let label = groupItem.name
-                if (groupItem.domain_count > 0) {
-                  label = `${groupItem.name} ${groupItem.domain_count}`
+
+                if (groupItem.cert_count > 0) {
+                  label = `${groupItem.name} ${groupItem.cert_count}`
                 }
 
                 return {
@@ -134,19 +137,18 @@ export default {
                   value: groupItem.id,
                   label: label,
                 }
-              }),
-              {
-                label: '未分组',
-                value: 0,
-              },
-            ]
-          } else {
-            item.hidden = true
+              })
+              item.hidden = false
+            } else {
+              item.hidden = true
+            }
           }
-        }
-      })
+        })
+      }
 
       this.loading = false
+
+      console.log(this.options);
     },
 
     handleChange(data) {

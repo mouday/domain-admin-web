@@ -23,7 +23,8 @@ export default {
   sendDomainInfoListEmail: '/sendDomainInfoListEmail',
   checkDomainCert: '/checkDomainCert',
   updateDomainSetting: '/updateDomainSetting',
-  getDomainFilterData: '/getDomainFilterData',
+  // getDomainFilterData: '/getDomainFilterData',
+  getDomainGroupFilter: '/getDomainGroupFilter',
 
   getAllSystemConfig: '/getAllSystemConfig',
   updateSystemConfig: '/updateSystemConfig',
@@ -92,5 +93,6 @@ export default {
   checkDomainExpire: '/checkDomainExpire',
   importDomainInFromFile: '/importDomainInFromFile',
   exportDomainInfoFile: '/exportDomainInfoFile',
+  getDomainInfoGroupFilter: '/getDomainInfoGroupFilter',
   
 }
