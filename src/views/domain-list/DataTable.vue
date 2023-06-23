@@ -46,19 +46,18 @@
         </template>
       </el-table-column>
 
-      <!-- <el-table-column
+      <el-table-column
         label="域名天数"
         header-align="center"
         align="center"
-        width="90"
-        sortable="custom"
+        width="80"
         prop="domain_expire_days"
       >
         <template #default="scope">
-          <ExpireDays
-            :value="scope.row.real_time_domain_expire_days"
-          ></ExpireDays
-          > -->
+          <ExpireDays :value="scope.row.domain_expire_days"></ExpireDays>
+        </template>
+      </el-table-column>
+
       <!-- <el-tag
             v-if="!scope.row.domain_auto_update"
             class="ml-[5px] mo-table-tag"
@@ -72,8 +71,6 @@
             :endTime="scope.row.domain_expire_time"
           ></ExpireProgress> -->
       <!-- <span>{{ scope.row.real_time_domain_expire_days || '-' }}</span> -->
-      <!-- </template>
-      </el-table-column> -->
 
       <el-table-column
         label="证书天数"
