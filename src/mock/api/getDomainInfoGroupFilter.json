@@ -1,0 +1,46 @@
+{
+    "code":0,
+    "data":{
+        "list":[
+            {
+                "domain_count":7,
+                "id":0,
+                "name":"未分组"
+            },
+            {
+                "create_time":"2023-06-04 17:45:58",
+                "domain_count":6,
+                "id":2,
+                "name":"腾讯系",
+                "update_time":"2023-06-04 17:45:58",
+                "user_id":1
+            },
+            {
+                "create_time":"2023-06-22 13:49:02",
+                "domain_count":3,
+                "id":3,
+                "name":"百度系",
+                "update_time":"2023-06-22 13:49:02",
+                "user_id":1
+            },
+            {
+                "create_time":"2023-06-22 13:49:20",
+                "domain_count":1,
+                "id":4,
+                "name":"淘宝系",
+                "update_time":"2023-06-22 13:49:20",
+                "user_id":1
+            },
+            {
+                "create_time":"2023-06-22 13:49:43",
+                "domain_count":0,
+                "id":5,
+                "name":"头条系",
+                "update_time":"2023-06-22 13:49:43",
+                "user_id":1
+            }
+        ],
+        "total":5
+    },
+    "msg":"success"
+}
