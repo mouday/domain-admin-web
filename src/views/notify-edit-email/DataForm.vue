@@ -42,17 +42,6 @@
         @click="handleSubmit"
         >保 存</el-button
       >
-      <!-- <el-tooltip
-        content="请保存后再测试"
-        placement="top"
-      >
-        <el-button
-          class="margin-left--auto"
-          :disabled="disabledTestButton"
-          @click="sendDomainInfoListEmail"
-          >测 试</el-button
-        >
-      </el-tooltip> -->
     </div>
   </div>
 </template>
@@ -124,12 +113,6 @@ export default {
     async getData() {
       // let loading = this.$loading()
 
-      // let params = {
-      //   type_id: NotifyTypeEnum.Email,
-      // }
-
-      // const res = await this.$http.getNotifyOfUser(params)
-
       if (this.rowData) {
         if (this.rowData.value && this.rowData.value.email_list) {
           this.form.email_list = JSON.stringify(
@@ -178,40 +161,6 @@ export default {
       }
 
       this.$emit('on-submit', deepCopy(params))
-
-      // let loading = this.$loading({ fullscreen: true })
-
-      // let res = await this.$http.updateNotifyOfUser(params)
-
-      // if (res.code == 0) {
-      //   this.$msg.success('操作成功')
-      //   this.$emit('on-success')
-      // } else {
-      //   this.$msg.error(res.msg)
-      // }
-
-      // this.$nextTick(() => {
-      //   // 以服务的方式调用的 Loading 需要异步关闭
-      //   loading.close()
-      // })
-    },
-
-    async sendDomainInfoListEmail() {
-      let loading = this.$loading({ fullscreen: true })
-
-      try {
-        const res = await this.$http.sendDomainInfoListEmail()
-
-        if (res.code == 0) {
-          this.$msg.success('操作成功')
-          this.$emit('on-success')
-        }
-      } catch (e) {
-      } finally {
-        this.$nextTick(() => {
-          loading.close()
-        })
-      }
     },
 
     handleToSystemSetting() {

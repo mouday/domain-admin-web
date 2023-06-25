@@ -67,12 +67,6 @@
         @click="handleSubmit"
         >保 存</el-button
       >
-      <!-- <el-tooltip
-        content="请保存后再测试"
-        placement="top"
-      >
-        <el-button @click="handleTest">测 试</el-button>
-      </el-tooltip> -->
     </div>
   </div>
 </template>
@@ -146,14 +140,6 @@ export default {
 
   methods: {
     async getData() {
-      // this.loading = true
-
-      // let params = {
-      //   type_id: NotifyTypeEnum.WorkWeixin,
-      // }
-
-      // const res = await this.$http.getNotifyOfUser(params)
-
       let data = this.rowData
 
       console.log(this.rowData)
@@ -167,8 +153,6 @@ export default {
       } else {
         this.form.body = this.defaultBody
       }
-
-      // this.loading = false
     },
 
     // 取消
@@ -193,13 +177,7 @@ export default {
 
     async confirmSubmit() {
       console.log('confirmSubmit')
-      // let loading = this.$loading({ fullscreen: true })
-
-      // let headers = null
-      // if (this.form.headers) {
-      //   headers = JSON.parse(this.form.headers)
-      // }
-
+ 
       let params = {
         // type_id: NotifyTypeEnum.WorkWeixin,
         value: {
@@ -210,38 +188,6 @@ export default {
       }
 
       this.$emit('on-submit', deepCopy(params))
-
-      // let res = await this.$http.updateNotifyOfUser(params)
-
-      // if (res.code == 0) {
-      //   this.$msg.success('操作成功')
-      //   this.$emit('on-success')
-      // } else {
-      //   this.$msg.error(res.msg)
-      // }
-
-      // this.$nextTick(() => {
-      //   // 以服务的方式调用的 Loading 需要异步关闭
-      //   loading.close()
-      // })
-    },
-
-    async handleTest() {
-      let loading = this.$loading({ fullscreen: true })
-
-      try {
-        const res = await this.$http.testWorkWeixinNotifyOfUser()
-
-        if (res.code == 0) {
-          this.$msg.success(res.data)
-          // this.$emit('on-success')
-        }
-      } catch (e) {
-      } finally {
-        this.$nextTick(() => {
-          loading.close()
-        })
-      }
     },
   },
 

@@ -2,7 +2,7 @@
   <el-link
     :underline="false"
     type="primary"
-    @click="checkDomainCert"
+    @click="handleNotifyByEventId"
     :disabled="disableUpdateButton"
     ><el-icon><Position /></el-icon>{{ updateText }}</el-link
   >
@@ -40,13 +40,8 @@ export default {
   },
 
   methods: {
-    async checkDomainCert() {
-      // this.updateTimer = setInterval(() => {
-      //   this.getUpdateDomainStatusOfUser()
-      // }, 2000)
-
-      // this.updateTimer = true
-
+    async handleNotifyByEventId() {
+  
       const res = await this.$http.handleNotifyByEventId({
         event_id: EventEnum.SSL_CERT_EXPIRE, // ssl证书到期
       })
@@ -56,20 +51,7 @@ export default {
       }
     },
 
-    async getUpdateDomainStatusOfUser() {
-      const res = await this.$http.getCheckDomainStatusOfUser()
-
-      if (res.ok) {
-        if (res.data.status == false) {
-          clearInterval(this.updateTimer)
-          this.updateTimer = null
-
-          this.$msg.success('操作成功')
-
-          this.$emit('on-success')
-        }
-      }
-    },
+    
   },
 
   beforeUnmount() {

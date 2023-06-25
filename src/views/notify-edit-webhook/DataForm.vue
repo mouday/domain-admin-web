@@ -85,26 +85,13 @@
 
     <!-- 操作 -->
     <div class="text-center mt-md">
-      <!-- <el-button @click="handleOpenTemplateDataDialog">模板参数</el-button> -->
-
       <el-button @click="handleCancel">取 消</el-button>
       <el-button
         type="primary"
         @click="handleSubmit"
         >保 存</el-button
       >
-      <!-- <el-tooltip
-        content="请保存后再测试"
-        placement="top"
-      >
-        <el-button @click="handleTest">测 试</el-button>
-      </el-tooltip> -->
     </div>
-
-    <!-- 模板参数弹框 -->
-    <TemplateDataDialog
-      v-model:visible="templateDataDialogVisible"
-    ></TemplateDataDialog>
   </div>
 </template>
 
@@ -120,7 +107,7 @@
  * created 2022-10-01
  * */
 import { NotifyTypeEnum } from '@/emuns/notify-type-enums.js'
-import TemplateDataDialog from '@/components/template-data/DataFormDialog.vue'
+
 import { deepCopy } from '@/utils/copy-util.js'
 import CodeEditor from '@/components/code-editor/CodeEditor.vue'
 
@@ -139,16 +126,13 @@ export default {
 
   emits: ['on-submit', 'on-cancel'],
 
-  components: { TemplateDataDialog, CodeEditor },
+  components: { CodeEditor },
 
   data() {
     return {
       loading: false,
 
       rules: formRules,
-
-      // 模板参数弹框
-      templateDataDialogVisible: false,
 
       // 引入枚举值
 
@@ -201,11 +185,6 @@ export default {
     async getData() {
       // this.loading = true
 
-      // let params = {
-      //   type_id: NotifyTypeEnum.Webkook,
-      // }
-
-      // const res = await this.$http.getNotifyOfUser(params)
       console.log(this.rowData)
 
       let data = this.rowData
@@ -265,42 +244,6 @@ export default {
       }
 
       this.$emit('on-submit', deepCopy(params))
-
-      // let res = await this.$http.updateNotifyOfUser(params)
-
-      // if (res.code == 0) {
-      //   this.$msg.success('操作成功')
-      //   this.$emit('on-success')
-      // } else {
-      //   this.$msg.error(res.msg)
-      // }
-
-      // this.$nextTick(() => {
-      //   // 以服务的方式调用的 Loading 需要异步关闭
-      //   loading.close()
-      // })
-    },
-
-    async handleTest() {
-      let loading = this.$loading({ fullscreen: true })
-
-      try {
-        const res = await this.$http.testWebhookNotifyOfUser()
-
-        if (res.code == 0) {
-          this.$msg.success(res.data)
-          // this.$emit('on-success')
-        }
-      } catch (e) {
-      } finally {
-        this.$nextTick(() => {
-          loading.close()
-        })
-      }
-    },
-
-    handleOpenTemplateDataDialog() {
-      this.templateDataDialogVisible = true
     },
   },
 

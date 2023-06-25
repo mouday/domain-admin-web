@@ -1,18 +1,6 @@
 <template>
   <div class="app-container">
-    <div class="flex">
-      <el-button
-        class="margin-left--auto"
-        @click="sendDomainInfoListEmail"
-        ><el-icon><Position /></el-icon>发送邮件</el-button
-      >
-
-      <el-button
-        class="margin-left--auto"
-        @click="checkDomainCert"
-        ><el-icon><Promotion /></el-icon>证书检查</el-button
-      >
-    </div>
+    <div class="flex"></div>
 
     <DataForm
       class="mt-md"
@@ -57,42 +45,6 @@ export default {
 
     handleSuccess() {
       this.updateUserInfo()
-    },
-
-    async sendDomainInfoListEmail() {
-      let loading = this.$loading({ fullscreen: true })
-
-      try {
-        const res = await this.$http.sendDomainInfoListEmail()
-
-        if (res.code == 0) {
-          this.$msg.success('操作成功')
-          this.$emit('on-success')
-        }
-      } catch (e) {
-      } finally {
-        this.$nextTick(() => {
-          loading.close()
-        })
-      }
-    },
-
-    async checkDomainCert() {
-      let loading = this.$loading({ fullscreen: true })
-
-      try {
-        const res = await this.$http.checkDomainCert()
-
-        if (res.code == 0) {
-          this.$msg.success('操作成功')
-          this.$emit('on-success')
-        }
-      } catch (e) {
-      } finally {
-        this.$nextTick(() => {
-          loading.close()
-        })
-      }
     },
   },
 

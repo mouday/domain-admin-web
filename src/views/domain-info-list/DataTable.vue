@@ -194,14 +194,6 @@
             ><el-icon><Refresh /></el-icon
           ></el-link>
 
-          <!-- <el-link
-            :underline="false"
-            type="primary"
-            class="mr-sm"
-            @click="handleDomainSettingDialogShow(scope.row)"
-            ><el-icon><Setting /></el-icon
-          ></el-link> -->
-
           <el-link
             :underline="false"
             type="primary"
@@ -251,12 +243,6 @@
       @on-success="handleRefreshRow(currentRow)"
     ></DataDetailDialog>
 
-    <!-- 域名设置 -->
-    <DomainSettingDialog
-      :row="currentRow"
-      v-model:visible="DomainSettingDialogVisible"
-      @on-success="handleUpdateSuccess"
-    ></DomainSettingDialog>
 
     <!-- 域名主机列表 -->
     <AddressListgDialog
@@ -277,7 +263,7 @@ import DataDetailDialog from '../domain-info-detail/DataFormDailig.vue'
 import ConnectStatus from '@/components/ConnectStatus.vue'
 import ExpireDays from '@/components/ExpireDays.vue'
 import ExpireProgress from '@/components/ExpireProgress.vue'
-import DomainSettingDialog from '@/views/domain-setting/DomainSettingDialog.vue'
+
 import AddressListgDialog from '@/components/address-list/DataTableDialog.vue'
 
 export default {
@@ -289,7 +275,7 @@ export default {
     ConnectStatus,
     ExpireDays,
     ExpireProgress,
-    DomainSettingDialog,
+    
     AddressListgDialog,
   },
 
@@ -305,7 +291,7 @@ export default {
       dialogVisible: false,
       dialogDetailVisible: false,
 
-      DomainSettingDialogVisible: false,
+    
       AddressListgDialogVisible: false,
     }
   },
@@ -417,10 +403,7 @@ export default {
       this.dialogDetailVisible = true
     },
 
-    handleDomainSettingDialogShow(row) {
-      this.currentRow = row
-      this.DomainSettingDialogVisible = true
-    },
+
 
     handleShowAddressListgDialog(row) {
       this.currentRow = row

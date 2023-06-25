@@ -279,22 +279,6 @@
         align="center"
       >
         <template #default="scope">
-          <!-- <el-link
-            :underline="false"
-            type="primary"
-            class="mr-sm"
-            @click="handleShowDetail(scope.row)"
-            ><el-icon><Tickets /></el-icon
-          ></el-link> -->
-
-          <!-- <el-link
-            :underline="false"
-            type="primary"
-            class="mr-sm"
-            @click="handleShowAddressListgDialog(scope.row)"
-            ><el-icon><Files /></el-icon
-          ></el-link> -->
-
           <!-- 更新 -->
           <el-link
             :underline="false"
@@ -303,14 +287,6 @@
             @click="handleUpdateRowDomainInfo(scope.row)"
             ><el-icon><Refresh /></el-icon
           ></el-link>
-
-          <!-- <el-link
-            :underline="false"
-            type="primary"
-            class="mr-sm"
-            @click="handleDomainSettingDialogShow(scope.row)"
-            ><el-icon><Setting /></el-icon
-          ></el-link> -->
 
           <el-link
             :underline="false"
@@ -334,17 +310,6 @@
           </el-popconfirm>
         </template>
       </el-table-column>
-
-      <!-- <el-table-column
-        label="删除"
-        width="60"
-        align="center"
-        prop="tag"
-      >
-        <template v-slot="{ row }">
-          
-        </template>
-      </el-table-column> -->
     </el-table>
 
     <!-- 编辑框 -->
@@ -360,13 +325,6 @@
       v-model:visible="dialogDetailVisible"
       @on-success="handleRefreshRow(currentRow)"
     ></DataDetailDialog>
-
-    <!-- 域名设置 -->
-    <DomainSettingDialog
-      :row="currentRow"
-      v-model:visible="DomainSettingDialogVisible"
-      @on-success="handleRefreshRow(currentRow)"
-    ></DomainSettingDialog>
 
     <!-- 域名主机列表 -->
     <AddressListgDialog
@@ -387,7 +345,7 @@ import DataDetailDialog from '../domain-detail/DataFormDailig.vue'
 import ConnectStatus from '@/components/ConnectStatus.vue'
 import ExpireDays from '@/components/ExpireDays.vue'
 import ExpireProgress from '@/components/ExpireProgress.vue'
-import DomainSettingDialog from '@/views/domain-setting/DomainSettingDialog.vue'
+
 import AddressListgDialog from '@/components/address-list/DataTableDialog.vue'
 
 export default {
@@ -399,7 +357,7 @@ export default {
     ConnectStatus,
     ExpireDays,
     ExpireProgress,
-    DomainSettingDialog,
+    
     AddressListgDialog,
   },
 
@@ -415,7 +373,7 @@ export default {
       dialogVisible: false,
       dialogDetailVisible: false,
 
-      DomainSettingDialogVisible: false,
+      
       AddressListgDialogVisible: false,
     }
   },
@@ -505,11 +463,6 @@ export default {
     handleShowDetail(row) {
       this.currentRow = row
       this.dialogDetailVisible = true
-    },
-
-    handleDomainSettingDialogShow(row) {
-      this.currentRow = row
-      this.DomainSettingDialogVisible = true
     },
 
     handleShowAddressListgDialog(row) {

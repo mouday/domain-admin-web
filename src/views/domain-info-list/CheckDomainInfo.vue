@@ -2,7 +2,7 @@
   <el-link
     :underline="false"
     type="primary"
-    @click="checkDomainCert"
+    @click="handleNotifyByEventId"
     :disabled="disableUpdateButton"
     ><el-icon><Position /></el-icon>{{ updateText }}</el-link
   >
@@ -10,7 +10,7 @@
 
 <script>
 // created at 2023-04-04
-import {EventEnum} from "@/emuns/event-enums.js"
+import { EventEnum } from '@/emuns/event-enums.js'
 
 export default {
   name: 'updateDomainInfo',
@@ -40,29 +40,13 @@ export default {
   },
 
   methods: {
-    async checkDomainCert() {
-      
+    async handleNotifyByEventId() {
       const res = await this.$http.handleNotifyByEventId({
         event_id: EventEnum.DOMAIN_EXPIRE, // 域名到期
       })
 
       if (res.ok) {
         this.$msg.success(`成功渠道：${res.data.success}`)
-      }
-    },
-
-    async getUpdateDomainStatusOfUser() {
-      const res = await this.$http.getCheckDomainStatusOfUser()
-
-      if (res.ok) {
-        if (res.data.status == false) {
-          clearInterval(this.updateTimer)
-          this.updateTimer = null
-
-          this.$msg.success('操作成功')
-
-          this.$emit('on-success')
-        }
       }
     },
   },
