@@ -207,7 +207,7 @@
           label="分组"
           prop="create_time"
         >
-          <span v-if="form.group">{{ form.group.name || '-' }}</span>
+          <span v-if="form.group_name">{{ form.group_name || '-' }}</span>
           <span v-else>-</span>
         </el-form-item>
 
@@ -349,6 +349,7 @@ export default {
         // 创建时间
         create_time: '',
         update_time: '',
+        group_name: '',
         // detail: {
         //   issuer: {},
         //   subject: {},
@@ -436,6 +437,7 @@ export default {
 
         this.form.address_count = data.address_count
         this.form.group = data.group
+        this.form.group_name = data.group_name
 
         // this.form.detail = {
         //   issuer: data.detail.issuer || {},

@@ -4,8 +4,16 @@
       :data="list"
       stripe
       border
+      @selection-change="$emit('selection-change', $event)"
     >
       <el-table-column
+        type="selection"
+        header-align="center"
+        align="center"
+        width="40"
+      />
+
+      <!-- <el-table-column
         label="序号"
         align="center"
         prop="id"
@@ -14,7 +22,7 @@
         <template #default="scope">
           <span>{{ scope.$index + 1 }}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <!-- 名称 -->
       <el-table-column
@@ -52,7 +60,6 @@
         </template>
       </el-table-column>
 
-      
       <!-- 创建时间 -->
       <!-- <el-table-column
         label="创建时间"
@@ -174,6 +181,8 @@ export default {
     },
   },
 
+  emits: ['selection-change'],
+
   computed: {},
 
   data() {
@@ -225,7 +234,7 @@ export default {
     },
 
     handleCountClick(row) {
-      console.log('handleCountClick');
+      console.log('handleCountClick')
       // this.$emit('on-count-click', row)
       this.currentRow = row
       this.groupDomainListDialogVisible = true

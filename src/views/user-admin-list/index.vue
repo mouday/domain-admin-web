@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <!-- 操作按钮 -->
-    <div class="margin-bottom--20">
+    <div class="flex justify-between margin-bottom--20">
       <el-button
         type="primary"
         @click="handleAddRow"

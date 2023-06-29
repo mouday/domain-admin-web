@@ -295,6 +295,8 @@ export default {
         if (this.$refs.ConditionFilter) {
           this.$refs.ConditionFilter.resetData()
         }
+
+        this.updateGroupOptions()
       }
 
       loading.close()

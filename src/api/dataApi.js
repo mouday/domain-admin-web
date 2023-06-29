@@ -61,6 +61,7 @@ export default {
   addGroup: '/addGroup',
   updateGroupById: '/updateGroupById',
   deleteGroupById: '/deleteGroupById',
+  deleteGroupByIds: '/deleteGroupByIds',
   getGroupList: '/getGroupList',
   getGroupById: '/getGroupById',
 
