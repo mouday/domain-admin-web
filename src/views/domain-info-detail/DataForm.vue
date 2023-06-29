@@ -111,7 +111,6 @@
  *
  * created 2022-10-01
  * */
-import ConnectStatus from '@/components/ConnectStatus.vue'
 import ExpireDays from '@/components/ExpireDays.vue'
 import AddressList from '@/components/address-list/index.vue'
 
@@ -124,7 +123,7 @@ export default {
   },
 
   components: {
-    ConnectStatus,
+    
     ExpireDays,
     AddressList,
   },

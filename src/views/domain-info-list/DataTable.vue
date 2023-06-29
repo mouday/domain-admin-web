@@ -260,7 +260,7 @@
  */
 import DataFormDialog from '../domain-info-edit/DataFormDialog.vue'
 import DataDetailDialog from '../domain-info-detail/DataFormDailig.vue'
-import ConnectStatus from '@/components/ConnectStatus.vue'
+
 import ExpireDays from '@/components/ExpireDays.vue'
 import ExpireProgress from '@/components/ExpireProgress.vue'
 
@@ -272,7 +272,7 @@ export default {
   components: {
     DataFormDialog,
     DataDetailDialog,
-    ConnectStatus,
+    
     ExpireDays,
     ExpireProgress,
     

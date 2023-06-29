@@ -72,12 +72,6 @@
 
     <!-- 域名连接状态 -->
 
-    <!-- <el-form-item
-          label="域名连接状态"
-          prop="connect_status"
-        >
-          <ConnectStatus :value="form.connect_status"></ConnectStatus>
-        </el-form-item> -->
 
     <!-- 证书检查时间 -->
 
@@ -306,7 +300,7 @@
  *
  * created 2022-10-01
  * */
-import ConnectStatus from '@/components/ConnectStatus.vue'
+
 import ExpireDays from '@/components/ExpireDays.vue'
 import AddressList from '@/components/address-list/index.vue'
 
@@ -319,7 +313,7 @@ export default {
   },
 
   components: {
-    ConnectStatus,
+    
     ExpireDays,
     AddressList,
   },

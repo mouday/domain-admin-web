@@ -137,11 +137,11 @@
         align="center"
         width="60"
         sortable="custom"
-        prop="connect_status"
+        prop="expire_status"
       >
         <template #default="scope">
           <ConnectStatus
-            :value="scope.row.connect_status"
+            :value="scope.row.expire_status"
             @on-click="handleShowAddressListgDialog(scope.row)"
           ></ConnectStatus>
         </template>
