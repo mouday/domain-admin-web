@@ -147,8 +147,8 @@
 
       <!-- 监测 -->
       <el-table-column
-        label="监测"
-        width="60"
+        label="到期提醒"
+        width="90"
         header-align="center"
         align="center"
         sortable="custom"

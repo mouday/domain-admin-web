@@ -19,7 +19,7 @@
         label="域名"
         header-align="center"
         align="center"
-        width="250"
+        width="230"
         show-overflow-tooltip
         prop="domain"
       >
@@ -257,8 +257,8 @@
 
       <!-- 监测 -->
       <el-table-column
-        label="监测"
-        width="60"
+        label="到期提醒"
+        width="90"
         header-align="center"
         align="center"
         sortable="custom"

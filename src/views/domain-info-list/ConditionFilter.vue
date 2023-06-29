@@ -73,7 +73,7 @@ export default {
   },
 
   methods: {
-    async getData() {
+    async resetData() {
       const res = await this.$http.getDomainInfoGroupFilter()
 
       if (res.ok) {
@@ -109,7 +109,7 @@ export default {
   },
 
   created() {
-    this.getData()
+    this.resetData()
   },
 }
 </script>

@@ -39,6 +39,7 @@
     <ConditionFilter
       v-if="hasInitData"
       class="mt-md"
+      ref="ConditionFilter"
       @on-change="handleConditionFilterChange"
     ></ConditionFilter>
 
@@ -250,9 +251,7 @@ export default {
       const res = await this.$http.getDomainList(params)
 
       if (res.code == 0) {
-        this.list = res.data.list.map((item) => {
-          return this.preHandleRow(item)
-        })
+        this.list = res.data.list
         this.total = res.data.total
       } else {
         this.$msg.error(res.msg)
@@ -261,16 +260,16 @@ export default {
       this.loading = false
     },
 
-    preHandleRow(row) {
-      row._uuid = getUUID()
+    // preHandleRow(row) {
+    //   row._uuid = getUUID()
 
-      // 分组
-      if (row.group_id) {
-        row.group_name = this.getGroupName(row.group_id)
-      }
+    //   // 分组
+    //   if (row.group_id) {
+    //     // row.group_name = this.getGroupName(row.group_id)
+    //   }
 
-      return row
-    },
+    //   return row
+    // },
 
     getGroupName(group_id) {
       let groupOption = this.groupOptions.find((x) => x.value == group_id)
@@ -293,6 +292,10 @@ export default {
         // this.$msg.success(`导入成功：${res.data.count}`)
         this.$msg.success('上传成功，后台导入中')
         this.resetData()
+
+        if (this.$refs.ConditionFilter) {
+          this.$refs.ConditionFilter.resetData()
+        }
       }
 
       loading.close()
@@ -416,11 +419,11 @@ export default {
       }
 
       const res = await this.$http.getDomainById(params)
-      
+
       if (res.ok) {
         let index = this.list.findIndex((item) => item.id == row.id)
 
-        this.list.splice(index, 1, this.preHandleRow(res.data))
+        this.list.splice(index, 1, res.data)
         console.log(this.list)
       }
     },
