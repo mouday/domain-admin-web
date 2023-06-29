@@ -10,13 +10,13 @@
       <span class="el-text-color-primary">{{ expireDays || '-' }}</span>
       <span> / </span>
       <span class="el-text-color-secondary">{{ totalDays || '-' }}</span>
-      <el-tag
+      <!-- <el-tag
         v-if="isManual"
         type="info"
         class="mo-table-tag  ml-[1px]"
         size="small"
         >手动</el-tag
-      >
+      > -->
     </div>
   </div>
 </template>
@@ -84,9 +84,9 @@ export default {
       // 状态栏颜色
       let percentage_status
 
-      if (this.expireDays >= 30) {
+      if (this.expireDays > 7) {
         percentage_status = '' // success
-      } else if (this.expireDays >= 3) {
+      } else if (this.expireDays > 0) {
         percentage_status = 'warning'
       } else {
         percentage_status = 'exception'
