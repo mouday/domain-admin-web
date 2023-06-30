@@ -70,7 +70,7 @@
         </el-form-item>
 
         <el-form-item
-          label="过期监测"
+          label="到期提醒"
           prop="isp"
         >
           <span class="truncate">{{ form.domain_expire_monitor || '-' }}</span>
