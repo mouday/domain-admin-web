@@ -41,12 +41,27 @@ export default {
 
   methods: {
     async handleNotifyByEventId() {
-      const res = await this.$http.handleNotifyByEventId({
-        event_id: EventEnum.DOMAIN_EXPIRE, // 域名到期
+      let loading = this.$loading({
+        lock: true,
+        text: '检查中',
+        fullscreen: true
       })
 
-      if (res.ok) {
-        this.$msg.success(`检查渠道：${res.data.success}`)
+      try {
+        const res = await this.$http.handleNotifyByEventId({
+          event_id: EventEnum.DOMAIN_EXPIRE, // 域名到期
+        })
+
+        if (res.ok) {
+          this.$msg.success(`检查渠道：${res.data.success}`)
+        }
+      } catch (e) {
+        console.log(e)
+      } finally {
+        this.$nextTick(() => {
+          // 以服务的方式调用的 Loading 需要异步关闭
+          loading.close()
+        })
       }
     },
   },

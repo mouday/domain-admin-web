@@ -10,7 +10,7 @@
 
 <script>
 // created at 2023-04-04
-import {EventEnum} from "@/emuns/event-enums.js"
+import { EventEnum } from '@/emuns/event-enums.js'
 
 export default {
   name: 'updateDomainInfo',
@@ -41,17 +41,29 @@ export default {
 
   methods: {
     async handleNotifyByEventId() {
-  
-      const res = await this.$http.handleNotifyByEventId({
-        event_id: EventEnum.SSL_CERT_EXPIRE, // ssl证书到期
+      let loading = this.$loading({
+        lock: true,
+        text: '检查中',
+        fullscreen: true,
       })
 
-      if (res.ok) {
-        this.$msg.success(`检查渠道：${res.data.success}`)
+      try {
+        const res = await this.$http.handleNotifyByEventId({
+          event_id: EventEnum.SSL_CERT_EXPIRE, // ssl证书到期
+        })
+
+        if (res.ok) {
+          this.$msg.success(`检查渠道：${res.data.success}`)
+        }
+      } catch (e) {
+        console.log(e)
+      } finally {
+        this.$nextTick(() => {
+          // 以服务的方式调用的 Loading 需要异步关闭
+          loading.close()
+        })
       }
     },
-
-    
   },
 
   beforeUnmount() {
