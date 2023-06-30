@@ -276,7 +276,7 @@ export default {
           msg = JSON.parse(msg)
         } catch (e) {}
 
-        this.$msg.success(msg)
+        this.$msg.success(msg || '操作成功')
 
         // this.$emit('on-success')
       } else {
