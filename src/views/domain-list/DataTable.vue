@@ -73,6 +73,30 @@
           ></ExpireProgress> -->
       <!-- <span>{{ scope.row.real_time_domain_expire_days || '-' }}</span> -->
 
+      <el-table-column
+        label="主机数量"
+        header-align="center"
+        align="center"
+        width="80"
+        prop="address_count"
+      >
+        <template #default="scope">
+          <!-- 动态主机 -->
+          <span
+            v-if="scope.row.is_dynamic_host"
+            class="color--danger"
+            >*</span
+          >
+          <el-link
+            v-if="scope.row.address_count && scope.row.address_count > 0"
+            :underline="false"
+            @click="handleShowAddressListgDialog(scope.row)"
+            >{{ scope.row.address_count }}</el-link
+          >
+          <span v-else>-</span>
+        </template>
+      </el-table-column>
+
       <!-- 域名连接状态 -->
       <el-table-column
         label="状态"
@@ -123,32 +147,6 @@
           <!-- <span>{{ scope.row.real_time_expire_days }}</span> -->
         </template>
       </el-table-column>
-
-      <el-table-column
-        label="主机数量"
-        header-align="center"
-        align="center"
-        width="80"
-        prop="address_count"
-      >
-        <template #default="scope">
-          <!-- 动态主机 -->
-          <span
-            v-if="scope.row.is_dynamic_host"
-            class="color--danger"
-            >*</span
-          >
-          <el-link
-            v-if="scope.row.address_count && scope.row.address_count > 0"
-            :underline="false"
-            @click="handleShowAddressListgDialog(scope.row)"
-            >{{ scope.row.address_count }}</el-link
-          >
-          <span v-else>-</span>
-        </template>
-      </el-table-column>
-
-      
 
       <!-- 有效期总天数 -->
       <!-- <el-table-column
@@ -360,7 +358,7 @@ export default {
     ConnectStatus,
     ExpireDays,
     ExpireProgress,
-    
+
     AddressListgDialog,
   },
 
@@ -376,7 +374,6 @@ export default {
       dialogVisible: false,
       dialogDetailVisible: false,
 
-      
       AddressListgDialogVisible: false,
     }
   },
