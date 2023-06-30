@@ -46,7 +46,7 @@ export default {
       })
 
       if (res.ok) {
-        this.$msg.success(`成功渠道：${res.data.success}`)
+        this.$msg.success(`检查渠道：${res.data.success}`)
       }
     },
   },
