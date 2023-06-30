@@ -31,6 +31,13 @@
             form.domain_auto_update_label || '-'
           }}</span>
         </el-form-item>
+
+        <el-form-item
+          label="主办单位名称"
+          prop="isp"
+        >
+          <span class="truncate">{{ icpInfo.name || '-' }}</span>
+        </el-form-item>
       </el-form>
 
       <el-form
@@ -74,6 +81,13 @@
           prop="isp"
         >
           <span class="truncate">{{ form.domain_expire_monitor || '-' }}</span>
+        </el-form-item>
+
+        <el-form-item
+          label="ICP备案"
+          prop="isp"
+        >
+          <span class="truncate">{{ icpInfo.icp || '-' }}</span>
         </el-form-item>
       </el-form>
     </div>
@@ -192,12 +206,36 @@ export default {
       ipInfo: {
         isp: '',
       },
+
+      icpInfo: {}
     }
   },
 
   computed: {},
 
   methods: {
+    async getICP() {
+      if (!this.form.domain) {
+        return
+      }
+
+      this.loading = true
+
+      let params = {
+        domain: this.form.domain,
+      }
+
+      try {
+        const res = await this.$http.getICP(params)
+        this.icpInfo = res.data
+      } catch (e) {
+        console.log(e)
+        // this.msg.error(e.msg);
+      } finally {
+        this.loading = false
+      }
+    },
+
     async getData() {
       if (this.row) {
         let params = {
@@ -260,12 +298,13 @@ export default {
         this.form.real_time_domain_expire_days =
           data.real_time_domain_expire_days
 
-        this.form.detail = {
-          issuer: data.detail.issuer || {},
-          subject: data.detail.subject || {},
-        }
+        // this.form.detail = {
+        //   issuer: data.detail.issuer || {},
+        //   subject: data.detail.subject || {},
+        // }
 
         // this.getIpInfo()
+        this.getICP()
       }
     },
 

@@ -95,4 +95,5 @@ export default {
   exportDomainInfoFile: '/exportDomainInfoFile',
   getDomainInfoGroupFilter: '/getDomainInfoGroupFilter',
   
+  getICP: '/getICP'
 }

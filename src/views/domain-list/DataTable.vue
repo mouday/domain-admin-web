@@ -46,7 +46,8 @@
         </template>
       </el-table-column>
 
-      <el-table-column
+      <!-- 域名天数 -->
+      <!-- <el-table-column
         label="域名天数"
         header-align="center"
         align="center"
@@ -56,7 +57,7 @@
         <template #default="scope">
           <ExpireDays :value="scope.row.domain_expire_days"></ExpireDays>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <!-- <el-tag
             v-if="!scope.row.domain_auto_update"
@@ -71,6 +72,23 @@
             :endTime="scope.row.domain_expire_time"
           ></ExpireProgress> -->
       <!-- <span>{{ scope.row.real_time_domain_expire_days || '-' }}</span> -->
+
+      <!-- 域名连接状态 -->
+      <el-table-column
+        label="状态"
+        header-align="center"
+        align="center"
+        width="60"
+        sortable="custom"
+        prop="expire_status"
+      >
+        <template #default="scope">
+          <ConnectStatus
+            :value="scope.row.expire_status"
+            @on-click="handleShowAddressListgDialog(scope.row)"
+          ></ConnectStatus>
+        </template>
+      </el-table-column>
 
       <el-table-column
         label="证书天数"
@@ -130,22 +148,7 @@
         </template>
       </el-table-column>
 
-      <!-- 域名连接状态 -->
-      <el-table-column
-        label="状态"
-        header-align="center"
-        align="center"
-        width="60"
-        sortable="custom"
-        prop="expire_status"
-      >
-        <template #default="scope">
-          <ConnectStatus
-            :value="scope.row.expire_status"
-            @on-click="handleShowAddressListgDialog(scope.row)"
-          ></ConnectStatus>
-        </template>
-      </el-table-column>
+      
 
       <!-- 有效期总天数 -->
       <!-- <el-table-column

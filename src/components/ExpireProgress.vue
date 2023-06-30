@@ -7,9 +7,14 @@
       :status="percentageStatus"
     />
     <div class="ExpireProgress__info">
-      <span class="el-text-color-primary">{{ expireDays || '-' }}</span>
-      <span> / </span>
-      <span class="el-text-color-secondary">{{ totalDays || '-' }}</span>
+      <template v-if="totalDays">
+        <span class="el-text-color-primary">{{ expireDays }}</span>
+        <span> / </span>
+        <span class="el-text-color-secondary">{{ totalDays }}</span>
+      </template>
+      
+      <span v-else>-</span>
+
       <!-- <el-tag
         v-if="isManual"
         type="info"
