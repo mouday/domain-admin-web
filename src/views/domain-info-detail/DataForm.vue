@@ -81,6 +81,20 @@
     <div class="mo-form-detail mt-[20px]">
       <el-form label-width="130px">
         <el-form-item
+          label="注册商"
+          prop="domain_registrar"
+        >
+          <a
+            v-if="form.domain_registrar_url"
+            :href="form.domain_registrar_url"
+            target="_blank"
+            class="mo-link"
+            >{{ form.domain_registrar }}</a
+          >
+          <span v-else>{{ form.domain_registrar || '-' }}</span>
+        </el-form-item>
+
+        <el-form-item
           label="备注"
           prop="comment"
         >
@@ -123,7 +137,6 @@ export default {
   },
 
   components: {
-    
     ExpireDays,
     AddressList,
   },
@@ -171,6 +184,8 @@ export default {
         real_domain_expire_days: '',
         ssl_count: '',
         comment: '',
+        domain_registrar: '',
+        domain_registrar_url: '',
       },
 
       // ip信息
@@ -204,6 +219,8 @@ export default {
         this.form.comment = data.comment
 
         this.form.domain_url = data.domain_url
+        this.form.domain_registrar_url = data.domain_registrar_url
+        this.form.domain_registrar = data.domain_registrar
 
         // ip
         this.form.ip = data.ip

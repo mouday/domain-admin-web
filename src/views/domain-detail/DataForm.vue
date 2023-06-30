@@ -72,7 +72,6 @@
 
     <!-- 域名连接状态 -->
 
-
     <!-- 证书检查时间 -->
 
     <!-- <el-form-item
@@ -313,7 +312,6 @@ export default {
   },
 
   components: {
-    
     ExpireDays,
     AddressList,
   },

@@ -243,7 +243,6 @@
       @on-success="handleRefreshRow(currentRow)"
     ></DataDetailDialog>
 
-
     <!-- 域名主机列表 -->
     <AddressListgDialog
       v-if="currentRow"
@@ -272,10 +271,10 @@ export default {
   components: {
     DataFormDialog,
     DataDetailDialog,
-    
+
     ExpireDays,
     ExpireProgress,
-    
+
     AddressListgDialog,
   },
 
@@ -291,7 +290,6 @@ export default {
       dialogVisible: false,
       dialogDetailVisible: false,
 
-    
       AddressListgDialogVisible: false,
     }
   },
@@ -402,8 +400,6 @@ export default {
       this.currentRow = row
       this.dialogDetailVisible = true
     },
-
-
 
     handleShowAddressListgDialog(row) {
       this.currentRow = row
