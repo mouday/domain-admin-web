@@ -148,7 +148,7 @@ export default {
 
       this.loading = false
 
-      console.log(this.options);
+      // console.log(this.options);
     },
 
     handleChange(data) {

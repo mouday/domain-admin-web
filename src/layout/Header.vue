@@ -207,7 +207,7 @@ export default {
     },
 
     handleThemeChange(val) {
-      console.log(val)
+      // console.log(val)
 
       localStorage.setItem('theme', val)
 
