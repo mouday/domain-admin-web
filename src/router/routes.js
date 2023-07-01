@@ -64,9 +64,9 @@ export const routes = [
       },
 
       {
-        path: '/system-list',
-        name: 'system-list',
-        component: () => import('../views/system-list/index.vue'),
+        path: '/system-setup',
+        name: 'system-setup',
+        component: () => import('../views/system-setup/index.vue'),
         meta: {
           title: '系统设置',
           icon: 'Setting',

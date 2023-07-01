@@ -1,0 +1,8 @@
+{
+  "table": {
+    "columns": [
+      { "comment": "prometheus_key", "name": "prometheus_key", "default": "" },
+      { "comment": "Token有效期（天）", "name": "token_expire_days", "default": "" }
+    ]
+  }
+}

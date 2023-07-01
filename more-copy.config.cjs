@@ -5,7 +5,7 @@ const ReadDataPlugin = require('@more-copy/read-data-plugin')
 const path = require('path')
 
 let configMap = [
-  // mcp -m edit address ./data/address.json
+  // mcp -m edit system ./data/system.json
   {
     mode: 'edit',
     template: [

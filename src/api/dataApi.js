@@ -28,6 +28,9 @@ export default {
   getAllSystemConfig: '/getAllSystemConfig',
   updateSystemConfig: '/updateSystemConfig',
   getSystemVersion: '/getSystemVersion',
+  getSystemEnvConfig: '/getSystemEnvConfig',
+  getCronConfig: '/getCronConfig',
+  updateCronConfig: '/updateCronConfig',
 
   getUserInfo: '/getUserInfo',
   updateUserInfo: '/updateUserInfo',

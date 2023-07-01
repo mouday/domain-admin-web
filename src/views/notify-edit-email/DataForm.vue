@@ -165,7 +165,7 @@ export default {
 
     handleToSystemSetting() {
       let route = this.$router.resolve({
-        name: 'system-list',
+        name: 'system-setup',
       })
 
       window.open(route.href, '_blank')

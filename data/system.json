@@ -1,0 +1,11 @@
+{
+  "table": {
+    "columns": [
+      { "comment": "服务器地址", "name": "mail_host", "default": "" },
+      { "comment": "服务器端口", "name": "mail_port", "default": "" },
+      { "comment": "发件人名称", "name": "mail_alias", "default": "" },
+      { "comment": "发件人账号", "name": "mail_username", "default": "" },
+      { "comment": "发件人密码", "name": "mail_password", "default": "" }      
+    ]
+  }
+}

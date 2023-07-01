@@ -1,0 +1,7 @@
+{
+  "table": {
+    "columns": [
+      { "comment": "定时检测", "name": "scheduler_cron", "default": "" }
+    ]
+  }
+}
