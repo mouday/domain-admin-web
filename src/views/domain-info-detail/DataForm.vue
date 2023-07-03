@@ -41,8 +41,11 @@
             :content="icpInfo.name"
             placement="top-start"
           > -->
-          <ShowOverflowTooltip v-if="icpInfo" :content="icpInfo.name || '-'"></ShowOverflowTooltip>
-            <!-- <span
+          <ShowOverflowTooltip
+            v-if="icpInfo"
+            :content="icpInfo.name || '-'"
+          ></ShowOverflowTooltip>
+          <!-- <span
               class="truncate"
               v-cusTooltip="icpInfo.name"
               >{{ icpInfo.name || '-' }}</span
@@ -98,7 +101,11 @@
           label="ICP备案"
           prop="isp"
         >
-          <span class="truncate" v-if="icpInfo">{{ icpInfo.icp || '-' }}</span>
+          <span
+            class="truncate"
+            v-if="icpInfo"
+            >{{ icpInfo.icp || '-' }}</span
+          >
         </el-form-item>
       </el-form>
     </div>
@@ -165,9 +172,8 @@ export default {
   components: {
     ExpireDays,
     AddressList,
-    ShowOverflowTooltip
+    ShowOverflowTooltip,
   },
-
 
   data() {
     return {

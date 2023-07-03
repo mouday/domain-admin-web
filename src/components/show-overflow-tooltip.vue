@@ -31,7 +31,11 @@ export default {
     }
   },
 
-  computed: {},
+  watch: {
+    content() {
+      this.handleInit()
+    },
+  },
 
   methods: {
     handleInit() {
@@ -72,7 +76,12 @@ export default {
         target.scrollWidth > target.offsetWidth
       ) {
         console.log('有隐藏文字...')
-        this.disabled = false
+
+        if (this.content && this.content.length > 5) {
+          this.disabled = false
+        } else {
+          this.disabled = true
+        }
       } else {
         console.log('没有隐藏文字')
         this.disabled = true
