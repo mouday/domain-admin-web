@@ -36,7 +36,18 @@
           label="主办单位名称"
           prop="isp"
         >
-          <span class="truncate">{{ icpInfo.name || '-' }}</span>
+          <!-- <el-tooltip
+            effect="dark"
+            :content="icpInfo.name"
+            placement="top-start"
+          > -->
+          <ShowOverflowTooltip v-if="icpInfo" :content="icpInfo.name || '-'"></ShowOverflowTooltip>
+            <!-- <span
+              class="truncate"
+              v-cusTooltip="icpInfo.name"
+              >{{ icpInfo.name || '-' }}</span
+            > -->
+          <!-- </el-tooltip> -->
         </el-form-item>
       </el-form>
 
@@ -87,7 +98,7 @@
           label="ICP备案"
           prop="isp"
         >
-          <span class="truncate">{{ icpInfo.icp || '-' }}</span>
+          <span class="truncate" v-if="icpInfo">{{ icpInfo.icp || '-' }}</span>
         </el-form-item>
       </el-form>
     </div>
@@ -141,6 +152,7 @@
  * */
 import ExpireDays from '@/components/ExpireDays.vue'
 import AddressList from '@/components/address-list/index.vue'
+import ShowOverflowTooltip from '@/components/show-overflow-tooltip.vue'
 
 export default {
   name: '',
@@ -153,7 +165,9 @@ export default {
   components: {
     ExpireDays,
     AddressList,
+    ShowOverflowTooltip
   },
+
 
   data() {
     return {
@@ -207,7 +221,7 @@ export default {
         isp: '',
       },
 
-      icpInfo: {}
+      icpInfo: null,
     }
   },
 
@@ -227,7 +241,7 @@ export default {
 
       try {
         const res = await this.$http.getICP(params)
-        this.icpInfo = res.data
+        this.icpInfo = res.data || {}
       } catch (e) {
         console.log(e)
         // this.msg.error(e.msg);
