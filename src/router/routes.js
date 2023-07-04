@@ -85,6 +85,17 @@ export const routes = [
         },
       },
       {
+        path: '/log-operation-list',
+        name: 'log-operation-list',
+        component: () => import('../views/log-operation-list/index.vue'),
+        meta: {
+          title: '操作日志',
+          icon: 'Calendar',
+          roles: [RoleEnum.Admin],
+        },
+      },
+      
+      {
         path: '/lab',
         name: 'lab',
         component: () => import('../views/lab/index.vue'),

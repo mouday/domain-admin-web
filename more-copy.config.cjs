@@ -29,7 +29,7 @@ let configMap = [
   },
 
   // mcp -m list notify data/notify.json
-  //  mcp -m list address ./data/address.json
+  //  mcp -m list log_operation ./data/log_operation.json
   {
     mode: 'list',
     template: [

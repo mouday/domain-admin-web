@@ -1,0 +1,12 @@
+{
+  "table": {
+    "columns": [
+      { "comment": "操作人", "name": "user_name", "default": "" },
+      { "comment": "操作表", "name": "table", "default": "" },
+      { "comment": "操作类型", "name": "type_id", "default": "" },
+      { "comment": "操作前", "name": "before", "default": "" },
+      { "comment": "操作后", "name": "after", "default": "" },
+      { "comment": "操作时间", "name": "create_time", "default": "" }
+    ]
+  }
+}

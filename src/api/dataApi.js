@@ -43,6 +43,8 @@ export default {
 
   getLogSchedulerList: '/getLogSchedulerList',
   clearLogSchedulerList: '/clearLogSchedulerList',
+  
+  getOperationLogList: '/getOperationLogList',
 
   getIpInfo: '/getIpInfo',
 
