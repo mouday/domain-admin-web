@@ -90,7 +90,7 @@ export const routes = [
         component: () => import('../views/log-operation-list/index.vue'),
         meta: {
           title: '操作日志',
-          icon: 'Calendar',
+          icon: 'Compass',
           roles: [RoleEnum.Admin],
         },
       },

@@ -28,6 +28,7 @@
  */
 
 import DataTable from './DataTable.vue'
+import * as Diff from 'diff'
 
 export default {
   name: 'log_operation-list',
@@ -76,9 +77,40 @@ export default {
             try {
               item.before = JSON.parse(item.before)
             } catch (e) {}
+
             try {
               item.after = JSON.parse(item.after)
             } catch (e) {}
+
+            // 更新
+            if (item.type_id == 2) {
+              // let before = this.getObjectString(item.before)
+              // let after = this.getObjectString(item.after)
+              let ret = Diff.diffJson(item.before, item.after)
+              console.log(ret)
+
+              let lst = []
+              ret.forEach((part) => {
+                console.log(part)
+
+                if (part.added) {
+                  lst.push('<div class="added">' + part.value + '</div>')
+                } else if (part.removed) {
+                  lst.push('<div class="removed">' + part.value + '</div>')
+                } else {
+                  lst.push('<div>' + part.value + '</div>')
+                }
+              })
+
+              // console.log(lst.join(''));
+              item.data = lst.join('')
+            } else if (item.type_id == 1) {
+              item.data = JSON.stringify(item.after, null, 2)
+            } else if (item.type_id == 3) {
+              item.data = JSON.stringify(item.before, null, 2)
+            } else if (item.type_id == 4) {
+              item.data = JSON.stringify(item.before, null, 2)
+            }
 
             return item
           })
@@ -97,6 +129,15 @@ export default {
 
     handleAddSuccess() {
       this.resetData()
+    },
+
+    getObjectString(obj) {
+      let lst = []
+      for (let [key, value] of Object.entries(obj)) {
+        lst.push(`${key}: ${value}`)
+      }
+
+      return lst.join('\n')
     },
 
     handleSearch() {

@@ -13,16 +13,16 @@
         width="40"
       />
 
-      <!-- <el-table-column
-        label="序号"
+      <el-table-column
+        label="ID"
         align="center"
         prop="id"
         width="60"
       >
         <template #default="scope">
-          <span>{{ scope.$index + 1 }}</span>
+          <span>{{ scope.row.id }}</span>
         </template>
-      </el-table-column> -->
+      </el-table-column>
 
       <!-- 名称 -->
       <el-table-column

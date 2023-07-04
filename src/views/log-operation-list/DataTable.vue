@@ -54,12 +54,43 @@
         width="100"
       >
         <template #default="scope">
-          <span>{{ scope.row.type_label || '-' }}</span>
+          <el-tag v-if="scope.row.type_id == 2">{{
+            scope.row.type_label
+          }}</el-tag>
+
+          <el-tag
+            v-else-if="scope.row.type_id == 1"
+            type="success"
+            >{{ scope.row.type_label }}</el-tag
+          >
+
+          <el-tag
+            v-else-if="scope.row.type_id == 3 || scope.row.type_id == 4"
+            type="danger"
+            >{{ scope.row.type_label }}</el-tag
+          >
+
+          <span v-else>-</span>
+        </template>
+      </el-table-column>
+
+      <!-- 操作类型 -->
+      <el-table-column
+        label="数据变化"
+        header-align="center"
+        align="left"
+        prop="type_id"
+      >
+        <template #default="scope">
+          <pre
+            class="code"
+            v-html="scope.row.data"
+          ></pre>
         </template>
       </el-table-column>
 
       <!-- 操作前 -->
-      <el-table-column
+      <!-- <el-table-column
         label="操作前"
         header-align="center"
         align="left"
@@ -67,8 +98,8 @@
         show-overflow-tooltip
       >
         <template #default="scope">
-          <!-- 批量删除 -->
-          <template v-if="scope.row.type_id == 4">
+          批量删除 -->
+      <!-- <template v-if="scope.row.type_id == 4">
             <template v-if="scope.row.before && scope.row.before.length > 0">
               <div v-for="(item, index) in scope.row.before">
                 <div v-for="(value, key) in item">{{ key }}: {{ value }}</div>
@@ -76,10 +107,10 @@
               </div>
             </template>
             <span v-else>-</span>
-          </template>
+          </template> -->
 
-          <!-- 其他 -->
-          <template v-else>
+      <!-- 其他 -->
+      <!-- <template v-else>
             <template v-if="scope.row.before">
               <div v-for="(value, key) in scope.row.before">
                 {{ key }}: {{ value }}
@@ -89,10 +120,10 @@
             <span v-else>-</span>
           </template>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <!-- 操作后 -->
-      <el-table-column
+      <!-- <el-table-column
         label="操作后"
         header-align="center"
         align="left"
@@ -107,7 +138,7 @@
           </template>
           <span v-else>-</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <!-- 操作时间 -->
       <el-table-column
@@ -195,6 +226,34 @@ export default {
 }
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+.removed,
+.added {
+  position: relative;
+}
+
+.removed::before,
+.added::before {
+  position: absolute;
+  padding-left: 4px;
+}
+
+.removed {
+  // background-color: rgb(251, 233, 235);
+  background-color: #ffebe9;
+}
+
+.removed::before {
+  content: '-';
+}
+
+.added {
+  // background-color: rgb(236, 253, 240);
+  background-color: #e6ffec;
+}
+.added::before {
+  content: '+';
+}
+</style>
 
 <style lang="less" scoped></style>
