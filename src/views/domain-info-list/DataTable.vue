@@ -95,7 +95,7 @@
         label="更新时间"
         header-align="center"
         align="center"
-        width="90"
+        width="100"
         prop="update_time"
         sortable="custom"
         show-overflow-tooltip
