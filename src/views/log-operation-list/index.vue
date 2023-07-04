@@ -13,11 +13,12 @@
     <el-pagination
       class="mt-md justify-center"
       background
-      layout="total, prev, pager, next"
+      layout="total, sizes, prev, pager, next"
       :total="total"
       v-model:page-size="size"
       v-model:current-page="page"
       @current-change="getData"
+      @size-change="handleSizeChange"
     />
   </div>
 </template>
@@ -49,6 +50,7 @@ export default {
 
       loading: true,
       dialogVisible: false,
+      pageSizeCachekey: 'pageSize',
     }
   },
 
@@ -57,6 +59,7 @@ export default {
   methods: {
     resetData() {
       this.page = 1
+      this.list = []
       this.getData()
     },
 
@@ -143,9 +146,22 @@ export default {
     handleSearch() {
       this.resetData()
     },
+
+    handleSizeChange(value) {
+      localStorage.setItem(this.pageSizeCachekey, value)
+      this.resetData()
+    },
+
+    loadPageSize() {
+      let size = localStorage.getItem(this.pageSizeCachekey)
+      if (size) {
+        this.size = parseInt(size)
+      }
+    },
   },
 
   created() {
+    this.loadPageSize()
     this.getData()
   },
 }
