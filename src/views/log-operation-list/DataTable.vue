@@ -54,23 +54,9 @@
         width="100"
       >
         <template #default="scope">
-          <el-tag v-if="scope.row.type_id == 2">{{
+          <el-tag :type="scope.row.type_style">{{
             scope.row.type_label
           }}</el-tag>
-
-          <el-tag
-            v-else-if="scope.row.type_id == 1"
-            type="success"
-            >{{ scope.row.type_label }}</el-tag
-          >
-
-          <el-tag
-            v-else-if="scope.row.type_id == 3 || scope.row.type_id == 4"
-            type="danger"
-            >{{ scope.row.type_label }}</el-tag
-          >
-
-          <span v-else>-</span>
         </template>
       </el-table-column>
 
@@ -82,10 +68,24 @@
         prop="type_id"
       >
         <template #default="scope">
-          <pre
+          <!-- <pre
+            v-if="scope.row.type_style == ''"
             class="code"
             v-html="scope.row.data"
-          ></pre>
+          ></pre> -->
+
+          <!-- <highlightjs
+            v-else
+            language="json"
+            :code="scope.row.data"
+          /> -->
+
+          <pre
+            v-if="scope.row.type_style == ''"
+          ><code class="language-diff" v-html="scope.row.data"></code></pre>
+          <pre
+            v-else
+          ><code class="language-json" v-html="scope.row.data"></code></pre>
         </template>
       </el-table-column>
 
@@ -160,6 +160,7 @@
 /**
  * created 2023-07-04
  */
+import hljs from 'highlight.js'
 
 export default {
   name: '',
@@ -222,6 +223,10 @@ export default {
     },
   },
 
+  mounted() {
+    hljs.highlightAll()
+  },
+
   created() {},
 }
 </script>
@@ -238,7 +243,8 @@ export default {
   padding-left: 4px;
 }
 
-.removed {
+.removed,
+.hljs-deletion {
   // background-color: rgb(251, 233, 235);
   background-color: #ffebe9;
 }
@@ -247,7 +253,8 @@ export default {
   content: '-';
 }
 
-.added {
+.added,
+.hljs-addition {
   // background-color: rgb(236, 253, 240);
   background-color: #e6ffec;
 }

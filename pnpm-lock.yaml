@@ -4,6 +4,7 @@ specifiers:
   '@codemirror/lang-json': ^6.0.1
   '@codemirror/theme-one-dark': ^6.1.2
   '@element-plus/icons-vue': ^2.1.0
+  '@highlightjs/vue-plugin': ^2.1.0
   '@more-copy/console-plugin': ^1.0.0
   '@more-copy/core': ^1.0.0
   '@more-copy/nunjucks-plugin': ^1.0.2
@@ -21,6 +22,7 @@ specifiers:
   diff: ^5.1.0
   element-plus: ^2.3.6
   file-saver: ^2.0.5
+  highlight.js: ^11.8.0
   js-cookie: ^3.0.1
   less: ^4.1.3
   lodash: ^4.17.21
@@ -43,6 +45,7 @@ dependencies:
   '@codemirror/lang-json': 6.0.1
   '@codemirror/theme-one-dark': 6.1.2
   '@element-plus/icons-vue': 2.1.0_vue@3.3.4
+  '@highlightjs/vue-plugin': 2.1.0_6wggcrlvnj3ekkdimbfh3ilo6u
   '@ssddanbrown/codemirror-lang-twig': 1.0.0
   axios: 0.27.2
   codemirror: 6.0.1
@@ -53,6 +56,7 @@ dependencies:
   diff: 5.1.0
   element-plus: 2.3.6_vue@3.3.4
   file-saver: 2.0.5
+  highlight.js: 11.8.0
   js-cookie: 3.0.1
   lodash: 4.17.21
   mockjs: 1.1.0
@@ -221,6 +225,16 @@ packages:
     resolution: {integrity: sha512-5X9WSvZ8/fjy3gDu8yx9HAA4KG1lazUN2P4/VnaXLxTO9Dz53HI1oYoh1OlhqFNlHgGDiwFX5WhFCc2ljbW3yA==}
     dependencies:
       '@floating-ui/core': 1.0.1
+    dev: false
+
+  /@highlightjs/vue-plugin/2.1.0_6wggcrlvnj3ekkdimbfh3ilo6u:
+    resolution: {integrity: sha512-E+bmk4ncca+hBEYRV2a+1aIzIV0VSY/e5ArjpuSN9IO7wBJrzUE2u4ESCwrbQD7sAy+jWQjkV5qCCWgc+pu7CQ==}
+    peerDependencies:
+      highlight.js: ^11.0.1
+      vue: ^3
+    dependencies:
+      highlight.js: 11.8.0
+      vue: 3.3.4
     dev: false
 
   /@jridgewell/sourcemap-codec/1.4.15:
@@ -1180,6 +1194,11 @@ packages:
       capital-case: 1.0.4
       tslib: 2.4.0
     dev: true
+
+  /highlight.js/11.8.0:
+    resolution: {integrity: sha512-MedQhoqVdr0U6SSnWPzfiadUcDHfN/Wzq25AkXiQv9oiOO/sG0S7XkvpFIqWBl9Yq1UYyYOOVORs5UW2XlPyzg==}
+    engines: {node: '>=12.0.0'}
+    dev: false
 
   /iconv-lite/0.6.3:
     resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}

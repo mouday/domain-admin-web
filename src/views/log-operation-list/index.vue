@@ -5,7 +5,6 @@
       v-loading="loading"
       :list="list"
       @on-success="resetData"
-      @on-edit-row="handleEditRow"
     />
 
     <!-- 翻页 -->
@@ -28,7 +27,9 @@
  */
 
 import DataTable from './DataTable.vue'
+import { OperationEnum } from '@/emuns/operation-enums.js'
 import * as Diff from 'diff'
+import { highlight } from '@/utils/highlight-util.js'
 
 export default {
   name: 'log_operation-list',
@@ -76,44 +77,62 @@ export default {
 
         if (res.code == 0) {
           this.list = res.data.list.map((item) => {
+            // 格式化
             try {
-              item.before = JSON.parse(item.before)
+              item.before = JSON.stringify(JSON.parse(item.before), null, 2)
             } catch (e) {}
 
             try {
-              item.after = JSON.parse(item.after)
+              item.after = JSON.stringify(JSON.parse(item.after), null, 2)
             } catch (e) {}
 
             // 更新
-            if (item.type_id == 2) {
-              // let before = this.getObjectString(item.before)
-              // let after = this.getObjectString(item.after)
-              let ret = Diff.diffJson(item.before, item.after)
-              console.log(ret)
+            if (item.type_id == OperationEnum.UPDATE) {
+              let ret = Diff.diffArrays(
+                item.before.split('\n'),
+                item.after.split('\n')
+              )
 
-              let lst = []
-              ret.forEach((part) => {
-                console.log(part)
+              let lst = ret.map((part) => {
+                // if (part.added) {
+                //   return part.value
+                //     .map((x) => '<div class="added">' + x + '</div>')
+                //     .join('')
+                // } else if (part.removed) {
+                //   return part.value
+                //     .map((x) => '<div class="removed">' + x + '</div>')
+                //     .join('')
+                // } else {
+                //   return part.value.map((x) => '<div>' + x + '</div>').join('')
+                // }
 
                 if (part.added) {
-                  lst.push('<div class="added">' + part.value + '</div>')
+                  return part.value.map((x) => '+' + x).join('\n')
                 } else if (part.removed) {
-                  lst.push('<div class="removed">' + part.value + '</div>')
+                  return part.value.map((x) => '-' + x).join('\n')
                 } else {
-                  lst.push('<div>' + part.value + '</div>')
+                  return part.value.map((x) => x).join('\n')
                 }
               })
 
               // console.log(lst.join(''));
-              item.data = lst.join('')
-            } else if (item.type_id == 1) {
-              item.data = JSON.stringify(item.after, null, 2)
-            } else if (item.type_id == 3) {
-              item.data = JSON.stringify(item.before, null, 2)
-            } else if (item.type_id == 4) {
-              item.data = JSON.stringify(item.before, null, 2)
-            }
+              // item.data = lst.join('\n')
 
+              item.data = highlight(lst.join('\n'), { language: 'diff' }).value
+              // console.log(item.data);
+
+              item.type_style = ''
+            } else if (item.type_id == OperationEnum.CREATE) {
+              item.data = highlight(item.after, { language: 'json' }).value
+              item.type_style = 'success'
+            } else if (item.type_id == OperationEnum.DELETE) {
+              item.data = highlight(item.before, { language: 'json' }).value
+              item.type_style = 'danger'
+            } else if (item.type_id == OperationEnum.BATCH_DELETE) {
+              item.data = highlight(item.before, { language: 'json' }).value
+              item.type_style = 'danger'
+            }
+            // console.log(item);
             return item
           })
           this.total = res.data.total

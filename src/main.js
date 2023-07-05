@@ -15,6 +15,14 @@ import SingleMessage from './components/single-message/index.js'
 import { ElLoading } from 'element-plus'
 import { router } from './router/index.js'
 
+// highlight.js
+import 'highlight.js/styles/stackoverflow-light.css'
+// import hljs from 'highlight.js/lib/core'
+// import javascript from 'highlight.js/lib/languages/javascript'
+// import diff from 'highlight.js/lib/languages/diff'
+// import json from 'highlight.js/lib/languages/json'
+// import hljsVuePlugin from '@highlightjs/vue-plugin'
+
 import './style/base.less'
 import './style/element-plus.less'
 import { useMock } from './mock/index.js'
@@ -46,5 +54,14 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 
 const pinia = createPinia()
 app.use(pinia)
+
+// highlight.js
+// hljs.registerLanguage('javascript', javascript)
+// hljs.registerLanguage('diff', diff)
+// hljs.registerLanguage('json', json)
+
+// app.use(hljsVuePlugin)
+
+
 
 app.mount('#app')
