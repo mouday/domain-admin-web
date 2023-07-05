@@ -6,48 +6,99 @@
       :rules="rules"
       label-width="70px"
     >
-      <!-- 域名 -->
-      <el-form-item
-        label="域名"
-        prop="domain"
-      >
-        <el-input
-          type="text"
-          v-model="form.domain"
-          placeholder="请输入域名"
-        ></el-input>
-      </el-form-item>
-
-      <!-- 端口 -->
-      <el-form-item
-        label="端口"
-        prop="port"
-      >
-        <el-input
-          type="text"
-          v-model="form.port"
-          placeholder="请输入端口"
-        ></el-input>
-      </el-form-item>
-
-      <!-- 动态主机 -->
-      <el-form-item
-        label="动态主机"
-        prop="is_dynamic_host"
-      >
-        <el-switch v-model="form.is_dynamic_host" />
-
-        <el-tooltip
-          effect="dark"
-          content="动态主机IP地址：每次自动更新将会重新获取主机列表"
-          placement="top-start"
-          :show-after="500"
+      <div class="flex">
+        <!-- 域名 -->
+        <el-form-item
+          label="域名"
+          prop="domain"
+          class="flex-1"
         >
-          <el-link :underline="false"
-            ><el-icon class="ml-sm"><Warning /></el-icon
-          ></el-link>
-        </el-tooltip>
+          <el-input
+            type="text"
+            v-model="form.domain"
+            placeholder="请输入域名"
+          ></el-input>
+        </el-form-item>
+
+        <!-- 端口 -->
+        <el-form-item
+          label="端口"
+          prop="port"
+          style="width: 140px"
+        >
+          <el-input
+            type="text"
+            v-model="form.port"
+            placeholder="请输入端口"
+          ></el-input>
+        </el-form-item>
+      </div>
+
+      <el-form-item
+        label="证书时间"
+        prop="start_time"
+      >
+        <div class="flex justify-between w-full">
+          <el-date-picker
+            v-model="form.start_time"
+            type="date"
+            value-format="YYYY-MM-DD HH:mm:ss"
+            placeholder="证书颁发时间"
+            :disabled="form.auto_update"
+            style="width: 180px"
+          />
+
+          <span> - </span>
+
+          <el-date-picker
+            v-model="form.expire_time"
+            type="date"
+            value-format="YYYY-MM-DD HH:mm:ss"
+            placeholder="证书过期时间"
+            :disabled="form.auto_update"
+            style="width: 180px"
+          />
+        </div>
       </el-form-item>
+
+      <div class="grid grid-cols-2">
+        <el-form-item
+          label="自动更新"
+          prop="is_dynamic_host"
+        >
+          <el-switch v-model="form.auto_update" />
+
+          <el-tooltip
+            effect="dark"
+            content="如需手动设置证书时间，需关闭自动更新"
+            placement="top-start"
+            :show-after="500"
+          >
+            <el-link :underline="false"
+              ><el-icon class="ml-sm"><Warning /></el-icon
+            ></el-link>
+          </el-tooltip>
+        </el-form-item>
+
+        <!-- 动态主机 -->
+        <el-form-item
+          label="动态主机"
+          prop="is_dynamic_host"
+        >
+          <el-switch v-model="form.is_dynamic_host" />
+
+          <el-tooltip
+            effect="dark"
+            content="每次自动更新将重置主机列表"
+            placement="top-start"
+            :show-after="500"
+          >
+            <el-link :underline="false"
+              ><el-icon class="ml-sm"><Warning /></el-icon
+            ></el-link>
+          </el-tooltip>
+        </el-form-item>
+      </div>
 
       <!-- 分组 -->
       <el-form-item
@@ -130,6 +181,10 @@ export default {
 
         // 动态ip
         is_dynamic_host: false,
+
+        start_time: '',
+        expire_time: '',
+        auto_update: true,
       },
 
       rules: formRules,
@@ -165,6 +220,9 @@ export default {
         this.form.group_id = data.group_id
         this.form.port = data.port
         this.form.is_dynamic_host = data.is_dynamic_host
+        this.form.start_time = data.start_time
+        this.form.expire_time = data.expire_time
+        this.form.auto_update = data.auto_update
 
         if (this.form.group_id == 0) {
           this.form.group_id = ''
@@ -204,6 +262,10 @@ export default {
         group_id: this.form.group_id,
         port: this.form.port,
         is_dynamic_host: this.form.is_dynamic_host,
+
+        start_time: this.form.start_time,
+        expire_time: this.form.expire_time,
+        auto_update: this.form.auto_update,
       }
 
       let res = null

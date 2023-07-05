@@ -3,7 +3,7 @@
   <el-dialog
     :title="dialogTitle"
     v-model="dialogVisible"
-    width="400px"
+    width="500px"
     center
     append-to-body
     :lock-scroll="false"

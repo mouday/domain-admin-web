@@ -52,7 +52,7 @@
 // created at 2022-10-01
 
 import { routes } from '@/router/routes.js'
-import { hasPermission } from '@/router/util.js'
+import { hasPermission } from '@/router/permission.js'
 import { useUserStore } from '@/store/user-store.js'
 import { useSystemStore } from '@/store/system-store.js'
 import { mapState, mapActions } from 'pinia'
