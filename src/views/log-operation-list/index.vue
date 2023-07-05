@@ -2,7 +2,6 @@
   <div class="app-container">
     <!-- 数据列表 -->
     <DataTable
-      class="mt-md"
       v-loading="loading"
       :list="list"
       @on-success="resetData"
