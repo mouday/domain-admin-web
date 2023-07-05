@@ -1,0 +1,1 @@
+.removed,.added{position:relative}.removed:before,.added:before{position:absolute;padding-left:4px}.removed,.hljs-deletion{background-color:#ffebe9}.removed:before{content:"-"}.added,.hljs-addition{background-color:#e6ffec}.added:before{content:"+"}
