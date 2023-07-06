@@ -6,6 +6,7 @@ const path = require('path')
 
 let configMap = [
   // mcp -m edit system ./data/system.json
+  // mcp -m edit group-user ./data/group-user.json
   {
     mode: 'edit',
     template: [
@@ -29,7 +30,7 @@ let configMap = [
   },
 
   // mcp -m list notify data/notify.json
-  //  mcp -m list log_operation ./data/log_operation.json
+  //  mcp -m list group-user ./data/group-user.json
   {
     mode: 'list',
     template: [

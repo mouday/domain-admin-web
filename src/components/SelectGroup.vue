@@ -9,6 +9,7 @@
       :key="item.value"
       :label="item.label"
       :value="item.value"
+      :disabled="item.disabled"
     />
   </el-select>
 </template>
@@ -32,13 +33,15 @@ export default {
   components: {},
 
   data() {
-    return {}
+    return {
+      groupOptions: [],
+    }
   },
 
   computed: {
-    ...mapState(useGroupStore, {
-      groupOptions: 'getGroupOptions',
-    }),
+    // ...mapState(useGroupStore, {
+    //   groupOptions: 'getGroupOptions',
+    // }),
 
     options() {
       if (this.showNotGroup) {
@@ -56,7 +59,18 @@ export default {
   },
 
   methods: {
-    async getData() {},
+    async getData() {
+      const res = await this.$http.getGroupList()
+
+      if (res.ok) {
+        this.groupOptions = res.data.list.map((item) => {
+          item.label = item.name
+          item.value = item.id
+          item.disabled = !item.has_edit_permission
+          return item
+        })
+      }
+    },
   },
 
   created() {

@@ -55,13 +55,13 @@
         </template>
       </el-table-column> -->
 
-
       <!-- 证书数量 -->
       <el-table-column
         label="证书数量"
         header-align="center"
         align="center"
-        prop="notify_count"
+        prop="cert_count"
+        width="100"
       >
         <template #default="scope">
           <span>{{ scope.row.cert_count || '-' }}</span>
@@ -74,9 +74,23 @@
         header-align="center"
         align="center"
         prop="notify_count"
+        width="100"
       >
         <template #default="scope">
-          <span>{{ scope.row.domain_count || '-' }}</span>
+          <span>{{ scope.row.domain_count || '-'}}</span>
+        </template>
+      </el-table-column>
+
+      <!-- 分组数量 -->
+      <el-table-column
+        label="分组数量"
+        header-align="center"
+        align="center"
+        prop="group_count"
+        width="100"
+      >
+        <template #default="scope">
+          <span>{{ scope.row.group_count || '-'}}</span>
         </template>
       </el-table-column>
 
@@ -86,6 +100,7 @@
         header-align="center"
         align="center"
         prop="notify_count"
+        width="100"
       >
         <template #default="scope">
           <span>{{ scope.row.notify_count || '-' }}</span>

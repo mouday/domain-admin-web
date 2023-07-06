@@ -5,6 +5,7 @@
       <el-button
         type="primary"
         @click="handleAddRow"
+        :disabled="!domainRow.has_edit_permission"
         ><el-icon><Plus /></el-icon>添加</el-button
       >
 
@@ -56,6 +57,7 @@
       v-loading="loading"
       :list="list"
       :domainId="domainId"
+      :domainRow="domainRow"
       :disableUpdateButton="disableUpdateButton"
       @on-success="resetData"
       @on-selection-change="handleSelectionChange"
@@ -94,6 +96,11 @@ export default {
   name: 'address-list',
 
   props: {
+    domainRow: {
+      type: Object,
+      default: null,
+    },
+
     domainId: {
       type: Number,
       default: null,

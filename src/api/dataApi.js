@@ -100,5 +100,13 @@ export default {
   exportDomainInfoFile: '/exportDomainInfoFile',
   getDomainInfoGroupFilter: '/getDomainInfoGroupFilter',
   
-  getICP: '/getICP'
+  getICP: '/getICP',
+  
+  // 分组权限
+  addGroupUser: '/addGroupUser',
+  updateGroupUserById: '/updateGroupUserById',
+  deleteGroupUserById: '/deleteGroupUserById',
+  deleteGroupUserByIds: '/deleteGroupUserByIds',
+  getGroupUserById: '/getGroupUserById',
+  getGroupUserList: '/getGroupUserList',
 }

@@ -119,7 +119,8 @@ export default {
 
   methods: {
     async resetData() {
-      const res = await this.$http.getDomainGroupFilter()
+      // const res = await this.$http.getDomainGroupFilter()
+      const res = await this.$http.getGroupList()
 
       if (res.ok) {
         this.options.forEach((item) => {
@@ -128,9 +129,9 @@ export default {
               item.options = res.data.list.map((groupItem) => {
                 let label = groupItem.name
 
-                if (groupItem.cert_count > 0) {
-                  label = `${groupItem.name} ${groupItem.cert_count}`
-                }
+                // if (groupItem.cert_count > 0) {
+                //   label = `${groupItem.name} ${groupItem.cert_count}`
+                // }
 
                 return {
                   ...groupItem,

@@ -1,19 +1,16 @@
 <template>
   <!-- 编辑框 -->
   <el-dialog
-    title="域名主机列表"
+    :title="dialogTitle"
     v-model="dialogVisible"
-    width="900px"
+    width="600px"
     center
     append-to-body
-    @close="handleDialogClose"
+    @close="handleClose"
   >
     <DataTableIndex
       v-if="dialogVisible"
-      :row="row"
-      :domainRow="domainRow"
-      :domainId="domainId"
-      @on-cancel="handleClose"
+      :groupRow="groupRow"
       @on-success="handleSuccess"
     ></DataTableIndex>
   </el-dialog>
@@ -29,9 +26,8 @@ export default {
   name: '',
 
   props: {
-    domainRow: {
+    groupRow: {
       type: Object,
-      default: null,
     },
 
     // 数据行
@@ -44,10 +40,6 @@ export default {
     visible: {
       type: Boolean,
       default: false,
-    },
-    domainId: {
-      type: Number,
-      default: null,
     },
   },
 
@@ -64,10 +56,10 @@ export default {
 
   computed: {
     dialogTitle() {
-      if (this.row) {
-        return '编辑'
+      if (this.groupRow) {
+        return `分组成员：${this.groupRow.name}`
       } else {
-        return '添加'
+        return '分组成员'
       }
     },
 
@@ -84,6 +76,7 @@ export default {
   methods: {
     handleClose() {
       this.dialogVisible = false
+      this.$emit('on-close')
     },
 
     handleOpen() {
@@ -93,10 +86,6 @@ export default {
     handleSuccess() {
       this.handleClose()
       this.$emit('on-success')
-    },
-
-    handleDialogClose() {
-      this.$emit('on-close')
     },
   },
 

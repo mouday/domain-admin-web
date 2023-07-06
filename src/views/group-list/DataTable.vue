@@ -11,6 +11,7 @@
         header-align="center"
         align="center"
         width="40"
+        :selectable="handleSelectable"
       />
 
       <el-table-column
@@ -42,9 +43,10 @@
         header-align="center"
         align="center"
         prop="name"
+        width="100"
       >
         <template #default="scope">
-          <span>{{ scope.row.cert_count || '-' }}</span>
+          <span>{{ scope.row.cert_count || '0' }}</span>
         </template>
       </el-table-column>
 
@@ -54,9 +56,28 @@
         header-align="center"
         align="center"
         prop="name"
+        width="100"
       >
         <template #default="scope">
-          <span>{{ scope.row.domain_count || '-' }}</span>
+          <span>{{ scope.row.domain_count || '0' }}</span>
+        </template>
+      </el-table-column>
+
+      <!-- 成员数量 -->
+      <el-table-column
+        label="成员数量"
+        header-align="center"
+        align="center"
+        prop="name"
+        width="100"
+      >
+        <template #default="scope">
+          <el-link
+            :underline="false"
+            type="primary"
+            @click="handleEditRowGroupUser(scope.row)"
+            >{{ scope.row.group_user_count || '0' }}</el-link
+          >
         </template>
       </el-table-column>
 
@@ -90,7 +111,7 @@
       <!-- 关联证书 -->
       <el-table-column
         label="关联证书"
-        width="90"
+        width="100"
         header-align="center"
         align="center"
       >
@@ -98,6 +119,7 @@
           <el-link
             :underline="false"
             type="primary"
+            :disabled="!scope.row.is_leader"
             @click="handleCountClick(scope.row)"
             ><el-icon><Link /></el-icon
           ></el-link>
@@ -114,6 +136,7 @@
           <el-link
             :underline="false"
             type="primary"
+            :disabled="!scope.row.is_leader"
             @click="handleEditRow(scope.row)"
             ><el-icon><Edit /></el-icon
           ></el-link>
@@ -130,11 +153,13 @@
           <el-popconfirm
             title="确定删除？"
             @confirm="handleDeleteClick(scope.row)"
+            :disabled="!scope.row.is_leader"
           >
             <template #reference>
               <el-link
                 :underline="false"
                 type="danger"
+                :disabled="!scope.row.is_leader"
                 ><el-icon><Delete /></el-icon
               ></el-link>
             </template>
@@ -156,6 +181,14 @@
       v-model:visible="groupDomainListDialogVisible"
       @on-success="handleUpdateSuccess"
     ></GroupDomainListDialog>
+
+    <!-- 组员 -->
+    <GroupUserListDialog
+      :groupRow="currentRow"
+      v-model:visible="GroupUserListDialogVisible"
+      @on-success="handleUpdateSuccess"
+      @on-close="$emit('on-success')"
+    ></GroupUserListDialog>
   </div>
 </template>
 
@@ -166,6 +199,7 @@
 import DataFormDialog from '../group-edit/DataFormDialog.vue'
 
 import GroupDomainListDialog from '@/components/group-domain-list/DataTableDialog.vue'
+import GroupUserListDialog from '@/components/group-user-list/DataTableDialog.vue'
 
 export default {
   name: '',
@@ -173,6 +207,7 @@ export default {
   components: {
     DataFormDialog,
     GroupDomainListDialog,
+    GroupUserListDialog,
   },
 
   props: {
@@ -190,6 +225,7 @@ export default {
       currentRow: null,
       dialogVisible: false,
       groupDomainListDialogVisible: false,
+      GroupUserListDialogVisible: false,
     }
   },
 
@@ -238,6 +274,15 @@ export default {
       // this.$emit('on-count-click', row)
       this.currentRow = row
       this.groupDomainListDialogVisible = true
+    },
+
+    handleEditRowGroupUser(row) {
+      this.currentRow = row
+      this.GroupUserListDialogVisible = true
+    },
+
+    handleSelectable(row, index) {
+      return row.is_leader
     },
   },
 

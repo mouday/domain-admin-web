@@ -12,6 +12,7 @@
         header-align="center"
         align="center"
         width="40"
+        :selectable="handleSelectable"
       />
 
       <!-- 域名 -->
@@ -140,6 +141,7 @@
         <template #default="scope">
           <el-switch
             v-model="scope.row.is_auto_update"
+            :disabled="!scope.row.has_edit_permission"
             @change="handleAutoUpdateStatusChange(scope.row, $event)"
           />
         </template>
@@ -157,6 +159,7 @@
         <template #default="scope">
           <el-switch
             v-model="scope.row.is_expire_monitor"
+            :disabled="!scope.row.has_edit_permission"
             @change="handleMonitorStatusChange(scope.row, $event)"
           />
         </template>
@@ -190,6 +193,7 @@
             :underline="false"
             type="primary"
             class="mr-sm"
+            :disabled="!scope.row.has_edit_permission"
             @click="handleUpdateRowDomainInfo(scope.row)"
             ><el-icon><Refresh /></el-icon
           ></el-link>
@@ -198,6 +202,7 @@
             :underline="false"
             type="primary"
             class="mr-sm"
+            :disabled="!scope.row.has_edit_permission"
             @click="handleEditRow(scope.row)"
             ><el-icon><Edit /></el-icon
           ></el-link>
@@ -205,11 +210,13 @@
           <el-popconfirm
             title="确定删除？"
             @confirm="handleDeleteClick(scope.row)"
+            :disabled="!scope.row.has_edit_permission"
           >
             <template #reference>
               <el-link
                 :underline="false"
                 type="danger"
+                :disabled="!scope.row.has_edit_permission"
                 ><el-icon><Delete /></el-icon
               ></el-link>
             </template>
@@ -419,6 +426,10 @@ export default {
 
     handleRefreshRow(row) {
       this.$emit('on-refresh-row', row)
+    },
+
+    handleSelectable(row, index) {
+      return row.has_edit_permission
     },
   },
 

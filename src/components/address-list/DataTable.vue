@@ -6,7 +6,8 @@
       border
       @selection-change="$emit('on-selection-change', $event)"
     >
-    <el-table-column
+      <el-table-column
+        v-if="domainRow.has_edit_permission"
         type="selection"
         header-align="center"
         align="center"
@@ -158,17 +159,20 @@
             type="primary"
             class="mr-sm"
             @click="handleEditRow(scope.row)"
+            :disabled="!domainRow.has_edit_permission"
             ><el-icon><Edit /></el-icon
           ></el-link>
 
           <el-popconfirm
             title="确定删除？"
             @confirm="handleDeleteClick(scope.row)"
+            :disabled="!domainRow.has_edit_permission"
           >
             <template #reference>
               <el-link
                 :underline="false"
                 type="danger"
+                :disabled="!domainRow.has_edit_permission"
                 ><el-icon><Delete /></el-icon
               ></el-link>
             </template>
@@ -209,13 +213,17 @@ export default {
       type: Number,
       default: null,
     },
+    domainRow: {
+      type: Object,
+      default: null,
+    },
+
     disableUpdateButton: {
       type: Boolean,
       default: false,
-    }
+    },
   },
 
-  
   emits: ['on-selection-change'],
 
   computed: {},

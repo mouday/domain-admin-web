@@ -1,0 +1,8 @@
+{
+  "table": {
+    "columns": [
+      { "comment": "用户名", "name": "username", "default": "" },
+      { "comment": "写权限", "name": "has_edit_permission", "default": "" }
+    ]
+  }
+}

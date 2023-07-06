@@ -74,7 +74,8 @@ export default {
 
   methods: {
     async resetData() {
-      const res = await this.$http.getDomainInfoGroupFilter()
+      // const res = await this.$http.getDomainInfoGroupFilter()
+      const res = await this.$http.getGroupList()
 
       if (res.ok) {
         this.options.forEach((item) => {
@@ -83,9 +84,9 @@ export default {
               item.options = res.data.list.map((groupItem) => {
                 let label = groupItem.name
 
-                if (groupItem.domain_count > 0) {
-                  label = `${groupItem.name} ${groupItem.domain_count}`
-                }
+                // if (groupItem.domain_count > 0) {
+                //   label = `${groupItem.name} ${groupItem.domain_count}`
+                // }
 
                 return {
                   ...groupItem,
