@@ -90,7 +90,12 @@ export default {
       return routes
         .filter((route) => route.name == 'index')[0]
         .children.filter((x) => {
-          return hasPermission(x.meta.roles, this.userRoles)
+          // 隐藏tab
+          if (x.meta && x.meta.hidden) {
+            return false
+          } else {
+            return hasPermission(x.meta.roles, this.userRoles)
+          }
         })
     },
   },
@@ -123,7 +128,11 @@ export default {
   height: 100%;
   position: relative;
   flex: 1;
-  
+
+  .el-menu-item {
+    transition: border-color var(--el-transition-duration),
+      color var(--el-transition-duration);
+  }
 }
 
 .layout__menu__collapse {
@@ -145,7 +154,7 @@ export default {
     position: relative;
     background: #f8f9fd;
     padding: 20px 20px;
-    
+
     .logo-view {
       height: 80px;
       display: flex;

@@ -21,9 +21,46 @@
     </a>
 
     <div class="self-center margin-left--auto flex items-center">
+      <el-dropdown trigger="hover">
+        <div class="header-tool-btn">
+          <el-icon><Suitcase /></el-icon>
+          <span class="header-tool-btn__text">工具箱</span>
+          <el-icon><arrow-down /></el-icon>
+        </div>
+
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item
+              @click="handleWhoisClick"
+              class="justify-center"
+              >WHOIS查询</el-dropdown-item
+            >
+
+            <el-dropdown-item
+              @click="handleSSLConfigClick"
+              class="justify-center"
+              >SSL配置生成<el-icon><Link /></el-icon
+            ></el-dropdown-item>
+
+            <el-dropdown-item
+              @click="handleSSLCertClick"
+              class="justify-center"
+              >免费SSL证书<el-icon><Link /></el-icon
+            ></el-dropdown-item>
+
+            <el-dropdown-item
+              @click="handleWanwangClick"
+              class="justify-center"
+              >域名注册<el-icon><Link /></el-icon
+            ></el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+
       <el-radio-group
         v-model="theme"
         size="small"
+        class="ml-md"
         @change="handleThemeChange"
       >
         <el-radio-button
@@ -132,7 +169,7 @@ export default {
       // 主题
       themeList,
       theme: themeList[0].value,
-      avatar
+      avatar,
     }
   },
   created() {
@@ -217,6 +254,27 @@ export default {
 
       document.querySelector('body').classList.add(val)
     },
+
+    handleWhoisClick() {
+      this.$router.push({
+        name: 'lab',
+      })
+    },
+
+    handleSSLConfigClick() {
+      window.open('https://ssl-config.mozilla.org/', '_blank')
+    },
+
+    handleWanwangClick() {
+      window.open('https://wanwang.aliyun.com/', '_blank')
+    },
+
+    handleSSLCertClick() {
+      window.open(
+        'https://yundun.console.aliyun.com/?p=cas#/certExtend/free',
+        '_blank'
+      )
+    },
   },
 
   created() {
@@ -254,6 +312,16 @@ export default {
     margin-left: 10px;
     font-weight: bold;
   }
+}
+
+.header-tool-btn {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.header-tool-btn__text {
+  padding: 0 4px;
 }
 
 // 黑色主题
@@ -313,6 +381,10 @@ export default {
   }
 
   .avatar-group {
+    color: #ffffff;
+  }
+
+  .header-tool-btn {
     color: #ffffff;
   }
 }

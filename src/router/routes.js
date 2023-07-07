@@ -103,6 +103,7 @@ export const routes = [
           title: '实验室',
           icon: 'Box',
           roles: [RoleEnum.Admin],
+          hidden: true
         },
       },
     ],
