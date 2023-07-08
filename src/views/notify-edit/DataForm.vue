@@ -4,7 +4,7 @@
       ref="form"
       :model="form"
       :rules="rules"
-      label-width="80px"
+      :label-width="labelWidth"
     >
       <!-- 通知方式 -->
       <el-form-item
@@ -70,6 +70,7 @@
       <component
         :is="currentComponent"
         :rowData="rowData"
+        :labelWidth="labelWidth"
         @on-submit="handleSubmit"
         @on-cancel="handleClose"
     /></template>
@@ -125,7 +126,7 @@ export default {
       // activeName: NotifyTypeEnum.Email,
 
       // NotifyTypeOptions,
-
+      labelWidth: '90px',
       options: [
         {
           value: NotifyTypeEnum.Email,

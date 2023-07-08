@@ -4,7 +4,7 @@
       ref="form"
       :model="form"
       :rules="rules"
-      label-width="80px"
+      :label-width="labelWidth"
     >
       <el-form-item
         label="请求方法"
@@ -122,6 +122,7 @@ export default {
   props: {
     // 数据行
     rowData: { type: Object, default: null },
+    labelWidth: { type: String, default: '' },
   },
 
   emits: ['on-submit', 'on-cancel'],

@@ -24,17 +24,33 @@
         show-overflow-tooltip
         prop="domain"
       >
+        <template #header>
+          <el-tooltip
+            effect="dark"
+            content="默认端口：443"
+            placement="top-start"
+            :show-after="800"
+          >
+            <div class="inline-flex items-center">
+              <span class="mr-[2px]">域名</span>
+              <el-icon><Warning /></el-icon>
+            </div>
+          </el-tooltip>
+        </template>
+
         <template #default="scope">
           <el-link
             :underline="false"
             @click="handleShowDetail(scope.row)"
-            >{{ scope.row.domain }}</el-link
           >
+            <span>{{ scope.row.domain }}</span>
+            <span v-if="scope.row.port != '443'">:{{ scope.row.port }}</span>
+          </el-link>
         </template>
       </el-table-column>
 
       <!-- ip -->
-      <el-table-column
+      <!-- <el-table-column
         label="端口"
         header-align="center"
         align="center"
@@ -45,7 +61,7 @@
         <template #default="scope">
           <span>{{ scope.row.port || '-' }}</span>
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <!-- 域名天数 -->
       <!-- <el-table-column
