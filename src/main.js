@@ -28,10 +28,18 @@ import './style/element-plus.less'
 import { useMock } from './mock/index.js'
 
 import App from './App.vue'
+import { isMobile } from './utils/client-util.js'
 
 // 使用虚拟数据
 if (import.meta.env.VITE_MODE == 'preview') {
   useMock()
+  if (isMobile()) {
+    window.location.href = '/domain-admin-mini'
+  }
+} else {
+  if (isMobile()) {
+    window.location.href = './m'
+  }
 }
 
 const app = createApp(App)
@@ -61,7 +69,5 @@ app.use(pinia)
 // hljs.registerLanguage('json', json)
 
 // app.use(hljsVuePlugin)
-
-
 
 app.mount('#app')
