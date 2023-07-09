@@ -30,6 +30,20 @@
       </el-form-item>
 
       <el-form-item
+        label="问题反馈"
+        prop="connect_status"
+      >
+        <a
+          class="inline-block"
+          href="https://github.com/mouday/domain-admin/issues"
+          target="_blank"
+          ><img
+            alt="GitHub issues"
+            src="https://img.shields.io/github/issues/mouday/domain-admin"
+        /></a>
+      </el-form-item>
+      
+      <el-form-item
         label="给我们点赞"
         prop="connect_status"
       >
@@ -42,6 +56,8 @@
             src="https://img.shields.io/github/stars/mouday/domain-admin.svg?style=social"
         /></a>
       </el-form-item>
+
+      
 
       <el-form-item
         label="QQ交流群"
