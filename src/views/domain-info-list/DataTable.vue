@@ -193,7 +193,6 @@
             :underline="false"
             type="primary"
             class="mr-sm"
-            :disabled="!scope.row.has_edit_permission"
             @click="handleUpdateRowDomainInfo(scope.row)"
             ><el-icon><Refresh /></el-icon
           ></el-link>
