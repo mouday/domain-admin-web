@@ -19,7 +19,7 @@
       </el-form-item>
 
       <!-- 域名注册时间 -->
-      <el-form-item
+      <!-- <el-form-item
         label="注册时间"
         prop="domain_start_time"
       >
@@ -30,10 +30,10 @@
           placeholder="域名注册时间"
           :disabled="disabledTime"
         />
-      </el-form-item>
+      </el-form-item> -->
 
       <!-- 域名到期时间 -->
-      <el-form-item
+      <!-- <el-form-item
         label="到期时间"
         prop="domain_expire_time"
       >
@@ -44,6 +44,51 @@
           placeholder="域名到期时间"
           :disabled="disabledTime"
         />
+      </el-form-item> -->
+
+      <el-form-item
+        label="域名时间"
+        prop="start_time"
+      >
+        <div class="flex justify-between w-full">
+          <el-date-picker
+            v-model="form.domain_start_time"
+            type="date"
+            value-format="YYYY-MM-DD HH:mm:ss"
+            placeholder="域名注册时间"
+            :disabled="form.is_auto_update"
+            style="width: 150px"
+          />
+
+          <span> - </span>
+
+          <el-date-picker
+            v-model="form.domain_expire_time"
+            type="date"
+            value-format="YYYY-MM-DD HH:mm:ss"
+            placeholder="域名到期时间"
+            :disabled="form.is_auto_update"
+            style="width: 150px"
+          />
+        </div>
+      </el-form-item>
+
+      <el-form-item
+        label="自动更新"
+        prop="is_auto_update"
+      >
+        <el-switch v-model="form.is_auto_update" />
+
+        <el-tooltip
+          effect="dark"
+          content="如需手动设置过期时间，需关闭自动更新"
+          placement="top-start"
+          :show-after="500"
+        >
+          <el-link :underline="false"
+            ><el-icon class="ml-sm"><Warning /></el-icon
+          ></el-link>
+        </el-tooltip>
       </el-form-item>
 
       <!-- 分组 -->
@@ -127,6 +172,7 @@ export default {
 
         domain_start_time: '',
         domain_expire_time: '',
+        is_auto_update: true,
       },
 
       rules: formRules,
@@ -163,6 +209,7 @@ export default {
         this.form.group_id = data.group_id
         this.form.domain_start_time = data.domain_start_time
         this.form.domain_expire_time = data.domain_expire_time
+        this.form.is_auto_update = data.is_auto_update
         // this.form.port = data.port
 
         if (this.form.group_id == 0) {
@@ -205,6 +252,7 @@ export default {
         domain: this.form.domain.trim(),
         comment: this.form.comment.trim(),
         group_id: this.form.group_id,
+        is_auto_update: this.form.is_auto_update,
         domain_start_time: this.form.domain_start_time,
         domain_expire_time: this.form.domain_expire_time,
       }
