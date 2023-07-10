@@ -35,6 +35,11 @@
               class="justify-center"
               >WHOIS查询</el-dropdown-item
             >
+            <el-dropdown-item
+              @click="handleCertClick"
+              class="justify-center"
+              >子域名证书查询</el-dropdown-item
+            >
 
             <el-dropdown-item
               @click="handleSSLConfigClick"
@@ -258,6 +263,12 @@ export default {
     handleWhoisClick() {
       this.$router.push({
         name: 'lab',
+      })
+    },
+
+    handleCertClick() {
+      this.$router.push({
+        name: 'domain-cert-list',
       })
     },
 

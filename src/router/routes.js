@@ -106,6 +106,18 @@ export const routes = [
           hidden: true
         },
       },
+      {
+        path: '/domain-cert-list',
+        name: 'domain-cert-list',
+        component: () => import('../views/domain-cert-list/index.vue'),
+        meta: {
+          title: '域名证书',
+          icon: 'Box',
+          roles: [RoleEnum.Admin],
+          hidden: true
+        },
+        
+      }
     ],
   },
 ]

@@ -73,23 +73,45 @@
         </div>
       </el-form-item>
 
-      <el-form-item
-        label="自动更新"
-        prop="is_auto_update"
-      >
-        <el-switch v-model="form.is_auto_update" />
-
-        <el-tooltip
-          effect="dark"
-          content="如需手动设置过期时间，需关闭自动更新"
-          placement="top-start"
-          :show-after="500"
+      <div class="grid grid-cols-2">
+        <!-- 自动更新 -->
+        <el-form-item
+          label="自动更新"
+          prop="is_auto_update"
         >
-          <el-link :underline="false"
-            ><el-icon class="ml-sm"><Warning /></el-icon
-          ></el-link>
-        </el-tooltip>
-      </el-form-item>
+          <el-switch v-model="form.is_auto_update" />
+
+          <el-tooltip
+            effect="dark"
+            content="如需手动设置过期时间，需关闭自动更新"
+            placement="top-start"
+            :show-after="500"
+          >
+            <el-link :underline="false"
+              ><el-icon class="ml-sm"><Warning /></el-icon
+            ></el-link>
+          </el-tooltip>
+        </el-form-item>
+
+        <!-- 子域证书 -->
+        <el-form-item
+          label="子域证书"
+          prop="is_auto_subdomain"
+        >
+          <el-switch v-model="form.is_auto_subdomain" />
+
+          <el-tooltip
+            effect="dark"
+            content="自动识别子域名，并添加证书监控，仅本次提交有效"
+            placement="top-start"
+            :show-after="500"
+          >
+            <el-link :underline="false"
+              ><el-icon class="ml-sm"><Warning /></el-icon
+            ></el-link>
+          </el-tooltip>
+        </el-form-item>
+      </div>
 
       <!-- 分组 -->
       <el-form-item
@@ -177,6 +199,7 @@ export default {
 
       rules: formRules,
       disabledTime: false,
+      is_auto_subdomain: false,
     }
   },
 
@@ -255,6 +278,7 @@ export default {
         is_auto_update: this.form.is_auto_update,
         domain_start_time: this.form.domain_start_time,
         domain_expire_time: this.form.domain_expire_time,
+        is_auto_subdomain: this.form.is_auto_subdomain,
       }
 
       let res = null

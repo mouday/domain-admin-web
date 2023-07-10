@@ -99,6 +99,7 @@ export default {
   importDomainInFromFile: '/importDomainInFromFile',
   exportDomainInfoFile: '/exportDomainInfoFile',
   getDomainInfoGroupFilter: '/getDomainInfoGroupFilter',
+  getSubDomainCert: '/getSubDomainCert',
   
   getICP: '/getICP',
   
