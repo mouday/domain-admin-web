@@ -151,6 +151,16 @@ export default {
   background-color: #1e222d;
 }
 
+.layout__menu {
+  height: 100%;
+}
+
+.menu-info {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
 // 黑色主题
 .theme--dark {
   .layout-container {
@@ -241,7 +251,6 @@ export default {
   }
 
   .layout__menu {
-    height: 100%;
     background-color: #1e222d;
   }
 
@@ -267,12 +276,6 @@ export default {
 
 .el-menu {
   border: 0;
-}
-
-.menu-info {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
 }
 </style>
 

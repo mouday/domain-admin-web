@@ -55,7 +55,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .sidebar-info {
   color: #c1c6c8;
   font-size: 14px;
