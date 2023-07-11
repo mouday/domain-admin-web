@@ -21,6 +21,12 @@
           </el-icon>
           <span>{{ route.meta.title }}</span>
         </el-menu-item>
+
+        <!-- 收起时不显示 -->
+        <Info
+          class="menu-info"
+          v-show="!isCollapse"
+        />
       </el-menu>
 
       <!-- 展开收起 -->
@@ -42,9 +48,6 @@
         </div>
       </div>
     </div>
-
-    <!-- 收起时不显示 -->
-    <Info v-show="!isCollapse" />
   </div>
 </template>
 
@@ -264,6 +267,12 @@ export default {
 
 .el-menu {
   border: 0;
+}
+
+.menu-info {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 </style>
 
