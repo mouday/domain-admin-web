@@ -30,34 +30,23 @@
 
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item
-              @click="handleWhoisClick"
-              class="justify-center"
-              >WHOIS查询</el-dropdown-item
-            >
-            <el-dropdown-item
-              @click="handleCertClick"
-              class="justify-center"
-              >子域名证书查询</el-dropdown-item
-            >
+            <template v-for="item in toolList">
+              <!-- 外链 -->
+              <el-dropdown-item
+                v-if="item.type == 'url'"
+                @click="handleToolItemClick(item)"
+                class="justify-center"
+                >{{ item.label }}<el-icon><Link /></el-icon
+              ></el-dropdown-item>
 
-            <el-dropdown-item
-              @click="handleSSLConfigClick"
-              class="justify-center"
-              >SSL配置生成<el-icon><Link /></el-icon
-            ></el-dropdown-item>
-
-            <el-dropdown-item
-              @click="handleSSLCertClick"
-              class="justify-center"
-              >免费SSL证书<el-icon><Link /></el-icon
-            ></el-dropdown-item>
-
-            <el-dropdown-item
-              @click="handleWanwangClick"
-              class="justify-center"
-              >域名注册<el-icon><Link /></el-icon
-            ></el-dropdown-item>
+              <!-- 路由 -->
+              <el-dropdown-item
+                v-else
+                @click="handleToolItemClick(item)"
+                class="justify-center"
+                >{{ item.label }}</el-dropdown-item
+              >
+            </template>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -166,7 +155,47 @@ export default {
         label: '极客',
       },
     ]
+
+    const toolList = [
+      {
+        type: 'router', // 路由
+        label: 'WHOIS查询',
+        value: 'lab',
+      },
+      {
+        type: 'router', // 路由
+        label: '子域名证书查询',
+        value: 'domain-cert-list',
+      },
+
+      {
+        type: 'url', // 外链
+        label: 'SSL配置生成',
+        value: 'https://ssl-config.mozilla.org/',
+      },
+
+      {
+        type: 'url', // 外链
+        label: '免费SSL证书',
+        value: 'https://yundun.console.aliyun.com/?p=cas#/certExtend/free',
+      },
+
+      {
+        type: 'url', // 外链
+        label: '域名注册',
+        value: 'https://wanwang.aliyun.com/',
+      },
+
+      {
+        type: 'url', // 外链
+        label: 'HTTPS网站检测',
+        value: 'https://myssl.com/',
+      },
+    ]
+
     return {
+      toolList,
+
       dialogVisible: false,
       aboutDialogVisible: false,
       userDialogVisible: false,
@@ -285,6 +314,16 @@ export default {
         'https://yundun.console.aliyun.com/?p=cas#/certExtend/free',
         '_blank'
       )
+    },
+
+    handleToolItemClick(item) {
+      if (item.type == 'url') {
+        window.open(item.value, '_blank')
+      } else {
+        this.$router.push({
+          name: item.value,
+        })
+      }
     },
   },
 
