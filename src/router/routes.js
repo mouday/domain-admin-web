@@ -94,7 +94,7 @@ export const routes = [
           roles: [RoleEnum.Admin],
         },
       },
-      
+
       {
         path: '/lab',
         name: 'lab',
@@ -102,8 +102,8 @@ export const routes = [
         meta: {
           title: '实验室',
           icon: 'Box',
-          roles: [RoleEnum.Admin],
-          hidden: true
+          // roles: [RoleEnum.Admin],
+          hidden: true,
         },
       },
       {
@@ -113,11 +113,10 @@ export const routes = [
         meta: {
           title: '域名证书',
           icon: 'Box',
-          roles: [RoleEnum.Admin],
-          hidden: true
+          // roles: [RoleEnum.Admin],
+          hidden: true,
         },
-        
-      }
+      },
     ],
   },
 ]
