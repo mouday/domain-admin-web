@@ -156,7 +156,7 @@
             </el-form-item>
 
             <el-form-item
-              label="颁发日期"
+              label="截止日期"
               prop="domain"
             >
               <span>{{ parsed_cert.notAfter || '-' }}</span>
