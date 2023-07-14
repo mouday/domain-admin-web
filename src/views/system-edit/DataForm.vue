@@ -68,6 +68,7 @@
           type="text"
           v-model="form.mail_password"
           placeholder="请输入发件人密码"
+          show-password
         ></el-input>
       </el-form-item>
     </el-form>
