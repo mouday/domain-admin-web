@@ -117,6 +117,18 @@ export const routes = [
           hidden: true,
         },
       },
+      {
+        path: '/cert-info',
+        name: 'cert-info',
+        component: () => import('../views/cert-info/index.vue'),
+        meta: {
+          title: '证书信息',
+          icon: 'Box',
+          // roles: [RoleEnum.Admin],
+          hidden: true,
+        },
+      },
+      
     ],
   },
 ]

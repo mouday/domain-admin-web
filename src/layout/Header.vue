@@ -169,6 +169,12 @@ export default {
       },
 
       {
+        type: 'router', // 路由
+        label: '证书信息查询',
+        value: 'cert-info',
+      },
+
+      {
         type: 'url', // 外链
         label: 'SSL配置生成',
         value: 'https://ssl-config.mozilla.org/',

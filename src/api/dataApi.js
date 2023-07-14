@@ -110,4 +110,7 @@ export default {
   deleteGroupUserByIds: '/deleteGroupUserByIds',
   getGroupUserById: '/getGroupUserById',
   getGroupUserList: '/getGroupUserList',
+  
+  // 证书信息
+  getCertInformation: '/getCertInformation',
 }
