@@ -21,6 +21,23 @@
     </a>
 
     <div class="self-center margin-left--auto flex items-center">
+      <a
+        href="http://www.chatpet.top/"
+        class="ad-wrap mr-md"
+        target="_blank"
+      >
+        <img
+          src="@/assets/chatpet.jpg"
+          alt=""
+          class="ad-img ad-img--blue"
+        />
+        <img
+          src="@/assets/chatpet-white.jpg"
+          alt=""
+          class="ad-img ad-img--white"
+        />
+      </a>
+
       <el-dropdown trigger="hover">
         <div class="header-tool-btn">
           <el-icon><Suitcase /></el-icon>
@@ -380,6 +397,10 @@ export default {
   padding: 0 4px;
 }
 
+.ad-img {
+  height: 100%;
+}
+
 // 黑色主题
 .theme--dark {
   .layout__header {
@@ -410,6 +431,17 @@ export default {
       justify-content: center;
       cursor: pointer;
     }
+  }
+
+  .ad-wrap {
+    height: 34px;
+  }
+  .ad-img--white {
+    display: block;
+  }
+
+  .ad-img--blue {
+    display: none;
   }
 }
 
@@ -442,6 +474,17 @@ export default {
 
   .header-tool-btn {
     color: #ffffff;
+  }
+
+  .ad-wrap {
+    height: 24px;
+  }
+  .ad-img--white {
+    display: none;
+  }
+
+  .ad-img--blue {
+    display: block;
   }
 }
 </style>
