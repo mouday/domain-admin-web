@@ -5,7 +5,9 @@
       class="flex"
       style="justify-content: space-between"
     >
+      <span v-if="RoleEnum.Admin == role"></span>
       <el-button
+        v-else
         type="primary"
         @click="handleAddRow"
         ><el-icon><Plus /></el-icon>添加</el-button
@@ -36,7 +38,9 @@
     </div>
 
     <!-- 筛选器 -->
+    <span v-if="RoleEnum.Admin == role"></span>
     <ConditionFilter
+      v-else
       v-if="hasInitData"
       class="mt-md"
       ref="ConditionFilter"
@@ -71,40 +75,42 @@
 
         <UpdateDomainInfo @on-success="resetData"></UpdateDomainInfo>
 
-        <CheckDomainInfo
-          class="ml-sm"
-          @on-success="resetData"
-        ></CheckDomainInfo>
+        <template v-if="RoleEnum.Admin != role">
+          <CheckDomainInfo
+            class="ml-sm"
+            @on-success="resetData"
+          ></CheckDomainInfo>
 
-        <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept -->
-        <el-link
-          :underline="false"
-          type="primary"
-          class="ml-sm"
-          style="position: relative"
-          ><el-icon><Upload /></el-icon>导入
-          <el-upload
-            ref="upload"
-            action="action"
-            accept=".txt"
-            :limit="1"
-            :on-exceed="handleExceed"
-            :show-file-list="false"
-            :http-request="handleHttpRequest"
+          <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept -->
+          <el-link
+            :underline="false"
+            type="primary"
+            class="ml-sm"
+            style="position: relative"
+            ><el-icon><Upload /></el-icon>导入
+            <el-upload
+              ref="upload"
+              action="action"
+              accept=".txt"
+              :limit="1"
+              :on-exceed="handleExceed"
+              :show-file-list="false"
+              :http-request="handleHttpRequest"
+            >
+              <div
+                style="position: absolute; top: 0; left: 0; right: 0; bottom: 0"
+              ></div>
+            </el-upload>
+          </el-link>
+
+          <el-link
+            :underline="false"
+            type="primary"
+            class="ml-sm"
+            @click="handleExportToFile"
+            ><el-icon><Download /></el-icon>导出</el-link
           >
-            <div
-              style="position: absolute; top: 0; left: 0; right: 0; bottom: 0"
-            ></div>
-          </el-upload>
-        </el-link>
-
-        <el-link
-          :underline="false"
-          type="primary"
-          class="ml-sm"
-          @click="handleExportToFile"
-          ><el-icon><Download /></el-icon>导出</el-link
-        >
+        </template>
       </div>
     </div>
 
@@ -112,6 +118,7 @@
     <DataTable
       class="mt-sm"
       v-loading="loading"
+      :role="role"
       :data="list"
       @on-success="resetData"
       @on-refresh-row="handleRefreshRow"
@@ -157,11 +164,17 @@ import UpdateDomainInfo from './UpdateDomainInfo.vue'
 import CheckDomainInfo from './CheckDomainInfo.vue'
 import ConditionFilter from './ConditionFilter.vue'
 import { getUUID } from '@/utils/uuid.js'
+import { RoleEnum } from '@/emuns/role-enums.js'
 
 export default {
   name: 'domain-list',
 
-  props: {},
+  props: {
+    role: {
+      type: Number,
+      default: RoleEnum.User
+    },
+  },
 
   components: {
     DataFormDialog,
@@ -174,6 +187,7 @@ export default {
 
   data() {
     return {
+      RoleEnum,
       dataApi,
       list: [],
       total: 0,
@@ -235,6 +249,7 @@ export default {
         keyword: this.keyword.trim(),
         order_type: this.order_type,
         order_prop: this.order_prop,
+        role: this.role,
       }
 
       // 筛选参数

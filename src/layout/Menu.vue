@@ -6,21 +6,49 @@
         :ellipsis="false"
         class="layout__menu"
         mode="vertical"
-        router
         menu-trigger="click"
+        unique-opened
         @select="handleSelect"
         :collapse="isCollapse"
       >
-        <el-menu-item
-          v-for="(route, index) in showRoutes"
-          :index="route.name"
-          :key="index"
-        >
-          <el-icon>
-            <component :is="route.meta.icon"></component>
-          </el-icon>
-          <span>{{ route.meta.title }}</span>
-        </el-menu-item>
+        <template v-for="route in routes">
+          <template v-if="hasRoutePermission(route)">
+            <!-- 仅一个子节点 -->
+            <el-menu-item
+              v-if="hasOnlyOneChildren(route)"
+              :index="route.children[0].name"
+              @click="handleRouteClick(route.children[0])"
+            >
+              <el-icon>
+                <component :is="route.children[0].meta.icon"></component>
+              </el-icon>
+              <span>{{ route.children[0].meta.title }}</span>
+            </el-menu-item>
+
+            <!-- 多个子节点 -->
+            <el-sub-menu
+              v-else
+              :index="route.name"
+            >
+              <template #title>
+                <el-icon>
+                  <component :is="route.meta.icon"></component>
+                </el-icon>
+                <span>{{ route.meta.title }}</span>
+              </template>
+
+              <template v-for="child in route.children">
+                <template v-if="hasRoutePermission(child)">
+                  <el-menu-item
+                    :index="child.name"
+                    @click="handleRouteClick(child)"
+                    >{{ child.meta.title }}</el-menu-item
+                  >
+                </template>
+              </template>
+            </el-sub-menu>
+          </template>
+        </template>
 
         <!-- 收起时不显示 -->
         <Info
@@ -73,7 +101,7 @@ export default {
   data() {
     return {
       activeIndex: '',
-
+      routes,
       // isCollapse: false,
     }
   },
@@ -88,19 +116,6 @@ export default {
     ...mapState(useSystemStore, {
       isCollapse: 'isCollapse',
     }),
-
-    showRoutes() {
-      return routes
-        .filter((route) => route.name == 'index')[0]
-        .children.filter((x) => {
-          // 隐藏tab
-          if (x.meta && x.meta.hidden) {
-            return false
-          } else {
-            return hasPermission(x.meta.roles, this.userRoles)
-          }
-        })
-    },
   },
 
   methods: {
@@ -116,10 +131,40 @@ export default {
       //   name: index,
       // })
     },
+
+    handleRouteClick(route) {
+      this.$router.push({ name: route.name })
+    },
+
+    hasRoutePermission(route) {
+      if (route.meta && route.meta.hidden) {
+        // 隐藏的都不显示
+        return false
+      } else if (
+        route.meta &&
+        route.meta.roles &&
+        route.meta.roles.length > 0
+      ) {
+        // 有权限要求的判断权限
+        return hasPermission(route.meta.roles, this.userRoles)
+      } else {
+        // 默认都显示
+        return true
+      }
+    },
+
+    hasOnlyOneChildren(route) {
+      return (
+        route.children.filter((child) => {
+          return this.hasRoutePermission(child)
+        }).length == 1
+      )
+    },
   },
 
   created() {
     this.activeIndex = this.$route.name
+    console.log(this.activeIndex);
     this.getData()
   },
 }
@@ -166,7 +211,7 @@ export default {
   .layout-container {
     position: relative;
     background: #f8f9fd;
-    padding: 20px 20px;
+    padding: 20px 20px 0;
 
     .logo-view {
       height: 80px;
@@ -186,13 +231,15 @@ export default {
     }
   }
 
-  .layout__menu .el-menu-item {
+  .layout__menu .el-menu-item,
+  .layout__menu .el-sub-menu__title {
     padding-right: 60px;
     color: #a2a4a6;
-    height: 50px;
+    // height: 50px;
   }
 
-  .layout__menu .el-menu-item:hover {
+  .layout__menu .el-menu-item:hover,
+  .layout__menu .el-sub-menu__title {
     background-color: #f8f9fd;
   }
 
@@ -219,6 +266,10 @@ export default {
   }
 
   .layout__menu {
+    background-color: #f8f9fd;
+  }
+
+  .el-menu .el-menu {
     background-color: #f8f9fd;
   }
 
@@ -254,18 +305,24 @@ export default {
     background-color: #1e222d;
   }
 
-  .layout__menu .el-menu-item {
+  .layout__menu .el-menu-item,
+  .layout__menu .el-sub-menu__title {
     background-color: #1e222d;
     color: #c1c6c8;
   }
 
-  .layout__menu .el-menu-item:hover {
+  .layout__menu .el-menu-item:hover,
+  .layout__menu .el-sub-menu__title:hover {
     background-color: #262f3e;
   }
 
-  .layout__menu .el-menu-item.is-active {
+  .layout__menu .el-menu-item.is-active,
+  .layout__menu .el-sub-menu__title.is-active {
     background-color: #006eff;
     color: #ffffff;
+  }
+
+  .layout__menu .el-sub-menu .el-menu-item {
   }
 }
 

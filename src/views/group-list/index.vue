@@ -2,11 +2,12 @@
   <div class="app-container">
     <!-- 操作按钮 -->
     <div class="flex justify-between margin-bottom--20">
-      <el-button
+      <el-button v-if="role == RoleEnum.User"
         type="primary"
         @click="handleAddRow"
         ><el-icon><Plus /></el-icon>添加</el-button
-      >
+      > 
+      <span v-else></span>
 
       <el-input
         class="ml-sm"
@@ -56,6 +57,7 @@
     <DataTable
       class="mt-sm"
       v-loading="loading"
+      :role="role"
       :list="list"
       @on-success="resetData"
       @on-edit-row="handleEditRow"
@@ -91,11 +93,17 @@ import DataTable from './DataTable.vue'
 
 import { useGroupStore } from '@/store/group-store.js'
 import { mapState, mapActions } from 'pinia'
+import { RoleEnum } from '@/emuns/role-enums.js'
 
 export default {
   name: 'group-list',
 
-  props: {},
+  props: {
+    role: {
+      type: Number,
+      default: RoleEnum.User
+    },
+  },
 
   components: {
     DataFormDialog,
@@ -104,6 +112,7 @@ export default {
 
   data() {
     return {
+      RoleEnum,
       list: [],
       total: 0,
       page: 1,
@@ -143,6 +152,7 @@ export default {
         // page: this.page,
         // size: this.size,
         keyword: this.keyword.trim(),
+        role: this.role,
       }
 
       try {

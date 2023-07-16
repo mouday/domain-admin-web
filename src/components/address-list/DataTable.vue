@@ -7,7 +7,7 @@
       @selection-change="$emit('on-selection-change', $event)"
     >
       <el-table-column
-        v-if="domainRow.has_edit_permission"
+        v-if="RoleEnum.User == role && domainRow.has_edit_permission"
         type="selection"
         header-align="center"
         align="center"
@@ -154,29 +154,32 @@
             ><el-icon><Refresh /></el-icon
           ></el-link>
 
-          <el-link
-            :underline="false"
-            type="primary"
-            class="mr-sm"
-            @click="handleEditRow(scope.row)"
-            :disabled="!domainRow.has_edit_permission"
-            ><el-icon><Edit /></el-icon
-          ></el-link>
+          <!-- 用户可见 -->
+          <template v-if="RoleEnum.User == role">
+            <el-link
+              :underline="false"
+              type="primary"
+              class="mr-sm"
+              @click="handleEditRow(scope.row)"
+              :disabled="!domainRow.has_edit_permission"
+              ><el-icon><Edit /></el-icon
+            ></el-link>
 
-          <el-popconfirm
-            title="确定删除？"
-            @confirm="handleDeleteClick(scope.row)"
-            :disabled="!domainRow.has_edit_permission"
-          >
-            <template #reference>
-              <el-link
-                :underline="false"
-                type="danger"
-                :disabled="!domainRow.has_edit_permission"
-                ><el-icon><Delete /></el-icon
-              ></el-link>
-            </template>
-          </el-popconfirm>
+            <el-popconfirm
+              title="确定删除？"
+              @confirm="handleDeleteClick(scope.row)"
+              :disabled="!domainRow.has_edit_permission"
+            >
+              <template #reference>
+                <el-link
+                  :underline="false"
+                  type="danger"
+                  :disabled="!domainRow.has_edit_permission"
+                  ><el-icon><Delete /></el-icon
+                ></el-link>
+              </template>
+            </el-popconfirm>
+          </template>
         </template>
       </el-table-column>
     </el-table>
@@ -197,6 +200,8 @@
  */
 import DataFormDialog from '../address-edit/DataFormDialog.vue'
 import ExpireDays from '@/components/ExpireDays.vue'
+import { RoleEnum } from '@/emuns/role-enums.js'
+
 export default {
   name: '',
 
@@ -222,6 +227,9 @@ export default {
       type: Boolean,
       default: false,
     },
+    role: {
+      type: Number,
+    },
   },
 
   emits: ['on-selection-change'],
@@ -230,6 +238,7 @@ export default {
 
   data() {
     return {
+      RoleEnum,
       currentRow: null,
       dialogVisible: false,
     }

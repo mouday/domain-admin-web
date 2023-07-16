@@ -84,6 +84,7 @@
  * created 2023-07-05
  */
 // import DataFormDialog from '../group-user-edit/DataFormDialog.vue'
+import { RoleEnum } from '@/emuns/role-enums.js'
 
 export default {
   name: '',
@@ -100,12 +101,16 @@ export default {
       type: Boolean,
       default: false,
     },
+    role: {
+      type: Number,
+    },
   },
 
   computed: {},
 
   data() {
     return {
+      RoleEnum,
       currentRow: null,
       dialogVisible: false,
     }

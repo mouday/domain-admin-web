@@ -11,6 +11,7 @@
     <DataTableIndex
       v-if="dialogVisible"
       :row="row"
+      :role="role"
       :domainRow="domainRow"
       :domainId="domainId"
       @on-cancel="handleClose"
@@ -24,6 +25,7 @@
  * created 2022-10-11
  */
 import DataTableIndex from './index.vue'
+import { RoleEnum } from '@/emuns/role-enums.js'
 
 export default {
   name: '',
@@ -48,6 +50,9 @@ export default {
     domainId: {
       type: Number,
       default: null,
+    },
+    role: {
+      type: Number,
     },
   },
 

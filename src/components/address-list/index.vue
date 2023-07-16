@@ -2,12 +2,13 @@
   <div class="">
     <!-- 操作按钮 -->
     <div class="flex justify-between items-center">
-      <el-button
+      <el-button v-if="RoleEnum.User == role"
         type="primary"
         @click="handleAddRow"
         :disabled="!domainRow.has_edit_permission"
         ><el-icon><Plus /></el-icon>添加</el-button
       >
+      <span v-else></span>
 
       <div>
         <el-popconfirm
@@ -53,9 +54,10 @@
 
     <!-- 数据列表 -->
     <DataTable
-      class="mt-md"
+      class="mt-sm"
       v-loading="loading"
       :list="list"
+      :role="role"
       :domainId="domainId"
       :domainRow="domainRow"
       :disableUpdateButton="disableUpdateButton"
@@ -91,6 +93,7 @@
 
 import DataFormDialog from '../address-edit/DataFormDialog.vue'
 import DataTable from './DataTable.vue'
+import { RoleEnum } from '@/emuns/role-enums.js'
 
 export default {
   name: 'address-list',
@@ -105,6 +108,9 @@ export default {
       type: Number,
       default: null,
     },
+    role: {
+      type: Number,
+    },
   },
 
   components: {
@@ -114,6 +120,7 @@ export default {
 
   data() {
     return {
+      RoleEnum,
       list: [],
       total: 0,
       page: 1,

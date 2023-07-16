@@ -8,6 +8,7 @@
       @selection-change="$emit('selection-change', $event)"
     >
       <el-table-column
+        v-if="RoleEnum.Admin != role"
         type="selection"
         header-align="center"
         align="center"
@@ -256,41 +257,43 @@
         </template>
       </el-table-column> -->
 
-      <!-- 自动更新 -->
-      <el-table-column
-        label="自动更新"
-        width="90"
-        header-align="center"
-        align="center"
-        sortable="custom"
-        prop="auto_update"
-      >
-        <template #default="scope">
-          <el-switch
-            :disabled="!scope.row.has_edit_permission"
-            v-model="scope.row.auto_update"
-            @change="handleAutoUpdateStatusChange(scope.row, $event)"
-          />
-        </template>
-      </el-table-column>
+      <template v-if="RoleEnum.Admin != role">
+        <!-- 自动更新 -->
+        <el-table-column
+          label="自动更新"
+          width="90"
+          header-align="center"
+          align="center"
+          sortable="custom"
+          prop="auto_update"
+        >
+          <template #default="scope">
+            <el-switch
+              :disabled="!scope.row.has_edit_permission"
+              v-model="scope.row.auto_update"
+              @change="handleAutoUpdateStatusChange(scope.row, $event)"
+            />
+          </template>
+        </el-table-column>
 
-      <!-- 监测 -->
-      <el-table-column
-        label="到期提醒"
-        width="90"
-        header-align="center"
-        align="center"
-        sortable="custom"
-        prop="is_monitor"
-      >
-        <template #default="scope">
-          <el-switch
-            :disabled="!scope.row.has_edit_permission"
-            v-model="scope.row.is_monitor"
-            @change="handleMonitorStatusChange(scope.row, $event)"
-          />
-        </template>
-      </el-table-column>
+        <!-- 监测 -->
+        <el-table-column
+          label="到期提醒"
+          width="90"
+          header-align="center"
+          align="center"
+          sortable="custom"
+          prop="is_monitor"
+        >
+          <template #default="scope">
+            <el-switch
+              :disabled="!scope.row.has_edit_permission"
+              v-model="scope.row.is_monitor"
+              @change="handleMonitorStatusChange(scope.row, $event)"
+            />
+          </template>
+        </el-table-column>
+      </template>
 
       <el-table-column
         label="操作"
@@ -308,29 +311,32 @@
             ><el-icon><Refresh /></el-icon
           ></el-link>
 
-          <el-link
-            :underline="false"
-            type="primary"
-            class="mr-sm"
-            :disabled="!scope.row.has_edit_permission"
-            @click="handleEditRow(scope.row)"
-            ><el-icon><Edit /></el-icon
-          ></el-link>
+          <!-- 用户可操作 -->
+          <template v-if="RoleEnum.Admin != role">
+            <el-link
+              :underline="false"
+              type="primary"
+              class="mr-sm"
+              :disabled="!scope.row.has_edit_permission"
+              @click="handleEditRow(scope.row)"
+              ><el-icon><Edit /></el-icon
+            ></el-link>
 
-          <el-popconfirm
-            title="确定删除？"
-            @confirm="handleDeleteClick(scope.row)"
-            :disabled="!scope.row.has_edit_permission"
-          >
-            <template #reference>
-              <el-link
-                :underline="false"
-                type="danger"
-                :disabled="!scope.row.has_edit_permission"
-                ><el-icon><Delete /></el-icon
-              ></el-link>
-            </template>
-          </el-popconfirm>
+            <el-popconfirm
+              title="确定删除？"
+              @confirm="handleDeleteClick(scope.row)"
+              :disabled="!scope.row.has_edit_permission"
+            >
+              <template #reference>
+                <el-link
+                  :underline="false"
+                  type="danger"
+                  :disabled="!scope.row.has_edit_permission"
+                  ><el-icon><Delete /></el-icon
+                ></el-link>
+              </template>
+            </el-popconfirm>
+          </template>
         </template>
       </el-table-column>
     </el-table>
@@ -352,6 +358,7 @@
     <!-- 域名主机列表 -->
     <AddressListgDialog
       v-if="currentRow"
+      :role="role"
       :domainId="currentRow.id"
       :domainRow="currentRow"
       v-model:visible="AddressListgDialogVisible"
@@ -371,6 +378,7 @@ import ExpireDays from '@/components/ExpireDays.vue'
 import ExpireProgress from '@/components/ExpireProgress.vue'
 
 import AddressListgDialog from '@/components/address-list/DataTableDialog.vue'
+import { RoleEnum } from '@/emuns/role-enums.js'
 
 export default {
   name: '',
@@ -387,12 +395,17 @@ export default {
 
   emits: ['on-success', 'selection-change', 'sort-change', 'on-refresh-row'],
 
-  props: {},
+  props: {
+    role: {
+      type: Number,
+    },
+  },
 
   computed: {},
 
   data() {
     return {
+      RoleEnum,
       currentRow: null,
       dialogVisible: false,
       dialogDetailVisible: false,

@@ -11,6 +11,7 @@
     <DataTableIndex
       v-if="dialogVisible"
       :groupRow="groupRow"
+      :role="role"
       @on-success="handleSuccess"
     ></DataTableIndex>
   </el-dialog>
@@ -21,6 +22,7 @@
  * created 2022-10-11
  */
 import DataTableIndex from './index.vue'
+import { RoleEnum } from '@/emuns/role-enums.js'
 
 export default {
   name: '',
@@ -40,6 +42,9 @@ export default {
     visible: {
       type: Boolean,
       default: false,
+    },
+    role: {
+      type: Number,
     },
   },
 

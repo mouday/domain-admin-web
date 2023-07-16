@@ -3,7 +3,7 @@
     <!-- 操作按钮 -->
     <div
       class="mb-md"
-      v-if="groupRow.is_leader"
+      v-if="groupRow.is_leader && role == RoleEnum.User"
     >
       <!-- <el-button
         type="primary"
@@ -26,7 +26,8 @@
     <DataTable
       v-loading="loading"
       :list="list"
-      :disabled="!groupRow.is_leader"
+      :role="role"
+      :disabled="!groupRow.is_leader || role != RoleEnum.User"
       @on-success="resetData"
       @on-edit-row="handleEditRow"
     />
@@ -57,6 +58,7 @@
 
 // import DataFormDialog from '../group-user-edit/DataFormDialog.vue'
 import DataTable from './DataTable.vue'
+import { RoleEnum } from '@/emuns/role-enums.js'
 
 export default {
   name: 'group-user-list',
@@ -64,6 +66,10 @@ export default {
   props: {
     groupRow: {
       type: Object,
+    },
+
+    role: {
+      type: Number,
     },
   },
 
@@ -74,6 +80,7 @@ export default {
 
   data() {
     return {
+      RoleEnum,
       list: [],
       total: 0,
       page: 1,

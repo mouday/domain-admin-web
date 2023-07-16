@@ -7,6 +7,7 @@
       @selection-change="$emit('selection-change', $event)"
     >
       <el-table-column
+        v-if="role == RoleEnum.User"
         type="selection"
         header-align="center"
         align="center"
@@ -108,64 +109,66 @@
         </template>
       </el-table-column> -->
 
-      <!-- 关联证书 -->
-      <el-table-column
-        label="关联证书"
-        width="100"
-        header-align="center"
-        align="center"
-      >
-        <template #default="scope">
-          <el-link
-            :underline="false"
-            type="primary"
-            :disabled="!scope.row.is_leader"
-            @click="handleCountClick(scope.row)"
-            ><el-icon><Link /></el-icon
-          ></el-link>
-        </template>
-      </el-table-column>
+      <template v-if="role == RoleEnum.User">
+        <!-- 关联证书 -->
+        <el-table-column
+          label="关联证书"
+          width="100"
+          header-align="center"
+          align="center"
+        >
+          <template #default="scope">
+            <el-link
+              :underline="false"
+              type="primary"
+              :disabled="!scope.row.is_leader"
+              @click="handleCountClick(scope.row)"
+              ><el-icon><Link /></el-icon
+            ></el-link>
+          </template>
+        </el-table-column>
 
-      <el-table-column
-        label="编辑"
-        width="60"
-        header-align="center"
-        align="center"
-      >
-        <template #default="scope">
-          <el-link
-            :underline="false"
-            type="primary"
-            :disabled="!scope.row.is_leader"
-            @click="handleEditRow(scope.row)"
-            ><el-icon><Edit /></el-icon
-          ></el-link>
-        </template>
-      </el-table-column>
+        <el-table-column
+          label="编辑"
+          width="60"
+          header-align="center"
+          align="center"
+        >
+          <template #default="scope">
+            <el-link
+              :underline="false"
+              type="primary"
+              :disabled="!scope.row.is_leader"
+              @click="handleEditRow(scope.row)"
+              ><el-icon><Edit /></el-icon
+            ></el-link>
+          </template>
+        </el-table-column>
 
-      <el-table-column
-        label="删除"
-        width="60"
-        align="center"
-        prop="tag"
-      >
-        <template #default="scope">
-          <el-popconfirm
-            title="确定删除？"
-            @confirm="handleDeleteClick(scope.row)"
-            :disabled="!scope.row.is_leader"
-          >
-            <template #reference>
-              <el-link
-                :underline="false"
-                type="danger"
-                :disabled="!scope.row.is_leader"
-                ><el-icon><Delete /></el-icon
-              ></el-link>
-            </template>
-          </el-popconfirm>
-        </template>
-      </el-table-column>
+        <el-table-column
+          label="删除"
+          width="60"
+          align="center"
+          prop="tag"
+        >
+          <template #default="scope">
+            <el-popconfirm
+              title="确定删除？"
+              @confirm="handleDeleteClick(scope.row)"
+              :disabled="!scope.row.is_leader"
+            >
+              <template #reference>
+                <el-link
+                  :underline="false"
+                  type="danger"
+                  :disabled="!scope.row.is_leader"
+                  ><el-icon><Delete /></el-icon
+                ></el-link>
+              </template>
+            </el-popconfirm>
+          </template>
+        </el-table-column>
+      </template>
     </el-table>
 
     <!-- 编辑框 -->
@@ -185,6 +188,7 @@
     <!-- 组员 -->
     <GroupUserListDialog
       :groupRow="currentRow"
+      :role="role"
       v-model:visible="GroupUserListDialogVisible"
       @on-success="handleUpdateSuccess"
       @on-close="$emit('on-success')"
@@ -200,6 +204,7 @@ import DataFormDialog from '../group-edit/DataFormDialog.vue'
 
 import GroupDomainListDialog from '@/components/group-domain-list/DataTableDialog.vue'
 import GroupUserListDialog from '@/components/group-user-list/DataTableDialog.vue'
+import { RoleEnum } from '@/emuns/role-enums.js'
 
 export default {
   name: '',
@@ -214,6 +219,11 @@ export default {
     list: {
       type: Array,
     },
+
+    role: {
+      type: Number,
+      default: RoleEnum.User,
+    },
   },
 
   emits: ['selection-change'],
@@ -222,6 +232,7 @@ export default {
 
   data() {
     return {
+      RoleEnum,
       currentRow: null,
       dialogVisible: false,
       groupDomainListDialogVisible: false,

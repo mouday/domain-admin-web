@@ -13,7 +13,7 @@
               name="fade-transform"
               mode="out-in"
             >
-              <component :is="Component" />
+              <component :is="Component" :key="key"/>
             </transition>
           </router-view>
         </div>
@@ -116,7 +116,7 @@ export default {
 /* fade-transform */
 .fade-transform-leave-active,
 .fade-transform-enter-active {
-  transition: all .5s;
+  transition: all 0.5s;
 }
 
 .fade-transform-enter {

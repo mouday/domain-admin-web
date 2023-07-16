@@ -3,36 +3,89 @@ import Login from '@/views/login/Login.vue'
 import { RoleEnum } from '@/emuns/role-enums.js'
 
 export const routes = [
-  { path: '/login', component: Login },
+  // 登录
+  {
+    path: '/login',
+    component: Login,
+    meta: {
+      hidden: true,
+    },
+  },
 
+  // 首页
   {
     path: '/',
-    name: 'index',
+    redirect: {
+      name: 'cert-list',
+    },
+    meta: {
+      hidden: true,
+    },
+  },
+
+  // 证书
+  {
+    path: '/cert',
+    name: 'cert',
     component: Layout,
-    redirect: '/domain-list',
+    meta: {
+      title: '证书',
+      icon: 'Tickets',
+    },
+
+    redirect: {
+      name: 'cert-list',
+    },
+
     children: [
       {
-        path: '/domain-list',
-        name: 'domain-list',
+        path: 'list',
+        name: 'cert-list',
         component: () => import('../views/domain-list/index.vue'),
         meta: {
           title: '证书列表',
           icon: 'Tickets',
         },
       },
+    ],
+  },
 
+  // 域名
+  {
+    path: '/domain',
+    name: 'domain',
+    component: Layout,
+    meta: {
+      title: '域名',
+      icon: 'Coin',
+    },
+    redirect: { name: 'domain-list' },
+    children: [
       {
-        path: '/domain-info-list',
-        name: 'domain-info-list',
+        path: 'list',
+        name: 'domain-list',
         component: () => import('../views/domain-info-list/index.vue'),
         meta: {
           title: '域名列表',
           icon: 'Coin',
         },
       },
+    ],
+  },
 
+  {
+    path: '/group',
+    name: 'group',
+    component: Layout,
+    meta: {
+      title: '分组',
+      icon: 'Files',
+    },
+
+    redirect: { name: 'group-list' },
+    children: [
       {
-        path: '/group-list',
+        path: 'list',
         name: 'group-list',
         component: () => import('../views/group-list/index.vue'),
         meta: {
@@ -40,21 +93,97 @@ export const routes = [
           icon: 'Files',
         },
       },
+    ],
+  },
 
+  {
+    path: '/notify',
+    name: 'notify',
+    component: Layout,
+    meta: {
+      title: '通知',
+      icon: 'Message',
+    },
+
+    redirect: { name: 'notify-list' },
+    children: [
       {
-        path: '/notify-edit',
-        name: 'notify-edit',
+        path: 'edit',
+        name: 'notify-list',
         // component: () => import('../views/notify-edit/index.vue'),
         component: () => import('../views/notify-list/index.vue'),
         meta: {
-          title: '通知设置',
+          title: '通知列表',
           icon: 'Message',
+        },
+      },
+    ],
+  },
+  {
+    path: '/data',
+    name: 'data',
+    component: Layout,
+    redirect: { name: 'data-cert-list' },
+    meta: {
+      title: '数据管理',
+      icon: 'Box',
+      roles: [RoleEnum.Admin],
+    },
+    children: [
+      {
+        path: 'cert-list',
+        name: 'data-cert-list',
+        component: () => import('../views/domain-list/index.vue'),
+        meta: {
+          title: '全部证书',
+          icon: 'Tickets',
+        },
+        props: {
+          role: RoleEnum.Admin,
+        },
+      },
+      {
+        path: 'domain-list',
+        name: 'data-domain-list',
+        component: () => import('../views/domain-info-list/index.vue'),
+        meta: {
+          title: '全部域名',
+          icon: 'Coin',
+        },
+        props: {
+          role: RoleEnum.Admin,
         },
       },
 
       {
-        path: '/user-admin-list',
-        name: 'user-admin-list',
+        path: 'group-list',
+        name: 'data-group-list',
+        component: () => import('../views/group-list/index.vue'),
+        meta: {
+          title: '全部分组',
+          icon: 'Files',
+        },
+        props: {
+          role: RoleEnum.Admin,
+        },
+      },
+    ],
+  },
+
+  {
+    path: '/admin',
+    name: 'admin',
+    component: Layout,
+    redirect: { name: 'admin-user-list' },
+    meta: {
+      title: '系统管理',
+      icon: 'Setting',
+      roles: [RoleEnum.Admin],
+    },
+    children: [
+      {
+        path: 'user-list',
+        name: 'admin-user-list',
         component: () => import('../views/user-admin-list/index.vue'),
         meta: {
           title: '用户管理',
@@ -64,7 +193,7 @@ export const routes = [
       },
 
       {
-        path: '/system-setup',
+        path: 'system-setup',
         name: 'system-setup',
         component: () => import('../views/system-setup/index.vue'),
         meta: {
@@ -75,7 +204,7 @@ export const routes = [
       },
 
       {
-        path: '/log-scheduler-list',
+        path: 'log-scheduler-list',
         name: 'log-scheduler-list',
         component: () => import('../views/log-scheduler-list/index.vue'),
         meta: {
@@ -85,7 +214,7 @@ export const routes = [
         },
       },
       {
-        path: '/log-operation-list',
+        path: 'log-operation-list',
         name: 'log-operation-list',
         component: () => import('../views/log-operation-list/index.vue'),
         meta: {
@@ -94,41 +223,53 @@ export const routes = [
           roles: [RoleEnum.Admin],
         },
       },
+    ],
+  },
 
+  {
+    path: '/utils',
+    name: 'utils',
+    component: Layout,
+    redirect: { name: 'lab' },
+    meta: {
+      hidden: true,
+      title: '工具箱',
+    },
+
+    children: [
       {
-        path: '/lab',
+        path: 'lab',
         name: 'lab',
         component: () => import('../views/lab/index.vue'),
         meta: {
-          title: '实验室',
+          title: 'WHOIS查询',
           icon: 'Box',
           // roles: [RoleEnum.Admin],
           hidden: true,
         },
       },
       {
-        path: '/domain-cert-list',
+        path: 'domain-cert-list',
         name: 'domain-cert-list',
         component: () => import('../views/domain-cert-list/index.vue'),
         meta: {
-          title: '域名证书',
+          title: '子域名证书查询',
           icon: 'Box',
           // roles: [RoleEnum.Admin],
           hidden: true,
         },
       },
       {
-        path: '/cert-info',
+        path: 'cert-info',
         name: 'cert-info',
         component: () => import('../views/cert-info/index.vue'),
         meta: {
-          title: '证书信息',
+          title: '证书信息查询',
           icon: 'Box',
           // roles: [RoleEnum.Admin],
           hidden: true,
         },
       },
-      
     ],
   },
 ]

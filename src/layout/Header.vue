@@ -20,6 +20,9 @@
       <span>Domain Admin</span>
     </a>
 
+    <div class="header-breadcrumb">
+      <Breadcrumb></Breadcrumb>
+    </div>
     <div class="self-center margin-left--auto flex items-center">
       <a
         href="http://www.chatpet.top/"
@@ -149,6 +152,7 @@ import { useUserStore } from '@/store/user-store.js'
 import { useSystemStore } from '@/store/system-store.js'
 import { mapState, mapActions } from 'pinia'
 import avatar from '@/assets/user-avatar.gif'
+import Breadcrumb from './Breadcrumb.vue'
 
 export default {
   name: 'Header',
@@ -159,6 +163,7 @@ export default {
     UserPaswordEditDataFormDailog,
     AboutDataFormDailig,
     UserDataFormDailig,
+    Breadcrumb,
   },
 
   data() {
@@ -399,6 +404,20 @@ export default {
 
 .ad-img {
   height: 100%;
+}
+
+// 面包屑
+.header-breadcrumb {
+  margin-left: 20px;
+
+  .el-breadcrumb__inner.is-link {
+    color: #c1c6c8;
+  }
+
+  .el-breadcrumb__item:last-child .el-breadcrumb__inner,
+  .el-breadcrumb__item .el-breadcrumb__inner {
+    color: #c1c6c8;
+  }
 }
 
 // 黑色主题
