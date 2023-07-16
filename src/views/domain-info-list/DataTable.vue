@@ -425,7 +425,7 @@ export default {
 
     handleCertCountClick(row) {
       let route = this.$router.resolve({
-        name: 'domain-list',
+        name: 'cert-list',
         query: {
           keyword: row.domain,
         },
