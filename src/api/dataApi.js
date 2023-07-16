@@ -41,10 +41,13 @@ export default {
   deleteUser: '/deleteUser',
   updateUserStatus: '/updateUserStatus',
 
+  // 调度日志
   getLogSchedulerList: '/getLogSchedulerList',
   clearLogSchedulerList: '/clearLogSchedulerList',
   
+  // 操作日志
   getOperationLogList: '/getOperationLogList',
+  clearLogOperationList: '/clearLogOperationList',
 
   getIpInfo: '/getIpInfo',
 

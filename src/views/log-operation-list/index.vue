@@ -1,5 +1,23 @@
 <template>
   <div class="app-container">
+    <div class="flex justify-between mb-sm">
+      <div></div>
+
+      <el-popconfirm
+        title="确定清空日志？"
+        @confirm="clearLogOperationList"
+      >
+        <template #reference>
+          <el-link
+            :underline="false"
+            type="danger"
+            class="mr-sm"
+            ><el-icon><Delete /></el-icon>清空日志</el-link
+          >
+        </template>
+      </el-popconfirm>
+    </div>
+
     <!-- 数据列表 -->
     <DataTable
       v-loading="loading"
@@ -174,6 +192,28 @@ export default {
       let size = localStorage.getItem(this.pageSizeCachekey)
       if (size) {
         this.size = parseInt(size)
+      }
+    },
+
+    async clearLogOperationList() {
+      let loading = this.$loading({ fullscreen: true })
+
+      try {
+        const res = await this.$http.clearLogOperationList()
+
+        if (res.code == 0) {
+          this.$msg.success('操作成功')
+          this.resetData()
+        } else {
+          this.$msg.error(res.msg)
+        }
+      } catch (e) {
+        console.log(e)
+      } finally {
+        this.$nextTick(() => {
+          // 以服务的方式调用的 Loading 需要异步关闭
+          loading.close()
+        })
       }
     },
   },
