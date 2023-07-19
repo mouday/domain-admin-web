@@ -57,7 +57,7 @@
             value-format="YYYY-MM-DD HH:mm:ss"
             placeholder="域名注册时间"
             :disabled="form.is_auto_update"
-            style="width: 150px"
+            style="width: 170px"
           />
 
           <span> - </span>
@@ -68,7 +68,7 @@
             value-format="YYYY-MM-DD HH:mm:ss"
             placeholder="域名到期时间"
             :disabled="form.is_auto_update"
-            style="width: 150px"
+            style="width: 170px"
           />
         </div>
       </el-form-item>
@@ -113,16 +113,67 @@
         </el-form-item>
       </div>
 
-      <!-- 分组 -->
+      <div class="grid grid-cols-2">
+        <!-- 分组 -->
+        <el-form-item
+          label="分组"
+          prop="group_id"
+          style="align-self: flex-start"
+        >
+          <SelectGroup
+            class="w-[150px]"
+            v-model="form.group_id"
+            clearable
+          ></SelectGroup>
+        </el-form-item>
+      </div>
+
+      <!-- 标签 -->
       <el-form-item
-        label="分组"
-        prop="group_id"
+        label="标签"
+        prop="tags"
       >
-        <SelectGroup
-          class="w-[150px]"
-          v-model="form.group_id"
+        <div>
+          <el-input
+            type="text"
+            v-model="tag"
+            placeholder="标签，回车确认"
+            @keypress.native.enter="handleAddTag"
+            style="width: 150px"
+            class="mr-sm"
+          ></el-input>
+
+          <div>
+            <template v-for="(tag, index) in form.tags">
+              <el-tag
+                closable
+                @close="handleCloseTag(index)"
+                >{{ tag }}</el-tag
+              >
+            </template>
+          </div>
+        </div>
+        <!-- <el-select
+          style="width: 100%"
+          v-model="form.tags"
+          multiple
+          filterable
           clearable
-        ></SelectGroup>
+          allow-create
+          default-first-option
+          tag-type="primary"
+          :reserve-keyword="false"
+          placeholder="输入标签"
+          loading
+          popper-class="domain-info-edit__tag-select"
+        > -->
+        <!-- <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              /> -->
+        <!-- </el-select> -->
       </el-form-item>
 
       <!-- 备注 -->
@@ -181,7 +232,7 @@ export default {
   data() {
     return {
       loading: false,
-
+      tag: '',
       form: {
         // 域名
         domain: '',
@@ -195,7 +246,12 @@ export default {
         domain_start_time: '',
         domain_expire_time: '',
         is_auto_update: true,
+
+        // 标签
+        tags: [],
       },
+
+      options: [],
 
       rules: formRules,
       disabledTime: false,
@@ -233,6 +289,7 @@ export default {
         this.form.domain_start_time = data.domain_start_time
         this.form.domain_expire_time = data.domain_expire_time
         this.form.is_auto_update = data.is_auto_update
+        this.form.tags = data.tags || []
         // this.form.port = data.port
 
         if (this.form.group_id == 0) {
@@ -279,6 +336,7 @@ export default {
         domain_start_time: this.form.domain_start_time,
         domain_expire_time: this.form.domain_expire_time,
         is_auto_subdomain: this.form.is_auto_subdomain,
+        tags: this.form.tags,
       }
 
       let res = null
@@ -304,6 +362,19 @@ export default {
         loading.close()
       })
     },
+
+    handleAddTag() {
+      if (!this.tag) {
+        return
+      }
+
+      this.form.tags.push(this.tag)
+      this.tag = ''
+    },
+
+    handleCloseTag(index) {
+      this.form.tags.splice(index, 1)
+    },
   },
 
   created() {
@@ -312,6 +383,13 @@ export default {
 }
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+.domain-info-edit__tag-select {
+}
+</style>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.el-tag {
+  margin-right: 8px;
+}
+</style>

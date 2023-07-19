@@ -79,6 +79,28 @@
         </template>
       </el-table-column>
 
+      <!-- 标签 -->
+      <el-table-column
+        label="标签"
+        header-align="center"
+        align="left"
+        width="100"
+        prop="tags"
+        show-overflow-tooltip
+      >
+        <template #default="scope">
+          <template v-if="scope.row.tags && scope.row.tags.length > 0">
+            <template v-for="(tag, index) in scope.row.tags">
+              <div class="domain-info-list__table__tag">
+                <el-tag>{{ tag }}</el-tag>
+              </div>
+            </template>
+          </template>
+
+          <span v-else>-</span>
+        </template>
+      </el-table-column>
+
       <!-- 备注 -->
       <el-table-column
         label="备注"
@@ -449,4 +471,8 @@ export default {
 
 <style lang="less"></style>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.domain-info-list__table__tag + .domain-info-list__table__tag {
+  margin-top: 4px;
+}
+</style>
