@@ -40,6 +40,7 @@ export default {
   addUser: '/addUser',
   deleteUser: '/deleteUser',
   updateUserStatus: '/updateUserStatus',
+  resetUserPasswordUser: '/resetUserPasswordUser',
 
   // 调度日志
   getLogSchedulerList: '/getLogSchedulerList',
@@ -103,6 +104,7 @@ export default {
   exportDomainInfoFile: '/exportDomainInfoFile',
   getDomainInfoGroupFilter: '/getDomainInfoGroupFilter',
   getSubDomainCert: '/getSubDomainCert',
+  updateDomainICPOfUser: '/updateDomainICPOfUser',
   
   getICP: '/getICP',
   
@@ -116,4 +118,8 @@ export default {
   
   // 证书信息
   getCertInformation: '/getCertInformation',
+
+  // 异步任务日志
+  getAsyncTaskLogList: '/getAsyncTaskLogList',
+  clearAsyncTaskLogList: '/clearAsyncTaskLogList',
 }

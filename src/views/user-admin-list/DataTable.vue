@@ -77,7 +77,7 @@
         width="100"
       >
         <template #default="scope">
-          <span>{{ scope.row.domain_count || '-'}}</span>
+          <span>{{ scope.row.domain_count || '-' }}</span>
         </template>
       </el-table-column>
 
@@ -90,7 +90,7 @@
         width="100"
       >
         <template #default="scope">
-          <span>{{ scope.row.group_count || '-'}}</span>
+          <span>{{ scope.row.group_count || '-' }}</span>
         </template>
       </el-table-column>
 
@@ -157,6 +157,30 @@
       </el-table-column> -->
 
       <el-table-column
+        label="重置密码"
+        width="80"
+        align="center"
+        prop="tag"
+      >
+        <template #default="scope">
+          <el-popconfirm
+            title="确定重置密码？"
+            @confirm="handleResetUserPasswordUser(scope.row)"
+            :disabled="scope.row.username == 'admin'"
+          >
+            <template #reference>
+              <el-link
+                :disabled="scope.row.username == 'admin'"
+                :underline="false"
+                type="primary"
+                ><el-icon><Refresh /></el-icon
+              ></el-link>
+            </template>
+          </el-popconfirm>
+        </template>
+      </el-table-column>
+
+      <el-table-column
         label="删除"
         width="60"
         align="center"
@@ -195,6 +219,7 @@
  * created 2022-10-03
  */
 import DataFormDailog from '../user-admin-edit/DataFormDailog.vue'
+import copy from 'copy-to-clipboard'
 
 export default {
   name: '',
@@ -234,6 +259,31 @@ export default {
       if (res.code == 0) {
         this.$msg.success('操作成功')
         this.$emit('on-success')
+      }
+    },
+
+    async handleResetUserPasswordUser(row) {
+      let params = {
+        user_id: row.id,
+      }
+
+      const res = await this.$http.resetUserPasswordUser(params)
+
+      if (res.ok) {
+        // this.$msg.success('操作成功')
+        // this.$emit('on-success')
+
+        this.$alert(`新密码：${res.data.password}`, '密码重置成功', {
+          center: true,
+          autofocus: false,
+          confirmButtonText: '复制',
+          type: 'success',
+        })
+          .then(() => {
+            copy(res.data.password)
+            this.$msg.success('已复制到剪切板')
+          })
+          .catch(() => {})
       }
     },
 

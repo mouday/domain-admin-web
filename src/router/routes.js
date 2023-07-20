@@ -202,7 +202,20 @@ export const routes = [
           roles: [RoleEnum.Admin],
         },
       },
+    ],
+  },
 
+  {
+    path: '/log',
+    name: 'log',
+    component: Layout,
+    redirect: { name: 'log-scheduler-list' },
+    meta: {
+      title: '系统日志',
+      icon: 'Clock',
+      roles: [RoleEnum.Admin],
+    },
+    children: [
       {
         path: 'log-scheduler-list',
         name: 'log-scheduler-list',
@@ -219,6 +232,16 @@ export const routes = [
         component: () => import('../views/log-operation-list/index.vue'),
         meta: {
           title: '操作日志',
+          icon: 'Compass',
+          roles: [RoleEnum.Admin],
+        },
+      },
+      {
+        path: 'log-async-task-list',
+        name: 'log-async-task-list',
+        component: () => import('../views/log-async-task-list/index.vue'),
+        meta: {
+          title: '异步任务',
           icon: 'Compass',
           roles: [RoleEnum.Admin],
         },

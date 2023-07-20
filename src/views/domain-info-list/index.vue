@@ -74,9 +74,16 @@
           </template>
         </el-popconfirm>
 
+        <!-- expire -->
         <UpdateDomainInfo @on-success="resetData"></UpdateDomainInfo>
 
         <template v-if="role == RoleEnum.User">
+          <!-- icp -->
+          <UpdateDomainICP
+            class="ml-sm"
+            @on-success="resetData"
+          ></UpdateDomainICP>
+
           <CheckDomainInfo
             class="ml-sm"
             @on-success="resetData"
@@ -162,6 +169,7 @@ import SelectGroup from '@/components/SelectGroup.vue'
 import { useGroupStore } from '@/store/group-store.js'
 import { mapState, mapActions } from 'pinia'
 import UpdateDomainInfo from './UpdateDomainInfo.vue'
+import UpdateDomainICP from './UpdateDomainICP.vue'
 import CheckDomainInfo from './CheckDomainInfo.vue'
 import ConditionFilter from './ConditionFilter.vue'
 import { getUUID } from '@/utils/uuid.js'
@@ -184,6 +192,7 @@ export default {
     UpdateDomainInfo,
     CheckDomainInfo,
     ConditionFilter,
+    UpdateDomainICP,
   },
 
   data() {
@@ -250,7 +259,7 @@ export default {
         keyword: this.keyword.trim(),
         order_type: this.order_type,
         order_prop: this.order_prop,
-        role: this.role
+        role: this.role,
       }
 
       // 筛选参数
