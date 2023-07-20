@@ -42,8 +42,7 @@
             placement="top-start"
           > -->
           <ShowOverflowTooltip
-            v-if="icpInfo"
-            :content="icpInfo.name || '-'"
+            :content="form.icp_company || '-'"
           ></ShowOverflowTooltip>
           <!-- <span
               class="truncate"
@@ -101,11 +100,7 @@
           label="ICP备案"
           prop="isp"
         >
-          <span
-            class="truncate"
-            v-if="icpInfo"
-            >{{ icpInfo.icp || '-' }}</span
-          >
+          <span class="truncate">{{ form.icp_licence || '-' }}</span>
         </el-form-item>
       </el-form>
     </div>
@@ -220,6 +215,8 @@ export default {
         comment: '',
         domain_registrar: '',
         domain_registrar_url: '',
+        icp_company: '',
+        icp_licence: '',
       },
 
       // ip信息
@@ -311,6 +308,8 @@ export default {
 
         // 备注
         this.form.alias = data.alias
+        this.form.icp_company = data.icp_company
+        this.form.icp_licence = data.icp_licence
 
         // 域名信息
         this.form.domain_start_time = data.domain_start_time
@@ -324,7 +323,7 @@ export default {
         // }
 
         // this.getIpInfo()
-        this.getICP()
+        // this.getICP()
       }
     },
 

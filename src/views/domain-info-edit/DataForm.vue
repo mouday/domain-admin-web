@@ -15,6 +15,7 @@
           type="text"
           v-model="form.domain"
           placeholder="请输入域名"
+          @blur="handleDomainChange"
         ></el-input>
       </el-form-item>
 
@@ -176,6 +177,30 @@
         <!-- </el-select> -->
       </el-form-item>
 
+      <!-- 主办单位名称 -->
+      <el-form-item
+        label="主办单位"
+        prop="icp_company"
+      >
+        <el-input
+          type="text"
+          v-model="form.icp_company"
+          placeholder="请输入主办单位名称"
+        ></el-input>
+      </el-form-item>
+
+      <!-- ICP备案 -->
+      <el-form-item
+        label="ICP备案"
+        prop="icp_licence"
+      >
+        <el-input
+          type="text"
+          v-model="form.icp_licence"
+          placeholder="请输入ICP备案"
+        ></el-input>
+      </el-form-item>
+
       <!-- 备注 -->
       <el-form-item
         label="备注"
@@ -247,6 +272,8 @@ export default {
         domain_expire_time: '',
         is_auto_update: true,
 
+        icp_company: '',
+        icp_licence: '',
         // 标签
         tags: [],
       },
@@ -289,6 +316,9 @@ export default {
         this.form.domain_start_time = data.domain_start_time
         this.form.domain_expire_time = data.domain_expire_time
         this.form.is_auto_update = data.is_auto_update
+        this.form.icp_company = data.icp_company
+        this.form.icp_licence = data.icp_licence
+
         this.form.tags = data.tags || []
         // this.form.port = data.port
 
@@ -337,6 +367,8 @@ export default {
         domain_expire_time: this.form.domain_expire_time,
         is_auto_subdomain: this.form.is_auto_subdomain,
         tags: this.form.tags,
+        icp_company: this.form.icp_company,
+        icp_licence: this.form.icp_licence,
       }
 
       let res = null
@@ -374,6 +406,32 @@ export default {
 
     handleCloseTag(index) {
       this.form.tags.splice(index, 1)
+    },
+
+    async handleDomainChange() {
+      if (!this.form.domain) {
+        return
+      }
+
+      if (this.form.icp_company && this.form.icp_licence) {
+        return
+      }
+
+      let params = {
+        domain: this.form.domain,
+      }
+
+      const res = await this.$http.getICP(params)
+
+      if (res.ok) {
+        if (!this.form.icp_company) {
+          this.form.icp_company = res.data.name
+        }
+
+        if (!this.form.icp_licence) {
+          this.form.icp_licence = res.data.icp
+        }
+      }
     },
   },
 
