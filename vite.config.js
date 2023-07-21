@@ -9,8 +9,8 @@ export default defineConfig((config) => {
   console.log(config)
 
   const viteConfig = {
-    base: "./",
-    
+    base: './',
+
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
@@ -37,7 +37,26 @@ export default defineConfig((config) => {
             'vendor-vue': ['vue', 'vue-router', 'pinia'],
             'element-icon': ['@element-plus/icons-vue'],
             'element-plus': ['element-plus'],
-            'vendor-lib': ['axios', 'file-saver', 'js-cookie'],
+            'highlight-lib': ['highlight.js'],
+            'codemirror-lib': [
+              'codemirror',
+              '@codemirror/lang-json',
+              '@codemirror/theme-one-dark',
+              '@ssddanbrown/codemirror-lang-twig',
+              'vue-codemirror',
+            ],
+            'vendor-lib': [
+              'axios',
+              'file-saver',
+              'js-cookie',
+              'dayjs',
+              'cron-parser',
+              'cron-validator',
+              'copy-to-clipboard',
+              'nprogress',
+              'mockjs',
+              'lodash',
+            ],
           },
         },
       },
