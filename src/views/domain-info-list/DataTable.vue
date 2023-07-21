@@ -114,18 +114,55 @@
         </template>
       </el-table-column>
 
-      <!-- 创建时间 -->
+      <!-- 主办单位名称 -->
       <el-table-column
-        label="更新时间"
+        v-if="tableColumns.includes('icp_company')"
+        label="主办单位名称"
         header-align="center"
-        align="center"
-        width="110"
-        prop="update_time"
-        sortable="custom"
+        align="left"
+        width="200"
+        prop="icp_company"
         show-overflow-tooltip
       >
         <template #default="scope">
-          <span>{{ scope.row.update_time_label || '-' }}</span>
+          <span>{{ scope.row.icp_company || '-' }}</span>
+        </template>
+      </el-table-column>
+
+      <!-- ICP备案 -->
+      <el-table-column
+        v-if="tableColumns.includes('icp_licence')"
+        label="ICP备案"
+        header-align="center"
+        align="left"
+        width="200"
+        prop="icp_licence"
+        show-overflow-tooltip
+      >
+        <template #default="scope">
+          <span>{{ scope.row.icp_licence || '-' }}</span>
+        </template>
+      </el-table-column>
+
+      <!-- 更新ICP -->
+      <el-table-column
+        v-if="tableColumns.includes('update_icp')"
+        label="更新ICP"
+        header-align="center"
+        align="center"
+        width="70"
+        prop="update_icp"
+        show-overflow-tooltip
+      >
+        <template #default="scope">
+          <!-- 更新 -->
+          <el-link
+            :underline="false"
+            type="primary"
+            class="mr-sm"
+            @click="handleUpdateRowICP(scope.row)"
+            ><el-icon><Refresh /></el-icon
+          ></el-link>
         </template>
       </el-table-column>
 
@@ -298,6 +335,7 @@ import ExpireProgress from '@/components/ExpireProgress.vue'
 
 import AddressListgDialog from '@/components/address-list/DataTableDialog.vue'
 import { RoleEnum } from '@/emuns/role-enums.js'
+import { getTableColumn } from './table-column.js'
 
 export default {
   name: '',
@@ -318,12 +356,21 @@ export default {
     role: {
       type: Number,
     },
+
+    // 表格列
+    tableColumns: {
+      type: Array,
+      default: () => {
+        return []
+      },
+    },
   },
 
   computed: {},
 
   data() {
     return {
+      // tableColumns: [],
       RoleEnum,
       currentRow: null,
       dialogVisible: false,
@@ -463,9 +510,31 @@ export default {
     handleSelectable(row, index) {
       return row.has_edit_permission
     },
+
+    async handleUpdateRowICP(row) {
+      let loading = this.$loading({
+        lock: true,
+        text: '更新中',
+      })
+
+      let params = {
+        domain_info_id: row.id,
+      }
+
+      const res = await this.$http.updateDomainRowICP(params)
+
+      if (res.code == 0) {
+        this.$msg.success('操作成功')
+        this.handleRefreshRow(row)
+      }
+
+      loading.close()
+    },
   },
 
-  created() {},
+  created() {
+    // this.tableColumns = getTableColumn()
+  },
 }
 </script>
 

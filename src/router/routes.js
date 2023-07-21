@@ -293,6 +293,18 @@ export const routes = [
           hidden: true,
         },
       },
+      {
+        path: 'icp-info',
+        name: 'icp-info',
+        component: () => import('../views/icp-info/index.vue'),
+        meta: {
+          title: 'ICP备案查询',
+          icon: 'Box',
+          // roles: [RoleEnum.Admin],
+          hidden: true,
+        },
+      },
+      
     ],
   },
 ]

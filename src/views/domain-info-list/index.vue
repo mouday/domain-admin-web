@@ -114,10 +114,13 @@
           <el-link
             :underline="false"
             type="primary"
-            class="ml-sm"
+            class="ml-sm mr-sm"
             @click="handleExportToFile"
             ><el-icon><Download /></el-icon>导出</el-link
           >
+
+          <!-- 表格设置 -->
+          <TableColumnSet @on-success="handleTableColumnSuccess"></TableColumnSet>
         </template>
       </div>
     </div>
@@ -126,6 +129,7 @@
     <DataTable
       class="mt-sm"
       v-loading="loading"
+      :tableColumns="tableColumns"
       :data="list"
       :role="role"
       @on-success="resetData"
@@ -172,8 +176,10 @@ import UpdateDomainInfo from './UpdateDomainInfo.vue'
 import UpdateDomainICP from './UpdateDomainICP.vue'
 import CheckDomainInfo from './CheckDomainInfo.vue'
 import ConditionFilter from './ConditionFilter.vue'
+import TableColumnSet from './TableColumnSet.vue'
 import { getUUID } from '@/utils/uuid.js'
 import { RoleEnum } from '@/emuns/role-enums.js'
+import { getTableColumn } from './table-column.js'
 
 export default {
   name: 'domain-list',
@@ -193,10 +199,12 @@ export default {
     CheckDomainInfo,
     ConditionFilter,
     UpdateDomainICP,
+    TableColumnSet,
   },
 
   data() {
     return {
+      tableColumns: [],
       RoleEnum,
       dataApi,
       list: [],
@@ -453,9 +461,15 @@ export default {
         console.log(this.list)
       }
     },
+
+    handleTableColumnSuccess(){
+      this.tableColumns = getTableColumn()
+      this.resetData()
+    }
   },
 
   created() {
+    this.tableColumns = getTableColumn()
     this.initData()
   },
 }

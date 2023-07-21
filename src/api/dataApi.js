@@ -105,6 +105,7 @@ export default {
   getDomainInfoGroupFilter: '/getDomainInfoGroupFilter',
   getSubDomainCert: '/getSubDomainCert',
   updateDomainICPOfUser: '/updateDomainICPOfUser',
+  updateDomainRowICP: '/updateDomainRowICP',
   
   getICP: '/getICP',
   

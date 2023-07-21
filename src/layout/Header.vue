@@ -197,6 +197,12 @@ export default {
       },
 
       {
+        type: 'router', // 路由
+        label: 'ICP备案查询',
+        value: 'icp-info',
+      },
+
+      {
         type: 'url', // 外链
         label: 'SSL配置生成',
         value: 'https://ssl-config.mozilla.org/',
