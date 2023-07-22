@@ -11,6 +11,16 @@ export const formRules = {
     },
   ],
 
+  // 负责人
+  user_id: [
+    {
+      message: '负责人不能为空',
+      required: true,
+      trigger: 'blur',
+    },
+  ],
+  
+
   // 端口号
   port: [
     {

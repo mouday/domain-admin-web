@@ -6,13 +6,12 @@
       style="justify-content: space-between"
     >
       <el-button
-        v-if="role == RoleEnum.User"
         type="primary"
         @click="handleAddRow"
         ><el-icon><Plus /></el-icon>添加</el-button
       >
 
-      <span v-else></span>
+      <!-- <span v-else></span> -->
 
       <!-- <SelectGroup
           class="w-[150px] ml-sm"
@@ -25,7 +24,7 @@
         class="ml-sm"
         style="width: 260px"
         v-model="keyword"
-        placeholder="搜索域名"
+        placeholder="搜索域名、标签"
         clearable
         @keypress.enter="handleSearch"
         @clear="handleSearch"
@@ -120,7 +119,9 @@
           >
 
           <!-- 表格设置 -->
-          <TableColumnSet @on-success="handleTableColumnSuccess"></TableColumnSet>
+          <TableColumnSet
+            @on-success="handleTableColumnSuccess"
+          ></TableColumnSet>
         </template>
       </div>
     </div>
@@ -136,6 +137,7 @@
       @sort-change="handleSortChange"
       @selection-change="handleSelectionChange"
       @on-refresh-row="handleRefreshRow"
+      @on-tag-click="handleTagClick"
     />
 
     <!-- 翻页 -->
@@ -152,6 +154,7 @@
 
     <!-- 编辑框 -->
     <DataFormDialog
+      :role="role"
       v-model:visible="dialogVisible"
       @on-success="handleAddSuccess"
     ></DataFormDialog>
@@ -462,10 +465,15 @@ export default {
       }
     },
 
-    handleTableColumnSuccess(){
+    handleTableColumnSuccess() {
       this.tableColumns = getTableColumn()
       this.resetData()
-    }
+    },
+
+    handleTagClick(tag) {
+      this.keyword = tag
+      this.resetData()
+    },
   },
 
   created() {

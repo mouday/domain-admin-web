@@ -11,15 +11,11 @@
         ><el-icon><Plus /></el-icon>添加</el-button
       > -->
       <span>添加成员：</span>
-      <el-autocomplete
-        v-model="keyword"
-        :fetch-suggestions="querySearchAsync"
-        placeholder="搜索用户名"
-        :debounce="500"
-        clearable
-        :disabled="!groupRow.is_leader"
-        @select="handleSelectUser"
-      />
+
+      <SearchUser
+        v-model:keyword="keyword"
+        @on-select="handleSelectUser"
+      ></SearchUser>
     </div>
 
     <!-- 数据列表 -->
@@ -59,6 +55,7 @@
 // import DataFormDialog from '../group-user-edit/DataFormDialog.vue'
 import DataTable from './DataTable.vue'
 import { RoleEnum } from '@/emuns/role-enums.js'
+import SearchUser from '@/components/SearchUser.vue'
 
 export default {
   name: 'group-user-list',
@@ -76,6 +73,7 @@ export default {
   components: {
     // DataFormDialog,
     DataTable,
+    SearchUser,
   },
 
   data() {
@@ -136,35 +134,7 @@ export default {
       this.resetData()
     },
 
-    async searchUser() {
-      this.loading = true
-
-      let params = {
-        keyword: this.keyword,
-      }
-      let list = []
-      try {
-        const res = await this.$http.getUserList(params)
-
-        if (res.ok) {
-          list = res.data.list.map((item) => {
-            item.value = item.username
-            return item
-          })
-        }
-      } catch (e) {
-        console.log(e)
-      } finally {
-        this.loading = false
-      }
-
-      return list
-    },
-
-    async querySearchAsync(queryString, cb) {
-      const list = await this.searchUser()
-      cb(list)
-    },
+    
 
     async handleSelectUser(data) {
       let exist = this.list.find((item) => {

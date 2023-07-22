@@ -127,6 +127,27 @@
             clearable
           ></SelectGroup>
         </el-form-item>
+
+        <!-- 负责人 -->
+        <el-form-item
+          v-if="role == RoleEnum.Admin"
+          label="负责人"
+          prop="user_id"
+          style="align-self: flex-start"
+        >
+          <el-tag
+            v-if="form.user_id"
+            closable
+            @close="handleRemoveUser"
+            >{{ form.user_name }}</el-tag
+          >
+
+          <SearchUser
+            v-else
+            v-model:keyword="keyword"
+            @on-select="handleSelectUser"
+          ></SearchUser>
+        </el-form-item>
       </div>
 
       <!-- 标签 -->
@@ -241,6 +262,11 @@
 // 引入枚举值
 import { formRules } from './config.js'
 import SelectGroup from '@/components/SelectGroup.vue'
+import SearchUser from '@/components/SearchUser.vue'
+import { RoleEnum } from '@/emuns/role-enums.js'
+import { useUserStore } from '@/store/user-store.js'
+import { useSystemStore } from '@/store/system-store.js'
+import { mapState, mapActions } from 'pinia'
 
 export default {
   name: '',
@@ -248,16 +274,24 @@ export default {
   props: {
     // 数据行
     row: { type: Object, default: null },
+
+    role: {
+      type: Number,
+      default: RoleEnum.User,
+    },
   },
 
   components: {
     SelectGroup,
+    SearchUser,
   },
 
   data() {
     return {
+      RoleEnum,
       loading: false,
       tag: '',
+      keyword: '',
       form: {
         // 域名
         domain: '',
@@ -276,6 +310,9 @@ export default {
         icp_licence: '',
         // 标签
         tags: [],
+
+        user_id: '',
+        user_name: '',
       },
 
       options: [],
@@ -287,6 +324,11 @@ export default {
   },
 
   computed: {
+    ...mapState(useUserStore, {
+      userInfo: 'userInfo',
+      isAdmin: 'isAdmin',
+    }),
+
     disabledDomain() {
       if (this.row) {
         return true
@@ -318,6 +360,8 @@ export default {
         this.form.is_auto_update = data.is_auto_update
         this.form.icp_company = data.icp_company
         this.form.icp_licence = data.icp_licence
+        this.form.user_id = data.user_id
+        this.form.user_name = data.user_name
 
         this.form.tags = data.tags || []
         // this.form.port = data.port
@@ -329,6 +373,8 @@ export default {
         if (data.is_auto_update) {
           this.disabledTime = true
         }
+      } else {
+        this.handleSelectUser(this.userInfo)
       }
 
       this.loading = false
@@ -369,6 +415,11 @@ export default {
         tags: this.form.tags,
         icp_company: this.form.icp_company,
         icp_licence: this.form.icp_licence,
+      }
+
+      // 管理员可以提交数据
+      if (this.role == RoleEnum.Admin) {
+        params.user_id = this.form.user_id
       }
 
       let res = null
@@ -432,6 +483,19 @@ export default {
           this.form.icp_licence = res.data.icp
         }
       }
+    },
+
+    handleSelectUser(data) {
+      console.log(data)
+      this.form.user_id = data.id
+      this.form.user_name = data.username
+
+      this.keyword = ''
+    },
+
+    handleRemoveUser() {
+      this.form.user_id = ''
+      this.form.user_name = ''
     },
   },
 

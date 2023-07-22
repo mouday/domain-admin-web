@@ -17,7 +17,7 @@
           <el-tag
             v-if="scope.row.is_leader"
             class="ml-sm"
-            >创建者</el-tag
+            >负责人</el-tag
           >
         </template>
       </el-table-column>

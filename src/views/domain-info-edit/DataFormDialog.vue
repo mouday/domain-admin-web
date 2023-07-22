@@ -11,6 +11,7 @@
     <DataForm
       v-if="dialogVisible"
       :row="row"
+      :role="role"
       @on-cancel="handleClose"
       @on-success="handleSuccess"
     ></DataForm>
@@ -22,6 +23,7 @@
  * created 2022-10-01
  */
 import DataForm from './DataForm.vue'
+import { RoleEnum } from '@/emuns/role-enums.js'
 
 export default {
   name: '',
@@ -37,6 +39,11 @@ export default {
     visible: {
       type: Boolean,
       default: false,
+    },
+
+    role: {
+      type: Number,
+      default: RoleEnum.User,
     },
   },
 

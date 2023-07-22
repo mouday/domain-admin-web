@@ -92,7 +92,11 @@
           <template v-if="scope.row.tags && scope.row.tags.length > 0">
             <template v-for="(tag, index) in scope.row.tags">
               <div class="domain-info-list__table__tag">
-                <el-tag>{{ tag }}</el-tag>
+                <el-tag
+                  @click="handleTagClick(tag)"
+                  class="cursor-pointer"
+                  >{{ tag }}</el-tag
+                >
               </div>
             </template>
           </template>
@@ -163,6 +167,21 @@
             @click="handleUpdateRowICP(scope.row)"
             ><el-icon><Refresh /></el-icon
           ></el-link>
+        </template>
+      </el-table-column>
+
+      <!-- 负责人 -->
+      <el-table-column
+        v-if="role == RoleEnum.Admin"
+        label="负责人"
+        header-align="center"
+        align="center"
+        width="80"
+        prop="user_id"
+        show-overflow-tooltip
+      >
+        <template #default="scope">
+          <span>{{ scope.row.user_name }}</span>
         </template>
       </el-table-column>
 
@@ -259,31 +278,29 @@
             ><el-icon><Refresh /></el-icon
           ></el-link>
 
-          <template v-if="role == RoleEnum.User">
-            <el-link
-              :underline="false"
-              type="primary"
-              class="mr-sm"
-              :disabled="!scope.row.has_edit_permission"
-              @click="handleEditRow(scope.row)"
-              ><el-icon><Edit /></el-icon
-            ></el-link>
+          <el-link
+            :underline="false"
+            type="primary"
+            class="mr-sm"
+            :disabled="!scope.row.has_edit_permission"
+            @click="handleEditRow(scope.row)"
+            ><el-icon><Edit /></el-icon
+          ></el-link>
 
-            <el-popconfirm
-              title="确定删除？"
-              @confirm="handleDeleteClick(scope.row)"
-              :disabled="!scope.row.has_edit_permission"
-            >
-              <template #reference>
-                <el-link
-                  :underline="false"
-                  type="danger"
-                  :disabled="!scope.row.has_edit_permission"
-                  ><el-icon><Delete /></el-icon
-                ></el-link>
-              </template>
-            </el-popconfirm>
-          </template>
+          <el-popconfirm
+            title="确定删除？"
+            @confirm="handleDeleteClick(scope.row)"
+            :disabled="!scope.row.has_edit_permission"
+          >
+            <template #reference>
+              <el-link
+                :underline="false"
+                type="danger"
+                :disabled="!scope.row.has_edit_permission"
+                ><el-icon><Delete /></el-icon
+              ></el-link>
+            </template>
+          </el-popconfirm>
         </template>
       </el-table-column>
 
@@ -303,12 +320,14 @@
     <DataFormDialog
       v-model:visible="dialogVisible"
       :row="currentRow"
+      :role="role"
       @on-success="handleRefreshRow(currentRow)"
     ></DataFormDialog>
 
     <!-- 详情 -->
     <DataDetailDialog
       :row="currentRow"
+      :role="role"
       v-model:visible="dialogDetailVisible"
       @on-success="handleRefreshRow(currentRow)"
     ></DataDetailDialog>
@@ -317,6 +336,7 @@
     <AddressListgDialog
       v-if="currentRow"
       :domainId="currentRow.id"
+      :role="role"
       v-model:visible="AddressListgDialogVisible"
       @on-success="handleUpdateSuccess"
     ></AddressListgDialog>
@@ -529,6 +549,10 @@ export default {
       }
 
       loading.close()
+    },
+
+    handleTagClick(tag) {
+      this.$emit('on-tag-click', tag)
     },
   },
 
