@@ -126,7 +126,7 @@
 
       <!-- 操作 -->
       <el-table-column
-        label="状态"
+        label="启用"
         header-align="center"
         align="center"
         width="80"
