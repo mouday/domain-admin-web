@@ -1,0 +1,11 @@
+{
+  "table": {
+    "columns": [
+      { "comment": "域名列表", "name": "domains", "default": "" },
+      { "comment": "验证状态", "name": "status", "default": "" },
+      { "comment": "SSL签发时间", "name": "start_time", "default": "" },
+      { "comment": "SSL过期时间", "name": "expire_time", "default": "" },
+      { "comment": "创建时间", "name": "create_time_label", "default": "" }
+    ]
+  }
+}

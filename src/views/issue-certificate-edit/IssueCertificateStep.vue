@@ -1,0 +1,143 @@
+<template>
+  <div class="">
+    <el-steps
+      :active="activeStep"
+      align-center
+      finish-status="success"
+    >
+      <template v-for="item in setpList">
+        <el-step :title="item.title" />
+      </template>
+    </el-steps>
+
+    <el-divider />
+
+    <div class="mt-md">
+      <DataForm
+        v-if="activeStep == 0"
+        @on-success="handleIssueSuccess"
+        @on-cancel="$emit('on-cancel')"
+      ></DataForm>
+
+      <VerifyStep
+        v-else-if="activeStep == 1"
+        :form="form"
+        @on-success="handleVerifySuccess"
+      ></VerifyStep>
+
+      <RenewStep
+        v-else-if="activeStep == 2 || activeStep == 3"
+        :form="form"
+        @on-close="$emit('on-cancel')"
+      ></RenewStep>
+    </div>
+  </div>
+</template>
+
+<script>
+// created at 2023-07-23
+import DataForm from './DataForm.vue'
+import VerifyStep from './VerifyStep.vue'
+import RenewStep from './RenewStep.vue'
+
+export default {
+  name: 'IssueCertificateStep',
+
+  props: {
+    row: {
+      type: Object,
+    },
+  },
+
+  components: {
+    DataForm,
+    VerifyStep,
+    RenewStep,
+  },
+
+  data() {
+    return {
+      activeStep: 0,
+      issue_certificate_id: null,
+      form: {
+        id: null,
+        domains: [],
+        domain_validation_urls: [],
+        validation: '',
+        token: '',
+        status: '',
+        ssl_certificate_key: '',
+        ssl_certificate: '',
+      },
+      setpList: [
+        {
+          title: '填写域名',
+        },
+        {
+          title: '部署验证文件',
+        },
+        {
+          title: '下载证书',
+        },
+      ],
+    }
+  },
+
+  computed: {},
+
+  methods: {
+    async getData() {
+      if (!this.issue_certificate_id) {
+        return
+      }
+
+      let params = {
+        issue_certificate_id: this.issue_certificate_id,
+      }
+
+      const res = await this.$http.getIssueCertificateById(params)
+
+      if (!res.ok) {
+        return
+      }
+
+      // 域名列表
+      for (let key in this.form) {
+        this.form[key] = res.data[key]
+      }
+
+      if (res.data.ssl_certificate) {
+        this.activeStep = 3
+      } else if (res.data.status == 'valid') {
+        this.activeStep = 2
+      } else if (res.data.status == 'pending') {
+        this.activeStep = 1
+      } else {
+        this.activeStep = 0
+      }
+    },
+
+    handleIssueSuccess(data) {
+      this.issue_certificate_id = data.id
+
+      this.getData()
+    },
+
+    handleVerifySuccess() {
+      this.getData()
+    },
+  },
+
+  created() {
+    if (this.row) {
+      this.issue_certificate_id = this.row.id
+    }
+
+    this.getData()
+  },
+}
+</script>
+
+<style lang="less"></style>
+
+<style lang="less" scoped></style>

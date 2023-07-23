@@ -45,7 +45,7 @@ export default {
   // 调度日志
   getLogSchedulerList: '/getLogSchedulerList',
   clearLogSchedulerList: '/clearLogSchedulerList',
-  
+
   // 操作日志
   getOperationLogList: '/getOperationLogList',
   clearLogOperationList: '/clearLogOperationList',
@@ -92,7 +92,7 @@ export default {
   // 域名列表
   getDomainInfoList: '/getDomainInfoList',
   addDomainInfo: '/addDomainInfo',
-  updateDomainInfoRowById: '/updateDomainInfoRowById',  
+  updateDomainInfoRowById: '/updateDomainInfoRowById',
   updateDomainInfoOfUser: '/updateDomainInfoOfUser',
   deleteDomainInfoById: '/deleteDomainInfoById',
   deleteDomainInfoByIds: '/deleteDomainInfoByIds',
@@ -106,9 +106,9 @@ export default {
   getSubDomainCert: '/getSubDomainCert',
   updateDomainICPOfUser: '/updateDomainICPOfUser',
   updateDomainRowICP: '/updateDomainRowICP',
-  
+
   getICP: '/getICP',
-  
+
   // 分组权限
   addGroupUser: '/addGroupUser',
   updateGroupUserById: '/updateGroupUserById',
@@ -116,11 +116,18 @@ export default {
   deleteGroupUserByIds: '/deleteGroupUserByIds',
   getGroupUserById: '/getGroupUserById',
   getGroupUserList: '/getGroupUserList',
-  
+
   // 证书信息
   getCertInformation: '/getCertInformation',
 
   // 异步任务日志
   getAsyncTaskLogList: '/getAsyncTaskLogList',
   clearAsyncTaskLogList: '/clearAsyncTaskLogList',
+
+  // SSL证书
+  getCertificateList: '/getCertificateList',
+  issueCertificate: '/issueCertificate',
+  renewCertificate: '/renewCertificate',
+  getIssueCertificateById: '/getIssueCertificateById',
+  verifyCertificateById: '/verifyCertificateById',
 }

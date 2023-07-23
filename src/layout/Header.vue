@@ -201,6 +201,14 @@ export default {
         label: 'ICP备案查询',
         value: 'icp-info',
       },
+      {
+        type: 'router', // 路由
+        label: 'SSL证书申请',
+        value: 'issue-certificate-list',
+      },
+
+
+      
 
       {
         type: 'url', // 外链

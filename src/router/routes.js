@@ -304,6 +304,17 @@ export const routes = [
           hidden: true,
         },
       },
+      {
+        path: 'issue-certificate-list',
+        name: 'issue-certificate-list',
+        component: () => import('../views/issue-certificate-list/index.vue'),
+        meta: {
+          title: 'SSL证书申请',
+          icon: 'Box',
+          // roles: [RoleEnum.Admin],
+          hidden: true,
+        },
+      },
       
     ],
   },
