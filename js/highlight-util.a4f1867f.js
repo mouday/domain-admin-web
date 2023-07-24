@@ -1,0 +1,1 @@
+import{a as l}from"./highlight-lib.3654f6d3.js";l.addPlugin({"before:highlightBlock":({el:h,result:e})=>{console.log("before:highlightBlock")},"after:highlightElement":({el:h,result:e})=>{console.log("after:highlightElement")},"after:highlight":h=>{}});const t=l.highlight;export{t as h};
