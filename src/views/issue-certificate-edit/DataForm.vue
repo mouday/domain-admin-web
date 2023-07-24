@@ -14,7 +14,6 @@
         <el-input
           type="text"
           v-model="form.id"
-          :rows="3"
           placeholder="id"
         ></el-input>
       </el-form-item>
@@ -28,7 +27,7 @@
         <el-input
           type="textarea"
           v-model="form.domains"
-          :rows="3"
+          :rows="5"
           placeholder="请输入域名列表，每行一个"
         ></el-input>
       </el-form-item>

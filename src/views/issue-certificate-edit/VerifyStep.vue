@@ -2,10 +2,16 @@
   <div class="mo-form-detail">
     <el-form label-width="130px">
       <el-form-item
-        label="域名授权验证类型"
+        label="验证文件"
         prop="domain"
       >
-        <span>文件</span>
+        <el-link
+          :underline="false"
+          type="primary"
+          class="mr-sm"
+          @click="downloadVerifyFile"
+          ><el-icon><Download /></el-icon>点击下载</el-link
+        >
       </el-form-item>
 
       <el-form-item
@@ -19,7 +25,9 @@
         label="服务器目录"
         prop="create_time"
       >
-        <span class="verify-step__value">/.well-known/acme-challenge/{{ form.token }}</span>
+        <span class="verify-step__value"
+          >/.well-known/acme-challenge/{{ form.token }}</span
+        >
       </el-form-item>
 
       <el-form-item
@@ -37,6 +45,15 @@
           </div>
         </template>
       </el-form-item>
+
+      <el-form-item
+        label="Nginx配置"
+        prop="isp"
+      >
+      <div style="padding: 10px 0; overflow-x: auto;width: 100%;">
+          <pre><code v-html="nginxConfig"></code></pre>
+        </div>
+      </el-form-item>
     </el-form>
 
     <!-- 操作 -->
@@ -52,6 +69,9 @@
 
 <script>
 // created at 2023-07-23
+import FileSaver from 'file-saver'
+import hljs from 'highlight.js'
+
 export default {
   name: 'VerifyStep',
 
@@ -67,7 +87,23 @@ export default {
     return {}
   },
 
-  computed: {},
+  computed: {
+    domain_list() {
+      return this.form.domains.join(' ')
+    },
+
+    nginxConfig(){
+      return `server {
+  listen 80;
+  server_name ${this.domain_list};
+
+  location /.well-known/acme-challenge/ {
+      alias /var/www/challenges/;
+      try_files $uri =404;
+  }
+}`
+    }
+  },
 
   methods: {
     async getData() {},
@@ -94,6 +130,17 @@ export default {
         loading.close()
       })
     },
+
+    downloadVerifyFile() {
+      let blob = new Blob([this.form.validation], {
+        type: 'application/octet-stream;charset=utf-8',
+      })
+      FileSaver.saveAs(blob, this.form.token)
+    },
+  },
+
+  mounted() {
+    hljs.highlightAll()
   },
 
   created() {

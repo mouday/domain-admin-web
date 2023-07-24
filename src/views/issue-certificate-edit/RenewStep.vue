@@ -26,6 +26,15 @@
           ><el-icon><Download /></el-icon>点击下载</el-link
         >
       </el-form-item>
+
+      <el-form-item
+        label="Nginx配置"
+        prop="domain"
+      >
+        <div style="padding: 10px 0; overflow-x: auto;">
+          <pre><code v-html="nginxConfig"></code></pre>
+        </div>
+      </el-form-item>
     </el-form>
 
     <!-- 操作 -->
@@ -42,6 +51,8 @@
 <script>
 // created at 2023-07-23
 import FileSaver from 'file-saver'
+import { highlight } from '@/utils/highlight-util.js'
+import hljs from 'highlight.js'
 
 export default {
   name: 'VerifyStep',
@@ -55,10 +66,32 @@ export default {
   components: {},
 
   data() {
-    return {}
+    return {
+      nginxConfigTemplate: `server {
+    listen 443 ssl;
+    server_name ${this.form.domain_list};
+
+    ssl_certificate /path/to/${this.form.domains[0]}.pem;
+    ssl_certificate_key /path/to/${this.form.domains[0]}.key;
+    ssl_session_timeout 5m;
+    ssl_protocols TLSv1.2;
+    ssl_ciphers ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
+    ssl_session_cache shared:SSL:50m;
+    ssl_dhparam /path/to/server.dhparam;
+    ssl_prefer_server_ciphers on;
+}`,
+    }
   },
 
-  computed: {},
+  computed: {
+    domain_list() {
+      return this.form.domains.join(' ')
+    },
+
+    nginxConfig() {
+      return highlight(this.nginxConfigTemplate, { language: 'nginx' }).value
+    },
+  },
 
   methods: {
     async getData() {},
@@ -112,8 +145,12 @@ export default {
         type: 'text/plain;charset=utf-8',
       })
       let name = this.form.domains[0]
-      FileSaver.saveAs(blob,`${name}.pem`)
+      FileSaver.saveAs(blob, `${name}.pem`)
     },
+  },
+
+  mounted() {
+    hljs.highlightAll()
   },
 
   created() {
@@ -122,7 +159,11 @@ export default {
 }
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+// .mo-form-detail .code-item .el-form-item__content {
+//   padding: 0;
+// }
+</style>
 
 <style lang="less" scoped>
 .verify-step__value {
