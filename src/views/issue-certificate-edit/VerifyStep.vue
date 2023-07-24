@@ -92,6 +92,7 @@ export default {
       return this.form.domains.join(' ')
     },
 
+    // https://github.com/diafygi/acme-tiny
     nginxConfig(){
       return `server {
   listen 80;
@@ -132,6 +133,8 @@ export default {
     },
 
     downloadVerifyFile() {
+      // 关于vue下载无后缀名的文件被加上后缀.txt，有后缀名的文件下载正常问题的解决
+      // https://blog.csdn.net/yanziit/article/details/127990100
       let blob = new Blob([this.form.validation], {
         type: 'application/octet-stream;charset=utf-8',
       })
