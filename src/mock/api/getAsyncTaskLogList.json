@@ -1,0 +1,57 @@
+{
+    "data":{
+        "list":[
+            {
+                "id":3,
+                "user_id":1,
+                "task_name":"补全域名ICP信息",
+                "function_name":"domain_admin.service.domain_info_service.update_all_domain_icp_of_user",
+                "status":true,
+                "result":"",
+                "start_time":"2023-07-22 17:47:53",
+                "end_time":"2023-07-22 17:48:28",
+                "create_time":"2023-07-22 17:47:53",
+                "update_time":"2023-07-22 17:48:28",
+                "create_time_label":"2天前",
+                "total_time_label":"35s",
+                "total_time":35,
+                "user_name":"admin"
+            },
+            {
+                "id":2,
+                "user_id":1,
+                "task_name":"补全域名ICP信息",
+                "function_name":"domain_admin.service.domain_info_service.update_all_domain_icp_of_user",
+                "status":true,
+                "result":"",
+                "start_time":"2023-07-21 09:54:03",
+                "end_time":"2023-07-21 09:54:09",
+                "create_time":"2023-07-21 09:54:03",
+                "update_time":"2023-07-21 09:54:09",
+                "create_time_label":"4天前",
+                "total_time_label":"6s",
+                "total_time":6,
+                "user_name":"admin"
+            },
+            {
+                "id":1,
+                "user_id":1,
+                "task_name":"补全域名ICP信息",
+                "function_name":"domain_admin.service.domain_info_service.update_all_domain_icp_of_user",
+                "status":true,
+                "result":"",
+                "start_time":"2023-07-21 09:28:00",
+                "end_time":"2023-07-21 09:28:19",
+                "create_time":"2023-07-21 09:28:00",
+                "update_time":"2023-07-21 09:28:19",
+                "create_time_label":"4天前",
+                "total_time_label":"19s",
+                "total_time":19,
+                "user_name":"admin"
+            }
+        ],
+        "total":3
+    },
+    "code":0,
+    "msg":"success"
+}
