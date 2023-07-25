@@ -219,7 +219,7 @@
         </template>
       </el-table-column>
 
-      <!-- 创建时间 -->
+      <!-- 更新时间 -->
       <el-table-column
         label="更新时间"
         header-align="center"

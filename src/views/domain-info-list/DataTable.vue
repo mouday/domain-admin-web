@@ -208,6 +208,21 @@
         </template>
       </el-table-column> -->
 
+      <!-- 更新时间 -->
+      <el-table-column
+        label="更新时间"
+        header-align="center"
+        align="center"
+        width="110"
+        prop="update_time"
+        sortable="custom"
+        show-overflow-tooltip
+      >
+        <template #default="scope">
+          <span>{{ scope.row.update_time_label || '-' }}</span>
+        </template>
+      </el-table-column>
+      
       <template v-if="role == RoleEnum.User">
         <!-- 自动更新 -->
         <el-table-column
