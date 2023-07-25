@@ -25,7 +25,7 @@
     </div>
     <div class="self-center margin-left--auto flex items-center">
       <a
-        href="http://www.chatpet.top/"
+        href="https://www.chatpet.top/"
         class="ad-wrap mr-md"
         target="_blank"
       >
