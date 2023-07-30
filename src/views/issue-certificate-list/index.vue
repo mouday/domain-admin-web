@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <!-- 操作按钮 -->
-    <div class="margin-bottom--20">
+    <div class="flex justify-between margin-bottom--20">
       <el-button
         type="primary"
         @click="handleAddRow"
@@ -25,13 +25,36 @@
       </el-input>
     </div>
 
+    <div class="flex justify-between mt-sm items-center">
+      <div style="font-size: 14px; color: #333333">共计 {{ total }} 条数据</div>
+
+      <div>
+        <el-popconfirm
+          v-if="showBatchDeleteButton"
+          title="确定删除选中？"
+          @confirm="handleBatchDeleteConfirm"
+        >
+          <template #reference>
+            <el-link
+              :underline="false"
+              type="danger"
+              class="mr-sm"
+              ><el-icon><Delete /></el-icon>批量删除</el-link
+            >
+          </template>
+        </el-popconfirm>
+      </div>
+    </div>
+
     <!-- 数据列表 -->
     <DataTable
-      class="mt-md"
+      class="mt-sm"
       v-loading="loading"
       :list="list"
       @on-success="resetData"
+      @on-close="resetData"
       @on-edit-row="handleEditRow"
+      @selection-change="handleSelectionChange"
     />
 
     <!-- 翻页 -->
@@ -49,6 +72,7 @@
     <DataFormDialog
       v-model:visible="dialogVisible"
       @on-success="handleAddSuccess"
+      @on-close="resetData"
     ></DataFormDialog>
   </div>
 </template>
@@ -78,13 +102,21 @@ export default {
       page: 1,
       size: 20,
       keyword: '',
-
+      selectedRows: [],
       loading: true,
       dialogVisible: false,
     }
   },
 
-  computed: {},
+  computed: {
+    showBatchDeleteButton() {
+      if (this.selectedRows && this.selectedRows.length > 0) {
+        return true
+      } else {
+        return false
+      }
+    },
+  },
 
   methods: {
     resetData() {
@@ -106,15 +138,15 @@ export default {
 
         if (res.code == 0) {
           this.list = res.data.list.map((item) => {
-            item.show_status = null
-            item.status_label = '未知'
-
             if (item.status == 'pending') {
-              item.show_status = false
+              item.show_status = null
               item.status_label = '未验证'
             } else if (item.status == 'valid') {
               item.show_status = true
               item.status_label = '已验证'
+            } else {
+              item.show_status = false
+              item.status_label = '未知'
             }
             return item
           })
@@ -137,6 +169,37 @@ export default {
 
     handleSearch() {
       this.resetData()
+    },
+
+    handleSelectionChange(val) {
+      this.selectedRows = val
+      // console.log(val.map((item) => item.id))
+    },
+
+    async handleBatchDeleteConfirm() {
+      let loading = this.$loading({ fullscreen: true })
+
+      let params = {
+        ids: this.selectedRows.map((item) => item.id),
+      }
+
+      try {
+        const res = await this.$http.deleteCertificateByBatch(params)
+
+        if (res.code == 0) {
+          this.$msg.success('操作成功')
+          this.resetData()
+        } else {
+          this.$msg.error(res.msg)
+        }
+      } catch (e) {
+        console.log(e)
+      } finally {
+        this.$nextTick(() => {
+          // 以服务的方式调用的 Loading 需要异步关闭
+          loading.close()
+        })
+      }
     },
   },
 

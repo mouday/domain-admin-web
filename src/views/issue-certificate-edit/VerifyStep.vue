@@ -1,76 +1,40 @@
 <template>
-  <div class="mo-form-detail">
-    <el-form label-width="130px">
-      <el-form-item
-        label="验证文件"
-        prop="domain"
+  <div class="">
+    <el-tabs v-model="activeName">
+      <el-tab-pane
+        label="文件验证"
+        name="file"
+        lazy
       >
-        <el-link
-          :underline="false"
-          type="primary"
-          class="mr-sm"
-          @click="downloadVerifyFile"
-          ><el-icon><Download /></el-icon>点击下载</el-link
-        >
-      </el-form-item>
-
-      <el-form-item
-        label="文件内容"
-        prop="create_time"
+        <VerifyStepFile
+          :form="form"
+          :list="fileList"
+          @on-success="handleSuccess"
+        ></VerifyStepFile>
+      </el-tab-pane>
+      <el-tab-pane
+        label="DNS验证"
+        name="dns"
+        lazy
       >
-        <span class="verify-step__value">{{ form.validation }}</span>
-      </el-form-item>
-
-      <el-form-item
-        label="服务器目录"
-        prop="create_time"
-      >
-        <span class="verify-step__value"
-          >/.well-known/acme-challenge/{{ form.token }}</span
-        >
-      </el-form-item>
-
-      <el-form-item
-        label="HTTP地址"
-        prop="isp"
-      >
-        <template v-for="url in form.domain_validation_urls">
-          <div>
-            <a
-              :href="url"
-              class="verify-step__value mo-link"
-              target="_blank"
-              >{{ url }}</a
-            >
-          </div>
-        </template>
-      </el-form-item>
-
-      <el-form-item
-        label="Nginx配置"
-        prop="isp"
-      >
-      <div style="padding: 10px 0; overflow-x: auto;width: 100%;">
-          <pre><code v-html="nginxConfig"></code></pre>
-        </div>
-      </el-form-item>
-    </el-form>
-
-    <!-- 操作 -->
-    <div class="text-center mt-md">
-      <el-button
-        type="primary"
-        @click="handleSubmit"
-        >验 证</el-button
-      >
-    </div>
+        <VerifyStepDNS
+          
+          :form="form"
+          :list="dnsList"
+          @on-success="handleSuccess"
+        ></VerifyStepDNS>
+      </el-tab-pane>
+    </el-tabs>
   </div>
 </template>
 
 <script>
 // created at 2023-07-23
 import FileSaver from 'file-saver'
-import hljs from 'highlight.js'
+
+
+import VerifyStepDNS from './VerifyStepDNS.vue'
+import VerifyStepFile from './VerifyStepFile.vue'
 
 export default {
   name: 'VerifyStep',
@@ -81,70 +45,83 @@ export default {
     },
   },
 
-  components: {},
+  emits: ['on-success'],
 
-  data() {
-    return {}
+  components: {
+    VerifyStepDNS,
+    VerifyStepFile,
   },
 
-  computed: {
-    domain_list() {
-      return this.form.domains.join(' ')
-    },
-
-    // https://github.com/diafygi/acme-tiny
-    nginxConfig(){
-      return `server {
-  listen 80;
-  server_name ${this.domain_list};
-
-  location /.well-known/acme-challenge/ {
-      alias /var/www/challenges/;
-      try_files $uri =404;
-  }
-}`
+  data() {
+    return {
+      list: [],
+      activeName: 'file',
     }
   },
 
-  methods: {
-    async getData() {},
+  computed: {
+    fileList() {
+      return this.list.filter((item) => {
+        return item.challenge && item.challenge.type == 'http-01'
+      }).map(item=>{
+        item.verify_path = '/.well-known/acme-challenge/' + item.token
+        item.verify_url = 'http://' + item.domain + item.verify_path
+        return item
+      })
+    },
 
-    async handleSubmit() {
-      let loading = this.$loading({ fullscreen: true })
+    dnsList() {
+      return this.list.filter((item) => {
+        return item.challenge && item.challenge.type == 'dns-01'
+      })
+    },
+  },
+
+  methods: {
+    async getData() {
+      this.loading = true
 
       let params = {
-        // 域名列表
         issue_certificate_id: this.form.id,
       }
 
-      const res = await this.$http.verifyCertificateById(params)
+      try {
+        const res = await this.$http.getCertificateChallenges(params)
+        this.list = res.data.list.map((item) => {
+          if (item.challenge) {
+            item = {
+              ...item.challenge,
+              ...item,
+            }
+          }
 
-      if (res.code == 0) {
-        this.$msg.success('验证成功')
-        this.$emit('on-success', res.data)
-      } else {
-        this.$msg.error(res.msg)
+          if (item.status == 'valid') {
+            item.status_value = true
+          } else if (item.status == 'invalid') {
+            item.status_value = false
+          } else {
+            item.status_value = null
+          }
+
+          return item
+        })
+        console.log(this.list);
+
+        this.total = res.data.total
+      } catch (e) {
+        console.log(e)
+        // this.msg.error(e.msg);
+      } finally {
+        this.loading = false
       }
-
-      this.$nextTick(() => {
-        // 以服务的方式调用的 Loading 需要异步关闭
-        loading.close()
-      })
     },
 
-    downloadVerifyFile() {
-      // 关于vue下载无后缀名的文件被加上后缀.txt，有后缀名的文件下载正常问题的解决
-      // https://blog.csdn.net/yanziit/article/details/127990100
-      let blob = new Blob([this.form.validation], {
-        type: 'application/octet-stream;charset=utf-8',
-      })
-      FileSaver.saveAs(blob, this.form.token)
-    },
+    handleSuccess(){
+      this.$emit('on-success')
+    }
   },
 
-  mounted() {
-    hljs.highlightAll()
-  },
+  mounted() {},
 
   created() {
     this.getData()

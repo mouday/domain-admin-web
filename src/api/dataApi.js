@@ -130,4 +130,19 @@ export default {
   renewCertificate: '/renewCertificate',
   getIssueCertificateById: '/getIssueCertificateById',
   verifyCertificateById: '/verifyCertificateById',
+  getWaitVerifyDomainList: '/getWaitVerifyDomainList',
+
+  
+  getDomainHost: '/getDomainHost',
+  deployVerifyFile: '/deployVerifyFile',
+  deployCertificateFile: '/deployCertificateFile',
+  getCertificateChallenges: '/getCertificateChallenges',
+  deleteCertificateById: '/deleteCertificateById',
+  deleteCertificateByBatch: '/deleteCertificateByBatch',
+
+  // 主机管理
+  getHostList: '/getHostList',
+  addHost: '/addHost',
+  getHostById: '/getHostById',
+  updateHostById: '/updateHostById',
 }

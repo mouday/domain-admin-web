@@ -23,6 +23,10 @@ export default defineConfig((config) => {
       // viteCompression(),
     ],
 
+    server: {
+      open: true,
+    },
+
     build: {
       // 禁用 gzip 压缩大小报告
       reportCompressedSize: true,

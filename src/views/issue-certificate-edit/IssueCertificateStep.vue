@@ -10,7 +10,7 @@
       </template>
     </el-steps>
 
-    <el-divider />
+    <!-- <el-divider /> -->
 
     <div class="mt-md">
       <DataForm
@@ -25,11 +25,17 @@
         @on-success="handleVerifySuccess"
       ></VerifyStep>
 
-      <RenewStep
-        v-else-if="activeStep == 2 || activeStep == 3"
+      <!-- <RenewStep
+        v-else-if="activeStep == 2"
+        :form="form"
+        @on-success="handleVerifySuccess"
+      ></RenewStep> -->
+
+      <DownloadStep
+        v-else-if="activeStep == 2"
         :form="form"
         @on-close="$emit('on-cancel')"
-      ></RenewStep>
+      ></DownloadStep>
     </div>
   </div>
 </template>
@@ -39,6 +45,7 @@
 import DataForm from './DataForm.vue'
 import VerifyStep from './VerifyStep.vue'
 import RenewStep from './RenewStep.vue'
+import DownloadStep from './DownloadStep.vue'
 
 export default {
   name: 'IssueCertificateStep',
@@ -47,16 +54,24 @@ export default {
     row: {
       type: Object,
     },
+    defaultActiveStep: {
+      type: Number,
+      default: 0,
+    },
   },
 
   components: {
     DataForm,
     VerifyStep,
     RenewStep,
+    DownloadStep,
   },
 
   data() {
     return {
+      host: '',
+      hasInit: false,
+
       activeStep: 0,
       issue_certificate_id: null,
       form: {
@@ -68,13 +83,18 @@ export default {
         status: '',
         ssl_certificate_key: '',
         ssl_certificate: '',
+        deploy_key_file: '',
+        deploy_fullchain_file: '',
+        deploy_reloadcmd: '',
+        deploy_host: null,
       },
+      
       setpList: [
         {
           title: '填写域名',
         },
         {
-          title: '部署验证文件',
+          title: '验证域名',
         },
         {
           title: '下载证书',
@@ -106,11 +126,13 @@ export default {
         this.form[key] = res.data[key]
       }
 
+      this.activeStep = this.defaultActiveStep
+
       if (res.data.ssl_certificate) {
-        this.activeStep = 3
+        this.activeStep = 2
       } else if (res.data.status == 'valid') {
         this.activeStep = 2
-      } else if (res.data.status == 'pending') {
+      } else if (res.data.id) {
         this.activeStep = 1
       } else {
         this.activeStep = 0

@@ -4,17 +4,14 @@
       :data="list"
       stripe
       border
+      @selection-change="$emit('selection-change', $event)"
     >
       <el-table-column
-        label="ID"
+        type="selection"
+        header-align="center"
         align="center"
-        prop="id"
-        width="60"
-      >
-        <template #default="scope">
-          <span>{{ scope.row.id || '-' }}</span>
-        </template>
-      </el-table-column>
+        width="40"
+      />
 
       <!-- 域名列表 -->
       <el-table-column
@@ -36,7 +33,7 @@
         header-align="center"
         align="center"
         prop="status"
-        width="80"
+        width="90"
       >
         <template #default="scope">
           <ConnectStatus
@@ -44,7 +41,9 @@
             @on-click="handleShowAddressListgDialog(scope.row)"
           ></ConnectStatus>
 
-          <span style="margin-left: 4px;">{{ scope.row.status_label || '-' }}</span>
+          <span style="margin-left: 4px">{{
+            scope.row.status_label || '-'
+          }}</span>
         </template>
       </el-table-column>
 
@@ -54,7 +53,7 @@
         header-align="center"
         align="center"
         prop="start_time"
-        width="160"
+        width="170"
       >
         <template #default="scope">
           <span>{{ scope.row.start_time || '-' }}</span>
@@ -67,7 +66,7 @@
         header-align="center"
         align="center"
         prop="expire_time"
-        width="160"
+        width="170"
       >
         <template #default="scope">
           <span>{{ scope.row.expire_time || '-' }}</span>
@@ -79,6 +78,7 @@
         label="创建时间"
         header-align="center"
         align="center"
+        width="170"
         prop="create_time_label"
       >
         <template #default="scope">
@@ -101,6 +101,18 @@
         </template>
       </el-table-column> -->
 
+      <!-- 自动续期 -->
+      <el-table-column
+        label="自动续期"
+        width="80"
+        header-align="center"
+        align="center"
+      >
+        <template #default="scope">
+          {{ scope.row.is_auto_renew ? '是' : '否' }}
+        </template>
+      </el-table-column>
+
       <el-table-column
         label="查看"
         width="60"
@@ -112,11 +124,12 @@
             :underline="false"
             type="primary"
             @click="handleEditRow(scope.row)"
-            ><el-icon><Tickets /></el-icon></el-link>
+            ><el-icon><Tickets /></el-icon
+          ></el-link>
         </template>
       </el-table-column>
 
-      <!-- <el-table-column
+      <el-table-column
         label="删除"
         width="60"
         align="center"
@@ -136,14 +149,16 @@
             </template>
           </el-popconfirm>
         </template>
-      </el-table-column> -->
+      </el-table-column>
     </el-table>
 
     <!-- 编辑框 -->
     <DataFormDialog
       v-model:visible="dialogVisible"
       :row="currentRow"
+      :defaultActiveStep="1"
       @on-success="handleUpdateSuccess"
+      @on-close="$emit('on-close')"
     ></DataFormDialog>
   </div>
 </template>
@@ -160,7 +175,7 @@ export default {
 
   components: {
     DataFormDialog,
-    ConnectStatus
+    ConnectStatus,
   },
 
   props: {
@@ -168,6 +183,8 @@ export default {
       type: Array,
     },
   },
+
+  emits: ['on-close', 'on-success', 'selection-change'],
 
   computed: {},
 
@@ -186,10 +203,10 @@ export default {
 
     async handleDeleteClick(row) {
       let params = {
-        id: row.id,
+        issue_certificate_id: row.id,
       }
 
-      const res = await this.$http.function(params)
+      const res = await this.$http.deleteCertificateById(params)
 
       if (res.code == 0) {
         this.$msg.success('操作成功')

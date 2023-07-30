@@ -1,0 +1,14 @@
+{
+  "table": {
+    "columns": [
+      { "comment": "域名", "name": "domain", "default": "" },
+      { "comment": "验证类型", "name": "challenge_type", "default": "" },
+      { "comment": "token", "name": "token", "default": "" },
+      { "comment": "验证数据", "name": "validation", "default": "" },
+      { "comment": "验证状态url", "name": "status_url", "default": "" },
+      { "comment": "验证状态", "name": "status", "default": "" },
+      { "comment": "验证时间", "name": "validated_time", "default": "" },
+      { "comment": "创建时间", "name": "create_time_label", "default": "" }
+    ]
+  }
+}
