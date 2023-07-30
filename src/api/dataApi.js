@@ -130,7 +130,6 @@ export default {
   renewCertificate: '/renewCertificate',
   getIssueCertificateById: '/getIssueCertificateById',
   verifyCertificateById: '/verifyCertificateById',
-  getWaitVerifyDomainList: '/getWaitVerifyDomainList',
 
   
   getDomainHost: '/getDomainHost',
