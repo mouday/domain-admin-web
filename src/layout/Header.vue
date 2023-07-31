@@ -41,6 +41,16 @@
         />
       </a>
 
+      <div class="header-tool-btn mr-md header-tool-btn--doc">
+        <el-icon><Link /></el-icon>
+        <a
+          class="header-tool-btn__text"
+          href="https://domain-admin.readthedocs.io/zh_CN/latest/index.html"
+          target="_blank"
+          >使用文档</a
+        >
+      </div>
+
       <el-dropdown trigger="hover">
         <div class="header-tool-btn">
           <el-icon><Suitcase /></el-icon>
@@ -473,6 +483,10 @@ export default {
 
   .ad-img--blue {
     display: none;
+  }
+
+  .header-tool-btn--doc {
+    color: #4f5a76;
   }
 }
 
