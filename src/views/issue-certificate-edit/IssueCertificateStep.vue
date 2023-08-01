@@ -77,7 +77,7 @@ export default {
       form: {
         id: null,
         domains: [],
-        domain_validation_urls: [],
+        // domain_validation_urls: [],
         validation: '',
         token: '',
         status: '',

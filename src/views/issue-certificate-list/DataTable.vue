@@ -27,26 +27,6 @@
         </template>
       </el-table-column>
 
-      <!-- 验证状态 -->
-      <el-table-column
-        label="验证状态"
-        header-align="center"
-        align="center"
-        prop="status"
-        width="90"
-      >
-        <template #default="scope">
-          <ConnectStatus
-            :value="scope.row.show_status"
-            @on-click="handleShowAddressListgDialog(scope.row)"
-          ></ConnectStatus>
-
-          <span style="margin-left: 4px">{{
-            scope.row.status_label || '-'
-          }}</span>
-        </template>
-      </el-table-column>
-
       <!-- SSL签发时间 -->
       <el-table-column
         label="SSL签发时间"
@@ -70,6 +50,49 @@
       >
         <template #default="scope">
           <span>{{ scope.row.expire_time || '-' }}</span>
+        </template>
+      </el-table-column>
+
+      <!-- 证书天数 -->
+      <el-table-column
+        label="证书天数"
+        header-align="center"
+        align="center"
+        width="110"
+        sortable="custom"
+        prop="expire_days"
+      >
+        <template #default="scope">
+          <ExpireProgress
+            :startTime="scope.row.start_time"
+            :endTime="scope.row.expire_time"
+          ></ExpireProgress>
+        </template>
+      </el-table-column>
+
+      <!-- 验证状态 -->
+      <el-table-column
+        label="状态"
+        header-align="center"
+        align="center"
+        prop="status"
+        width="90"
+      >
+        <template #default="scope">
+          <ConnectStatus
+            :value="scope.row.show_status"
+            @on-click="handleEditRow(scope.row)"
+          ></ConnectStatus>
+
+          <el-link
+            :underline="false"
+            type="primary"
+            @click="handleEditRow(scope.row)"
+          >
+            <span style="margin-left: 4px">{{
+              scope.row.status_label || '-'
+            }}</span></el-link
+          >
         </template>
       </el-table-column>
 
@@ -123,7 +146,8 @@
           <el-link
             :underline="false"
             type="primary"
-            @click="handleEditRow(scope.row)"
+            :disabled="!scope.row.has_ssl_certificate"
+            @click="handleOpenDetail(scope.row)"
             ><el-icon><Tickets /></el-icon
           ></el-link>
         </template>
@@ -160,6 +184,12 @@
       @on-success="handleUpdateSuccess"
       @on-close="$emit('on-close')"
     ></DataFormDialog>
+
+    <!-- 详情 -->
+    <CertificateDetailDialog
+      v-model:visible="CertificateDetailDialogVisible"
+      :row="currentRow"
+    ></CertificateDetailDialog>
   </div>
 </template>
 
@@ -169,6 +199,8 @@
  */
 import DataFormDialog from '../issue-certificate-edit/DataFormDialog.vue'
 import ConnectStatus from '@/components/ConnectStatus.vue'
+import ExpireProgress from '@/components/ExpireProgress.vue'
+import CertificateDetailDialog from '../issue-certificate-detail/DataFormDialog.vue'
 
 export default {
   name: '',
@@ -176,6 +208,8 @@ export default {
   components: {
     DataFormDialog,
     ConnectStatus,
+    ExpireProgress,
+    CertificateDetailDialog,
   },
 
   props: {
@@ -192,6 +226,7 @@ export default {
     return {
       currentRow: null,
       dialogVisible: false,
+      CertificateDetailDialogVisible: false,
     }
   },
 
@@ -199,6 +234,11 @@ export default {
     handleEditRow(row) {
       this.currentRow = row
       this.dialogVisible = true
+    },
+
+    handleOpenDetail(row) {
+      this.currentRow = row
+      this.CertificateDetailDialogVisible = true
     },
 
     async handleDeleteClick(row) {

@@ -26,7 +26,9 @@
     </div>
 
     <div class="flex justify-between mt-sm items-center">
-      <div style="font-size: 14px; color: #333333">共计 {{ total }} 条数据</div>
+      <div style="font-size: 14px; color: #333333; line-height: 24px">
+        共计 {{ total }} 条数据
+      </div>
 
       <div>
         <el-popconfirm

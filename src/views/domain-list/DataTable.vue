@@ -132,6 +132,7 @@
         </template>
       </el-table-column>
 
+      <!-- 证书天数 -->
       <el-table-column
         label="证书天数"
         header-align="center"
