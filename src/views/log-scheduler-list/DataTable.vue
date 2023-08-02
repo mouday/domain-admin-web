@@ -67,7 +67,7 @@
       </el-table-column>
 
       <el-table-column
-        label="错误信息"
+        label="执行结果"
         header-align="center"
         align="center"
         prop="status"
