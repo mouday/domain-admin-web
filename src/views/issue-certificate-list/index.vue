@@ -57,6 +57,7 @@
       @on-close="resetData"
       @on-edit-row="handleEditRow"
       @selection-change="handleSelectionChange"
+      @on-refresh-row="handleRefreshRow"
     />
 
     <!-- 翻页 -->
@@ -201,6 +202,21 @@ export default {
           // 以服务的方式调用的 Loading 需要异步关闭
           loading.close()
         })
+      }
+    },
+
+    async handleRefreshRow(row) {
+      let params = {
+        issue_certificate_id: row.id,
+      }
+
+      const res = await this.$http.getIssueCertificateById(params)
+
+      if (res.ok) {
+        let index = this.list.findIndex((item) => item.id == row.id)
+
+        this.list.splice(index, 1, res.data)
+        // console.log(this.list)
       }
     },
   },

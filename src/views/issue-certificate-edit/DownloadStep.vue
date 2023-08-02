@@ -1,37 +1,42 @@
 <template>
   <div>
-    <el-form label-width="130px">
+    <el-form
+      ref="form"
+      :model="deployForm"
+      :rules="rules"
+      label-width="130px"
+    >
       <el-form-item
         label="服务器地址"
-        prop="domain"
+        prop="deploy_host"
       >
         <RemoteHost
           v-if="hasInit"
           :defaultKeyword="host"
-          v-model="deploy_host"
+          v-model="deployForm.deploy_host"
           @on-confirm="handleDeployVerifyFile"
         ></RemoteHost>
       </el-form-item>
 
       <el-form-item
         label="私钥部署路径"
-        prop="create_time"
+        prop="keyDeployPath"
       >
-        <el-input v-model="keyDeployPath"></el-input>
+        <el-input v-model="deployForm.keyDeployPath"></el-input>
       </el-form-item>
 
       <el-form-item
         label="公钥部署路径"
-        prop="create_time"
+        prop="pemDeployPath"
       >
-        <el-input v-model="pemDeployPath"></el-input>
+        <el-input v-model="deployForm.pemDeployPath"></el-input>
       </el-form-item>
 
       <el-form-item
         label="重启命令"
-        prop="create_time"
+        prop="reloadcmd"
       >
-        <el-input v-model="reloadcmd"></el-input>
+        <el-input v-model="deployForm.reloadcmd"></el-input>
       </el-form-item>
     </el-form>
 
@@ -98,10 +103,43 @@ export default {
     return {
       hasInit: false,
       host: '',
-      keyDeployPath: '',
-      pemDeployPath: '',
-      reloadcmd: 'service nginx force-reload',
-      deploy_host: null,
+
+      deployForm: {
+        deploy_host: null,
+        keyDeployPath: '',
+        pemDeployPath: '',
+        reloadcmd: 'service nginx force-reload',
+      },
+      rules: {
+        deploy_host: [
+          {
+            message: '服务器不能为空',
+            required: true,
+            trigger: 'blur',
+          },
+        ],
+        keyDeployPath: [
+          {
+            message: '私钥部署路径不能为空',
+            required: true,
+            trigger: 'blur',
+          },
+        ],
+        pemDeployPath: [
+          {
+            message: '公钥部署路径不能为空',
+            required: true,
+            trigger: 'blur',
+          },
+        ],
+        reloadcmd: [
+          {
+            message: '重启命令不能为空',
+            required: true,
+            trigger: 'blur',
+          },
+        ],
+      },
     }
   },
 
@@ -115,8 +153,8 @@ export default {
     listen 443 ssl;
     server_name ${this.domain_list};
 
-    ssl_certificate ${this.keyDeployPath};
-    ssl_certificate_key ${this.pemDeployPath};  
+    ssl_certificate ${this.deployForm.keyDeployPath};
+    ssl_certificate_key ${this.deployForm.pemDeployPath};  
 }`
     },
   },
@@ -125,15 +163,15 @@ export default {
     async getData() {
       console.log(this.form)
 
-      this.keyDeployPath =
+      this.deployForm.keyDeployPath =
         this.form.deploy_key_file || `/path/to/${this.form.domains[0]}.key`
-      this.pemDeployPath =
+      this.deployForm.pemDeployPath =
         this.form.deploy_fullchain_file ||
         `/path/to/${this.form.domains[0]}.pem`
-      this.reloadcmd = this.form.deploy_reloadcmd || this.reloadcmd
-      this.deploy_host = this.form.deploy_host
+      this.deployForm.reloadcmd = this.form.deploy_reloadcmd || this.reloadcmd
+      this.deployForm.deploy_host = this.form.deploy_host
 
-      if (!this.deploy_host) {
+      if (!this.deployForm.deploy_host) {
         await this.getDomainHost()
       }
 
@@ -167,7 +205,7 @@ export default {
       const res = await this.$http.getHostList(params)
 
       if (res.data.list && res.data.list.length > 0) {
-        this.deploy_host = res.data.list[0]
+        this.deployForm.deploy_host = res.data.list[0]
       }
     },
 
@@ -230,14 +268,24 @@ export default {
     },
 
     async handleDeployVerifyFile(hostRow) {
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          this.confirmDeployVerifyFile(hostRow)
+        } else {
+          return false
+        }
+      })
+    },
+
+    async confirmDeployVerifyFile(hostRow) {
       let loading = this.$loading({ fullscreen: true })
 
       let params = {
         // 域名列表
         issue_certificate_id: this.form.id,
         host_id: hostRow.id,
-        key_deploy_path: this.keyDeployPath,
-        pem_deploy_path: this.pemDeployPath,
+        key_deploy_path: this.deployForm.keyDeployPath,
+        pem_deploy_path: this.deployForm.pemDeployPath,
         reloadcmd: this.reloadcmd,
       }
 

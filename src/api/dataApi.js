@@ -130,6 +130,7 @@ export default {
   renewCertificate: '/renewCertificate',
   getIssueCertificateById: '/getIssueCertificateById',
   verifyCertificateById: '/verifyCertificateById',
+  renewIssueCertificateById: '/renewIssueCertificateById',
 
   
   getDomainHost: '/getDomainHost',

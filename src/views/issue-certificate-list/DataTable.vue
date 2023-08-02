@@ -98,14 +98,14 @@
 
       <!-- 创建时间 -->
       <el-table-column
-        label="创建时间"
+        label="更新时间"
         header-align="center"
         align="center"
         width="170"
-        prop="create_time_label"
+        prop="update_time_label"
       >
         <template #default="scope">
-          <span>{{ scope.row.create_time_label || '-' }}</span>
+          <span>{{ scope.row.update_time_label || '-' }}</span>
         </template>
       </el-table-column>
 
@@ -153,6 +153,31 @@
         </template>
       </el-table-column>
 
+      <!-- 续期 -->
+      <el-table-column
+        label="续期"
+        width="60"
+        align="center"
+        prop="tag"
+      >
+        <template #default="scope">
+          <el-popconfirm
+            title="确定续期？"
+            @confirm="handleRenewIssueCertificateById(scope.row)"
+          >
+            <template #reference>
+              <el-link
+                :underline="false"
+                type="primary"
+                :disabled="!scope.row.is_auto_renew"
+                ><el-icon><Refresh /></el-icon
+              ></el-link>
+            </template>
+          </el-popconfirm>
+        </template>
+      </el-table-column>
+
+      <!-- 删除 -->
       <el-table-column
         label="删除"
         width="60"
@@ -269,6 +294,28 @@ export default {
       } else {
         this.$msg.error(res.msg)
       }
+    },
+
+    async handleRenewIssueCertificateById(row) {
+      let loading = this.$loading({ fullscreen: true })
+
+      let params = {
+        issue_certificate_id: row.id,
+      }
+
+      const res = await this.$http.renewIssueCertificateById(params)
+
+      if (res.code == 0) {
+        this.$msg.success('操作成功')
+        this.$emit('on-success')
+      } else {
+        this.$msg.error(res.msg)
+      }
+
+      this.$nextTick(() => {
+        // 以服务的方式调用的 Loading 需要异步关闭
+        loading.close()
+      })
     },
 
     handleUpdateSuccess() {
