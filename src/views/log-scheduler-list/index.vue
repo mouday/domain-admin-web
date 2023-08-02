@@ -39,7 +39,7 @@
         </template>
       </el-popconfirm>
     </div>
-    
+
     <!-- 数据列表 -->
     <DataTable
       v-loading="loading"
@@ -125,7 +125,13 @@ export default {
       const res = await this.$http.getLogSchedulerList(params)
 
       if (res.code == 0) {
-        this.list = res.data.list
+        this.list = res.data.list.map((item) => {
+          // 显示执行中
+          if (item.status == false) {
+            item.status = null
+          }
+          return item
+        })
         this.total = res.data.total
       }
 
