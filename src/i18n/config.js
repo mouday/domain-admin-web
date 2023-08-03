@@ -39,12 +39,10 @@ export default [
     'zh-CN': '数据管理',
     'en-US': 'Data Manage',
   },
-
   {
     'zh-CN': '系统管理',
     'en-US': 'System Manage',
   },
-
   {
     'zh-CN': '系统日志',
     'en-US': 'System Log',
@@ -89,12 +87,10 @@ export default [
     'zh-CN': '异步任务',
     'en-US': 'Async Task',
   },
-
   {
     'zh-CN': '使用文档',
     'en-US': 'Document',
   },
-
   {
     'zh-CN': '语言',
     'en-US': 'Language',
@@ -127,7 +123,6 @@ export default [
     'zh-CN': '不限',
     'en-US': 'Any',
   },
-
   {
     'zh-CN': '已过期',
     'en-US': 'Expired',
