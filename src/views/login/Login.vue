@@ -41,7 +41,7 @@
           type="primary"
           size="large"
           @click.native.prevent="onSubmit"
-          >登 录</el-button
+          >{{ $t('登录') }}</el-button
         >
       </div>
     </div>

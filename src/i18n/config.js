@@ -4,10 +4,6 @@ export default [
     'en-US': 'English',
   },
   {
-    'zh-CN': '你好',
-    'en-US': 'Hello',
-  },
-  {
     'zh-CN': '域名列表',
     'en-US': 'Domain',
   },
@@ -45,4 +41,10 @@ export default [
     'zh-CN': '系统日志',
     'en-US': 'Log',
   },
+  {
+    'zh-CN': '登录',
+    'en-US': 'Login',
+  },
+
+  
 ]
