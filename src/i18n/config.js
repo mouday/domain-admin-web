@@ -43,6 +43,6 @@ export default [
 
   {
     'zh-CN': '系统日志',
-    'en-US': 'System',
+    'en-US': 'Log',
   },
 ]
