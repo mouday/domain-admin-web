@@ -286,7 +286,7 @@ export default {
         host_id: hostRow.id,
         key_deploy_path: this.deployForm.keyDeployPath,
         pem_deploy_path: this.deployForm.pemDeployPath,
-        reloadcmd: this.reloadcmd,
+        reloadcmd: this.deployForm.reloadcmd,
       }
 
       const res = await this.$http.deployCertificateFile(params)

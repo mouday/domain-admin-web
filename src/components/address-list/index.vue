@@ -6,7 +6,7 @@
         type="primary"
         @click="handleAddRow"
         :disabled="!domainRow.has_edit_permission"
-        ><el-icon><Plus /></el-icon>添加</el-button
+        ><el-icon><Plus /></el-icon>{{ $t('添加') }}</el-button
       >
       <span v-else></span>
 

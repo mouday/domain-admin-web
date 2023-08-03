@@ -32,9 +32,41 @@
         ></el-input>
       </el-form-item>
 
+      <!-- 验证方式 -->
+      <el-form-item
+        label="验证方式"
+        prop="auth_type"
+      >
+        <el-select v-model="form.auth_type">
+          <el-option
+            v-for="item in HostAuthTypeOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+
+      <!-- 秘钥 -->
+      <el-form-item
+        v-if="HostAuthTypeEnum.PRIVATE_KEY == form.auth_type"
+        label="私钥证书"
+        prop="private_key"
+      >
+        <el-input
+          type="textarea"
+          :rows="5"
+          v-model="form.private_key"
+          show-password
+          :spellcheck="false"
+          placeholder="请输入私钥证书"
+        ></el-input>
+      </el-form-item>
+
       <!-- 密码 -->
 
       <el-form-item
+        v-else
         label="密码"
         prop="password"
       >
@@ -72,6 +104,8 @@
  * */
 import {
   formRules,
+  HostAuthTypeEnum,
+  HostAuthTypeOptions,
   // 引入枚举值
 } from './config.js'
 
@@ -90,11 +124,14 @@ export default {
       rules: formRules,
 
       // 引入枚举值
-
+      HostAuthTypeEnum,
+      HostAuthTypeOptions,
       form: {
         host: '',
-        password: '',
         user: '',
+        auth_type: HostAuthTypeEnum.PASSWORD,
+        password: '',
+        private_key: '',
       },
     }
   },
@@ -103,10 +140,16 @@ export default {
 
   methods: {
     async getData() {
-      if (this.row) {
+      console.log(this.row);
+
+      if (this.row && this.row.id) {
+        const data = await this.getHostById(this.row.id)
+
         for (let key in this.form) {
-          this.form[key] = this.row[key]
+          this.form[key] = data[key]
         }
+      } else if (this.row && this.row.host) {
+        this.form.host = this.row.host
       }
     },
 
@@ -116,6 +159,7 @@ export default {
       }
 
       const res = await this.$http.getHostById(params)
+      
       return res.data
     },
 
@@ -142,10 +186,14 @@ export default {
         host: this.form.host,
         user: this.form.user,
         password: this.form.password,
+        private_key: this.form.private_key,
+        auth_type: this.form.auth_type,
       }
 
       let res = null
       let host_row = null
+      let host_id = null
+
       // 编辑
       if (this.row && this.row.id) {
         host_id = this.row.id
@@ -160,11 +208,15 @@ export default {
       } else {
         res = await this.$http.addHost(params)
         host_row = res.data
+        host_id = res.data.id
       }
 
       if (res.code == 0) {
         this.$msg.success('操作成功')
-        this.$emit('on-success', host_row)
+
+        let detailData = await this.getHostById(this.row.id)
+
+        this.$emit('on-success', detailData)
       } else {
         this.$msg.error(res.msg)
       }

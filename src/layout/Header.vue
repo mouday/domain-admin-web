@@ -47,14 +47,14 @@
           class="header-tool-btn__text"
           href="https://domain-admin.readthedocs.io/zh_CN/latest/index.html"
           target="_blank"
-          >使用文档</a
+          >{{ $t('使用文档') }}</a
         >
       </div>
 
       <el-dropdown trigger="hover">
         <div class="header-tool-btn">
           <el-icon><Suitcase /></el-icon>
-          <span class="header-tool-btn__text">工具箱</span>
+          <span class="header-tool-btn__text">{{ $t('工具箱') }}</span>
           <el-icon><arrow-down /></el-icon>
         </div>
 
@@ -85,7 +85,7 @@
       <el-dropdown trigger="hover">
         <div class="header-tool-btn ml-md">
           <el-icon><Location /></el-icon>
-          <span class="header-tool-btn__text">语言</span>
+          <span class="header-tool-btn__text">{{ $t('语言') }}</span>
           <el-icon><arrow-down /></el-icon>
         </div>
 
@@ -112,7 +112,7 @@
           v-for="item in themeList"
           :key="item.value"
           :label="item.value"
-          >{{ item.label }}</el-radio-button
+          >{{ $t(item.label) }}</el-radio-button
         >
       </el-radio-group>
 

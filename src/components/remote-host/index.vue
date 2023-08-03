@@ -24,7 +24,7 @@
         :underline="false"
         type="primary"
         @click="handleAddClick"
-        ><el-icon><Plus /></el-icon><span>添加</span>
+        ><el-icon><Plus /></el-icon><span>{{ $t('添加') }}</span>
       </el-link>
     </template>
 

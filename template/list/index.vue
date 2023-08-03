@@ -5,7 +5,7 @@
       <el-button
         type="primary"
         @click="handleAddRow"
-        ><el-icon><Plus /></el-icon>添加</el-button
+        ><el-icon><Plus /></el-icon>{{ $t('添加') }}</el-button
       >
 
       <el-input

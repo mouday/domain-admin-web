@@ -26,6 +26,30 @@ export const formRules = {
       trigger: 'blur',
     },
   ],
+  private_key: [
+    {
+      message: '秘钥不能为空',
+      required: true,
+      trigger: 'blur',
+    },
+  ],
 }
 
 // 引入枚举值
+
+export const HostAuthTypeEnum = {
+  PASSWORD: 1,
+
+  PRIVATE_KEY: 2,
+}
+
+export const HostAuthTypeOptions = [
+  {
+    label: '密码',
+    value: HostAuthTypeEnum.PASSWORD,
+  },
+  {
+    label: '私钥证书',
+    value: HostAuthTypeEnum.PRIVATE_KEY,
+  },
+]

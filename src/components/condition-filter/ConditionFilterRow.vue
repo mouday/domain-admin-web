@@ -6,7 +6,7 @@
       class="condition-filter__title"
       v-if="title"
     >
-      {{ title }}
+      {{ $t(title) }}
     </div>
 
     <div class="condition-filter__group_button">
@@ -16,7 +16,7 @@
         :class="{ 'condition-filter__tag--seleted': selectedIsEmpty }"
         @click="handleClear"
       >
-        不限
+        {{ $t('不限') }}
       </div>
 
       <!-- 筛选项 -->
@@ -37,7 +37,7 @@
                   }"
                   @click="handleClick(item)"
                 >
-                  <span>{{ item[labelKey] }}</span>
+                  <span>{{  $t(item[labelKey]) }}</span>
                   <span class="condition-filter__tag__close">
                     <el-icon><Close /></el-icon>
                   </span>

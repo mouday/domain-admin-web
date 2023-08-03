@@ -127,10 +127,24 @@
       <!-- 自动续期 -->
       <el-table-column
         label="自动续期"
-        width="80"
+        width="100"
         header-align="center"
         align="center"
       >
+        <template #header>
+          <el-tooltip
+            effect="dark"
+            content="自动验证和自动部署成功的证书才会自动续期"
+            placement="top-start"
+            :show-after="800"
+          >
+            <div class="inline-flex items-center">
+              <span class="mr-[2px]">自动续期</span>
+              <el-icon><Warning /></el-icon>
+            </div>
+          </el-tooltip>
+        </template>
+
         <template #default="scope">
           {{ scope.row.is_auto_renew ? '是' : '否' }}
         </template>
