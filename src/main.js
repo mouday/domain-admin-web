@@ -29,6 +29,7 @@ import { useMock } from './mock/index.js'
 
 import App from './App.vue'
 import { isMobile } from './utils/client-util.js'
+import { useI18n } from './i18n/index.js'
 
 // 使用虚拟数据
 if (import.meta.env.VITE_MODE == 'preview') {
@@ -62,6 +63,8 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 
 const pinia = createPinia()
 app.use(pinia)
+
+useI18n(app)
 
 // highlight.js
 // hljs.registerLanguage('javascript', javascript)

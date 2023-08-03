@@ -22,7 +22,7 @@
               <el-icon>
                 <component :is="route.children[0].meta.icon"></component>
               </el-icon>
-              <span>{{ route.children[0].meta.title }}</span>
+              <span>{{ $t(route.children[0].meta.title) }}</span>
             </el-menu-item>
 
             <!-- 多个子节点 -->
@@ -34,7 +34,7 @@
                 <el-icon>
                   <component :is="route.meta.icon"></component>
                 </el-icon>
-                <span>{{ route.meta.title }}</span>
+                <span>{{ $t(route.meta.title) }}</span>
               </template>
 
               <template v-for="child in route.children">
@@ -42,7 +42,7 @@
                   <el-menu-item
                     :index="child.name"
                     @click="handleRouteClick(child)"
-                    >{{ child.meta.title }}</el-menu-item
+                    >{{ $t(child.meta.title) }}</el-menu-item
                   >
                 </template>
               </template>

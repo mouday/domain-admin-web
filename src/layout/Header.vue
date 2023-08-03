@@ -81,6 +81,27 @@
         </template>
       </el-dropdown>
 
+      <!--  语言 -->
+      <el-dropdown trigger="hover">
+        <div class="header-tool-btn ml-md">
+          <el-icon><Location /></el-icon>
+          <span class="header-tool-btn__text">语言</span>
+          <el-icon><arrow-down /></el-icon>
+        </div>
+
+        <template #dropdown>
+          <el-dropdown-menu>
+            <template v-for="item in languageOptions">
+              <el-dropdown-item
+                @click="handleLanguageItemClick(item)"
+                class="justify-center"
+                >{{ item.label }}</el-dropdown-item
+              >
+            </template>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+
       <el-radio-group
         v-model="theme"
         size="small"
@@ -163,6 +184,7 @@ import { useSystemStore } from '@/store/system-store.js'
 import { mapState, mapActions } from 'pinia'
 import avatar from '@/assets/user-avatar.gif'
 import Breadcrumb from './Breadcrumb.vue'
+import { languageOptions } from '@/i18n/index.js'
 
 export default {
   name: 'Header',
@@ -244,6 +266,7 @@ export default {
     ]
 
     return {
+      languageOptions,
       toolList,
 
       dialogVisible: false,
@@ -374,6 +397,12 @@ export default {
           name: item.value,
         })
       }
+    },
+
+    handleLanguageItemClick(item) {
+      console.log(item)
+      localStorage.setItem('language', item.value)
+      location.reload()
     },
   },
 

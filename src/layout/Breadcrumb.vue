@@ -2,7 +2,7 @@
   <!-- 面包屑 -->
   <el-breadcrumb separator="/">
     <template v-for="route in matchedRoutes">
-      <el-breadcrumb-item>{{ route.meta.title }}</el-breadcrumb-item>
+      <el-breadcrumb-item>{{ $t(route.meta.title) }}</el-breadcrumb-item>
     </template>
   </el-breadcrumb>
 </template>
