@@ -9,7 +9,7 @@ export default [
   },
   {
     'zh-CN': '域名列表',
-    'en-US': 'Domain',
+    'en-US': 'Domain List',
   },
   {
     'zh-CN': '证书',
@@ -17,7 +17,7 @@ export default [
   },
   {
     'zh-CN': '证书列表',
-    'en-US': 'SSL Cert',
+    'en-US': 'Cert List',
   },
   {
     'zh-CN': '分组',
@@ -25,7 +25,7 @@ export default [
   },
   {
     'zh-CN': '分组管理',
-    'en-US': 'Group',
+    'en-US': 'Group Manage',
   },
   {
     'zh-CN': '通知',
@@ -33,11 +33,11 @@ export default [
   },
   {
     'zh-CN': '通知列表',
-    'en-US': 'Notify',
+    'en-US': 'Notify List',
   },
   {
     'zh-CN': '数据管理',
-    'en-US': 'Data',
+    'en-US': 'Data Manage',
   },
 
   {
@@ -59,15 +59,15 @@ export default [
   },
   {
     'zh-CN': '全部证书',
-    'en-US': 'All Cert',
+    'en-US': 'All Certs',
   },
   {
     'zh-CN': '全部域名',
-    'en-US': 'All Domain',
+    'en-US': 'All Domains',
   },
   {
     'zh-CN': '全部分组',
-    'en-US': 'All Group',
+    'en-US': 'All Groups',
   },
   {
     'zh-CN': '用户管理',
