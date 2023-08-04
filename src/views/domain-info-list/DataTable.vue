@@ -155,7 +155,7 @@
         :label="$t('更新ICP')"
         header-align="center"
         align="center"
-        width="70"
+        width="100"
         prop="update_icp"
         show-overflow-tooltip
       >

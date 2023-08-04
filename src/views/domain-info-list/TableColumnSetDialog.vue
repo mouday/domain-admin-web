@@ -1,7 +1,7 @@
 <template>
   <!-- 编辑框 -->
   <el-dialog
-    title="表格设置"
+    :title="$t('表格设置')"
     v-model="dialogVisible"
     width="500px"
     center

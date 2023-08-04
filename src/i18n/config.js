@@ -176,6 +176,10 @@ export default [
     'en-US': 'Table Setting',
   },
   {
+    'zh-CN': '显示字段',
+    'en-US': 'Fields',
+  },
+  {
     'zh-CN': '名称',
     'en-US': 'Name',
   },
@@ -544,12 +548,20 @@ export default [
     'en-US': 'Please Input Company Name',
   },
   {
+    'zh-CN': '主办单位名称',
+    'en-US': 'Company Name',
+  },
+  {
     'zh-CN': '主办单位',
     'en-US': 'Company',
   },
   {
     'zh-CN': 'ICP备案',
     'en-US': 'ICP',
+  },
+  {
+    'zh-CN': '更新ICP',
+    'en-US': 'Update ICP',
   },
   {
     'zh-CN': '请输入ICP备案',

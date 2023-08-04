@@ -14,13 +14,13 @@
       >
         <!-- 域名 -->
         <el-form-item
-          label="域名"
+          :label="$t('域名')"
           prop="domain"
         >
           <el-input
             v-model="form.domain"
             style="width: 300px; margin-right: 20px"
-            placeholder="输入域名"
+            :placeholder="$t('输入域名')"
             clearable
             @keypress.enter.native="handleSearch"
           ></el-input>
@@ -31,8 +31,7 @@
         </el-form-item></el-form
       >
 
-      <span
-        class="color--info text-[14px]"
+      <span class="color--info text-[14px]"
         >数据来源：<a
           href="https://beian.miit.gov.cn/#/Integrated/index"
           target="_blank"
@@ -45,7 +44,7 @@
     <div v-if="row">
       <!-- 主题信息 -->
       <div>
-        <h2>备案信息</h2>
+        <h2>{{ $t('备案信息') }}</h2>
 
         <div class="mo-form-detail mt-sm">
           <el-form
@@ -53,14 +52,14 @@
             label-position="right"
           >
             <el-form-item
-              label="主办单位名称"
+              :label="$t('主办单位名称')"
               prop="domain"
             >
               <span>{{ row.icp_company || '-' }}</span>
             </el-form-item>
 
             <el-form-item
-              label="ICP备案"
+              :label="$t('ICP备案')"
               prop="icp_licence"
             >
               <span>{{ row.icp_licence || '-' }}</span>

@@ -8,7 +8,7 @@
     >
       <!-- 域名 -->
       <el-form-item
-        label="显示字段"
+        :label="$t('显示字段')"
         prop="fields"
       >
         <el-checkbox-group v-model="form.fields">
@@ -62,15 +62,15 @@ export default {
 
       options: [
         {
-          label: '主办单位名称',
+          label: this.$t('主办单位名称'),
           value: 'icp_company',
         },
         {
-          label: 'ICP备案',
+          label: this.$t('ICP备案'),
           value: 'icp_licence',
         },
         {
-          label: '更新ICP',
+          label: this.$t('更新ICP'),
           value: 'update_icp',
         },
       ],

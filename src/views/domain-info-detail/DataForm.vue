@@ -33,7 +33,7 @@
         </el-form-item>
 
         <el-form-item
-          label="主办单位名称"
+          :label="$t('主办单位名称')"
           prop="isp"
         >
           <!-- <el-tooltip
