@@ -74,14 +74,14 @@
               :underline="false"
               type="success"
               @click="handleSaveRow(scope.row)"
-              ><el-icon><Select /></el-icon>保存</el-link
+              ><el-icon><Select /></el-icon>{{ $t('保存') }}</el-link
             >
             <el-link
               class="ml-sm"
               :underline="false"
               type="warning"
               @click="handleCancelRow(scope.row)"
-              ><el-icon><CloseBold /></el-icon>取消</el-link
+              ><el-icon><CloseBold /></el-icon>{{ $t('取消') }}</el-link
             >
           </template>
           <el-link

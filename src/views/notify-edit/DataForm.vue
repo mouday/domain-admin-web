@@ -8,7 +8,7 @@
     >
       <!-- 通知方式 -->
       <el-form-item
-        label="通知方式"
+        :label="$t('通知方式')"
         prop="type_id"
       >
         <el-select
@@ -27,11 +27,11 @@
 
       <!-- 触发事件 -->
       <el-form-item
-        label="触发事件"
+        :label="$t('触发事件')"
         prop="event_id"
       >
         <el-select
-          placeholder="触发事件"
+          :placeholder="$t('触发事件')"
           v-model="form.event_id"
         >
           <el-option
@@ -44,7 +44,7 @@
       </el-form-item>
 
       <el-form-item
-        label="剩余天数"
+        :label="$t('剩余天数')"
         prop="expire_days"
       >
         <el-input-number
@@ -55,12 +55,12 @@
       </el-form-item>
 
       <el-form-item
-        label="备注"
+        :label="$t('备注')"
         prop="comment"
       >
         <el-input
           v-model="form.comment"
-          placeholder="备注"
+          :placeholder="$t('备注')"
         ></el-input>
       </el-form-item>
     </el-form>
@@ -130,7 +130,7 @@ export default {
       options: [
         {
           value: NotifyTypeEnum.Email,
-          label: '邮件通知',
+          label: this.$t('邮件'),
           icon: 'Message',
           component: NotifyEditEmail,
         },
@@ -142,19 +142,19 @@ export default {
         },
         {
           value: NotifyTypeEnum.WorkWeixin,
-          label: '企业微信',
+          label: this.$t('企业微信'),
           icon: 'ChatSquare',
           component: NotifyEditWorkWeixin,
         },
         {
           value: NotifyTypeEnum.DingTalk,
-          label: '钉钉',
+          label: this.$t('钉钉'),
           icon: 'ChatSquare',
           component: NotifyEditDingTalk,
         },
         {
           value: NotifyTypeEnum.Feishu,
-          label: '飞书',
+          label: this.$t('飞书'),
           icon: 'ChatSquare',
           component: NotifyEditFeishu,
         },

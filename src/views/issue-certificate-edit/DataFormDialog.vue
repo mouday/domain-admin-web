@@ -1,7 +1,7 @@
 <template>
   <!-- 编辑框 -->
   <el-dialog
-    title="申请SSL证书"
+    :title="$t('申请SSL证书')"
     v-model="dialogVisible"
     width="90%"
     center
@@ -61,7 +61,7 @@ export default {
       if (this.row) {
         return '编辑'
       } else {
-        return '申请SSL证书'
+        return this.$t('申请SSL证书')
       }
     },
 

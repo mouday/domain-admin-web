@@ -24,7 +24,7 @@
         class="ml-sm"
         style="width: 260px"
         v-model="keyword"
-        placeholder="搜索域名、标签"
+        :placeholder="$t('搜索域名、标签')"
         clearable
         @keypress.enter="handleSearch"
         @clear="handleSearch"
@@ -52,8 +52,8 @@
       class="flex mt-sm"
       style="align-items: center"
     >
-      <div style="font-size: 14px; color: #333333">共计 {{ total }} 条数据</div>
-
+      
+      <DataCount :value="total"></DataCount>
       <div
         class="flex"
         style="margin-left: auto"
@@ -94,7 +94,7 @@
             type="primary"
             class="ml-sm"
             style="position: relative"
-            ><el-icon><Upload /></el-icon>导入
+            ><el-icon><Upload /></el-icon>{{ $t('导入') }}
             <el-upload
               ref="upload"
               action="action"
@@ -115,7 +115,7 @@
             type="primary"
             class="ml-sm mr-sm"
             @click="handleExportToFile"
-            ><el-icon><Download /></el-icon>导出</el-link
+            ><el-icon><Download /></el-icon>{{ $t('导出') }}</el-link
           >
 
           <!-- 表格设置 -->
@@ -183,6 +183,7 @@ import TableColumnSet from './TableColumnSet.vue'
 import { getUUID } from '@/utils/uuid.js'
 import { RoleEnum } from '@/emuns/role-enums.js'
 import { getTableColumn } from './table-column.js'
+import DataCount from '@/components/DataCount.vue'
 
 export default {
   name: 'domain-list',
@@ -203,6 +204,7 @@ export default {
     ConditionFilter,
     UpdateDomainICP,
     TableColumnSet,
+    DataCount
   },
 
   data() {

@@ -2,7 +2,8 @@
   <el-autocomplete
     v-model="keyword_"
     :fetch-suggestions="querySearchAsync"
-    placeholder="搜索用户名"
+    
+    :placeholder="$t('搜索用户名')"
     :debounce="500"
     clearable
     @select="handleSelectUser"

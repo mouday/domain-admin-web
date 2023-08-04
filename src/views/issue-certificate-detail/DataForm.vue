@@ -53,7 +53,7 @@
       <!-- <el-button
         type="primary"
         @click="handleSubmit"
-        >确 定</el-button
+        >{{ $t('确定') }}</el-button
       > -->
     </div>
   </div>

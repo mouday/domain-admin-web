@@ -2,7 +2,7 @@
   <el-select
     v-bind="$attrs"
     v-on="$events"
-    placeholder="分组"
+    :placeholder="$t('分组')"
   >
     <el-option
       v-for="item in options"

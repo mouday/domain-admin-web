@@ -5,14 +5,14 @@
       <el-button
         type="primary"
         @click="handleAddRow"
-        ><el-icon><Plus /></el-icon>申请</el-button
+        ><el-icon><Plus /></el-icon>{{ $t('申请') }}</el-button
       >
 
       <el-input
         class="ml-sm"
         style="width: 260px"
         v-model="keyword"
-        placeholder="输入域名"
+        :placeholder="$t('搜索域名')"
         clearable
         @keypress.enter="handleSearch"
         @clear="handleSearch"
@@ -26,9 +26,9 @@
     </div>
 
     <div class="flex justify-between mt-sm items-center">
-      <div style="font-size: 14px; color: #333333; line-height: 24px">
-        共计 {{ total }} 条数据
-      </div>
+     
+
+      <DataCount :value="total"></DataCount>
 
       <div>
         <el-popconfirm
@@ -87,6 +87,7 @@
 
 import DataFormDialog from '../issue-certificate-edit/DataFormDialog.vue'
 import DataTable from './DataTable.vue'
+import DataCount from '@/components/DataCount.vue'
 
 export default {
   name: 'issue-certificate-list',
@@ -96,7 +97,9 @@ export default {
   components: {
     DataFormDialog,
     DataTable,
+    DataCount
   },
+
 
   data() {
     return {
@@ -143,13 +146,13 @@ export default {
           this.list = res.data.list.map((item) => {
             if (item.status == 'pending') {
               item.show_status = null
-              item.status_label = '未验证'
+              item.status_label = this.$t('未验证')
             } else if (item.status == 'valid') {
               item.show_status = true
-              item.status_label = '已验证'
+              item.status_label = this.$t('已验证')
             } else {
               item.show_status = false
-              item.status_label = '未知'
+              item.status_label = this.$t('未知')
             }
             return item
           })

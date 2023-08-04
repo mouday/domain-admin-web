@@ -9,7 +9,7 @@
       <!-- 定时检测 -->
 
       <el-form-item
-        label="定时设置"
+        :label="$t('定时设置')"
         prop="scheduler_cron"
       >
         <el-input
@@ -21,7 +21,7 @@
       </el-form-item>
 
       <el-form-item
-        label="执行计划"
+        :label="$t('执行计划')"
         prop="cronNextList"
       >
         <div v-if="cronNextList && cronNextList.length > 0">
@@ -44,7 +44,7 @@
       <el-button
         type="primary"
         @click="handleSubmit"
-        >保 存</el-button
+        >{{ $t('保存') }}</el-button
       >
     </div>
   </div>

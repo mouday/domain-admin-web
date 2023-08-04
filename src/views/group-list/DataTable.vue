@@ -28,7 +28,7 @@
 
       <!-- 名称 -->
       <el-table-column
-        label="名称"
+        :label="$t('名称')"
         header-align="center"
         align="center"
         prop="name"
@@ -40,7 +40,7 @@
 
       <!-- 证书数量 -->
       <el-table-column
-        label="证书数量"
+        :label="$t('证书数量')"
         header-align="center"
         align="center"
         prop="name"
@@ -53,11 +53,11 @@
 
       <!-- 域名数量 -->
       <el-table-column
-        label="域名数量"
+        :label="$t('域名数量')"
         header-align="center"
         align="center"
         prop="name"
-        width="100"
+        width="120"
       >
         <template #default="scope">
           <span>{{ scope.row.domain_count || '0' }}</span>
@@ -66,7 +66,7 @@
 
       <!-- 成员数量 -->
       <el-table-column
-        label="成员数量"
+        :label="$t('成员数量')"
         header-align="center"
         align="center"
         prop="name"
@@ -112,8 +112,8 @@
       <template v-if="role == RoleEnum.User">
         <!-- 关联证书 -->
         <el-table-column
-          label="关联证书"
-          width="100"
+          :label="$t('关联证书')"
+          width="130"
           header-align="center"
           align="center"
         >
@@ -129,7 +129,7 @@
         </el-table-column>
 
         <el-table-column
-          label="编辑"
+          :label="$t('编辑')"
           width="60"
           header-align="center"
           align="center"
@@ -146,14 +146,14 @@
         </el-table-column>
 
         <el-table-column
-          label="删除"
+          :label="$t('删除')"
           width="60"
           align="center"
           prop="tag"
         >
           <template #default="scope">
             <el-popconfirm
-              title="确定删除？"
+            :title="`${$t('确定删除')}？`"
               @confirm="handleDeleteClick(scope.row)"
               :disabled="!scope.row.is_leader"
             >

@@ -56,9 +56,9 @@ export default {
   computed: {
     dialogTitle() {
       if (this.row) {
-        return '编辑分组'
+        return this.$t('编辑分组')
       } else {
-        return '添加分组'
+        return this.$t('添加分组')
       }
     },
 

@@ -4,10 +4,10 @@
       ref="form"
       :model="deployForm"
       :rules="rules"
-      label-width="130px"
+      label-width="160px"
     >
       <el-form-item
-        label="服务器地址"
+        :label="$t('服务器地址')"
         prop="deploy_host"
       >
         <RemoteHost
@@ -19,21 +19,22 @@
       </el-form-item>
 
       <el-form-item
-        label="私钥部署路径"
+        :label="$t('私钥部署路径')"
         prop="keyDeployPath"
       >
         <el-input v-model="deployForm.keyDeployPath"></el-input>
       </el-form-item>
 
       <el-form-item
-        label="公钥部署路径"
+        
+        :label="$t('公钥部署路径')"
         prop="pemDeployPath"
       >
         <el-input v-model="deployForm.pemDeployPath"></el-input>
       </el-form-item>
 
       <el-form-item
-        label="重启命令"
+        :label="$t('重启命令')"
         prop="reloadcmd"
       >
         <el-input v-model="deployForm.reloadcmd"></el-input>
@@ -43,7 +44,7 @@
     <div class="mo-form-detail">
       <el-form label-width="130px">
         <el-form-item
-          label="SSL证书"
+          :label="$t('SSL证书')"
           prop="domain"
         >
           <el-link
@@ -51,12 +52,13 @@
             type="primary"
             class="mr-sm"
             @click="downloadSSLFile"
-            ><el-icon><Download /></el-icon>点击下载（.zip）</el-link
+            ><el-icon><Download /></el-icon>{{$t('点击下载')}}（.zip）</el-link
           >
         </el-form-item>
 
         <el-form-item
-          label="Nginx配置"
+          
+          :label="$t('Nginx配置')"
           prop="domain"
         >
           <CodeHighlight :value="nginxConfig"></CodeHighlight>
@@ -66,9 +68,8 @@
       <!-- 操作 -->
       <div class="text-center mt-md">
         <el-button
-          type="primary"
           @click="handleClose"
-          >关 闭</el-button
+          >{{ $t('关闭') }}</el-button
         >
       </div>
     </div>

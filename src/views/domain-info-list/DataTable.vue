@@ -18,7 +18,7 @@
 
       <!-- 域名 -->
       <el-table-column
-        label="域名"
+        :label="$t('域名')"
         header-align="center"
         align="center"
         width="250"
@@ -35,7 +35,7 @@
       </el-table-column>
 
       <el-table-column
-        label="域名天数"
+        :label="$t('域名天数')"
         header-align="center"
         align="center"
         width="90"
@@ -49,7 +49,7 @@
 
       <!-- 证书个数 -->
       <el-table-column
-        label="证书数量"
+        :label="$t('证书数量')"
         header-align="center"
         align="center"
         width="100"
@@ -67,7 +67,7 @@
 
       <!-- 分组 -->
       <el-table-column
-        label="分组"
+        :label="$t('分组')"
         header-align="center"
         align="center"
         width="100"
@@ -81,7 +81,7 @@
 
       <!-- 标签 -->
       <el-table-column
-        label="标签"
+        :label="$t('标签')"
         header-align="center"
         align="left"
         width="100"
@@ -107,10 +107,11 @@
 
       <!-- 备注 -->
       <el-table-column
-        label="备注"
+        :label="$t('备注')"
         header-align="center"
         align="left"
         prop="comment"
+        min-width="100"
         show-overflow-tooltip
       >
         <template #default="scope">
@@ -121,7 +122,7 @@
       <!-- 主办单位名称 -->
       <el-table-column
         v-if="tableColumns.includes('icp_company')"
-        label="主办单位名称"
+        :label="$t('主办单位名称')"
         header-align="center"
         align="left"
         width="200"
@@ -136,7 +137,7 @@
       <!-- ICP备案 -->
       <el-table-column
         v-if="tableColumns.includes('icp_licence')"
-        label="ICP备案"
+        :label="$t('ICP备案')"
         header-align="center"
         align="left"
         width="200"
@@ -151,7 +152,7 @@
       <!-- 更新ICP -->
       <el-table-column
         v-if="tableColumns.includes('update_icp')"
-        label="更新ICP"
+        :label="$t('更新ICP')"
         header-align="center"
         align="center"
         width="70"
@@ -173,7 +174,7 @@
       <!-- 负责人 -->
       <el-table-column
         v-if="role == RoleEnum.Admin"
-        label="负责人"
+        :label="$t('负责人')"
         header-align="center"
         align="center"
         width="80"
@@ -210,10 +211,10 @@
 
       <!-- 更新时间 -->
       <el-table-column
-        label="更新时间"
+        :label="$t('更新时间')"
         header-align="center"
         align="center"
-        width="110"
+        width="120"
         prop="update_time"
         sortable="custom"
         show-overflow-tooltip
@@ -222,12 +223,12 @@
           <span>{{ scope.row.update_time_label || '-' }}</span>
         </template>
       </el-table-column>
-      
+
       <template v-if="role == RoleEnum.User">
         <!-- 自动更新 -->
         <el-table-column
-          label="自动更新"
-          width="90"
+          :label="$t('自动更新')"
+          width="120"
           header-align="center"
           align="center"
           sortable="custom"
@@ -244,7 +245,7 @@
 
         <!-- 监测 -->
         <el-table-column
-          label="到期提醒"
+          :label="$t('到期提醒')"
           width="90"
           header-align="center"
           align="center"
@@ -262,7 +263,7 @@
       </template>
 
       <el-table-column
-        label="操作"
+        :label="$t('操作')"
         width="100"
         header-align="center"
         align="center"
@@ -303,7 +304,7 @@
           ></el-link>
 
           <el-popconfirm
-            title="确定删除？"
+          :title="`${$t('确定删除')}？`"
             @confirm="handleDeleteClick(scope.row)"
             :disabled="!scope.row.has_edit_permission"
           >

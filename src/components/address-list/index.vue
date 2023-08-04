@@ -31,7 +31,7 @@
           type="primary"
           :disabled="disableUpdateButton"
           @click="updateAllAddress"
-          ><el-icon><Refresh /></el-icon>全部更新</el-link
+          ><el-icon><Refresh /></el-icon>{{ $t('全部更新') }}</el-link
         >
       </div>
 

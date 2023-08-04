@@ -56,9 +56,9 @@ export default {
   computed: {
     dialogTitle() {
       if (this.row) {
-        return '编辑通知'
+        return this.$t('编辑通知')
       } else {
-        return '添加通知'
+        return this.$t('添加通知')
       }
     },
 

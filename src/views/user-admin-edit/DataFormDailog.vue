@@ -56,9 +56,9 @@ export default {
   computed: {
     dialogTitle() {
       if (this.row) {
-        return '编辑用户'
+        return this.$t('编辑用户')
       } else {
-        return '添加用户'
+        return this.$t('添加用户')
       }
     },
 

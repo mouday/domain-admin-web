@@ -7,7 +7,7 @@
       @sort-change="$emit('on-sort-change', $event)"
     >
       <el-table-column
-        label="序号"
+        :label="$t('序号')"
         align="center"
         prop="id"
         width="60"
@@ -19,7 +19,7 @@
 
       <!-- 事件类型 -->
       <el-table-column
-        label="事件类型"
+        :label="$t('事件类型')"
         header-align="center"
         align="left"
         width="150"
@@ -33,7 +33,7 @@
 
       <!-- 通知方式 -->
       <el-table-column
-        label="通知方式"
+        :label="$t('通知方式')"
         header-align="center"
         align="left"
         width="150"
@@ -47,7 +47,7 @@
 
       <!-- 剩余天数 -->
       <el-table-column
-        label="剩余天数"
+        :label="$t('剩余天数')"
         header-align="center"
         align="center"
         width="90"
@@ -89,7 +89,7 @@
 
       <!-- 备注 -->
       <el-table-column
-        label="备注"
+        :label="$t('备注')"
         header-align="center"
         align="left"
         prop="comment"
@@ -101,10 +101,10 @@
 
       <!-- 操作 -->
       <el-table-column
-        label="启用"
+        :label="$t('启用')"
         header-align="center"
         align="center"
-        width="80"
+        width="90"
         prop="status"
         sortable="custom"
       >
@@ -118,7 +118,7 @@
 
       <!-- 操作 -->
       <el-table-column
-        label="测试"
+        :label="$t('测试')"
         header-align="center"
         align="center"
         width="80"
@@ -140,7 +140,7 @@
       </el-table-column>
 
       <el-table-column
-        label="编辑"
+        :label="$t('编辑')"
         width="60"
         header-align="center"
         align="center"
@@ -156,14 +156,14 @@
       </el-table-column>
 
       <el-table-column
-        label="删除"
+        :label="$t('删除')"
         width="60"
         align="center"
         prop="tag"
       >
         <template #default="scope">
           <el-popconfirm
-            title="确定删除？"
+          :title="`${$t('确定删除')}？`"
             @confirm="handleDeleteClick(scope.row)"
           >
             <template #reference>

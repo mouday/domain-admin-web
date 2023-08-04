@@ -3,7 +3,7 @@
     :underline="false"
     type="primary"
     @click="showDialog"
-    ><el-icon><Setting /></el-icon>表格设置</el-link
+    ><el-icon><Setting /></el-icon>{{ $t('表格设置') }}</el-link
   >
 
   <TableColumnSetDialog

@@ -12,7 +12,7 @@
         class="ml-sm"
         style="width: 260px"
         v-model="keyword"
-        placeholder="搜索用户名"
+        :placeholder="$t('搜索用户名')"
         clearable
         @keypress.enter="handleSearch"
         @clear="handleSearch"

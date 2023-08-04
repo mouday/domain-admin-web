@@ -15,7 +15,7 @@
         style="width: 180px"
         :fetch-suggestions="handleSearch"
         clearable
-        placeholder="搜索主机"
+        :placeholder="$t('搜索主机')"
         @select="handleSelect"
       />
 
@@ -34,7 +34,7 @@
       class="ml-md ml-auto"
       :disabled="disabled"
       @click="handleDeployVerifyFile"
-      >一键部署</el-button
+      >{{ $t('一键部署') }}</el-button
     >
 
     <DataFormDialog

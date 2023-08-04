@@ -7,7 +7,7 @@
         class="ml-md"
         style="width: 260px"
         v-model="keyword"
-        placeholder="搜索域名"
+        :placeholder="$t('搜索域名')"
         clearable
         @keypress.enter="handleSearch"
         @clear="handleSearch"
@@ -19,9 +19,10 @@
         </template>
       </el-input>
 
-      <div style="font-size: 14px; color: #333333; margin-left: auto">
+      <!-- <div style="font-size: 14px; color: #333333; margin-left: auto">
         共计 {{ total }} 条数据
-      </div>
+      </div> -->
+
     </div>
 
     <!-- 数据列表 -->

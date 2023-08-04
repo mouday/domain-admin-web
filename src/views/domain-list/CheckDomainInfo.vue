@@ -32,9 +32,9 @@ export default {
 
     updateText() {
       if (this.disableUpdateButton) {
-        return '正在检查'
+        return this.$t('正在检查')
       } else {
-        return '证书检查'
+        return this.$t('证书检查')
       }
     },
   },

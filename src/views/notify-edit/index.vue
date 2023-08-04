@@ -69,7 +69,7 @@ export default {
       options: [
         {
           value: 'email',
-          label: '邮件通知',
+          label: this.$t('邮件'),
           icon: 'Message',
           component: NotifyEditEmail,
         },
@@ -81,7 +81,7 @@ export default {
         },
         {
           value: 'work-weixin',
-          label: '企业微信',
+          label: this.$t('企业微信'),
           icon: 'ChatSquare',
           component: NotifyEditWorkWeixin,
         },

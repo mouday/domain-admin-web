@@ -71,7 +71,7 @@
       >
         <template #default="scope">
           <el-popconfirm
-            title="确定删除？"
+            :title="`${$t('确定删除')}？`"
             @confirm="handleDeleteClick(scope.row)"
           >
             <template #reference>

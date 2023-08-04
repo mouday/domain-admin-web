@@ -9,7 +9,7 @@
       <!-- 服务器地址 -->
 
       <el-form-item
-        label="服务器地址"
+        :label="$t('服务器地址')"
         prop="mail_host"
       >
         <el-input
@@ -22,7 +22,7 @@
       <!-- 服务器端口 -->
 
       <el-form-item
-        label="服务器端口"
+        :label="$t('服务器端口')"
         prop="mail_port"
       >
         <el-input
@@ -35,7 +35,7 @@
       <!-- 发件人名称 -->
 
       <el-form-item
-        label="发件人名称"
+        :label="$t('发件人名称')"
         prop="mail_alias"
       >
         <el-input
@@ -48,7 +48,7 @@
       <!-- 发件人账号 -->
 
       <el-form-item
-        label="发件人账号"
+        :label="$t('发件人账号')"
         prop="mail_username"
       >
         <el-input
@@ -61,7 +61,7 @@
       <!-- 发件人密码 -->
 
       <el-form-item
-        label="发件人密码"
+        :label="$t('发件人密码')"
         prop="mail_password"
       >
         <el-input
@@ -79,7 +79,7 @@
       <el-button
         type="primary"
         @click="handleSubmit"
-        >保 存</el-button
+        >{{ $t('保存') }}</el-button
       >
     </div>
   </div>

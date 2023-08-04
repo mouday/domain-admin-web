@@ -36,6 +36,14 @@ export default [
     'en-US': 'Notify List',
   },
   {
+    'zh-CN': '添加通知',
+    'en-US': 'Add Notify',
+  },
+  {
+    'zh-CN': '编辑通知',
+    'en-US': 'Edit Notify',
+  },
+  {
     'zh-CN': '数据管理',
     'en-US': 'Data Manage',
   },
@@ -157,7 +165,7 @@ export default [
   },
   {
     'zh-CN': '补全ICP',
-    'en-US': 'Complete ICP Information',
+    'en-US': 'Complete ICP',
   },
   {
     'zh-CN': '域名检查',
@@ -185,7 +193,7 @@ export default [
   },
   {
     'zh-CN': '关联证书',
-    'en-US': 'Cert Connection',
+    'en-US': 'Relation Cert',
   },
   {
     'zh-CN': '编辑',
@@ -201,7 +209,7 @@ export default [
   },
   {
     'zh-CN': '事件类型',
-    'en-US': 'Event Type',
+    'en-US': 'Event',
   },
   {
     'zh-CN': '通知方式',
@@ -209,7 +217,7 @@ export default [
   },
   {
     'zh-CN': '剩余天数',
-    'en-US': 'Time of expiry',
+    'en-US': 'Days',
   },
   {
     'zh-CN': '备注',
@@ -217,19 +225,19 @@ export default [
   },
   {
     'zh-CN': '启用',
-    'en-US': 'Turn On',
+    'en-US': 'Enabled',
   },
   {
     'zh-CN': '测试',
-    'en-US': 'Try Test',
+    'en-US': 'Test',
   },
   {
     'zh-CN': '主机数量',
-    'en-US': 'Host Count',
+    'en-US': 'Hosts',
   },
   {
     'zh-CN': '证书天数',
-    'en-US': 'Time of Cert expiry',
+    'en-US': 'Days',
   },
   {
     'zh-CN': '更新时间',
@@ -241,7 +249,7 @@ export default [
   },
   {
     'zh-CN': '域名天数',
-    'en-US': 'Time of Domain expiry',
+    'en-US': 'Days',
   },
   {
     'zh-CN': '证书数量',
@@ -249,7 +257,7 @@ export default [
   },
   {
     'zh-CN': '标签',
-    'en-US': 'Lable',
+    'en-US': 'Tags',
   },
   {
     'zh-CN': '负责人',
@@ -260,16 +268,32 @@ export default [
     'en-US': 'User Name',
   },
   {
+    'zh-CN': '用户',
+    'en-US': 'User',
+  },
+  {
+    'zh-CN': '请输入用户名',
+    'en-US': 'Input User',
+  },
+  {
     'zh-CN': '分组数量',
     'en-US': 'Group Count',
   },
   {
     'zh-CN': '通知渠道',
-    'en-US': 'Notify By',
+    'en-US': 'Notify',
   },
   {
     'zh-CN': '重置密码',
     'en-US': 'Reset Password',
+  },
+  {
+    'zh-CN': '密码',
+    'en-US': 'Password',
+  },
+  {
+    'zh-CN': '请输入密码',
+    'en-US': 'Input Password',
   },
   {
     'zh-CN': '邮件设置',
@@ -281,7 +305,7 @@ export default [
   },
   {
     'zh-CN': '服务器地址',
-    'en-US': 'Server Address',
+    'en-US': 'Mail Host',
   },
   {
     'zh-CN': '服务器端口',
@@ -293,11 +317,11 @@ export default [
   },
   {
     'zh-CN': '发件人账号',
-    'en-US': 'Sender Account',
+    'en-US': 'Account',
   },
   {
     'zh-CN': '发件人密码',
-    'en-US': 'Sender Password',
+    'en-US': 'Password',
   },
   {
     'zh-CN': '保存',
@@ -305,7 +329,7 @@ export default [
   },
   {
     'zh-CN': '定时设置',
-    'en-US': 'Cron Setting',
+    'en-US': 'Cron Exp',
   },
   {
     'zh-CN': '执行计划',
@@ -329,19 +353,19 @@ export default [
   },
   {
     'zh-CN': '清空日志',
-    'en-US': 'Delete Log',
+    'en-US': 'Clear Log',
   },
   {
     'zh-CN': '操作人',
-    'en-US': 'User of Operate',
+    'en-US': 'User',
   },
   {
     'zh-CN': '操作表',
-    'en-US': 'Table of Operate',
+    'en-US': 'Table',
   },
   {
     'zh-CN': '操作类型',
-    'en-US': 'Type of Operate',
+    'en-US': 'Operate',
   },
   {
     'zh-CN': '数据变化',
@@ -360,4 +384,338 @@ export default [
     'en-US': 'Excute Result',
   },
 
+  {
+    'zh-CN': '状态',
+    'en-US': 'Status',
+  },
+  {
+    'zh-CN': '自动更新',
+    'en-US': 'Auto Update',
+  },
+  {
+    'zh-CN': '到期提醒',
+    'en-US': 'Notify',
+  },
+  {
+    'zh-CN': '共计',
+    'en-US': 'Total',
+  },
+  {
+    'zh-CN': '条数据',
+    'en-US': 'Rows',
+  },
+  {
+    'zh-CN': '搜索域名',
+    'en-US': 'Search Domain',
+  },
+
+  {
+    'zh-CN': '搜索域名、标签',
+    'en-US': 'Search Domain Or Tag',
+  },
+
+  {
+    'zh-CN': '搜索用户名',
+    'en-US': 'Search Username',
+  },
+  {
+    'zh-CN': '搜索主机',
+    'en-US': 'Search Host',
+  },
+  {
+    'zh-CN': '搜索分组',
+    'en-US': 'Search Group',
+  },
+  {
+    'zh-CN': 'SSL证书到期',
+    'en-US': 'SSL Cert Expired',
+  },
+  {
+    'zh-CN': '域名到期',
+    'en-US': 'Domain Expired',
+  },
+
+  {
+    'zh-CN': '邮件',
+    'en-US': 'Email',
+  },
+
+  {
+    'zh-CN': '企业微信',
+    'en-US': 'WeCom',
+  },
+  {
+    'zh-CN': '钉钉',
+    'en-US': 'DingTalk',
+  },
+  {
+    'zh-CN': '飞书',
+    'en-US': 'Feishu',
+  },
+  {
+    'zh-CN': '触发事件',
+    'en-US': 'Event',
+  },
+  {
+    'zh-CN': '邮件列表',
+    'en-US': 'Receivers',
+  },
+  {
+    'zh-CN': '取消',
+    'en-US': 'Cancel',
+  },
+  {
+    'zh-CN': '确定删除',
+    'en-US': 'Confirm Delete',
+  },
+  {
+    'zh-CN': '确定',
+    'en-US': 'Confirm',
+  },
+  {
+    'zh-CN': '添加域名',
+    'en-US': 'Add Domain',
+  },
+  {
+    'zh-CN': '编辑域名',
+    'en-US': 'Edit Domain',
+  },
+
+  {
+    'zh-CN': '证书时间',
+    'en-US': 'Cert Time',
+  },
+  {
+    'zh-CN': '端口',
+    'en-US': 'Port',
+  },
+  {
+    'zh-CN': '动态主机',
+    'en-US': 'Dynamic',
+  },
+  {
+    'zh-CN': '证书颁发时间',
+    'en-US': 'Start Time',
+  },
+
+  {
+    'zh-CN': '证书过期时间',
+    'en-US': 'Expired Time',
+  },
+
+  {
+    'zh-CN': '请输入域名',
+    'en-US': 'Please Input Domain',
+  },
+  {
+    'zh-CN': '请输入域名列表，每行一个',
+    'en-US': 'Please enter a list of domain names, one per line',
+  },
+  {
+    'zh-CN': '请输入备注',
+    'en-US': 'Please Input Comment',
+  },
+
+  {
+    'zh-CN': '域名时间',
+    'en-US': 'Domain Time',
+  },
+
+  {
+    'zh-CN': '子域证书',
+    'en-US': 'Sub Cert',
+  },
+
+  {
+    'zh-CN': '域名注册时间',
+    'en-US': 'Start Time',
+  },
+
+  {
+    'zh-CN': '域名到期时间',
+    'en-US': 'Expired Time',
+  },
+  {
+    'zh-CN': '标签，回车确认',
+    'en-US': 'Input Tag, Press Enter',
+  },
+  {
+    'zh-CN': '请输入主办单位名称',
+    'en-US': 'Please Input Company Name',
+  },
+  {
+    'zh-CN': '主办单位',
+    'en-US': 'Company',
+  },
+  {
+    'zh-CN': 'ICP备案',
+    'en-US': 'ICP',
+  },
+  {
+    'zh-CN': '请输入ICP备案',
+    'en-US': 'Please Input ICP Information',
+  },
+
+  {
+    'zh-CN': '操作成功',
+    'en-US': 'Success',
+  },
+  {
+    'zh-CN': 'SSL证书申请',
+    'en-US': 'Get SSL Cert',
+  },
+  {
+    'zh-CN': '申请',
+    'en-US': 'Get',
+  },
+  {
+    'zh-CN': 'SSL签发时间',
+    'en-US': 'Start Time',
+  },
+  {
+    'zh-CN': 'SSL过期时间',
+    'en-US': 'Expired Time',
+  },
+  {
+    'zh-CN': '自动续期',
+    'en-US': 'Auto Renew',
+  },
+  {
+    'zh-CN': '查看',
+    'en-US': 'Detail',
+  },
+  {
+    'zh-CN': '续期',
+    'en-US': 'Renew',
+  },
+  {
+    'zh-CN': '未知',
+    'en-US': 'unknown',
+  },
+  {
+    'zh-CN': '已验证',
+    'en-US': 'verified',
+  },
+  {
+    'zh-CN': '未验证',
+    'en-US': 'Not verified',
+  },
+  {
+    'zh-CN': '验证',
+    'en-US': 'verify',
+  },
+
+  {
+    'zh-CN': '是',
+    'en-US': 'Yes',
+  },
+  {
+    'zh-CN': '否',
+    'en-US': 'No',
+  },
+  {
+    'zh-CN': '申请SSL证书',
+    'en-US': 'Get SSL Cert',
+  },
+  {
+    'zh-CN': 'SSL证书',
+    'en-US': 'SSL Cert',
+  },
+  {
+    'zh-CN': '填写域名',
+    'en-US': 'Submit Domain',
+  },
+  {
+    'zh-CN': '验证域名',
+    'en-US': 'Verify Domain',
+  },
+  {
+    'zh-CN': '下载证书',
+    'en-US': 'Download SSL Cert',
+  },
+  {
+    'zh-CN': '点击下载',
+    'en-US': 'Download',
+  },
+
+  {
+    'zh-CN': '文件验证',
+    'en-US': 'File Verify',
+  },
+  {
+    'zh-CN': 'DNS验证',
+    'en-US': 'DNS Verify',
+  },
+  {
+    'zh-CN': '验证状态',
+    'en-US': 'Status',
+  },
+  {
+    'zh-CN': '验证URL',
+    'en-US': 'Verify URL',
+  },
+  {
+    'zh-CN': '验证文件',
+    'en-US': 'Verify File',
+  },
+  {
+    'zh-CN': '服务器地址',
+    'en-US': 'Server Host',
+  },
+  {
+    'zh-CN': '服务器目录',
+    'en-US': 'Server Directory',
+  },
+  {
+    'zh-CN': '下载',
+    'en-US': 'Download',
+  },
+  {
+    'zh-CN': 'Nginx配置',
+    'en-US': 'Nginx Config',
+  },
+  {
+    'zh-CN': '重启命令',
+    'en-US': 'Reload Command',
+  },
+  {
+    'zh-CN': '私钥部署路径',
+    'en-US': 'Private Deploy Path',
+  },
+  {
+    'zh-CN': '公钥部署路径',
+    'en-US': 'Public Deploy Path',
+  },
+  {
+    'zh-CN': '关闭',
+    'en-US': 'Close',
+  },
+  {
+    'zh-CN': '一键部署',
+    'en-US': 'Auto Deploy',
+  },
+  {
+    'zh-CN': '添加分组',
+    'en-US': 'Add Group',
+  },
+  {
+    'zh-CN': '编辑分组',
+    'en-US': 'Edit Group',
+  },
+  {
+    'zh-CN': '名称',
+    'en-US': 'Name',
+  },
+  {
+    'zh-CN': '请输入名称',
+    'en-US': 'Input Name',
+  },
+  {
+    'zh-CN': '添加用户',
+    'en-US': 'Add User',
+  },
+  {
+    'zh-CN': '编辑用户',
+    'en-US': 'Edit User',
+  },
 ]

@@ -1,17 +1,9 @@
 import config from './config.js'
+import { getLanguage } from './utils.js'
 
 const LANGUAGE_MAP = {}
 
-let defaultLanguage = navigator.language
-
-if (defaultLanguage.startsWith('en')) {
-  defaultLanguage = 'en-US'
-} else if (defaultLanguage.startsWith('zh')) {
-  defaultLanguage = 'zh-CN'
-}
-
-const language = localStorage.getItem('language') || defaultLanguage
-console.log(language)
+const language = getLanguage()
 
 for (let item of config) {
   LANGUAGE_MAP[item['zh-CN']] = item

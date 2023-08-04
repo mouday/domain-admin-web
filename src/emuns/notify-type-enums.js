@@ -1,3 +1,5 @@
+import { translate } from '@/i18n/index.js'
+
 // 枚举值，用于逻辑判断
 export const NotifyTypeEnum = {
   // 未知
@@ -22,7 +24,7 @@ export const NotifyTypeEnum = {
 export const NotifyTypeOptions = [
   {
     value: NotifyTypeEnum.Email,
-    label: '邮件',
+    label: translate('邮件'),
   },
   {
     value: NotifyTypeEnum.Webhook,
@@ -30,15 +32,15 @@ export const NotifyTypeOptions = [
   },
   {
     value: NotifyTypeEnum.WorkWeixin,
-    label: '企业微信',
+    label: translate('企业微信'),
   },
   {
     value: NotifyTypeEnum.DingTalk,
-    label: '钉钉',
+    label: translate('钉钉'),
   },
   {
     value: NotifyTypeEnum.Feishu,
-    label: '飞书',
+    label: translate('飞书'),
   },
 ]
 

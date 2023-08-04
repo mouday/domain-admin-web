@@ -5,7 +5,7 @@
       @tab-change="handleTabChange"
     >
       <el-tab-pane
-        label="邮件设置"
+        :label="$t('邮件设置')"
         name="email-config"
         lazy
       >
@@ -15,7 +15,7 @@
       </el-tab-pane>
 
       <el-tab-pane
-        label="监测设置"
+        :label="$t('监测设置')"
         name="cron-config"
         lazy
       >

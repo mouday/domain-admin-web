@@ -2,6 +2,7 @@
 // import { Message } from "element-ui";
 // vue3
 import { ElMessage as Message } from 'element-plus'
+import { translate } from '@/i18n/index.js'
 
 /**
  * 确保浏览器只有一个弹框
@@ -11,7 +12,7 @@ import { ElMessage as Message } from 'element-plus'
 class SingleMessage {
   static message(options) {
     Message.closeAll()
-    return Message(options)
+    return Message({ ...options, message: translate(options.message) })
   }
 
   static success(message) {

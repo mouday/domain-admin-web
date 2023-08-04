@@ -15,7 +15,7 @@
 
       <!-- 域名列表 -->
       <el-table-column
-        label="域名"
+        :label="$t('域名')"
         header-align="center"
         align="center"
         prop="domains"
@@ -29,7 +29,7 @@
 
       <!-- SSL签发时间 -->
       <el-table-column
-        label="SSL签发时间"
+        :label="$t('SSL签发时间')"
         header-align="center"
         align="center"
         prop="start_time"
@@ -42,7 +42,7 @@
 
       <!-- SSL过期时间 -->
       <el-table-column
-        label="SSL过期时间"
+        :label="$t('SSL过期时间')"
         header-align="center"
         align="center"
         prop="expire_time"
@@ -55,7 +55,7 @@
 
       <!-- 证书天数 -->
       <el-table-column
-        label="证书天数"
+        :label="$t('证书天数')"
         header-align="center"
         align="center"
         width="110"
@@ -72,11 +72,11 @@
 
       <!-- 验证状态 -->
       <el-table-column
-        label="状态"
+        :label="$t('状态')"
         header-align="center"
         align="center"
         prop="status"
-        width="90"
+        width="120"
       >
         <template #default="scope">
           <ConnectStatus
@@ -98,7 +98,7 @@
 
       <!-- 创建时间 -->
       <el-table-column
-        label="更新时间"
+        :label="$t('更新时间')"
         header-align="center"
         align="center"
         width="170"
@@ -126,8 +126,8 @@
 
       <!-- 自动续期 -->
       <el-table-column
-        label="自动续期"
-        width="100"
+        :label="$t('自动续期')"
+        width="120"
         header-align="center"
         align="center"
       >
@@ -139,19 +139,19 @@
             :show-after="800"
           >
             <div class="inline-flex items-center">
-              <span class="mr-[2px]">自动续期</span>
+              <span class="mr-[2px]">{{ $t('自动续期') }}</span>
               <el-icon><Warning /></el-icon>
             </div>
           </el-tooltip>
         </template>
 
         <template #default="scope">
-          {{ scope.row.is_auto_renew ? '是' : '否' }}
+          {{ scope.row.is_auto_renew ? $t('是') : $t('否') }}
         </template>
       </el-table-column>
 
       <el-table-column
-        label="查看"
+        :label="$t('查看')"
         width="60"
         header-align="center"
         align="center"
@@ -169,8 +169,8 @@
 
       <!-- 续期 -->
       <el-table-column
-        label="续期"
-        width="60"
+        :label="$t('续期')"
+        width="70"
         align="center"
         prop="tag"
       >
@@ -193,14 +193,14 @@
 
       <!-- 删除 -->
       <el-table-column
-        label="删除"
+        :label="$t('删除')"
         width="60"
         align="center"
         prop="tag"
       >
         <template #default="scope">
           <el-popconfirm
-            title="确定删除？"
+            :title="`${$t('确定删除')}？`"
             @confirm="handleDeleteClick(scope.row)"
           >
             <template #reference>

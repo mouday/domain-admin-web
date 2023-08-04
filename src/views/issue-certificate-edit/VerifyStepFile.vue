@@ -7,30 +7,33 @@
     ></VerifyStepFileDataTable>
 
     <el-form
+      ref="form"
       label-width="130px"
       class="mt-md"
+      :model="deployForm"
+      :rules="rules"
     >
       <el-form-item
-        label="服务器地址"
-        prop="create_time"
+        :label="$t('服务器地址')"
+        prop="deploy_host"
       >
         <RemoteHost
           v-if="hasInit"
           :defaultKeyword="host"
-          v-model="deploy_host"
+          v-model="deployForm.deploy_host"
           @on-confirm="handleDeployVerifyFile"
         ></RemoteHost>
       </el-form-item>
 
       <el-form-item
-        label="服务器目录"
-        prop="create_time"
+        :label="$t('服务器目录')"
+        prop="verifyDeployPath"
       >
-        <el-input v-model="verifyDeployPath"></el-input>
+        <el-input v-model="deployForm.verifyDeployPath"></el-input>
       </el-form-item>
 
       <el-form-item
-        label="Nginx配置"
+        :label="$t('Nginx配置')"
         prop="isp"
       >
         <CodeHighlight :value="nginxConfig"></CodeHighlight>
@@ -42,7 +45,7 @@
       <el-button
         type="primary"
         @click="handleVerifyCertificateById"
-        >验 证</el-button
+        >{{ $t('验证') }}</el-button
       >
     </div>
   </div>
@@ -80,8 +83,28 @@ export default {
     return {
       host: '',
       hasInit: false,
-      verifyDeployPath: '',
-      deploy_host: null,
+
+      deployForm: {
+        deploy_host: null,
+        verifyDeployPath: '',
+      },
+
+      rules: {
+        deploy_host: [
+          {
+            message: '服务器不能为空',
+            required: true,
+            trigger: 'blur',
+          },
+        ],
+        verifyDeployPath: [
+          {
+            message: '服务器部署目录不能为空',
+            required: true,
+            trigger: 'blur',
+          },
+        ],
+      },
     }
   },
 
@@ -97,7 +120,7 @@ export default {
   server_name ${this.domain_list};
 
   location /.well-known/acme-challenge/ {
-      alias ${this.verifyDeployPath};
+      alias ${this.deployForm.verifyDeployPath};
       try_files $uri =404;
   }
 }`
@@ -139,9 +162,10 @@ export default {
       const res = await this.$http.getHostList(params)
 
       if (res.data.list && res.data.list.length > 0) {
-        this.deploy_host = res.data.list[0]
+        this.deployForm.deploy_host = res.data.list[0]
       }
     },
+
     async handleVerifyCertificateById() {
       let loading = this.$loading({ fullscreen: true })
 
@@ -176,13 +200,23 @@ export default {
     },
 
     async handleDeployVerifyFile(hostRow) {
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          this.confirmDeployVerifyFile(hostRow)
+        } else {
+          return false
+        }
+      })
+    },
+
+    async confirmDeployVerifyFile(hostRow) {
       let loading = this.$loading({ fullscreen: true })
 
       let params = {
         // 域名列表
         issue_certificate_id: this.form.id,
         host_id: hostRow.id,
-        verify_deploy_path: this.verifyDeployPath,
+        verify_deploy_path: this.deployForm.verifyDeployPath,
         challenges: this.list,
       }
 
@@ -203,7 +237,7 @@ export default {
   },
 
   created() {
-    this.verifyDeployPath = '/var/www/challenges/'
+    this.deployForm.verifyDeployPath = '/var/www/challenges/'
     this.getData()
   },
 }

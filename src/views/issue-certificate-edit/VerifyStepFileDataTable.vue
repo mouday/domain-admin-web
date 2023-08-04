@@ -7,7 +7,7 @@
     >
       <!-- 域名 -->
       <el-table-column
-        label="域名"
+        :label="$t('域名')"
         header-align="center"
         align="center"
         prop="domain"
@@ -33,7 +33,8 @@
 
       <!-- 验证状态 -->
       <el-table-column
-        label="验证状态"
+        
+        :label="$t('验证状态')"
         header-align="center"
         align="center"
         prop="status"
@@ -57,7 +58,8 @@
 
       <!-- 验证数据 -->
       <el-table-column
-        label="验证URL"
+        
+        :label="$t('验证URL')"
         header-align="center"
         align="center"
         prop="validation"
@@ -77,11 +79,12 @@
 
       <!-- 验证数据 -->
       <el-table-column
-        label="验证文件"
+        
+        :label="$t('验证文件')"
         header-align="center"
         align="center"
         prop="validation"
-        width="80"
+        width="110"
       >
         <template #default="scope">
           <!-- <span>{{ scope.row.validation || '-' }}</span> -->
@@ -91,7 +94,7 @@
             type="primary"
             class="mr-sm"
             @click="downloadVerifyFile(scope.row)"
-            ><el-icon><Download /></el-icon>下载</el-link
+            ><el-icon><Download /></el-icon>{{ $t('下载') }}</el-link
           >
         </template>
       </el-table-column>

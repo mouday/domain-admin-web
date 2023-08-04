@@ -3,7 +3,7 @@
   <el-dialog
     :title="dialogTitle"
     v-model="dialogVisible"
-    width="500px"
+    width="530px"
     center
     append-to-body
     :lock-scroll="false"
@@ -56,9 +56,9 @@ export default {
   computed: {
     dialogTitle() {
       if (this.row) {
-        return '编辑域名'
+        return this.$t('编辑域名')
       } else {
-        return '添加域名'
+        return this.$t('添加域名')
       }
     },
 

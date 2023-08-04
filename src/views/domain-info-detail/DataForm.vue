@@ -122,7 +122,7 @@
         </el-form-item>
 
         <el-form-item
-          label="备注"
+          :label="$t('备注')"
           prop="comment"
         >
           <span class="truncate">{{ form.comment || '-' }}</span>

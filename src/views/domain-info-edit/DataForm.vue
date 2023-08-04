@@ -4,17 +4,17 @@
       ref="form"
       :model="form"
       :rules="rules"
-      label-width="70px"
+      label-width="100px"
     >
       <!-- 域名 -->
       <el-form-item
-        label="域名"
+        :label="$t('域名')"
         prop="domain"
       >
         <el-input
           type="text"
           v-model="form.domain"
-          placeholder="请输入域名"
+          :placeholder="$t('请输入域名')"
           @blur="handleDomainChange"
         ></el-input>
       </el-form-item>
@@ -48,7 +48,7 @@
       </el-form-item> -->
 
       <el-form-item
-        label="域名时间"
+        :label="$t('域名时间')"
         prop="start_time"
       >
         <div class="flex justify-between w-full">
@@ -56,7 +56,7 @@
             v-model="form.domain_start_time"
             type="date"
             value-format="YYYY-MM-DD HH:mm:ss"
-            placeholder="域名注册时间"
+            :placeholder="$t('域名注册时间')"
             :disabled="form.is_auto_update"
             style="width: 170px"
           />
@@ -67,7 +67,7 @@
             v-model="form.domain_expire_time"
             type="date"
             value-format="YYYY-MM-DD HH:mm:ss"
-            placeholder="域名到期时间"
+            :placeholder="$t('域名到期时间')"
             :disabled="form.is_auto_update"
             style="width: 170px"
           />
@@ -76,8 +76,8 @@
 
       <div class="grid grid-cols-2">
         <!-- 自动更新 -->
-        <el-form-item
-          label="自动更新"
+        <el-form-item          
+          :label="$t('自动更新')"
           prop="is_auto_update"
         >
           <el-switch v-model="form.is_auto_update" />
@@ -96,7 +96,7 @@
 
         <!-- 子域证书 -->
         <el-form-item
-          label="子域证书"
+          :label="$t('子域证书')"
           prop="is_auto_subdomain"
         >
           <el-switch v-model="form.is_auto_subdomain" />
@@ -117,7 +117,7 @@
       <div class="grid grid-cols-2">
         <!-- 分组 -->
         <el-form-item
-          label="分组"
+          :label="$t('分组')"
           prop="group_id"
           style="align-self: flex-start"
         >
@@ -131,7 +131,7 @@
         <!-- 负责人 -->
         <el-form-item
           v-if="role == RoleEnum.Admin"
-          label="负责人"
+          :label="$t('负责人')"
           prop="user_id"
           style="align-self: flex-start"
         >
@@ -152,16 +152,16 @@
 
       <!-- 标签 -->
       <el-form-item
-        label="标签"
+        :label="$t('标签')"
         prop="tags"
       >
         <div>
           <el-input
             type="text"
             v-model="tag"
-            placeholder="标签，回车确认"
+            :placeholder="$t('标签，回车确认')"
             @keypress.native.enter="handleAddTag"
-            style="width: 150px"
+            style="width: 180px"
             class="mr-sm"
           ></el-input>
 
@@ -200,49 +200,49 @@
 
       <!-- 主办单位名称 -->
       <el-form-item
-        label="主办单位"
+        :label="$t('主办单位')"
         prop="icp_company"
       >
         <el-input
           type="text"
           v-model="form.icp_company"
-          placeholder="请输入主办单位名称"
+          :placeholder="$t('请输入主办单位名称')"
         ></el-input>
       </el-form-item>
 
       <!-- ICP备案 -->
       <el-form-item
-        label="ICP备案"
+        :label="$t('ICP备案')"
         prop="icp_licence"
       >
         <el-input
           type="text"
           v-model="form.icp_licence"
-          placeholder="请输入ICP备案"
+          :placeholder="$t('请输入ICP备案')"
         ></el-input>
       </el-form-item>
 
       <!-- 备注 -->
       <el-form-item
-        label="备注"
+        :label="$t('备注')"
         prop="comment"
       >
         <el-input
           type="textarea"
           v-model="form.comment"
           :rows="3"
-          placeholder="请输入备注"
+          :placeholder="$t('请输入备注')"
         ></el-input>
       </el-form-item>
     </el-form>
 
     <!-- 操作 -->
     <div class="text-center">
-      <el-button @click="handleCancel">取 消</el-button>
+      <el-button @click="handleCancel">{{ $t('取消') }}</el-button>
       <el-button
         type="primary"
         @click="handleSubmit"
-        >确 定</el-button
+        >{{ $t('确定') }}</el-button
       >
     </div>
   </div>

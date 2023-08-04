@@ -7,7 +7,7 @@
     >
       <!-- 域名 -->
       <el-table-column
-        label="域名"
+        :label="$t('域名')"
         header-align="center"
         align="center"
         prop="domain"
@@ -20,7 +20,7 @@
 
       <!-- 验证状态 -->
       <el-table-column
-        label="验证状态"
+        :label="$t('验证状态')"
         header-align="center"
         align="center"
         prop="status"
@@ -44,7 +44,7 @@
 
       <!-- token -->
       <el-table-column
-        label="TXT记录"
+        :label="$t('TXT记录')"
         header-align="center"
         align="center"
         prop="token"
@@ -57,7 +57,7 @@
       </el-table-column>
 
       <el-table-column
-        label="记录值"
+        :label="$t('记录值')"
         header-align="center"
         align="center"
         prop="token"

@@ -59,7 +59,7 @@ export default {
       if (this.row) {
         return '编辑'
       } else {
-        return '申请SSL证书'
+        return this.$t('申请SSL证书')
       }
     },
 

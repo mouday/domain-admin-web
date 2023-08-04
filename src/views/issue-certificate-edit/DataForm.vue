@@ -4,7 +4,7 @@
       ref="form"
       :model="form"
       :rules="rules"
-      label-width="100px"
+      label-width="110px"
     >
       <el-form-item
         label="id"
@@ -21,25 +21,25 @@
       <!-- 域名列表 -->
 
       <el-form-item
-        label="域名列表"
+        :label="$t('域名列表')"
         prop="domains"
       >
         <el-input
           type="textarea"
           v-model="form.domains"
           :rows="5"
-          placeholder="请输入域名列表，每行一个"
+          :placeholder="$t('请输入域名列表，每行一个')"
         ></el-input>
       </el-form-item>
     </el-form>
 
     <!-- 操作 -->
     <div class="text-center">
-      <el-button @click="handleCancel">取 消</el-button>
+      <el-button @click="handleCancel">{{ $t('取消') }}</el-button>
       <el-button
         type="primary"
         @click="handleSubmit"
-        >确 定</el-button
+        >{{ $t('确定') }}</el-button
       >
     </div>
   </div>

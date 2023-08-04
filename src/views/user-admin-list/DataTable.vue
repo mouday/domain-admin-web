@@ -6,7 +6,7 @@
       border
     >
       <el-table-column
-        label="序号"
+        :label="$t('序号')"
         align="center"
         prop="id"
         width="60"
@@ -18,7 +18,7 @@
 
       <!-- 用户名 -->
       <el-table-column
-        label="用户名"
+        :label="$t('用户名')"
         header-align="center"
         align="center"
         prop="username"
@@ -57,7 +57,7 @@
 
       <!-- 证书数量 -->
       <el-table-column
-        label="证书数量"
+        :label="$t('证书数量')"
         header-align="center"
         align="center"
         prop="cert_count"
@@ -70,11 +70,11 @@
 
       <!-- 域名数量 -->
       <el-table-column
-        label="域名数量"
+        :label="$t('域名数量')"
         header-align="center"
         align="center"
         prop="notify_count"
-        width="100"
+        width="120"
       >
         <template #default="scope">
           <span>{{ scope.row.domain_count || '-' }}</span>
@@ -83,11 +83,11 @@
 
       <!-- 分组数量 -->
       <el-table-column
-        label="分组数量"
+        :label="$t('分组数量')"
         header-align="center"
         align="center"
         prop="group_count"
-        width="100"
+        width="110"
       >
         <template #default="scope">
           <span>{{ scope.row.group_count || '-' }}</span>
@@ -96,7 +96,7 @@
 
       <!-- 通知渠道 -->
       <el-table-column
-        label="通知渠道"
+        :label="$t('通知渠道')"
         header-align="center"
         align="center"
         prop="notify_count"
@@ -126,7 +126,7 @@
 
       <!-- 操作 -->
       <el-table-column
-        label="启用"
+        :label="$t('启用')"
         header-align="center"
         align="center"
         width="80"
@@ -157,8 +157,8 @@
       </el-table-column> -->
 
       <el-table-column
-        label="重置密码"
-        width="80"
+        :label="$t('重置密码')"
+        width="150"
         align="center"
         prop="tag"
       >
@@ -181,14 +181,14 @@
       </el-table-column>
 
       <el-table-column
-        label="删除"
+        :label="$t('删除')"
         width="60"
         align="center"
         prop="tag"
       >
         <template #default="scope">
           <el-popconfirm
-            title="确定删除？"
+          :title="`${$t('确定删除')}？`"
             @confirm="handleDeleteClick(scope.row)"
             :disabled="scope.row.username == 'admin'"
           >

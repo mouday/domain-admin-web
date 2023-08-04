@@ -91,13 +91,13 @@ export default {
       
       setpList: [
         {
-          title: '填写域名',
+          title: this.$t('填写域名'),
         },
         {
-          title: '验证域名',
+          title: this.$t('验证域名'),
         },
         {
-          title: '下载证书',
+          title: this.$t('下载证书'),
         },
       ],
     }

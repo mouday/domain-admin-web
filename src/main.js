@@ -6,6 +6,7 @@ import { createPinia } from 'pinia'
 
 import ElementPlus from 'element-plus'
 import langZhCn from 'element-plus/es/locale/lang/zh-cn'
+import langEn from 'element-plus/es/locale/lang/en'
 import 'element-plus/dist/index.css'
 
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
@@ -30,6 +31,7 @@ import { useMock } from './mock/index.js'
 import App from './App.vue'
 import { isMobile } from './utils/client-util.js'
 import { useI18n } from './i18n/index.js'
+import { getLanguage } from './i18n/utils.js'
 
 // 使用虚拟数据
 if (import.meta.env.VITE_MODE == 'preview') {
@@ -51,9 +53,18 @@ app.config.globalProperties.$msg = SingleMessage
 
 app.use(router)
 
+// 设置语言
+const language = getLanguage()
+
+let locale = langZhCn
+
+if (language == 'en-US') {
+  locale = langEn
+}
+
 // 使用 Element Plus
 app.use(ElementPlus, {
-  locale: langZhCn,
+  locale: locale,
 })
 
 // 注册所有图标

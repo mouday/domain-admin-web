@@ -4,38 +4,38 @@
       ref="form"
       :model="form"
       :rules="rules"
-      label-width="70px"
+      label-width="100px"
     >
       <div class="flex">
         <!-- 域名 -->
         <el-form-item
-          label="域名"
+          :label="$t('域名')"
           prop="domain"
           class="flex-1"
         >
           <el-input
             type="text"
             v-model="form.domain"
-            placeholder="请输入域名"
+            :placeholder="$t('请输入域名')"
           ></el-input>
         </el-form-item>
 
         <!-- 端口 -->
         <el-form-item
-          label="端口"
+          :label="$t('端口')"
           prop="port"
           style="width: 140px"
         >
           <el-input
             type="text"
             v-model="form.port"
-            placeholder="请输入端口"
+            :placeholder="$t('请输入端口')"
           ></el-input>
         </el-form-item>
       </div>
 
       <el-form-item
-        label="证书时间"
+        :label="$t('证书时间')"
         prop="start_time"
       >
         <div class="flex justify-between w-full">
@@ -43,7 +43,7 @@
             v-model="form.start_time"
             type="date"
             value-format="YYYY-MM-DD HH:mm:ss"
-            placeholder="证书颁发时间"
+            :placeholder="$t('证书颁发时间')"
             :disabled="form.auto_update"
             style="width: 180px"
           />
@@ -54,7 +54,7 @@
             v-model="form.expire_time"
             type="date"
             value-format="YYYY-MM-DD HH:mm:ss"
-            placeholder="证书过期时间"
+            :placeholder="$t('证书过期时间')"
             :disabled="form.auto_update"
             style="width: 180px"
           />
@@ -63,7 +63,7 @@
 
       <div class="grid grid-cols-2">
         <el-form-item
-          label="自动更新"
+          :label="$t('自动更新')"
           prop="is_dynamic_host"
         >
           <el-switch v-model="form.auto_update" />
@@ -82,7 +82,7 @@
 
         <!-- 动态主机 -->
         <el-form-item
-          label="动态主机"
+          :label="$t('动态主机')"
           prop="is_dynamic_host"
         >
           <el-switch v-model="form.is_dynamic_host" />
@@ -102,7 +102,7 @@
 
       <!-- 分组 -->
       <el-form-item
-        label="分组"
+        :label="$t('分组')"
         prop="group_id"
       >
         <SelectGroup
@@ -114,25 +114,25 @@
 
       <!-- 备注 -->
       <el-form-item
-        label="备注"
+        :label="$t('备注')"
         prop="alias"
       >
         <el-input
           type="textarea"
           v-model="form.alias"
           :rows="3"
-          placeholder="请输入备注"
+          :placeholder="$t('请输入备注')"
         ></el-input>
       </el-form-item>
     </el-form>
 
     <!-- 操作 -->
     <div class="text-center">
-      <el-button @click="handleCancel">取 消</el-button>
+      <el-button @click="handleCancel">{{ $t('取消') }}</el-button>
       <el-button
         type="primary"
         @click="handleSubmit"
-        >确 定</el-button
+        >{{ $t('确定') }}</el-button
       >
     </div>
   </div>

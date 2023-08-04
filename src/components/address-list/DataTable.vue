@@ -166,7 +166,7 @@
             ></el-link>
 
             <el-popconfirm
-              title="确定删除？"
+              :title="`${$t('确定删除')}？`"
               @confirm="handleDeleteClick(scope.row)"
               :disabled="!domainRow.has_edit_permission"
             >

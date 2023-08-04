@@ -30,9 +30,9 @@ export default {
 
     updateText() {
       if (this.disableUpdateButton) {
-        return '正在更新'
+        return this.$t('正在更新')
       } else {
-        return '补全ICP'
+        return this.$t('补全ICP')
       }
     },
   },

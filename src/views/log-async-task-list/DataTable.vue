@@ -6,7 +6,7 @@
       border
     >
       <el-table-column
-        label="序号"
+        :label="$t('序号')"
         align="center"
         prop="id"
         width="60"
@@ -17,7 +17,7 @@
       </el-table-column>
 
       <el-table-column
-        label="用户"
+        :label="$t('用户')"
         header-align="center"
         align="center"
         prop="create_time"
@@ -31,7 +31,7 @@
       <!-- 状态 -->
 
       <el-table-column
-        label="任务名称"
+        :label="$t('任务名称')"
         header-align="center"
         align="center"
         width="180"
@@ -44,7 +44,7 @@
 
       <!-- 创建时间 -->
       <el-table-column
-        label="开始时间"
+        :label="$t('开始时间')"
         header-align="center"
         align="center"
         width="180"
@@ -57,7 +57,7 @@
 
       <!-- 更新时间 -->
       <el-table-column
-        label="结束时间"
+        :label="$t('结束时间')"
         header-align="center"
         align="center"
         width="180"
@@ -69,7 +69,7 @@
       </el-table-column>
 
       <el-table-column
-        label="持续时间"
+        :label="$t('持续时间')"
         header-align="center"
         align="center"
         width="80"
@@ -81,7 +81,7 @@
       </el-table-column>
 
       <el-table-column
-        label="状态"
+        :label="$t('状态')"
         header-align="center"
         align="center"
         prop="status"
@@ -94,7 +94,7 @@
       </el-table-column>
 
       <el-table-column
-        label="执行结果"
+        :label="$t('执行结果')"
         header-align="center"
         align="center"
         prop="status"

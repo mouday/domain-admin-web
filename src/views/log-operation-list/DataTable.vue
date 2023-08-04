@@ -19,7 +19,7 @@
 
       <!-- 操作人 -->
       <el-table-column
-        label="操作人"
+        :label="$t('操作人')"
         header-align="center"
         align="center"
         width="100"
@@ -33,7 +33,7 @@
 
       <!-- 操作表 -->
       <el-table-column
-        label="操作表"
+        :label="$t('操作表')"
         width="120"
         header-align="center"
         align="center"
@@ -47,7 +47,8 @@
 
       <!-- 操作类型 -->
       <el-table-column
-        label="操作类型"
+        
+        :label="$t('操作类型')"
         header-align="center"
         align="center"
         prop="type_id"
@@ -62,7 +63,8 @@
 
       <!-- 操作类型 -->
       <el-table-column
-        label="数据变化"
+        
+        :label="$t('数据变化')"
         header-align="center"
         align="left"
         prop="type_id"
@@ -142,11 +144,11 @@
 
       <!-- 操作时间 -->
       <el-table-column
-        label="操作时间"
+        :label="$t('操作时间')"
         header-align="center"
         align="center"
         prop="create_time"
-        width="100"
+        width="130"
       >
         <template #default="scope">
           <span>{{ scope.row.create_time_label || '-' }}</span>

@@ -2,7 +2,7 @@
   <div class="">
     <el-tabs v-model="activeName">
       <el-tab-pane
-        label="文件验证"
+        :label="$t('文件验证')"
         name="file"
         lazy
       >
@@ -13,7 +13,7 @@
         ></VerifyStepFile>
       </el-tab-pane>
       <el-tab-pane
-        label="DNS验证"
+        :label="$t('DNS验证')"
         name="dns"
         lazy
       >

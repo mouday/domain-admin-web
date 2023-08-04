@@ -18,7 +18,7 @@
 
       <!-- 域名 -->
       <el-table-column
-        label="域名"
+        :label="$t('域名')"
         header-align="center"
         align="center"
         width="230"
@@ -33,7 +33,7 @@
             :show-after="800"
           >
             <div class="inline-flex items-center">
-              <span class="mr-[2px]">域名</span>
+              <span class="mr-[2px]">{{ $t('域名') }}</span>
               <el-icon><Warning /></el-icon>
             </div>
           </el-tooltip>
@@ -91,8 +91,8 @@
           ></ExpireProgress> -->
       <!-- <span>{{ scope.row.real_time_domain_expire_days || '-' }}</span> -->
 
-      <el-table-column
-        label="主机数量"
+      <el-table-column        
+        :label="$t('主机数量')"
         header-align="center"
         align="center"
         width="80"
@@ -117,10 +117,10 @@
 
       <!-- 域名连接状态 -->
       <el-table-column
-        label="状态"
+        :label="$t('状态')"
         header-align="center"
         align="center"
-        width="60"
+        width="80"
         sortable="custom"
         prop="expire_status"
       >
@@ -134,7 +134,7 @@
 
       <!-- 证书天数 -->
       <el-table-column
-        label="证书天数"
+        :label="$t('证书天数')"
         header-align="center"
         align="center"
         width="110"
@@ -149,7 +149,7 @@
             :show-after="800"
           >
             <div class="inline-flex items-center">
-              <span class="mr-[2px]">证书天数</span>
+              <span class="mr-[2px]">{{ $t('证书天数') }}</span>
               <el-icon><Warning /></el-icon>
             </div>
           </el-tooltip>
@@ -195,7 +195,7 @@
 
       <!-- 分组 -->
       <el-table-column
-        label="分组"
+        :label="$t('分组')"
         header-align="center"
         align="center"
         width="100"
@@ -209,10 +209,11 @@
 
       <!-- 备注 -->
       <el-table-column
-        label="备注"
+        :label="$t('备注')"
         header-align="center"
         align="left"
         prop="check_time"
+        min-width="100"
         show-overflow-tooltip
       >
         <template #default="scope">
@@ -222,10 +223,10 @@
 
       <!-- 更新时间 -->
       <el-table-column
-        label="更新时间"
+        :label="$t('更新时间')"
         header-align="center"
         align="center"
-        width="110"
+        width="120"
         prop="update_time"
         sortable="custom"
         show-overflow-tooltip
@@ -261,8 +262,8 @@
       <template v-if="RoleEnum.Admin != role">
         <!-- 自动更新 -->
         <el-table-column
-          label="自动更新"
-          width="90"
+          :label="$t('自动更新')"
+          width="120"
           header-align="center"
           align="center"
           sortable="custom"
@@ -279,7 +280,7 @@
 
         <!-- 监测 -->
         <el-table-column
-          label="到期提醒"
+          :label="$t('到期提醒')"
           width="90"
           header-align="center"
           align="center"
@@ -297,7 +298,7 @@
       </template>
 
       <el-table-column
-        label="操作"
+        :label="$t('操作')"
         width="100"
         header-align="center"
         align="center"
@@ -324,7 +325,7 @@
             ></el-link>
 
             <el-popconfirm
-              title="确定删除？"
+            :title="`${$t('确定删除')}？`"
               @confirm="handleDeleteClick(scope.row)"
               :disabled="!scope.row.has_edit_permission"
             >

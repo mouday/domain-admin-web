@@ -84,11 +84,11 @@
 
     <!-- 操作 -->
     <div class="text-center">
-      <el-button @click="handleCancel">取 消</el-button>
+      <el-button @click="handleCancel">{{ $t('取消') }}</el-button>
       <el-button
         type="primary"
         @click="handleSubmit"
-        >保 存</el-button
+        >{{ $t('保存') }}</el-button
       >
     </div>
   </div>

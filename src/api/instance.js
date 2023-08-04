@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import { setToken, getToken, removeToken } from '@/utils/token-util.js'
+import { getLanguage } from '@/i18n/utils.js'
 
 export const VITE_APP_API = import.meta.env.VITE_APP_API
 
@@ -12,9 +13,11 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     let token = getToken()
+    let language = getLanguage()
 
     if (token) {
       config.headers['X-Token'] = token
+      config.headers['X-Language'] = language
     }
 
     return config

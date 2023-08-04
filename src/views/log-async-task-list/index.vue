@@ -34,7 +34,7 @@
             :underline="false"
             type="danger"
             class="mr-sm"
-            ><el-icon><Delete /></el-icon>清空日志</el-link
+            ><el-icon><Delete /></el-icon>{{ $t('清空日志') }}</el-link
           >
         </template>
       </el-popconfirm>

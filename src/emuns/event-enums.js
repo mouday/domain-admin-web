@@ -1,3 +1,5 @@
+import { translate } from '@/i18n/index.js'
+
 // 枚举值，用于逻辑判断
 export const EventEnum = {
   // ssl证书到期 默认
@@ -10,11 +12,11 @@ export const EventEnum = {
 export const EventOptions = [
   {
     value: EventEnum.SSL_CERT_EXPIRE,
-    label: 'SSL证书到期',
+    label: translate('SSL证书到期'),
   },
   {
     value: EventEnum.DOMAIN_EXPIRE,
-    label: '域名到期',
+    label: translate('域名到期'),
   },
 ]
 

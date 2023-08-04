@@ -2,11 +2,12 @@
   <div class="app-container">
     <!-- 操作按钮 -->
     <div class="flex justify-between margin-bottom--20">
-      <el-button v-if="role == RoleEnum.User"
+      <el-button
+        v-if="role == RoleEnum.User"
         type="primary"
         @click="handleAddRow"
         ><el-icon><Plus /></el-icon>{{ $t('添加') }}</el-button
-      > 
+      >
       <span v-else></span>
 
       <el-input
@@ -14,7 +15,7 @@
         style="width: 260px"
         v-model="keyword"
         clearable
-        placeholder="搜索分组"
+        :placeholder="$t('搜索分组')"
         @keypress.enter="handleSearch"
         @clear="handleSearch"
       >
@@ -30,7 +31,7 @@
       class="flex mt-sm"
       style="align-items: center"
     >
-      <div style="font-size: 14px; color: #333333">共计 {{ total }} 条数据</div>
+      <DataCount :value="total"></DataCount>
 
       <div
         class="flex"
@@ -94,6 +95,7 @@ import DataTable from './DataTable.vue'
 import { useGroupStore } from '@/store/group-store.js'
 import { mapState, mapActions } from 'pinia'
 import { RoleEnum } from '@/emuns/role-enums.js'
+import DataCount from '@/components/DataCount.vue'
 
 export default {
   name: 'group-list',
@@ -101,13 +103,14 @@ export default {
   props: {
     role: {
       type: Number,
-      default: RoleEnum.User
+      default: RoleEnum.User,
     },
   },
 
   components: {
     DataFormDialog,
     DataTable,
+    DataCount,
   },
 
   data() {

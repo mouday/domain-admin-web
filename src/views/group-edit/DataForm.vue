@@ -9,13 +9,13 @@
       <!-- 名称 -->
 
       <el-form-item
-        label="名称"
+        :label="$t('名称')"
         prop="name"
       >
         <el-input
           type="text"
           v-model="form.name"
-          placeholder="请输入名称"
+          :placeholder="$t('请输入名称')"
         ></el-input>
       </el-form-item>
 
@@ -35,11 +35,11 @@
 
     <!-- 操作 -->
     <div class="text-center">
-      <el-button @click="handleCancel">取 消</el-button>
+      <el-button @click="handleCancel">{{ $t('取消') }}</el-button>
       <el-button
         type="primary"
         @click="handleSubmit"
-        >确 定</el-button
+        >{{ $t('确定') }}</el-button
       >
     </div>
   </div>
