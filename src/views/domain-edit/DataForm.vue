@@ -24,7 +24,7 @@
         <el-form-item
           :label="$t('端口')"
           prop="port"
-          style="width: 140px"
+          style="width: 160px"
         >
           <el-input
             type="text"
