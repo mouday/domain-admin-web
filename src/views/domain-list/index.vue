@@ -211,6 +211,7 @@ export default {
 
       ConditionFilterParams: [],
       selectedRows: [],
+      params: {}
     }
   },
 
@@ -264,6 +265,8 @@ export default {
           }
         }
       }
+
+      this.params = params
 
       const res = await this.$http.getDomainList(params)
 
@@ -335,7 +338,9 @@ export default {
       // var blob = new Blob([content], {
       //   type: 'text/plain;charset=utf-8',
       // })
-      const res = await this.$http.exportDomainFile()
+      
+      const res = await this.$http.exportDomainFile(this.params)
+
       if (res.ok) {
         FileSaver.saveAs(res.data.url, res.data.name)
       }

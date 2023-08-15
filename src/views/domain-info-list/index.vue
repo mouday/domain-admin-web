@@ -229,9 +229,10 @@ export default {
       order_prop: 'domain_expire_days',
 
       hasInitData: false,
-
+ 
       ConditionFilterParams: [],
       selectedRows: [],
+      params: {}
     }
   },
 
@@ -285,6 +286,7 @@ export default {
           }
         }
       }
+      this.params =  params
 
       const res = await this.$http.getDomainInfoList(params)
 
@@ -355,7 +357,7 @@ export default {
       // var blob = new Blob([content], {
       //   type: 'text/plain;charset=utf-8',
       // })
-      const res = await this.$http.exportDomainInfoFile()
+      const res = await this.$http.exportDomainInfoFile(this.params)
       if (res.ok) {
         FileSaver.saveAs(res.data.url, res.data.name)
       }
