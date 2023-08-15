@@ -21,7 +21,7 @@
         :label="$t('域名')"
         header-align="center"
         align="center"
-        width="250"
+        width="230"
         show-overflow-tooltip
         prop="domain"
       >
