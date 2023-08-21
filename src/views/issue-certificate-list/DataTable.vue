@@ -101,7 +101,7 @@
         :label="$t('更新时间')"
         header-align="center"
         align="center"
-        width="170"
+        width="120"
         prop="update_time_label"
       >
         <template #default="scope">
