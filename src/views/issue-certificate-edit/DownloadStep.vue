@@ -169,7 +169,7 @@ export default {
       this.deployForm.pemDeployPath =
         this.form.deploy_fullchain_file ||
         `/path/to/${this.form.domains[0]}.pem`
-      this.deployForm.reloadcmd = this.form.deploy_reloadcmd || this.reloadcmd
+      this.deployForm.reloadcmd = this.form.deploy_reloadcmd || this.deployForm.reloadcmd
       this.deployForm.deploy_host = this.form.deploy_host
 
       if (!this.deployForm.deploy_host) {
