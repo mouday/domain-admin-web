@@ -123,6 +123,20 @@
         align="center"
         width="80"
       >
+      <template #header>
+          <el-tooltip
+            effect="dark"
+            content="如果收不到消息，可尝试增加：剩余天数"
+            placement="top-start"
+            :show-after="800"
+          >
+            <div class="inline-flex items-center">
+              <span class="mr-[2px]">{{ $t('测试') }}</span>
+              <el-icon><Warning /></el-icon>
+            </div>
+          </el-tooltip>
+        </template>
+
         <template #default="scope">
           <el-popconfirm
             title="确定发送？"
