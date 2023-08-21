@@ -32,11 +32,11 @@
         :label="$t('SSL签发时间')"
         header-align="center"
         align="center"
-        prop="start_time"
-        width="170"
+        prop="start_date"
+        width="120"
       >
         <template #default="scope">
-          <span>{{ scope.row.start_time || '-' }}</span>
+          <span>{{ scope.row.start_date || '-' }}</span>
         </template>
       </el-table-column>
 
@@ -45,11 +45,11 @@
         :label="$t('SSL过期时间')"
         header-align="center"
         align="center"
-        prop="expire_time"
-        width="170"
+        prop="expire_date"
+        width="120"
       >
         <template #default="scope">
-          <span>{{ scope.row.expire_time || '-' }}</span>
+          <span>{{ scope.row.expire_date || '-' }}</span>
         </template>
       </el-table-column>
 
