@@ -54,7 +54,7 @@ export default {
 
   computed: {
     dialogTitle() {
-      if (this.row) {
+      if (this.row && this.row.id) {
         return '编辑主机'
       } else {
         return '添加主机'

@@ -214,7 +214,7 @@ export default {
       if (res.code == 0) {
         this.$msg.success('操作成功')
 
-        let detailData = await this.getHostById(this.row.id)
+        let detailData = await this.getHostById(host_id)
 
         this.$emit('on-success', detailData)
       } else {
