@@ -2,6 +2,7 @@
   <div class="flex flex-1 items-center">
     <template v-if="value && value.id">
       <el-tag
+        class="cursor-pointer"
         closable
         @close="handleClose"
         @click="handleEditHost"
@@ -40,6 +41,7 @@
     <DataFormDialog
       v-model:visible="visible"
       :row="editValue"
+      @on-success="handleSuccess"
     ></DataFormDialog>
   </div>
 </template>
@@ -150,6 +152,11 @@ export default {
 
     handleDeployVerifyFile() {
       this.$emit('on-confirm', this.value)
+    },
+
+    handleSuccess(data) {
+      this.value = data
+      this.$emit('on-change')
     },
   },
 

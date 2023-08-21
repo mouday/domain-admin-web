@@ -21,6 +21,7 @@
           v-if="hasInit"
           :defaultKeyword="host"
           v-model="deployForm.deploy_host"
+          @on-change="handleChangeHost"
           @on-confirm="handleDeployVerifyFile"
         ></RemoteHost>
       </el-form-item>
@@ -121,7 +122,7 @@ export default {
 
   location /.well-known/acme-challenge/ {
       alias ${this.deployForm.verifyDeployPath};
-      try_files $uri =404;
+      try_files $uri = 404;
   }
 }`
     },
@@ -156,7 +157,7 @@ export default {
     async getHost() {
       let params = {
         // 域名列表
-        keyword: this.host,
+        host: this.host,
       }
 
       const res = await this.$http.getHostList(params)
@@ -234,6 +235,10 @@ export default {
         loading.close()
       })
     },
+    
+    handleChangeHost(){
+      this.$refs.form.validateField(['deploy_host'])
+    }
   },
 
   created() {

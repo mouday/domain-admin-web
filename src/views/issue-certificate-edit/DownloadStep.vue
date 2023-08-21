@@ -200,7 +200,7 @@ export default {
     async getHost() {
       let params = {
         // 域名列表
-        keyword: this.host,
+        host: this.host,
       }
 
       const res = await this.$http.getHostList(params)

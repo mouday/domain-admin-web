@@ -81,9 +81,9 @@ export default {
       this.$emit('update:visible', true)
     },
 
-    handleSuccess() {
+    handleSuccess(data) {
       this.handleClose()
-      this.$emit('on-success')
+      this.$emit('on-success', data)
     },
   },
 
