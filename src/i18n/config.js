@@ -245,7 +245,7 @@ export default [
   },
   {
     'zh-CN': '更新时间',
-    'en-US': 'Update Time',
+    'en-US': 'Updated',
   },
   {
     'zh-CN': '操作',
