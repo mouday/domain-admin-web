@@ -26,6 +26,7 @@
               "total_days":0,
               "update_time":"2023-06-22 10:36:09",
               "update_time_label":"3小时前",
+              "has_edit_permission":true,
               "user_id":1
           },
           {
@@ -52,6 +53,7 @@
               "total_days":0,
               "update_time":"2023-06-22 10:36:23",
               "update_time_label":"3小时前",
+              "has_edit_permission":true,
               "user_id":1
           },
           {
@@ -78,6 +80,7 @@
               "total_days":0,
               "update_time":"2023-06-22 10:36:27",
               "update_time_label":"3小时前",
+              "has_edit_permission":true,
               "user_id":1
           },
           {
@@ -104,6 +107,7 @@
               "total_days":0,
               "update_time":"2023-06-22 10:36:20",
               "update_time_label":"3小时前",
+              "has_edit_permission":true,
               "user_id":1
           },
           {
@@ -130,6 +134,7 @@
               "total_days":0,
               "update_time":"2023-06-22 10:36:08",
               "update_time_label":"3小时前",
+              "has_edit_permission":true,
               "user_id":1
           },
           {
@@ -156,6 +161,7 @@
               "total_days":0,
               "update_time":"2023-06-22 10:36:27",
               "update_time_label":"3小时前",
+              "has_edit_permission":true,
               "user_id":1
           },
           {
@@ -182,6 +188,7 @@
               "total_days":0,
               "update_time":"2023-06-20 16:49:12",
               "update_time_label":"1天前",
+              "has_edit_permission":true,
               "user_id":1
           },
           {
@@ -208,6 +215,7 @@
               "total_days":0,
               "update_time":"2023-06-22 10:34:40",
               "update_time_label":"3小时前",
+              "has_edit_permission":true,
               "user_id":1
           },
           {
@@ -234,6 +242,7 @@
               "total_days":0,
               "update_time":"2023-06-22 10:36:19",
               "update_time_label":"3小时前",
+              "has_edit_permission":true,
               "user_id":1
           },
           {
@@ -260,6 +269,7 @@
               "total_days":0,
               "update_time":"2023-06-22 10:34:29",
               "update_time_label":"3小时前",
+              "has_edit_permission":true,
               "user_id":1
           }
       ],
