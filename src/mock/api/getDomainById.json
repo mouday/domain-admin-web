@@ -1,0 +1,30 @@
+{
+    "data":{
+        "id":92,
+        "user_id":1,
+        "domain":"www.baidu.com",
+        "root_domain":"baidu.com",
+        "port":443,
+        "alias":"",
+        "group_id":0,
+        "start_time":"2023-07-06 09:51:06",
+        "expire_time":"2024-08-06 09:51:05",
+        "expire_days":349,
+        "auto_update":true,
+        "is_monitor":true,
+        "is_dynamic_host":false,
+        "connect_status":true,
+        "total_days":0,
+        "create_time":"2023-08-22 14:54:00",
+        "update_time":"2023-08-22 14:54:00",
+        "domain_url":"https://www.baidu.com",
+        "expire_status":true,
+        "update_time_label":"刚刚",
+        "real_time_expire_days":349,
+        "address_count":2,
+        "group_name":null,
+        "has_edit_permission":true
+    },
+    "code":0,
+    "msg":"success"
+}
