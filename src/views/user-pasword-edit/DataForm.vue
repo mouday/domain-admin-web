@@ -60,6 +60,9 @@ import {
   formRules,
   // 引入枚举值
 } from './config.js'
+import { useUserStore } from '@/store/user-store.js'
+import { useSystemStore } from '@/store/system-store.js'
+import { mapState, mapActions } from 'pinia'
 
 export default {
   name: '',
@@ -88,6 +91,11 @@ export default {
   computed: {},
 
   methods: {
+    ...mapActions(useUserStore, {
+      updateUserInfo: 'updateUserInfo',
+      removeUserInfo: 'removeUserInfo',
+    }),
+
     async getData() {
       if (this.row) {
         let params = {
@@ -140,6 +148,8 @@ export default {
       if (res.code == 0) {
         this.$msg.success('操作成功')
         this.$emit('on-success')
+        // 更新用户信息
+        this.updateUserInfo()
       } else {
         this.$msg.error(res.msg)
       }

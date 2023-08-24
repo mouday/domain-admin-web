@@ -6,6 +6,14 @@
       <Menu></Menu>
 
       <div class="app-layout__body">
+
+        <el-alert
+          v-if="isDefaultPassword"
+          title="请及时修改 admin（超级管理员）的默认密码"
+          type="warning"
+          show-icon
+        />
+
         <!-- <div class="app-layout__path">{{ currentPathName }}</div> -->
         <div class="app-layout__view">
           <router-view v-slot="{ Component }">
@@ -13,7 +21,10 @@
               name="fade-transform"
               mode="out-in"
             >
-              <component :is="Component" :key="key"/>
+              <component
+                :is="Component"
+                :key="key"
+              />
             </transition>
           </router-view>
         </div>
@@ -28,6 +39,9 @@
 import Menu from './Menu.vue'
 import Footer from './Footer.vue'
 import Header from './Header.vue'
+import { useUserStore } from '@/store/user-store.js'
+import { useSystemStore } from '@/store/system-store.js'
+import { mapState, mapActions } from 'pinia'
 
 export default {
   name: 'index',
@@ -45,6 +59,12 @@ export default {
   },
 
   computed: {
+    ...mapState(useUserStore, {
+      userInfo: 'userInfo',
+      isAdmin: 'isAdmin',
+      isDefaultPassword: 'isDefaultPassword',
+    }),
+
     currentPathName() {
       console.log(this.$route)
       return this.$route.meta.title

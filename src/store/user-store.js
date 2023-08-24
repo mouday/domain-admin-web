@@ -16,6 +16,15 @@ export const useUserStore = defineStore({
       return state._userInfo != null
     },
 
+    // 是否使用默认密码
+    isDefaultPassword(state) {
+      if (state._userInfo && state._userInfo.is_default_password) {
+        return true
+      } else {
+        return false
+      }
+    },
+
     isAdmin(state) {
       if (state._userInfo) {
         return state._userInfo.username == 'admin'

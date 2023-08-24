@@ -211,7 +211,7 @@ export default {
 
       ConditionFilterParams: [],
       selectedRows: [],
-      params: {}
+      params: {},
     }
   },
 
@@ -338,7 +338,7 @@ export default {
       // var blob = new Blob([content], {
       //   type: 'text/plain;charset=utf-8',
       // })
-      
+
       const res = await this.$http.exportDomainFile(this.params)
 
       if (res.ok) {
