@@ -9,7 +9,7 @@
       <el-form-item
         label="id"
         prop="id"
-        style="display: none;"
+        style="display: none"
       >
         <el-input
           type="text"
@@ -141,9 +141,21 @@ export default {
     async confirmSubmit() {
       let loading = this.$loading({ fullscreen: true })
 
+      // 过滤用户输入的空行
+      let domains = this.form.domains.split('\n')
+
+      domains = domains
+        .map((domain) => domain.trim())
+        .filter((domain) => domain)
+
+      if (domains.length == 0) {
+        this.$msg.error('请输入域名')
+        return
+      }
+
       let params = {
         // 域名列表
-        domains: this.form.domains.split('\n'),
+        domains: domains,
         // 验证状态
         // status: this.form.status,
         // // SSL签发时间
