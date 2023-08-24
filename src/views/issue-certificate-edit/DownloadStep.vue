@@ -154,8 +154,8 @@ export default {
     listen 443 ssl;
     server_name ${this.domain_list};
 
-    ssl_certificate ${this.deployForm.keyDeployPath};
-    ssl_certificate_key ${this.deployForm.pemDeployPath};  
+    ssl_certificate_key ${this.deployForm.keyDeployPath};
+    ssl_certificate ${this.deployForm.pemDeployPath};  
 }`
     },
   },
