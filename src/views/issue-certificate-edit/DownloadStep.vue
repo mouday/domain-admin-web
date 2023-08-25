@@ -165,10 +165,10 @@ export default {
       console.log(this.form)
 
       this.deployForm.keyDeployPath =
-        this.form.deploy_key_file || `/path/to/${this.form.domains[0]}.key`
+        this.form.deploy_key_file || `/var/www/ssl/${this.form.domains[0]}.key`
       this.deployForm.pemDeployPath =
         this.form.deploy_fullchain_file ||
-        `/path/to/${this.form.domains[0]}.pem`
+        `/var/www/ssl/${this.form.domains[0]}.pem`
       this.deployForm.reloadcmd = this.form.deploy_reloadcmd || this.deployForm.reloadcmd
       this.deployForm.deploy_host = this.form.deploy_host
 
