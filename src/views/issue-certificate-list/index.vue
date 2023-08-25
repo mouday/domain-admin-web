@@ -2,11 +2,25 @@
   <div class="app-container">
     <!-- 操作按钮 -->
     <div class="flex justify-between margin-bottom--20">
-      <el-button
-        type="primary"
-        @click="handleAddRow"
-        ><el-icon><Plus /></el-icon>{{ $t('申请') }}</el-button
-      >
+      <div class="flex items-center">
+        <el-button
+          type="primary"
+          @click="handleAddRow"
+          ><el-icon><Plus /></el-icon>{{ $t('申请') }}</el-button
+        >
+        <div class="ml-[10px] text-sm color--info flex items-center">
+          <el-icon><Warning /></el-icon>
+          <span
+            >&nbsp;免费SSL证书颁发机构:
+            <a
+              href="https://letsencrypt.org/zh-cn/docs/rate-limits/"
+              target="_blank"
+              class="mo-link"
+              >Let’s Encrypt</a
+            ></span
+          >
+        </div>
+      </div>
 
       <el-input
         class="ml-sm"
@@ -26,8 +40,6 @@
     </div>
 
     <div class="flex justify-between mt-sm items-center">
-     
-
       <DataCount :value="total"></DataCount>
 
       <div>
@@ -97,9 +109,8 @@ export default {
   components: {
     DataFormDialog,
     DataTable,
-    DataCount
+    DataCount,
   },
-
 
   data() {
     return {

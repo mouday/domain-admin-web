@@ -29,7 +29,7 @@ export const routes = [
     name: 'cert',
     component: Layout,
     meta: {
-      title: '证书',
+      title: '证书列表',
       icon: 'Tickets',
     },
 
@@ -43,8 +43,19 @@ export const routes = [
         name: 'cert-list',
         component: () => import('../views/domain-list/index.vue'),
         meta: {
-          title: '证书列表',
+          title: '证书监控',
           icon: 'Tickets',
+        },
+      },
+      {
+        path: 'issue-certificate-list',
+        name: 'issue-certificate-list',
+        component: () => import('../views/issue-certificate-list/index.vue'),
+        meta: {
+          title: '证书申请',
+          icon: 'Box',
+          // roles: [RoleEnum.Admin],
+          // hidden: true,
         },
       },
     ],
@@ -304,17 +315,7 @@ export const routes = [
           hidden: true,
         },
       },
-      {
-        path: 'issue-certificate-list',
-        name: 'issue-certificate-list',
-        component: () => import('../views/issue-certificate-list/index.vue'),
-        meta: {
-          title: 'SSL证书申请',
-          icon: 'Box',
-          // roles: [RoleEnum.Admin],
-          hidden: true,
-        },
-      },
+      
       
     ],
   },

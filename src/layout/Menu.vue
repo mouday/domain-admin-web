@@ -133,7 +133,9 @@ export default {
     },
 
     handleRouteClick(route) {
+      // console.log('handleRouteClick', route)
       this.$router.push({ name: route.name })
+      // this.activeIndex = route.name
     },
 
     hasRoutePermission(route) {
@@ -164,7 +166,7 @@ export default {
 
   created() {
     this.activeIndex = this.$route.name
-    console.log(this.activeIndex);
+    console.log(this.activeIndex)
     this.getData()
   },
 }

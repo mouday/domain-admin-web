@@ -211,11 +211,11 @@ export default {
     ]
 
     const toolList = [
-      {
-        type: 'router', // 路由
-        label: 'SSL证书申请',
-        value: 'issue-certificate-list',
-      },
+      // {
+      //   type: 'router', // 路由
+      //   label: 'SSL证书申请',
+      //   value: 'issue-certificate-list',
+      // },
 
       {
         type: 'router', // 路由
