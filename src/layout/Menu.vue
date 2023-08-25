@@ -58,7 +58,7 @@
         <!-- 收起时不显示 -->
         <SystemInfo
           class="menu-info"
-          v-show="!isCollapse"
+          v-show="showSystemInfo"
         ></SystemInfo>
       </div>
 
@@ -66,7 +66,7 @@
       <div class="layout__menu__collapse-wrap">
         <div
           class="layout__menu__collapse"
-          @click="toggleCollapse"
+          @click="handleToggleCollapse"
         >
           <el-link
             v-if="isCollapse"
@@ -108,6 +108,7 @@ export default {
       // activeIndex: '',
       routes,
       // isCollapse: false,
+      showSystemInfo: false,
     }
   },
 
@@ -172,11 +173,25 @@ export default {
         }).length == 1
       )
     },
+
+    handleToggleCollapse() {
+      // 菜单折叠动画之前，先把无关元素隐藏
+      if (this.isCollapse) {
+        setTimeout(() => {
+          this.showSystemInfo = true
+        }, 900)
+      } else {
+        this.showSystemInfo = false
+      }
+
+      this.toggleCollapse()
+    },
   },
 
   created() {
     // this.activeIndex = this.$route.name
     // console.log(this.activeIndex)
+    this.showSystemInfo = !this.isCollapse
     this.getData()
   },
 }

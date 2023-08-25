@@ -66,7 +66,7 @@ export default {
     }),
 
     currentPathName() {
-      console.log(this.$route)
+      // console.log(this.$route)
       return this.$route.meta.title
     },
 
