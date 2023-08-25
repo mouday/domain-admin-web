@@ -1,61 +1,66 @@
 <template>
   <div class="layout-container">
     <div class="layout__menu-wrap">
-      <el-menu
-        :default-active="activeIndex"
-        :ellipsis="false"
-        class="layout__menu"
-        mode="vertical"
-        menu-trigger="click"
-        unique-opened
-        @select="handleSelect"
-        :collapse="isCollapse"
-      >
-        <template v-for="route in routes">
-          <template v-if="hasRoutePermission(route)">
-            <!-- 仅一个子节点 -->
-            <el-menu-item
-              v-if="hasOnlyOneChildren(route)"
-              :index="route.children[0].name"
-              @click="handleRouteClick(route.children[0])"
-            >
-              <el-icon>
-                <component :is="route.children[0].meta.icon"></component>
-              </el-icon>
-              <span>{{ $t(route.children[0].meta.title) }}</span>
-            </el-menu-item>
+      <div class="layout__menu-inner">
+        <el-scrollbar class="layout__menu-scrollbar">
+          <el-menu
+            :default-active="activeIndex"
+            :ellipsis="false"
+            class="layout__menu"
+            mode="vertical"
+            menu-trigger="click"
+            unique-opened
+            @select="handleSelect"
+            :collapse="isCollapse"
+            ref="menu"
+          >
+            <template v-for="route in routes">
+              <template v-if="hasRoutePermission(route)">
+                <!-- 仅一个子节点 -->
+                <el-menu-item
+                  v-if="hasOnlyOneChildren(route)"
+                  :index="route.children[0].name"
+                  @click="handleRouteClick(route.children[0])"
+                >
+                  <el-icon>
+                    <component :is="route.children[0].meta.icon"></component>
+                  </el-icon>
+                  <span>{{ $t(route.children[0].meta.title) }}</span>
+                </el-menu-item>
 
-            <!-- 多个子节点 -->
-            <el-sub-menu
-              v-else
-              :index="route.name"
-            >
-              <template #title>
-                <el-icon>
-                  <component :is="route.meta.icon"></component>
-                </el-icon>
-                <span>{{ $t(route.meta.title) }}</span>
-              </template>
+                <!-- 多个子节点 -->
+                <el-sub-menu
+                  v-else
+                  :index="route.name"
+                >
+                  <template #title>
+                    <el-icon>
+                      <component :is="route.meta.icon"></component>
+                    </el-icon>
+                    <span>{{ $t(route.meta.title) }}</span>
+                  </template>
 
-              <template v-for="child in route.children">
-                <template v-if="hasRoutePermission(child)">
-                  <el-menu-item
-                    :index="child.name"
-                    @click="handleRouteClick(child)"
-                    >{{ $t(child.meta.title) }}</el-menu-item
-                  >
-                </template>
+                  <template v-for="child in route.children">
+                    <template v-if="hasRoutePermission(child)">
+                      <el-menu-item
+                        :index="child.name"
+                        @click="handleRouteClick(child)"
+                        >{{ $t(child.meta.title) }}</el-menu-item
+                      >
+                    </template>
+                  </template>
+                </el-sub-menu>
               </template>
-            </el-sub-menu>
-          </template>
-        </template>
+            </template>
+          </el-menu>
+        </el-scrollbar>
 
         <!-- 收起时不显示 -->
-        <Info
+        <SystemInfo
           class="menu-info"
           v-show="!isCollapse"
-        />
-      </el-menu>
+        ></SystemInfo>
+      </div>
 
       <!-- 展开收起 -->
       <div class="layout__menu__collapse-wrap">
@@ -87,7 +92,7 @@ import { hasPermission } from '@/router/permission.js'
 import { useUserStore } from '@/store/user-store.js'
 import { useSystemStore } from '@/store/system-store.js'
 import { mapState, mapActions } from 'pinia'
-import Info from './Info.vue'
+import SystemInfo from './Info.vue'
 
 export default {
   name: 'Menu',
@@ -95,12 +100,12 @@ export default {
   props: {},
 
   components: {
-    Info,
+    SystemInfo,
   },
 
   data() {
     return {
-      activeIndex: '',
+      // activeIndex: '',
       routes,
       // isCollapse: false,
     }
@@ -116,6 +121,10 @@ export default {
     ...mapState(useSystemStore, {
       isCollapse: 'isCollapse',
     }),
+
+    activeIndex() {
+      return this.$route.name
+    },
   },
 
   methods: {
@@ -136,6 +145,7 @@ export default {
       // console.log('handleRouteClick', route)
       this.$router.push({ name: route.name })
       // this.activeIndex = route.name
+      // console.log(console.dir(this.$refs.menu))
     },
 
     hasRoutePermission(route) {
@@ -165,8 +175,8 @@ export default {
   },
 
   created() {
-    this.activeIndex = this.$route.name
-    console.log(this.activeIndex)
+    // this.activeIndex = this.$route.name
+    // console.log(this.activeIndex)
     this.getData()
   },
 }
@@ -203,9 +213,10 @@ export default {
 }
 
 .menu-info {
-  position: absolute;
-  bottom: 0;
+  // position: absolute;
+  // bottom: 0;
   width: 100%;
+  flex-shrink: 0;
 }
 
 // 黑色主题
@@ -335,6 +346,16 @@ export default {
 
 .el-menu {
   border: 0;
+}
+
+.layout__menu-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout__menu-scrollbar {
+  flex: 1;
 }
 </style>
 

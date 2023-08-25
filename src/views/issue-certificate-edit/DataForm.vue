@@ -33,6 +33,19 @@
       </el-form-item>
     </el-form>
 
+    <div class="ml-[110px] text-sm color--info flex items-center">
+      <el-icon><Warning /></el-icon>
+      <span
+        >&nbsp;免费SSL证书颁发机构:
+        <a
+          href="https://letsencrypt.org/zh-cn/docs/rate-limits/?from=domain-admin"
+          target="_blank"
+          class="mo-link"
+          >Let’s Encrypt</a
+        ></span
+      >
+    </div>
+
     <!-- 操作 -->
     <div class="text-center">
       <el-button @click="handleCancel">{{ $t('取消') }}</el-button>
