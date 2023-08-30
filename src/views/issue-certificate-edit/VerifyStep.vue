@@ -1,5 +1,12 @@
 <template>
   <div class="">
+    <div
+      class="text-sm color--info flex items-center justify-end"
+    >
+      <el-icon><Warning /></el-icon>
+      <span>&nbsp;验证通过后会自动加入到[证书监控]列表 </span>
+    </div>
+
     <el-tabs v-model="activeName">
       <el-tab-pane
         :label="$t('文件验证')"
@@ -18,7 +25,6 @@
         lazy
       >
         <VerifyStepDNS
-          
           :form="form"
           :list="dnsList"
           @on-success="handleSuccess"
@@ -31,7 +37,6 @@
 <script>
 // created at 2023-07-23
 import FileSaver from 'file-saver'
-
 
 import VerifyStepDNS from './VerifyStepDNS.vue'
 import VerifyStepFile from './VerifyStepFile.vue'
@@ -61,13 +66,15 @@ export default {
 
   computed: {
     fileList() {
-      return this.list.filter((item) => {
-        return item.challenge && item.challenge.type == 'http-01'
-      }).map(item=>{
-        item.verify_path = '/.well-known/acme-challenge/' + item.token
-        item.verify_url = 'http://' + item.domain + item.verify_path
-        return item
-      })
+      return this.list
+        .filter((item) => {
+          return item.challenge && item.challenge.type == 'http-01'
+        })
+        .map((item) => {
+          item.verify_path = '/.well-known/acme-challenge/' + item.token
+          item.verify_url = 'http://' + item.domain + item.verify_path
+          return item
+        })
     },
 
     dnsList() {
@@ -105,7 +112,7 @@ export default {
 
           return item
         })
-        console.log(this.list);
+        console.log(this.list)
 
         this.total = res.data.total
       } catch (e) {
@@ -116,9 +123,9 @@ export default {
       }
     },
 
-    handleSuccess(){
+    handleSuccess() {
       this.$emit('on-success')
-    }
+    },
   },
 
   mounted() {},
