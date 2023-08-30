@@ -730,4 +730,13 @@ export default [
     'zh-CN': '编辑用户',
     'en-US': 'Edit User',
   },
+  {
+    'zh-CN': '证书监控',
+    'en-US': 'Cert Monitor',
+  },
+  {
+    'zh-CN': '证书申请',
+    'en-US': 'Cert Issue',
+  },
+  
 ]
