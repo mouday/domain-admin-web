@@ -5,8 +5,10 @@ import { getLanguage } from '@/i18n/utils.js'
 
 export const VITE_APP_API = import.meta.env.VITE_APP_API
 
+// https://www.npmjs.com/package/axios
 const instance = axios.create({
   baseURL: VITE_APP_API,
+  timeout: 60 * 1000, // default is `0` (no timeout) milliseconds
 })
 
 // 请求拦截器
