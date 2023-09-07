@@ -26,7 +26,6 @@
       </el-form-item>
 
       <el-form-item
-        
         :label="$t('公钥部署路径')"
         prop="pemDeployPath"
       >
@@ -37,7 +36,28 @@
         :label="$t('重启命令')"
         prop="reloadcmd"
       >
-        <el-input v-model="deployForm.reloadcmd"></el-input>
+        <!-- <el-input v-model="deployForm.reloadcmd"></el-input> -->
+        <div class="flex"> 
+          <el-select
+            style="width: 300px"
+            v-model="deployForm.reloadcmd"
+            :placeholder="$t('重启命令')"
+          >
+            <el-option
+              v-for="item in reloadCommandOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+
+          <div
+            class="ml-sm text-sm color--info flex items-center"
+          >
+            <el-icon><Warning /></el-icon>
+            <span>&nbsp;出于安全考虑，仅能使用预设的命令</span>
+          </div>
+        </div>
       </el-form-item>
     </el-form>
 
@@ -52,12 +72,12 @@
             type="primary"
             class="mr-sm"
             @click="downloadSSLFile"
-            ><el-icon><Download /></el-icon>{{$t('点击下载')}}（.zip）</el-link
+            ><el-icon><Download /></el-icon
+            >{{ $t('点击下载') }}（.zip）</el-link
           >
         </el-form-item>
 
         <el-form-item
-          
           :label="$t('Nginx配置')"
           prop="domain"
         >
@@ -67,10 +87,7 @@
 
       <!-- 操作 -->
       <div class="text-center mt-md">
-        <el-button
-          @click="handleClose"
-          >{{ $t('关闭') }}</el-button
-        >
+        <el-button @click="handleClose">{{ $t('关闭') }}</el-button>
       </div>
     </div>
   </div>
@@ -104,13 +121,15 @@ export default {
     return {
       hasInit: false,
       host: '',
+      reloadCommandOptions: [],
 
       deployForm: {
         deploy_host: null,
         keyDeployPath: '',
         pemDeployPath: '',
-        reloadcmd: 'service nginx force-reload',
+        reloadcmd: '',
       },
+
       rules: {
         deploy_host: [
           {
@@ -126,6 +145,7 @@ export default {
             trigger: 'blur',
           },
         ],
+
         pemDeployPath: [
           {
             message: '公钥部署路径不能为空',
@@ -155,7 +175,7 @@ export default {
     server_name ${this.domain_list};
 
     ssl_certificate_key ${this.deployForm.keyDeployPath};
-    ssl_certificate ${this.deployForm.pemDeployPath};  
+    ssl_certificate ${this.deployForm.pemDeployPath};
 }`
     },
   },
@@ -169,7 +189,8 @@ export default {
       this.deployForm.pemDeployPath =
         this.form.deploy_fullchain_file ||
         `/var/www/ssl/${this.form.domains[0]}.pem`
-      this.deployForm.reloadcmd = this.form.deploy_reloadcmd || this.deployForm.reloadcmd
+      this.deployForm.reloadcmd =
+        this.form.deploy_reloadcmd || this.deployForm.reloadcmd
       this.deployForm.deploy_host = this.form.deploy_host
 
       if (!this.deployForm.deploy_host) {
@@ -177,6 +198,26 @@ export default {
       }
 
       this.hasInit = true
+
+      this.getAllowCommands()
+    },
+
+    async getAllowCommands() {
+      const res = await this.$http.getAllowCommands()
+
+      if (res.ok) {
+        this.reloadCommandOptions = res.data.map((item) => {
+          return {
+            value: item,
+            label: item,
+          }
+        })
+
+        // 设置默认值
+        if (!this.deployForm.reloadcmd) {
+          this.deployForm.reloadcmd = this.reloadCommandOptions[0].value
+        }
+      }
     },
 
     async getDomainHost() {

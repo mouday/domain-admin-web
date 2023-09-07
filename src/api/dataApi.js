@@ -139,6 +139,7 @@ export default {
   getCertificateChallenges: '/getCertificateChallenges',
   deleteCertificateById: '/deleteCertificateById',
   deleteCertificateByBatch: '/deleteCertificateByBatch',
+  getAllowCommands: '/getAllowCommands',
 
   // 主机管理
   getHostList: '/getHostList',
