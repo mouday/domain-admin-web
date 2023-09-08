@@ -148,6 +148,24 @@
               <span>{{ parsed_cert.signatureAlgorithm || '-' }}</span>
             </el-form-item>
 
+            <!-- 参考 https://cloud.tencent.com/document/product/400/7994 -->
+            <el-form-item
+              label="证书品牌"
+              prop="domain"
+            >
+              <span>{{ parsed_cert.certBrand || '-' }}</span>
+            </el-form-item>
+
+            <el-form-item
+              label="证书类型"
+              prop="domain"
+            >
+              <span>{{ parsed_cert.certTypeByVerifyWayLabel || '-' }}</span>
+              <span>（{{ parsed_cert.certTypeByVerifyWay || '-' }}）</span>
+              <span>&nbsp;</span>
+              <span>{{ parsed_cert.certTypeByDomainCountLabel || '-' }}</span>
+            </el-form-item>
+
             <el-form-item
               label="颁发日期"
               prop="domain"
@@ -167,9 +185,10 @@
               prop="domain"
             >
               <span>{{ parsed_cert.expireDays || '-' }}</span>
+              <span>&nbsp;/&nbsp;</span>
+              <span>{{ parsed_cert.totalDays || '-' }}</span>
             </el-form-item>
 
-            
             <el-form-item
               label="是否有效"
               prop="domain"
