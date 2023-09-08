@@ -17,6 +17,7 @@
             type="text"
             v-model="form.domain"
             :placeholder="$t('请输入域名')"
+            @blur="handleDomainChange"
           ></el-input>
         </el-form-item>
 
@@ -288,6 +289,28 @@ export default {
         // 以服务的方式调用的 Loading 需要异步关闭
         loading.close()
       })
+    },
+
+    async handleDomainChange() {
+      if (!this.form.domain) {
+        return
+      }
+
+      if (this.form.is_dynamic_host) {
+        return
+      }
+
+      let params = {
+        domain: this.form.domain,
+      }
+
+      const res = await this.$http.queryDomainCname(params)
+
+      if (res.ok) {
+        if (res.data && res.data.length > 0) {
+          this.form.is_dynamic_host = true
+        }
+      }
     },
   },
 

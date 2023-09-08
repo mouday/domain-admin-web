@@ -51,6 +51,7 @@ export default {
   clearLogOperationList: '/clearLogOperationList',
 
   getIpInfo: '/getIpInfo',
+  queryDomainCname: '/queryDomainCname',
 
   // getNotifyOfUser: '/getNotifyOfUser',
   // updateNotifyOfUser: '/updateNotifyOfUser',
