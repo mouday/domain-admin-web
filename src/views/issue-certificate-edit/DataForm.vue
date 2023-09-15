@@ -44,6 +44,7 @@
           >Let’s Encrypt</a
         ></span
       >
+      <span>申请域名为www.domain.com的证书同时支持保护domain.com</span>
     </div>
 
     <!-- 操作 -->
