@@ -48,7 +48,7 @@
     </div>
 
     <!-- 操作 -->
-    <div class="text-center">
+    <div class="text-center mt-md">
       <el-button @click="handleCancel">{{ $t('取消') }}</el-button>
       <el-button
         type="primary"
