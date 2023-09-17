@@ -738,5 +738,10 @@ export default [
     'zh-CN': '证书申请',
     'en-US': 'Cert Issue',
   },
+  {
+    'zh-CN': '加密方式',
+    'en-US': 'SSL Type',
+  },
+  
   
 ]

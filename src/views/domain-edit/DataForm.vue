@@ -65,7 +65,7 @@
       <div class="grid grid-cols-2">
         <el-form-item
           :label="$t('自动更新')"
-          prop="is_dynamic_host"
+          prop="auto_update"
         >
           <el-switch v-model="form.auto_update" />
 
@@ -82,7 +82,7 @@
         </el-form-item>
 
         <!-- 动态主机 -->
-        <el-form-item
+        <!-- <el-form-item
           :label="$t('动态主机')"
           prop="is_dynamic_host"
         >
@@ -98,6 +98,23 @@
               ><el-icon class="ml-sm"><Warning /></el-icon
             ></el-link>
           </el-tooltip>
+        </el-form-item> -->
+
+        <el-form-item
+          :label="$t('加密方式')"
+          prop="ssl_type"
+        >
+          <el-select
+            v-model="form.ssl_type"
+            :placeholder="$t('加密方式')"
+          >
+            <el-option
+              v-for="item in sslTypeOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
         </el-form-item>
       </div>
 
@@ -151,7 +168,7 @@
  * created 2022-10-01
  * */
 // 引入枚举值
-import { formRules } from './config.js'
+import { formRules, sslTypeOptions } from './config.js'
 import SelectGroup from '@/components/SelectGroup.vue'
 
 export default {
@@ -168,6 +185,8 @@ export default {
 
   data() {
     return {
+      sslTypeOptions,
+
       loading: false,
 
       form: {
@@ -182,6 +201,7 @@ export default {
 
         // 动态ip
         is_dynamic_host: false,
+        ssl_type: 0,
 
         start_time: '',
         expire_time: '',
@@ -220,7 +240,8 @@ export default {
         this.form.alias = data.alias
         this.form.group_id = data.group_id
         this.form.port = data.port
-        this.form.is_dynamic_host = data.is_dynamic_host
+        // this.form.is_dynamic_host = data.is_dynamic_host
+        this.form.ssl_type = data.ssl_type
         this.form.start_time = data.start_time
         this.form.expire_time = data.expire_time
         this.form.auto_update = data.auto_update
@@ -262,7 +283,8 @@ export default {
         alias: this.form.alias.trim(),
         group_id: this.form.group_id,
         port: this.form.port,
-        is_dynamic_host: this.form.is_dynamic_host,
+        // is_dynamic_host: this.form.is_dynamic_host,
+        ssl_type: this.form.ssl_type,
 
         start_time: this.form.start_time,
         expire_time: this.form.expire_time,
@@ -292,6 +314,8 @@ export default {
     },
 
     async handleDomainChange() {
+      return
+
       if (!this.form.domain) {
         return
       }

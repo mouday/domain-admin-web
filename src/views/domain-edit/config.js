@@ -1,5 +1,17 @@
 import { isNumber } from '@/utils/validator.js'
 
+// 加密方式
+export const sslTypeOptions = [
+  {
+    label: 'SSL/TLS',
+    value: 0,
+  },
+  {
+    label: 'STARTTLS',
+    value: 1,
+  },
+]
+
 // 表单验证
 export const formRules = {
   // 域名
