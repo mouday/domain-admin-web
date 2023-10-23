@@ -45,3 +45,6 @@ git clone -b dist https://github.com/mouday/domain-admin-web.git domain_admin/pu
 - Element Plus https://element-plus.org/zh-CN/
 - Tailwind CSS https://www.tailwindcss.cn/
 
+## 鸣谢
+
+- [code-inspector](https://github.com/zh-lx/code-inspector): 点击页面上的元素自动定位到代码
