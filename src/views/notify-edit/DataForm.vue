@@ -54,6 +54,33 @@
         ></el-input-number>
       </el-form-item>
 
+      <!-- 分组 -->
+      <el-form-item
+        :label="$t('分组')"
+        prop="groups"
+        v-if="groupList && groupList.length > 0"
+      >
+        <el-checkbox
+          :model-value="checkAllGroup"
+          :indeterminate="indeterminate"
+          @change="handleCheckAllGroupChange"
+          >全选</el-checkbox
+        >
+        <el-checkbox-group
+          class="ml-sm"
+          v-model="form.groups"
+          @change="handleCheckedGroupChange"
+        >
+          <el-checkbox
+            v-for="item in groupList"
+            :key="item.id"
+            :label="item.id"
+            >{{ item.name }}</el-checkbox
+          >
+        </el-checkbox-group>
+      </el-form-item>
+
+      <!-- 备注 -->
       <el-form-item
         :label="$t('备注')"
         prop="comment"
@@ -115,7 +142,7 @@ export default {
     NotifyEditWebhook,
     NotifyEditWorkWeixin,
     NotifyEditDingTalk,
-    NotifyEditFeishu
+    NotifyEditFeishu,
   },
 
   data() {
@@ -127,6 +154,9 @@ export default {
 
       // NotifyTypeOptions,
       labelWidth: '90px',
+
+      groupList: [],
+
       options: [
         {
           value: NotifyTypeEnum.Email,
@@ -158,7 +188,6 @@ export default {
           icon: 'ChatSquare',
           component: NotifyEditFeishu,
         },
-        
       ],
 
       rules: formRules,
@@ -174,11 +203,17 @@ export default {
         expire_days: 3,
         // 备注
         comment: '',
+        // 分组
+        groups: [],
       },
     }
   },
 
   computed: {
+    isEdit() {
+      return this.row && this.row.id
+    },
+
     currentComponent() {
       // console.log('active', this.active);
       return this.options.find((item) => item.value == this.form.type_id)
@@ -187,6 +222,21 @@ export default {
 
     disabledType() {
       return Boolean(this.row && this.row.id)
+    },
+
+    checkAllGroup() {
+      return (
+        this.groupList &&
+        this.groupList.length > 0 &&
+        this.form.groups.length == this.groupList.length
+      )
+    },
+
+    indeterminate() {
+      return (
+        this.form.groups.length > 0 &&
+        this.form.groups.length < this.groupList.length
+      )
     },
   },
 
@@ -214,8 +264,11 @@ export default {
           this.form.value = data.value
           this.form.expire_days = data.expire_days
           this.form.comment = data.comment
+          this.form.groups = data.groups
         }
       }
+
+      this.getGroupList()
 
       this.hasInit = true
     },
@@ -248,6 +301,7 @@ export default {
         type_id: this.form.type_id,
         expire_days: this.form.expire_days,
         comment: this.form.comment,
+        groups: this.form.groups,
         // 状态
         // status: this.form.status,
         // 通知配置
@@ -257,7 +311,7 @@ export default {
       // 编辑
       let res = null
 
-      if (this.row) {
+      if (this.row && this.row.id) {
         params['notify_id'] = this.row.id
 
         res = await this.$http.updateNotifyById(params)
@@ -281,6 +335,24 @@ export default {
     handleClose() {
       this.$emit('on-cancel')
     },
+
+    async getGroupList() {
+      const res = await this.$http.getGroupList()
+
+      if (res.ok) {
+        this.groupList = res.data.list
+      }
+    },
+
+    handleCheckAllGroupChange() {
+      if (this.checkAllGroup) {
+        this.form.groups = []
+      } else {
+        this.form.groups = this.groupList.map((item) => item.id)
+      }
+    },
+
+    handleCheckedGroupChange() {},
   },
 
   created() {

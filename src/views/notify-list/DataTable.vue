@@ -59,6 +59,24 @@
         </template>
       </el-table-column>
 
+      <!-- 分组 -->
+      <el-table-column
+        :label="$t('分组')"
+        header-align="center"
+        align="center"
+        width="90"
+        prop="groups"
+      >
+        <template #default="scope">
+          <template
+            v-if="scope.row.group_list && scope.row.group_list.length > 0"
+          >
+            <div v-for="item in scope.row.group_list"> {{ item.name }}</div>
+          </template>
+          <span v-else>全部</span>
+        </template>
+      </el-table-column>
+
       <!-- 通知配置 -->
       <!-- <el-table-column
         label="通知配置"
@@ -123,7 +141,7 @@
         align="center"
         width="80"
       >
-      <template #header>
+        <template #header>
           <el-tooltip
             effect="dark"
             content="如果收不到消息，可尝试增加：剩余天数"
@@ -177,7 +195,7 @@
       >
         <template #default="scope">
           <el-popconfirm
-          :title="`${$t('确定删除')}？`"
+            :title="`${$t('确定删除')}？`"
             @confirm="handleDeleteClick(scope.row)"
           >
             <template #reference>
