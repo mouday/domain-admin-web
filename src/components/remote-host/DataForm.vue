@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="remote-host">
     <el-form
       ref="form"
       :model="form"
@@ -12,11 +12,20 @@
         label="主机地址"
         prop="host"
       >
-        <el-input
-          type="text"
-          v-model="form.host"
-          placeholder="主机地址"
-        ></el-input>
+        <div class="flex">
+          <el-input
+            type="text"
+            v-model="form.host"
+            placeholder="主机地址"
+          ></el-input>
+
+          <el-input
+            class="remote-host__port-input"
+            type="text"
+            v-model="form.port"
+            placeholder="端口号"
+          ></el-input>
+        </div>
       </el-form-item>
 
       <!-- 验证类型 -->
@@ -128,6 +137,7 @@ export default {
       HostAuthTypeOptions,
       form: {
         host: '',
+        port: '22',
         user: '',
         auth_type: HostAuthTypeEnum.PASSWORD,
         password: '',
@@ -140,7 +150,7 @@ export default {
 
   methods: {
     async getData() {
-      console.log(this.row);
+      console.log(this.row)
 
       if (this.row && this.row.id) {
         const data = await this.getHostById(this.row.id)
@@ -159,7 +169,7 @@ export default {
       }
 
       const res = await this.$http.getHostById(params)
-      
+
       return res.data
     },
 
@@ -184,6 +194,7 @@ export default {
 
       let params = {
         host: this.form.host,
+        port: this.form.port,
         user: this.form.user,
         password: this.form.password,
         private_key: this.form.private_key,
@@ -234,6 +245,11 @@ export default {
 }
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+.remote-host__port-input {
+  width: 90px;
+  margin-left: 10px;
+}
+</style>
 
 <style lang="less" scoped></style>

@@ -1,12 +1,13 @@
 <template>
   <div class="flex flex-1 items-center">
+    <!-- 如果不是默认22端口再显示 -->
     <template v-if="value && value.id">
       <el-tag
         class="cursor-pointer"
         closable
         @close="handleClose"
         @click="handleEditHost"
-        >{{ value.user }}@{{ value.host }}</el-tag
+        >{{ value.user }}@{{ value.host }}<template v-if="value.port != 22">:{{ value.port }}</template></el-tag
       >
     </template>
 
