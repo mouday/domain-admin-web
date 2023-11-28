@@ -32,6 +32,7 @@ let configMap = [
   // mcp -m list issue-certificate .data/issue_certificate.json
   // mcp -m list notify data/notify.json
   //  mcp -m list group-user ./data/group-user.json
+  //  mcp -m list host ./data/host.json
   {
     mode: 'list',
     template: [

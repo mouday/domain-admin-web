@@ -1,18 +1,18 @@
 <template>
   <div class="app-container">
     <!-- 操作按钮 -->
-    <div class="margin-bottom--20">
+    <div class="flex justify-between margin-bottom--20">
       <el-button
         type="primary"
         @click="handleAddRow"
-        ><el-icon><Plus /></el-icon>{% raw %}{{ $t('添加') }}{% endraw %}</el-button
+        ><el-icon><Plus /></el-icon>{{ $t('添加') }}</el-button
       >
 
       <el-input
         class="ml-sm"
         style="width: 260px"
         v-model="keyword"
-        placeholder="输入域名"
+        placeholder="输入主机地址"
         clearable
         @keypress.enter="handleSearch"
         @clear="handleSearch"
@@ -55,14 +55,15 @@
 
 <script>
 /**
- * created {{time.date}}
+ * created 2023-11-28
  */
 
-import DataFormDialog from '../{{edit_name}}/DataFormDialog.vue'
 import DataTable from './DataTable.vue'
+import DataFormDialog from '@/components/remote-host/DataFormDialog.vue'
+import { getHostAuthTypeLabel } from '@/components/remote-host/config.js'
 
 export default {
-  name: '{{list_name}}',
+  name: 'host-list',
 
   props: {},
 
@@ -101,18 +102,18 @@ export default {
         keyword: this.keyword,
       }
 
-      try {
-        const res = await this.$http.function(params)
+      const res = await this.$http.getHostList(params)
 
-        if (res.code == 0) {
-          this.list = res.data.list
-          this.total = res.data.total
-        }
-      } catch (e) {
-        console.log(e)
-      } finally {
-        this.loading = false
+      if (res.ok) {
+        this.total = res.data.total
+
+        this.list = res.data.list.map((item) => {
+          item.auth_type_label = getHostAuthTypeLabel(item.auth_type)
+          return item
+        })
       }
+
+      this.loading = false
     },
 
     handleAddRow() {

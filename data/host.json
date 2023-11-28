@@ -1,0 +1,17 @@
+{
+  "table": {
+    "columns": [
+      { "comment": "用户用", "name": "user_id", "default": "" },
+      {
+        "comment": "主机地址",
+        "name": "host",
+        "default": ""
+      },
+      { "comment": "端口号", "name": "port", "default": "" },
+
+      { "comment": "登录用户", "name": "user", "default": "" },
+      { "comment": "验证方式", "name": "auth_type", "default": "" },
+      { "comment": "创建时间", "name": "create_time", "default": "" }
+    ]
+  }
+}

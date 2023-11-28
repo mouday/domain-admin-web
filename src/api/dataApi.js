@@ -147,4 +147,5 @@ export default {
   addHost: '/addHost',
   getHostById: '/getHostById',
   updateHostById: '/updateHostById',
+  deleteHostById: '/deleteHostById',
 }

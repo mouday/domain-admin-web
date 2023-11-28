@@ -58,6 +58,17 @@ export const routes = [
           // hidden: true,
         },
       },
+
+      {
+        path: '/cert/host-list',
+        name: 'host-list',
+        component: () => import('../views/host-list/index.vue'),
+        meta: {
+          title: '主机列表',
+          icon: 'User',
+          hidden: true,
+        },
+      },
     ],
   },
 
@@ -315,8 +326,6 @@ export const routes = [
           hidden: true,
         },
       },
-      
-      
     ],
   },
 ]

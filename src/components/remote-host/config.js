@@ -53,3 +53,7 @@ export const HostAuthTypeOptions = [
     value: HostAuthTypeEnum.PRIVATE_KEY,
   },
 ]
+
+export function getHostAuthTypeLabel(value){
+  return HostAuthTypeOptions.find(item => item.value === value)?.label;
+}

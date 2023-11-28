@@ -45,6 +45,14 @@
             >
           </template>
         </el-popconfirm>
+
+        <el-link
+          :underline="false"
+          type="primary"
+          class="mr-sm"
+          @click="handleHostList"
+          ><el-icon><Setting /></el-icon>主机列表</el-link
+        >
       </div>
     </div>
 
@@ -220,6 +228,12 @@ export default {
         this.list.splice(index, 1, res.data)
         // console.log(this.list)
       }
+    },
+
+    handleHostList() {
+      this.$router.push({
+        name: 'host-list',
+      })
     },
   },
 
