@@ -61,7 +61,7 @@
 
       <!-- 分组 -->
       <el-table-column
-        :label="$t('分组')"
+        :label="$t('触发分组')"
         header-align="center"
         align="center"
         width="90"

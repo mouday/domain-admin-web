@@ -56,18 +56,18 @@
 
       <!-- 分组 -->
       <el-form-item
-        :label="$t('分组')"
+        :label="$t('触发分组')"
         prop="groups"
         v-if="groupList && groupList.length > 0"
       >
         <el-checkbox
+          class="mr-sm"
           :model-value="checkAllGroup"
           :indeterminate="indeterminate"
           @change="handleCheckAllGroupChange"
           >全选</el-checkbox
         >
         <el-checkbox-group
-          class="ml-sm"
           v-model="form.groups"
           @change="handleCheckedGroupChange"
         >
