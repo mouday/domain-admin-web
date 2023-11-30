@@ -91,7 +91,7 @@
             <el-upload
               ref="upload"
               action="action"
-              accept=".txt"
+              accept=".txt,.csv,.xlsx"
               :limit="1"
               :on-exceed="handleExceed"
               :show-file-list="false"
@@ -143,6 +143,12 @@
       v-model:visible="dialogVisible"
       @on-success="handleAddSuccess"
     ></DataFormDialog>
+
+    <!-- 数据导出 -->
+    <ExportFileDialog
+      v-model:visible="exportFileDialogVisible"
+      @on-confirm="handleExportConfirm"
+    ></ExportFileDialog>
   </div>
 </template>
 
@@ -166,6 +172,7 @@ import ConditionFilter from './ConditionFilter.vue'
 import { getUUID } from '@/utils/uuid.js'
 import { RoleEnum } from '@/emuns/role-enums.js'
 import DataCount from '@/components/DataCount.vue'
+import ExportFileDialog from '@/components/export-file/ExportFileDialog.vue'
 
 export default {
   name: 'domain-list',
@@ -185,6 +192,7 @@ export default {
     CheckDomainInfo,
     ConditionFilter,
     DataCount,
+    ExportFileDialog,
   },
 
   data() {
@@ -212,6 +220,8 @@ export default {
       ConditionFilterParams: [],
       selectedRows: [],
       params: {},
+
+      exportFileDialogVisible: false,
     }
   },
 
@@ -331,19 +341,24 @@ export default {
       this.resetData()
     },
 
-    async handleExportToFile() {
-      // const res = await this.$http.getAllDomainListOfUser()
-      // let content = res.data.list.map((item) => item.domain).join('\n')
-
-      // var blob = new Blob([content], {
-      //   type: 'text/plain;charset=utf-8',
-      // })
-
-      const res = await this.$http.exportDomainFile(this.params)
+    async handleExportConfirm(data) {
+      const res = await this.$http.exportDomainFile({
+        ...this.params,
+        ext: data.ext,
+      })
 
       if (res.ok) {
         FileSaver.saveAs(res.data.url, res.data.name)
       }
+    },
+
+    handleExportToFile() {
+      // const res = await this.$http.getAllDomainListOfUser()
+      // let content = res.data.list.map((item) => item.domain).join('\n')
+      // var blob = new Blob([content], {
+      //   type: 'text/plain;charset=utf-8',
+      // })
+      this.exportFileDialogVisible = true
     },
 
     handleSearch() {

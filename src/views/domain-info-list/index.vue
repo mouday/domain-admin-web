@@ -52,7 +52,6 @@
       class="flex mt-sm"
       style="align-items: center"
     >
-      
       <DataCount :value="total"></DataCount>
       <div
         class="flex"
@@ -98,7 +97,7 @@
             <el-upload
               ref="upload"
               action="action"
-              accept=".txt"
+              accept=".txt,.csv,.xlsx"
               :limit="1"
               :on-exceed="handleExceed"
               :show-file-list="false"
@@ -158,6 +157,12 @@
       v-model:visible="dialogVisible"
       @on-success="handleAddSuccess"
     ></DataFormDialog>
+
+    <!-- 数据导出 -->
+    <ExportFileDialog
+      v-model:visible="exportFileDialogVisible"
+      @on-confirm="handleExportConfirm"
+    ></ExportFileDialog>
   </div>
 </template>
 
@@ -184,6 +189,7 @@ import { getUUID } from '@/utils/uuid.js'
 import { RoleEnum } from '@/emuns/role-enums.js'
 import { getTableColumn } from './table-column.js'
 import DataCount from '@/components/DataCount.vue'
+import ExportFileDialog from '@/components/export-file/ExportFileDialog.vue'
 
 export default {
   name: 'domain-list',
@@ -204,7 +210,8 @@ export default {
     ConditionFilter,
     UpdateDomainICP,
     TableColumnSet,
-    DataCount
+    DataCount,
+    ExportFileDialog,
   },
 
   data() {
@@ -229,10 +236,12 @@ export default {
       order_prop: 'domain_expire_days',
 
       hasInitData: false,
- 
+
       ConditionFilterParams: [],
       selectedRows: [],
-      params: {}
+      params: {},
+
+      exportFileDialogVisible: false,
     }
   },
 
@@ -286,7 +295,7 @@ export default {
           }
         }
       }
-      this.params =  params
+      this.params = params
 
       const res = await this.$http.getDomainInfoList(params)
 
@@ -350,6 +359,17 @@ export default {
       this.resetData()
     },
 
+    async handleExportConfirm(data) {
+      const res = await this.$http.exportDomainInfoFile({
+        ...this.params,
+        ext: data.ext,
+      })
+
+      if (res.ok) {
+        FileSaver.saveAs(res.data.url, res.data.name)
+      }
+    },
+
     async handleExportToFile() {
       // const res = await this.$http.getAllDomainListOfUser()
       // let content = res.data.list.map((item) => item.domain).join('\n')
@@ -357,10 +377,7 @@ export default {
       // var blob = new Blob([content], {
       //   type: 'text/plain;charset=utf-8',
       // })
-      const res = await this.$http.exportDomainInfoFile(this.params)
-      if (res.ok) {
-        FileSaver.saveAs(res.data.url, res.data.name)
-      }
+      this.exportFileDialogVisible = true
     },
 
     handleSearch() {

@@ -4,7 +4,7 @@
       <h3 class="title">Domain Admin</h3>
 
       <el-form
-        class=""
+        class="login-form"
         ref="form"
         :model="form"
         :rules="rules"
@@ -28,7 +28,7 @@
           <el-input
             v-model="form.password"
             type="password"
-            auto-complete="off"
+            auto-complete="new-password"
             placeholder="密码"
             @keypress.enter="onSubmit"
           />
@@ -36,13 +36,12 @@
       </el-form>
 
       <div>
-        <el-button
-          class="w-full mt-md"
-          type="primary"
-          size="large"
+        <button
+          class="w-full mt-md login-button"
           @click.native.prevent="onSubmit"
-          >{{ $t('登录') }}</el-button
         >
+          {{ $t('登录') }}
+        </button>
       </div>
     </div>
   </div>
@@ -131,14 +130,11 @@ export default {
 }
 </script>
 
-<style lang="less"></style>
-
-<style scoped>
+<style lang="less">
 .login-container-wrap {
   height: 100%;
   /* background-color: #1e222d; */
 
-  
   background-color: #1e222d;
   /* padding-top: 180px; */
 
@@ -161,26 +157,92 @@ export default {
   /* padding-top: 20px; */
 
   /* -webkit-border-radius: 5px; */
-  border-radius: 5px;
-  /* -moz-border-radius: 5px; */
-  background-clip: padding-box;
+  /* border-radius: 5px; */
+  border-radius: 12px;
+  // /* -moz-border-radius: 5px; */
+  // background-clip: padding-box;
   /* margin: 180px auto; */
-  width: 350px;
-  padding: 35px;
+  /* width: 350px;
+  padding: 35px; */
   /* background: #fff; */
-  border: 1px solid #eaeaea;
+  /* border: 1px solid #eaeaea; */
   /* background-color: #1e222d; */
-  background-color: #f3f4f7;
+  width: 420px;
+  padding: 42px 48px;
+  background-color: #fff;
   /* box-shadow: 0 0 25px #cac6c6; */
 }
 
 .title {
   /* margin: 0px auto 40px auto; */
-  margin-bottom: 30px;
-  text-align: center;
-  color: #505458;
+  /* margin-bottom: 30px; */
+  /* text-align: center; */
+  /* color: #505458; */
   /* color: #ffffff; */
-  font-weight: bold;
+  /* font-weight: bold;
+  font-size: 26px; */
+
   font-size: 26px;
+  font-weight: 700;
+  line-height: 32px;
+  text-align: center;
+}
+
+.login-form {
+  margin-top: 28px;
+
+  .el-input__inner {
+    font-size: 16px;
+    border-color: transparent;
+    // background-color: #f2f5f9;
+    height: 48px;
+    line-height: 48px;
+    color: #333;
+  }
+
+  .el-input__inner::placeholder {
+    color: #a3acb5;
+    font-size: 14px;
+    font-weight: normal;
+  }
+
+  // 自动填入样式
+  .el-input__inner:-internal-autofill-previewed,
+  .el-input__inner:-internal-autofill-selected {
+    -webkit-text-fill-color: #333;
+    font-size: 16px;
+    transition: background-color 1000s ease-out 0.5s;
+  }
+
+  .el-input__wrapper {
+    background-color: #f2f5f9;
+    padding: 0 20px;
+    box-shadow: unset;
+    border-radius: 0;
+  }
+
+  .el-form-item.is-error .el-input__wrapper {
+    box-shadow: unset;
+  }
+}
+
+.login-button {
+  // transition-property: color, background-color, border-color,
+  //   text-decoration-color, fill, stroke;
+  // transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  // transition-duration: 0.15s;
+  color: #fff;
+  height: 48px;
+  line-height: 48px;
+  background-image: linear-gradient(
+    90deg,
+    rgb(45, 40, 255) -0.24%,
+    rgb(26, 125, 255) 99.96%
+  );
+  border-radius: 0;
+}
+
+.login-button:hover {
+  opacity: 0.9;
 }
 </style>
