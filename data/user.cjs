@@ -18,7 +18,7 @@ module.exports = {
         default: '',
       },
       {
-        comment: '邮件列表',
+        comment: '收件列表',
         name: 'email_list',
         default: '',
       },
