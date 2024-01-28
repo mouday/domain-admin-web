@@ -1,8 +1,20 @@
 <template>
   <div class="app-container">
     <div class="flex justify-between mb-sm">
-      <div>
-        <span class="color--info">监控名称: </span> <span>{{ detail.title }}</span>
+      <div class="flex items-center">
+        <span class="color--info">监控名称: </span>
+        <span class="ml-sm">{{ detail?.title }}</span>
+
+        <span class="ml-md color--info">监控请求: </span>
+        <span class="ml-sm">{{ detail?.content?.method}}</span>
+        <el-link
+          class="ml-sm"
+          :underline="false"
+          type="primary"
+          :href="detail?.content?.url"
+          :target="'_blank'"
+          >{{ detail?.content?.url}}</el-link
+        >
       </div>
 
       <el-popconfirm
