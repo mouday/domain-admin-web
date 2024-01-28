@@ -95,6 +95,44 @@ export const routes = [
     ],
   },
 
+  // 监控
+  {
+    path: '/monitor',
+    name: 'monitor',
+    component: Layout,
+    meta: {
+      title: '网站监控',
+      icon: 'DataBoard',
+    },
+    redirect: { name: 'monitor-list' },
+    children: [
+      {
+        path: 'list',
+        name: 'monitor-list',
+        component: () => import('../views/monitor-list/index.vue'),
+        meta: {
+          title: '监控列表',
+          icon: 'DataBoard',
+        },
+      },
+      {
+        path: 'log-list',
+        name: 'log-monitor-list',
+        component: () => import('../views/log-monitor-list/index.vue'),
+        meta: {
+          title: '监控日志',
+          icon: 'DataBoard',
+          hidden: true,
+        },
+        props: (route) => {
+          return {
+            monitorId: route.query.monitorId,
+          }
+        },
+      },
+    ],
+  },
+
   {
     path: '/group',
     name: 'group',

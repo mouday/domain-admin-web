@@ -45,7 +45,7 @@
 import DataFormDialog from '../notify-edit/DataFormDialog.vue'
 import DataTable from './DataTable.vue'
 import { notifyTypeFilter } from '@/emuns/notify-type-enums.js'
-import { eventFilter } from '@/emuns/event-enums.js'
+import { eventFilter, EventEnum } from '@/emuns/event-enums.js'
 
 export default {
   name: 'notify-list',
@@ -99,6 +99,12 @@ export default {
           this.list = res.data.list.map((item) => {
             item.type_label = notifyTypeFilter(item.type_id)
             item.event_label = eventFilter(item.event_id)
+            
+            if (item.event_id == EventEnum.MONITOR_EXCEPTION) {
+              item.expire_days = null
+              item.disable_test = true
+            }
+
             return item
           })
           this.total = res.data.total

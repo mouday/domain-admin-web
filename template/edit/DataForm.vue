@@ -72,6 +72,7 @@
     </el-form>
 
     <!-- 操作 -->
+    {% raw %}
     <div class="text-center">
       <el-button @click="handleCancel">{{ $t('取消') }}</el-button>
       <el-button
@@ -80,6 +81,7 @@
         >{{ $t('确定') }}</el-button
       >
     </div>
+    {% endraw %}
   </div>
 </template>
 

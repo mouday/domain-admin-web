@@ -159,11 +159,13 @@
           <el-popconfirm
             title="确定发送？"
             @confirm="handleTestRow(scope.row)"
+            :disabled="scope.row.disable_test"
           >
             <template #reference>
               <el-link
                 :underline="false"
                 type="primary"
+                :disabled="scope.row.disable_test"
                 ><el-icon><Position /></el-icon
               ></el-link>
             </template>

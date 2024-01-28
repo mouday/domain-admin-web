@@ -43,42 +43,50 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item
-        :label="$t('剩余天数')"
-        prop="expire_days"
+      <template
+        v-if="
+          [EventEnum.SSL_CERT_EXPIRE, EventEnum.DOMAIN_EXPIRE].includes(
+            form.event_id
+          )
+        "
       >
-        <el-input-number
-          v-model="form.expire_days"
-          :min="0"
-          placeholder="过期通知"
-        ></el-input-number>
-      </el-form-item>
-
-      <!-- 分组 -->
-      <el-form-item
-        :label="$t('触发分组')"
-        prop="groups"
-        v-if="groupList && groupList.length > 0"
-      >
-        <el-checkbox
-          class="mr-sm"
-          :model-value="checkAllGroup"
-          :indeterminate="indeterminate"
-          @change="handleCheckAllGroupChange"
-          >全选</el-checkbox
+        <el-form-item
+          :label="$t('剩余天数')"
+          prop="expire_days"
         >
-        <el-checkbox-group
-          v-model="form.groups"
-          @change="handleCheckedGroupChange"
+          <el-input-number
+            v-model="form.expire_days"
+            :min="0"
+            placeholder="过期通知"
+          ></el-input-number>
+        </el-form-item>
+
+        <!-- 分组 -->
+        <el-form-item
+          :label="$t('触发分组')"
+          prop="groups"
+          v-if="groupList && groupList.length > 0"
         >
           <el-checkbox
-            v-for="item in groupList"
-            :key="item.id"
-            :label="item.id"
-            >{{ item.name }}</el-checkbox
+            class="mr-sm"
+            :model-value="checkAllGroup"
+            :indeterminate="indeterminate"
+            @change="handleCheckAllGroupChange"
+            >全选</el-checkbox
           >
-        </el-checkbox-group>
-      </el-form-item>
+          <el-checkbox-group
+            v-model="form.groups"
+            @change="handleCheckedGroupChange"
+          >
+            <el-checkbox
+              v-for="item in groupList"
+              :key="item.id"
+              :label="item.id"
+              >{{ item.name }}</el-checkbox
+            >
+          </el-checkbox-group>
+        </el-form-item>
+      </template>
 
       <!-- 备注 -->
       <el-form-item
@@ -193,6 +201,7 @@ export default {
       rules: formRules,
 
       // 引入枚举值
+      EventEnum,
       EventOptions,
       form: {
         // 事件类型

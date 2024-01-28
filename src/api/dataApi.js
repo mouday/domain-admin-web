@@ -133,7 +133,6 @@ export default {
   verifyCertificateById: '/verifyCertificateById',
   renewIssueCertificateById: '/renewIssueCertificateById',
 
-  
   getDomainHost: '/getDomainHost',
   deployVerifyFile: '/deployVerifyFile',
   deployCertificateFile: '/deployCertificateFile',
@@ -148,4 +147,17 @@ export default {
   getHostById: '/getHostById',
   updateHostById: '/updateHostById',
   deleteHostById: '/deleteHostById',
+
+  // http监控
+  addMonitor: '/addMonitor',
+  updateMonitorById: '/updateMonitorById',
+  addMonitorActive: '/addMonitorActive',
+  removeMonitorById: '/removeMonitorById',
+  getMonitorById: '/getMonitorById',
+  getMonitorList: '/getMonitorList',
+
+  // http监控日志
+  getLogMonitorList: '/getLogMonitorList',
+  clearLogMonitor: '/clearLogMonitor',
+  clearAllLogMonitor: '/clearAllLogMonitor',
 }

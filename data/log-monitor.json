@@ -1,0 +1,12 @@
+{
+  "table": {
+    "columns": [
+     
+      { "comment": "创建时间", "name": "create_time_label", "default": "" },
+      { "comment": "结束时间", "name": "update_time_label", "default": "" },
+      { "comment": "持续时间", "name": "update_time_label", "default": "" },
+      { "comment": "状态", "name": "status", "default": "" },
+      { "comment": "结果", "name": "result", "default": "" }
+    ]
+  }
+}

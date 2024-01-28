@@ -5,14 +5,14 @@
       <el-button
         type="primary"
         @click="handleAddRow"
-        ><el-icon><Plus /></el-icon>{% raw %}{{ $t('添加') }}{% endraw %}</el-button
+        ><el-icon><Plus /></el-icon>{{ $t('添加') }}</el-button
       >
 
       <el-input
         class="ml-sm"
         style="width: 260px"
         v-model="keyword"
-        placeholder="输入域名"
+        placeholder="输入标题"
         clearable
         @keypress.enter="handleSearch"
         @clear="handleSearch"
@@ -55,14 +55,16 @@
 
 <script>
 /**
- * created {{time.date}}
+ * created 2024-01-28
  */
 
-import DataFormDialog from '../{{edit_name}}/DataFormDialog.vue'
+import DataFormDialog from '../../components/monitor-edit/DataFormDialog.vue'
 import DataTable from './DataTable.vue'
+import { MonitorStatusFilter,MonitorStatusFilterStatus } from '../../emuns/monitor-status-enums.js'
+import { MonitorTypeFilter } from '../../emuns/monitor-type-enums.js'
 
 export default {
-  name: '{{list_name}}',
+  name: 'monitor-list',
 
   props: {},
 
@@ -102,10 +104,14 @@ export default {
       }
 
       try {
-        const res = await this.$http.function(params)
+        const res = await this.$http.getMonitorList(params)
 
         if (res.code == 0) {
-          this.list = res.data.list
+          this.list = res.data.list.map((item) => {
+            item.monitor_type_label = MonitorTypeFilter(item.monitor_type)
+            item.status_value = MonitorStatusFilterStatus(item.status)
+            return item
+          })
           this.total = res.data.total
         }
       } catch (e) {

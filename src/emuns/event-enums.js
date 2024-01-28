@@ -7,6 +7,8 @@ export const EventEnum = {
 
   // 域名到期
   DOMAIN_EXPIRE: 1,
+  // 监控异常
+  MONITOR_EXCEPTION: 2,
 }
 
 export const EventOptions = [
@@ -17,6 +19,10 @@ export const EventOptions = [
   {
     value: EventEnum.DOMAIN_EXPIRE,
     label: translate('域名到期'),
+  },
+  {
+    value: EventEnum.MONITOR_EXCEPTION,
+    label: translate('监控异常'),
   },
 ]
 

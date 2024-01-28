@@ -1,0 +1,15 @@
+{
+    "table": {
+      "columns": [
+        { "comment": "标题", "name": "title", "default": "" },
+        { "comment": "监控类型", "name": "monitor_type", "default": "" },
+        { "comment": "监控参数", "name": "content", "default": "" },
+
+        { "comment": "检测频率", "name": "interval", "default": "" },
+        { "comment": "状态", "name": "status", "default": "" },
+        { "comment": "启用", "name": "is_active", "default": "" },
+        { "comment": "下次运行时间", "name": "next_run_time", "default": "" }
+      ]
+    }
+  }
+  

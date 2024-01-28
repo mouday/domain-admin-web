@@ -169,7 +169,7 @@
  * */
 // 引入枚举值
 import { formRules, sslTypeOptions } from './config.js'
-import SelectGroup from '@/components/SelectGroup.vue'
+import SelectGroup from '../../components/SelectGroup.vue'
 
 export default {
   name: '',
