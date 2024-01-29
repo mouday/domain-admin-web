@@ -213,10 +213,10 @@ export default {
 
     async handleDeleteClick(row) {
       let params = {
-        id: row.id,
+        monitor_id: row.id,
       }
 
-      const res = await this.$http.function(params)
+      const res = await this.$http.removeMonitorById(params)
 
       if (res.code == 0) {
         this.$msg.success('操作成功')
