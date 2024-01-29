@@ -12,7 +12,7 @@
         class="ml-sm"
         style="width: 260px"
         v-model="keyword"
-        placeholder="输入标题"
+        placeholder="输入名称"
         clearable
         @keypress.enter="handleSearch"
         @clear="handleSearch"

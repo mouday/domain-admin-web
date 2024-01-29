@@ -6,34 +6,62 @@
         <span class="ml-sm">{{ detail?.title }}</span>
 
         <span class="ml-md color--info">监控请求: </span>
-        <span class="ml-sm">{{ detail?.content?.method}}</span>
+        <span class="ml-sm">{{ detail?.content?.method }}</span>
         <el-link
           class="ml-sm"
           :underline="false"
           type="primary"
           :href="detail?.content?.url"
           :target="'_blank'"
-          >{{ detail?.content?.url}}</el-link
+          >{{ detail?.content?.url }}</el-link
         >
       </div>
 
-      <el-popconfirm
-        title="确定清空日志？"
-        @confirm="handleBatchDeleteConfirm"
-      >
-        <template #reference>
-          <el-link
-            :underline="false"
-            type="danger"
-            class="mr-sm"
-            ><el-icon><Delete /></el-icon>{{ $t('清空日志') }}</el-link
-          >
-        </template>
-      </el-popconfirm>
+      <div>
+        <el-link
+          v-if="showMode == 'table'"
+          :underline="false"
+          type="primary"
+          class="mr-sm"
+          @click="handleChangeShowMode('chart')"
+          ><el-icon><DataAnalysis /></el-icon>{{ $t('图表') }}</el-link
+        >
+
+        <el-link
+          v-else
+          :underline="false"
+          type="primary"
+          class="mr-sm"
+          @click="handleChangeShowMode('table')"
+          ><el-icon><Tickets /></el-icon>{{ $t('数据') }}</el-link
+        >
+
+        <el-popconfirm
+          title="确定清空日志？"
+          @confirm="handleBatchDeleteConfirm"
+        >
+          <template #reference>
+            <el-link
+              :underline="false"
+              type="danger"
+              class="mr-sm"
+              ><el-icon><Delete /></el-icon>{{ $t('清空日志') }}</el-link
+            >
+          </template>
+        </el-popconfirm>
+      </div>
     </div>
+
+    <!-- 数据图表 -->
+    <DataChart
+      v-show="showMode == 'chart'"
+      v-loading="loading"
+      ref="DataChart"
+    ></DataChart>
 
     <!-- 数据列表 -->
     <DataTable
+      v-show="showMode == 'table'"
       v-loading="loading"
       :list="list"
       @on-success="resetData"
@@ -66,6 +94,7 @@
 
 // import DataFormDailog from '../log_scheduler-edit/DataFormDailog.vue'
 import DataTable from './DataTable.vue'
+import DataChart from './DataChart.vue'
 import {
   MonitorStatusFilter,
   MonitorStatusFilterStatus,
@@ -84,6 +113,7 @@ export default {
   components: {
     // DataFormDailog,
     DataTable,
+    DataChart,
   },
 
   data() {
@@ -98,6 +128,7 @@ export default {
       dialogVisible: false,
 
       pageSizeCachekey: 'pageSize',
+      showMode: 'chart', // chart table
     }
   },
 
@@ -145,7 +176,17 @@ export default {
         this.total = res.data.total
       }
 
+      // 绘制图表
+      this.handleRefreshChart()
+
       this.loading = false
+    },
+
+    handleRefreshChart() {
+      // 绘制图表
+      if (this.$refs.DataChart) {
+        this.$refs.DataChart.refreshData(this.list)
+      }
     },
 
     handleAddRow() {
@@ -191,11 +232,18 @@ export default {
         })
       }
     },
+
+    handleChangeShowMode(showMode) {
+      this.showMode = showMode
+    },
+  },
+
+  mounted() {
+    this.resetData()
   },
 
   created() {
     this.loadPageSize()
-    this.resetData()
   },
 }
 </script>
