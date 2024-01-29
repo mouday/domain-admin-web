@@ -31,6 +31,7 @@ export default {
   getSystemEnvConfig: '/getSystemEnvConfig',
   getCronConfig: '/getCronConfig',
   updateCronConfig: '/updateCronConfig',
+  getSystemData: '/getSystemData',
 
   getUserInfo: '/getUserInfo',
   updateUserInfo: '/updateUserInfo',

@@ -15,12 +15,26 @@ export const routes = [
   // 首页
   {
     path: '/',
-    redirect: {
-      name: 'cert-list',
-    },
+    name: 'index',
+    component: Layout,
     meta: {
+      title: '首页',
       hidden: true,
     },
+    redirect: {
+      name: 'dashboard',
+    },
+    children: [
+      {
+        path: 'dashboard',
+        name: 'dashboard',
+        component: () => import('../views/dashboard/dashboard.vue'),
+        meta: {
+          title: '控制台',
+          icon: 'Tickets',
+        },
+      },
+    ],
   },
 
   // 证书
