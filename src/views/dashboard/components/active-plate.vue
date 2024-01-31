@@ -8,7 +8,7 @@
       >
         <p
           class="num"
-          :style="{ color: colors[index] }"
+          :style="{ color: item.color}"
         >
           {{ item.count }}
           <!-- <CountTo :end="item.count"></CountTo> -->
@@ -21,6 +21,7 @@
 
 <script>
 import CountTo from './count-to.vue'
+import { COLORS } from '../../../config/index.js'
 
 export default {
   name: 'activePlate',
@@ -37,6 +38,8 @@ export default {
 
   data() {
     return {
+      COLORS,
+
       colors: [
         '#409eff',
         '#409eff',

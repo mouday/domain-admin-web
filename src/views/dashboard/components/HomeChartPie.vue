@@ -38,37 +38,70 @@ export default {
     },
 
     initChart(value) {
+      let selected = {}
+      for (let item of value) {
+        selected[item.name] = item.selected
+      }
+
+      // #cccccc
+      let isAllZero = true
+      value.forEach((item) => {
+        if (item.value != 0) {
+          isAllZero = false
+        }
+      })
+
+      let color = value.map((x) => x.color)
+      if (isAllZero == true) {
+        color = ['#cccccc', '#cccccc']
+      }
+
       let option = {
-        color: ['#409eff', '#f56c6c'],
+        // color: ['#409eff', '#f56c6c'],
+        color: color,
 
         tooltip: {
           trigger: 'item',
+          // position: 'top',
+          // backgroundColor: 'transparent',
+          // borderWidth: 0,
         },
+
         legend: {
           top: '5%',
           left: 'center',
+          selectedMode: false,
+          // selected: selected,
         },
+
         series: [
           {
             // name: 'Access From',
             type: 'pie',
+            showEmptyCircle: true,
+
             radius: ['30%', '60%'],
             center: ['50%', '54%'],
-            avoidLabelOverlap: false,
+
+            // avoidLabelOverlap: false,
+
             label: {
               show: false,
-              position: 'center',
+              //   // position: 'center',
+              //   position: 'outside',
+              // formatter: '{d}%',
             },
+
             emphasis: {
-              label: {
-                show: true,
-                fontSize: 40,
-                fontWeight: 'bold',
-              },
+              // label: {
+              //   show: false,
+              //   fontSize: 40,
+              //   fontWeight: 'bold',
+              // },
             },
-            labelLine: {
-              show: false,
-            },
+            // labelLine: {
+            //   show: true,
+            // },
             data: value,
 
             // [
@@ -87,6 +120,17 @@ export default {
       }
 
       this.chartDom.setOption(option)
+      
+      value.forEach((item) => {
+        if (!item.selected) {
+          this.chartDom.dispatchAction({
+            type: 'legendUnSelect',
+            // 图例名称
+            name: item.name,
+          })
+        }
+      })
+
       eventUtil.on(window, 'resize', this.resize)
     },
   },

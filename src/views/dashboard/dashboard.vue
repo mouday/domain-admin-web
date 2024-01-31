@@ -35,6 +35,7 @@ import HomeCard from './components/card.vue'
 // import ChartPie from './components/chart-pie.vue'
 import HomeChartPie from './components/HomeChartPie.vue'
 import { getUUID } from '@/utils/uuid.js'
+import { COLORS } from '../../config/index.js'
 
 export default {
   name: 'Home',
@@ -75,8 +76,19 @@ export default {
   methods: {
     async getData() {
       const res = await this.$http.getSystemData()
-      this.list = res.data.map((item) => {
+      this.list = res.data.map((item, index) => {
         item.key = getUUID()
+
+        if (index < 3) {
+          item.color = COLORS.PRIMARY
+        } else {
+          if (item.count > 0) {
+            item.color = COLORS.DANGER
+          } else {
+            item.color = COLORS.SUCCESS
+          }
+        }
+
         return item
       })
 
@@ -94,14 +106,20 @@ export default {
         (item) => item.title === '过期证书'
       ).count
 
+      let cert_ok_count = cert_count - cert_expire_count
+
       let certValue = [
         {
-          value: cert_count - cert_expire_count,
+          value: cert_ok_count,
           name: '未过期',
+          color: COLORS.SUCCESS,
+          selected: cert_count > 0,
         },
         {
           value: cert_expire_count,
           name: '已过期',
+          color: COLORS.DANGER,
+          selected: cert_expire_count != 0,
         },
       ]
 
@@ -112,34 +130,44 @@ export default {
       let domain_expire_count = list.find(
         (item) => item.title === '过期域名'
       ).count
-
+      let domain_ok_count = domain_count - domain_expire_count
       let domainValue = [
         {
-          value: domain_count - domain_expire_count,
+          value: domain_ok_count,
           name: '未过期',
+          color: COLORS.SUCCESS,
+          selected: domain_count > 0,
         },
         {
           value: domain_expire_count,
           name: '已过期',
+          color: COLORS.DANGER,
+          selected: domain_expire_count > 0,
         },
       ]
 
       this.$refs.HomeChartDomainPie.initChart(domainValue)
 
-      //   监控
+      // 监控
       let monitor_count = list.find((item) => item.title === '监控数量').count
       let monitor_expire_count = list.find(
         (item) => item.title === '监控异常'
       ).count
 
+      let monitor_ok_count = monitor_count - monitor_expire_count
+
       let monitorValue = [
         {
-          value: monitor_count - monitor_expire_count,
+          value: monitor_ok_count,
           name: '正常',
+          color: COLORS.SUCCESS,
+          selected: monitor_count > 0,
         },
         {
-          value: monitor_count,
+          value: monitor_expire_count,
           name: '异常',
+          color: COLORS.DANGER,
+          selected: monitor_expire_count > 0,
         },
       ]
 
