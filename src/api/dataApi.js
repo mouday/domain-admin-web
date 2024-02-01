@@ -152,7 +152,7 @@ export default {
   // http监控
   addMonitor: '/addMonitor',
   updateMonitorById: '/updateMonitorById',
-  addMonitorActive: '/addMonitorActive',
+  updateMonitorActive: '/updateMonitorActive',
   removeMonitorById: '/removeMonitorById',
   getMonitorById: '/getMonitorById',
   getMonitorList: '/getMonitorList',

@@ -114,7 +114,7 @@
 
       <!-- 操作 -->
       <el-table-column
-        label="状态"
+        label="启用"
         header-align="center"
         align="center"
         width="80"
@@ -226,12 +226,13 @@ export default {
       }
     },
 
-    async handleStatusChange(row) {
+    async handleStatusChange(row, value) {
       let params = {
-        id: row.id,
+        monitor_id: row.id,
+        is_active: value
       }
 
-      const res = await this.$http.function(params)
+      const res = await this.$http.updateMonitorActive(params)
 
       if (res.code == 0) {
         this.$msg.success('操作成功')
