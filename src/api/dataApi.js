@@ -161,4 +161,6 @@ export default {
   getLogMonitorList: '/getLogMonitorList',
   clearLogMonitor: '/clearLogMonitor',
   clearAllLogMonitor: '/clearAllLogMonitor',
+  
+  getTagList: '/getTagList',
 }
