@@ -75,6 +75,7 @@
             >全选</el-checkbox
           >
           <el-checkbox-group
+            class="ml-md"
             v-model="form.groups"
             @change="handleCheckedGroupChange"
           >

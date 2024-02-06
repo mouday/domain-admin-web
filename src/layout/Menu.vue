@@ -23,9 +23,9 @@
                   @click="handleRouteClick(route.children[0])"
                 >
                   <el-icon>
-                    <component :is="route.children[0].meta.icon"></component>
+                    <component :is="route.meta.icon"></component>
                   </el-icon>
-                  <span>{{ $t(route.children[0].meta.title) }}</span>
+                  <span>{{ $t(route.meta.title) }}</span>
                 </el-menu-item>
 
                 <!-- 多个子节点 -->

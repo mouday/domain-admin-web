@@ -43,7 +43,7 @@ export const routes = [
     name: 'cert',
     component: Layout,
     meta: {
-      title: '证书列表',
+      title: '证书监控',
       icon: 'Tickets',
     },
 
@@ -53,23 +53,23 @@ export const routes = [
 
     children: [
       {
-        path: 'list',
+        path: '/cert/list',
         name: 'cert-list',
         component: () => import('../views/domain-list/index.vue'),
         meta: {
-          title: '证书监控',
+          title: '证书列表',
           icon: 'Tickets',
         },
       },
       {
-        path: 'issue-certificate-list',
+        path: '/cert/issue-certificate-list',
         name: 'issue-certificate-list',
         component: () => import('../views/issue-certificate-list/index.vue'),
         meta: {
           title: '证书申请',
           icon: 'Box',
           // roles: [RoleEnum.Admin],
-          // hidden: true,
+          hidden: true,
         },
       },
 
@@ -92,7 +92,7 @@ export const routes = [
     name: 'domain',
     component: Layout,
     meta: {
-      title: '域名',
+      title: '域名监控',
       icon: 'Coin',
     },
     redirect: { name: 'domain-list' },
@@ -125,7 +125,7 @@ export const routes = [
         name: 'monitor-list',
         component: () => import('../views/monitor-list/index.vue'),
         meta: {
-          title: '监控列表',
+          title: '网站列表',
           icon: 'DataBoard',
         },
       },
@@ -152,7 +152,7 @@ export const routes = [
     name: 'group',
     component: Layout,
     meta: {
-      title: '分组',
+      title: '分组管理',
       icon: 'Files',
     },
 
@@ -163,7 +163,7 @@ export const routes = [
         name: 'group-list',
         component: () => import('../views/group-list/index.vue'),
         meta: {
-          title: '分组管理',
+          title: '分组列表',
           icon: 'Files',
         },
       },
@@ -175,7 +175,7 @@ export const routes = [
     name: 'notify',
     component: Layout,
     meta: {
-      title: '通知',
+      title: '通知管理',
       icon: 'Message',
     },
 

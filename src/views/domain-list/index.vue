@@ -6,12 +6,13 @@
       style="justify-content: space-between"
     >
       <span v-if="RoleEnum.Admin == role"></span>
-      <el-button
-        v-else
-        type="primary"
-        @click="handleAddRow"
-        ><el-icon><Plus /></el-icon>{{ $t('添加') }}</el-button
-      >
+      <div v-else>
+        <el-button
+          type="primary"
+          @click="handleAddRow"
+          ><el-icon><Plus /></el-icon>{{ $t('添加') }}</el-button
+        ><el-button @click="handleAddCert"><el-icon><Link /></el-icon>{{ $t('证书申请') }}</el-button>
+      </div>
 
       <!-- <SelectGroup
           class="w-[150px] ml-sm"
@@ -465,6 +466,23 @@ export default {
         this.list.splice(index, 1, res.data)
         console.log(this.list)
       }
+    },
+
+    handleAddCert() {
+      const route = this.$router.resolve({
+        path: '/cert/issue-certificate-list',
+      })
+
+      window.open(route.href, '_blank')
+    },
+
+    handleEditCert(row) {
+      this.$router.push({
+        name: 'CertEdit',
+        query: {
+          id: row.id,
+        },
+      })
     },
   },
 
