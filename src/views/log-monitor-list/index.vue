@@ -129,6 +129,8 @@ export default {
 
       pageSizeCachekey: 'pageSize',
       showMode: 'chart', // chart table
+
+      timer: null,
     }
   },
 
@@ -238,7 +240,18 @@ export default {
     },
   },
 
+  beforeUnmount() {
+    if (this.timer) {
+      clearInterval(this.timer)
+      this.timer = null
+    }
+  },
+
   mounted() {
+    this.timer = setInterval(() => {
+      this.refreshData()
+    }, 1000 * 60)
+
     this.resetData()
   },
 
