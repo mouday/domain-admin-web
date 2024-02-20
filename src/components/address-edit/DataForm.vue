@@ -24,7 +24,7 @@
 
       <!-- 证书颁发时间 -->
 
-      <el-form-item
+      <!-- <el-form-item
         label="证书颁发时间"
         prop="ssl_start_time"
       >
@@ -36,11 +36,11 @@
           :teleported="false"
           :disabled="disabledTime"
         />
-      </el-form-item>
+      </el-form-item> -->
 
       <!-- 证书过期时间 -->
 
-      <el-form-item
+      <!-- <el-form-item
         label="证书过期时间"
         prop="ssl_expire_time"
       >
@@ -52,8 +52,19 @@
           :teleported="false"
           :disabled="disabledTime"
         />
-      </el-form-item>
+      </el-form-item> -->
 
+      <el-form-item
+        label="备注"
+        prop="comment"
+      >
+        <el-input
+          type="textarea"
+          style="width: 220px"
+          v-model="form.comment"
+          placeholder="请输入备注"
+        ></el-input>
+      </el-form-item>
       <!-- <el-form-item
         label="证书自动更新"
         prop="ssl_auto_update"
@@ -145,6 +156,7 @@ export default {
         ssl_expire_monitor: true,
         // 自动更新
         ssl_auto_update: true,
+        comment: ''
       },
     }
   },
@@ -201,6 +213,7 @@ export default {
 
         this.form.ssl_auto_update = data.ssl_auto_update
         this.form.ssl_expire_monitor = data.ssl_expire_monitor
+        this.form.comment = data.comment
       }
     },
 
@@ -235,6 +248,7 @@ export default {
         ssl_start_time: this.form.ssl_start_time,
         // 证书过期时间
         ssl_expire_time: this.form.ssl_expire_time,
+        comment: this.form.comment,
         // 证书检查时间
         // ssl_check_time: this.form.ssl_check_time,
         // 过期剩余天数

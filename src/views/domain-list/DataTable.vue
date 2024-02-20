@@ -91,7 +91,7 @@
           ></ExpireProgress> -->
       <!-- <span>{{ scope.row.real_time_domain_expire_days || '-' }}</span> -->
 
-      <el-table-column        
+      <el-table-column
         :label="$t('主机数量')"
         header-align="center"
         align="center"
@@ -106,12 +106,10 @@
             >*</span
           >
           <el-link
-            v-if="scope.row.address_count && scope.row.address_count > 0"
             :underline="false"
             @click="handleShowAddressListgDialog(scope.row)"
-            >{{ scope.row.address_count }}</el-link
+            >{{ scope.row.address_count || '-' }}</el-link
           >
-          <span v-else>-</span>
         </template>
       </el-table-column>
 
@@ -325,7 +323,7 @@
             ></el-link>
 
             <el-popconfirm
-            :title="`${$t('确定删除')}？`"
+              :title="`${$t('确定删除')}？`"
               @confirm="handleDeleteClick(scope.row)"
               :disabled="!scope.row.has_edit_permission"
             >

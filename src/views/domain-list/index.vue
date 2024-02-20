@@ -11,7 +11,9 @@
           type="primary"
           @click="handleAddRow"
           ><el-icon><Plus /></el-icon>{{ $t('添加') }}</el-button
-        ><el-button @click="handleAddCert"><el-icon><Link /></el-icon>{{ $t('证书申请') }}</el-button>
+        >
+        
+        <!-- <el-button @click="handleAddCert"><el-icon><Link /></el-icon>{{ $t('证书申请') }}</el-button> -->
       </div>
 
       <!-- <SelectGroup

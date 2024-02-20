@@ -56,6 +56,7 @@
         header-align="center"
         align="center"
         prop="ssl_start_time"
+        width="110"
       >
         <template #default="scope">
           <span>{{ scope.row.ssl_start_date || '-' }}</span>
@@ -67,6 +68,7 @@
         label="证书过期时间"
         header-align="center"
         align="center"
+        width="110"
         prop="ssl_expire_time"
       >
         <template #default="scope">
@@ -76,9 +78,10 @@
 
       <!-- 证书剩余天数 -->
       <el-table-column
-        label="证书剩余天数"
+        label="剩余天数"
         header-align="center"
         align="center"
+        width="80"
         prop="ssl_expire_days"
       >
         <template #default="scope">
@@ -100,10 +103,23 @@
         label="证书检查时间"
         header-align="center"
         align="center"
+        width="110"
         prop="ssl_check_time"
       >
         <template #default="scope">
           <span>{{ scope.row.update_time_label || '-' }}</span>
+        </template>
+      </el-table-column>
+
+      <!-- comment -->
+      <el-table-column
+        label="备注"
+        header-align="center"
+        align="center"
+        prop="comment"
+      >
+        <template #default="scope">
+          <span>{{ scope.row.comment || '-' }}</span>
         </template>
       </el-table-column>
 
@@ -161,7 +177,7 @@
               type="primary"
               class="mr-sm"
               @click="handleEditRow(scope.row)"
-              :disabled="!domainRow.has_edit_permission"
+              :disabled="!domainRow.has_edit_permission || scope.row.source == 0"
               ><el-icon><Edit /></el-icon
             ></el-link>
 

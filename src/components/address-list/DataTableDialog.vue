@@ -3,7 +3,7 @@
   <el-dialog
     title="域名主机列表"
     v-model="dialogVisible"
-    width="900px"
+    width="960px"
     center
     append-to-body
     @close="handleDialogClose"

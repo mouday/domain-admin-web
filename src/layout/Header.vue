@@ -24,7 +24,7 @@
       <Breadcrumb></Breadcrumb>
     </div>
     <div class="self-center margin-left--auto flex items-center">
-      <a
+      <!-- <a
         href="https://www.chatpet.top/"
         class="ad-wrap mr-md"
         target="_blank"
@@ -39,7 +39,15 @@
           alt=""
           class="ad-img ad-img--white"
         />
-      </a>
+      </a> -->
+
+      <div
+        @click="handleAddCert"
+        class="header-tool-btn mr-md header-tool-btn--link"
+      >
+        <el-icon><Link /></el-icon>
+        <span class="header-tool-btn__text">{{ $t('证书申请') }}</span>
+      </div>
 
       <div class="header-tool-btn mr-md header-tool-btn--doc">
         <el-icon><Link /></el-icon>
@@ -404,6 +412,14 @@ export default {
       localStorage.setItem('language', item.value)
       location.reload()
     },
+
+    handleAddCert() {
+      const route = this.$router.resolve({
+        path: '/cert/issue-certificate-list',
+      })
+
+      window.open(route.href, '_blank')
+    },
   },
 
   created() {
@@ -451,6 +467,12 @@ export default {
 
 .header-tool-btn__text {
   padding: 0 4px;
+}
+
+.header-tool-btn--link {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 .ad-img {
@@ -517,6 +539,10 @@ export default {
   .header-tool-btn--doc {
     color: #4f5a76;
   }
+
+  .header-tool-btn--link {
+    color: #4f5a76;
+  }
 }
 
 // 蓝色主题
@@ -559,6 +585,10 @@ export default {
 
   .ad-img--blue {
     display: block;
+  }
+
+  .header-tool-btn--link {
+    color: #ffffff;
   }
 }
 </style>
