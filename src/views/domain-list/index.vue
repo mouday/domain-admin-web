@@ -12,7 +12,7 @@
           @click="handleAddRow"
           ><el-icon><Plus /></el-icon>{{ $t('添加') }}</el-button
         >
-        
+
         <!-- <el-button @click="handleAddCert"><el-icon><Link /></el-icon>{{ $t('证书申请') }}</el-button> -->
       </div>
 
@@ -61,21 +61,29 @@
         class="flex"
         style="margin-left: auto"
       >
-        <el-popconfirm
-          v-if="showBatchDeleteButton"
-          title="确定删除选中？"
-          @confirm="handleBatchDeleteConfirm"
-        >
-          <template #reference>
-            <el-link
-              :underline="false"
-              type="danger"
-              class="mr-sm"
-              ><el-icon><Delete /></el-icon>批量删除</el-link
-            >
-          </template>
-        </el-popconfirm>
+        <template v-if="showBatchActionButton">
+          <el-popconfirm
+            title="确定删除选中？"
+            @confirm="handleBatchDeleteConfirm"
+          >
+            <template #reference>
+              <el-link
+                :underline="false"
+                type="danger"
+                class="mr-sm"
+                ><el-icon><Delete /></el-icon>批量删除</el-link
+              >
+            </template>
+          </el-popconfirm>
 
+          <el-link
+            :underline="false"
+            type="primary"
+            class="mr-sm"
+            @click="handleShowBatchUpdateDialog"
+            ><el-icon><Edit /></el-icon>批量操作</el-link
+          >
+        </template>
         <UpdateDomainInfo @on-success="resetData"></UpdateDomainInfo>
 
         <template v-if="RoleEnum.Admin != role">
@@ -152,6 +160,22 @@
       v-model:visible="exportFileDialogVisible"
       @on-confirm="handleExportConfirm"
     ></ExportFileDialog>
+
+    <!-- 批量操作 -->
+    <el-dialog
+      title="批量操作"
+      v-model="batchUpdateDialogVisible"
+      width="400px"
+      center
+      append-to-body
+    >
+      <BatchUpdateForm
+        v-if="batchUpdateDialogVisible"
+        :selectedRows="selectedRows"
+        @on-cancel="handleBatchUpdateFormCancel"
+        @on-success="handleBatchUpdateFormSuccess"
+      ></BatchUpdateForm>
+    </el-dialog>
   </div>
 </template>
 
@@ -176,6 +200,7 @@ import { getUUID } from '@/utils/uuid.js'
 import { RoleEnum } from '@/emuns/role-enums.js'
 import DataCount from '@/components/DataCount.vue'
 import ExportFileDialog from '@/components/export-file/ExportFileDialog.vue'
+import BatchUpdateForm from './BatchUpdateForm.vue'
 
 export default {
   name: 'domain-list',
@@ -196,6 +221,7 @@ export default {
     ConditionFilter,
     DataCount,
     ExportFileDialog,
+    BatchUpdateForm,
   },
 
   data() {
@@ -225,6 +251,9 @@ export default {
       params: {},
 
       exportFileDialogVisible: false,
+
+      // 批量操作
+      batchUpdateDialogVisible: false,
     }
   },
 
@@ -232,7 +261,7 @@ export default {
     ...mapState(useGroupStore, {
       groupOptions: 'getGroupOptions',
     }),
-    showBatchDeleteButton() {
+    showBatchActionButton() {
       if (this.selectedRows && this.selectedRows.length > 0) {
         return true
       } else {
@@ -485,6 +514,19 @@ export default {
           id: row.id,
         },
       })
+    },
+
+    handleShowBatchUpdateDialog() {
+      this.batchUpdateDialogVisible = true
+    },
+
+    handleBatchUpdateFormCancel() {
+      this.batchUpdateDialogVisible = false
+    },
+
+    handleBatchUpdateFormSuccess() {
+      this.batchUpdateDialogVisible = false
+      this.refreshData()
     },
   },
 

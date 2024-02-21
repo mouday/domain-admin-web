@@ -67,25 +67,27 @@
           prop="groups"
           v-if="groupList && groupList.length > 0"
         >
-          <el-checkbox
-            class="mr-sm"
-            :model-value="checkAllGroup"
-            :indeterminate="indeterminate"
-            @change="handleCheckAllGroupChange"
-            >全选</el-checkbox
-          >
-          <el-checkbox-group
-            class="ml-md"
-            v-model="form.groups"
-            @change="handleCheckedGroupChange"
-          >
+          <div class="flex">
             <el-checkbox
-              v-for="item in groupList"
-              :key="item.id"
-              :label="item.id"
-              >{{ item.name }}</el-checkbox
+              class="mr-sm"
+              :model-value="checkAllGroup"
+              :indeterminate="indeterminate"
+              @change="handleCheckAllGroupChange"
+              >全选</el-checkbox
             >
-          </el-checkbox-group>
+            <el-checkbox-group
+              class="ml-md"
+              v-model="form.groups"
+              @change="handleCheckedGroupChange"
+            >
+              <el-checkbox
+                v-for="item in groupList"
+                :key="item.id"
+                :label="item.id"
+                >{{ item.name }}</el-checkbox
+              >
+            </el-checkbox-group>
+          </div>
         </el-form-item>
       </template>
 

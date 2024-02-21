@@ -11,6 +11,7 @@ export default {
   deleteDomainByIds: '/deleteDomainByIds',
   updateDomainById: '/updateDomainById',
   updateDomainFieldById: '/updateDomainFieldById',
+  updateDomainFieldByIds: '/updateDomainFieldByIds',
   updateDomainExpireMonitorById: '/updateDomainExpireMonitorById',
   updateDomainCertInfoById: '/updateDomainCertInfoById',
   updateDomainRowInfoById: '/updateDomainRowInfoById',
