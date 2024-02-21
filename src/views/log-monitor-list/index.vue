@@ -250,7 +250,7 @@ export default {
   mounted() {
     this.timer = setInterval(() => {
       this.refreshData()
-    }, 1000 * 60)
+    }, 1000 * 30)
 
     this.resetData()
   },
