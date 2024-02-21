@@ -175,6 +175,24 @@
           <span>{{ scope.row.alias || '-' }}</span>
         </template>
       </el-table-column>
+
+      <!-- 操作 -->
+      <!-- <el-table-column
+        :label="$t('操作')"
+        header-align="center"
+        align="center"
+        prop="check_time"
+        width="100"
+      >
+        <template #default="scope">
+          <el-link
+            :underline="false"
+            type="danger"
+            :disabled="!scope.row.group_id"
+            ><el-icon><Delete /></el-icon
+          ></el-link>
+        </template>
+      </el-table-column> -->
     </el-table>
 
     <!-- 编辑框 -->
