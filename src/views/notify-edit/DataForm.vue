@@ -254,6 +254,8 @@ export default {
 
   methods: {
     async getData() {
+      await this.getGroupList()
+
       if (this.row) {
         let params = {
           notify_id: this.row.id,
@@ -276,11 +278,16 @@ export default {
           this.form.value = data.value
           this.form.expire_days = data.expire_days
           this.form.comment = data.comment
-          this.form.groups = data.groups
+
+          if (data.groups && data.groups.length > 0) {
+            this.form.groups = data.groups
+          }
         }
       }
 
-      this.getGroupList()
+      if (this.form.groups.length == 0) {
+        this.form.groups = this.groupList.map((item) => item.id)
+      }
 
       this.hasInit = true
     },
@@ -313,7 +320,7 @@ export default {
         type_id: this.form.type_id,
         expire_days: this.form.expire_days,
         comment: this.form.comment,
-        groups: this.form.groups,
+        groups: this.checkAllGroup ? null : this.form.groups,
         // 状态
         // status: this.form.status,
         // 通知配置
@@ -362,9 +369,13 @@ export default {
       } else {
         this.form.groups = this.groupList.map((item) => item.id)
       }
+
+      this.$refs.form.validateField('groups')
     },
 
-    handleCheckedGroupChange() {},
+    handleCheckedGroupChange() {
+      this.$refs.form.validateField('groups')
+    },
   },
 
   created() {

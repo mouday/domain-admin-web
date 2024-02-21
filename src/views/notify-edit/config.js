@@ -43,13 +43,13 @@ export const formRules = {
       trigger: 'blur',
     },
   ],
-  // groups: [
-  //   {
-  //     message: '分组不能为空',
-  //     required: true,
-  //     trigger: 'blur',
-  //   },
-  // ]
+  groups: [
+    {
+      message: '分组不能为空',
+      required: true,
+      trigger: 'blur',
+    },
+  ]
 }
 
 // 引入枚举值
