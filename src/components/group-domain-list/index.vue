@@ -53,6 +53,7 @@
       v-model:page-size="size"
       v-model:current-page="page"
       @current-change="getData"
+      @size-change="handleSizeChange"
     />
 
     <!-- 编辑框 -->
@@ -197,6 +198,11 @@ export default {
     },
 
     handleEditRow(row) {},
+
+    handleSizeChange(value) {
+      // localStorage.setItem(this.pageSizeCachekey, value)
+      this.resetData()
+    },
   },
 
   created() {
