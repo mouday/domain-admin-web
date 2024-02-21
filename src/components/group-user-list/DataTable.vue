@@ -56,6 +56,7 @@
             title="确定从分组移除？"
             @confirm="handleDeleteClick(scope.row)"
             :width="160"
+            :disabled="disabled || scope.row.is_leader"
           >
             <template #reference>
               <el-link
