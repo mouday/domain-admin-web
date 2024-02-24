@@ -11,7 +11,9 @@ function isClient(clientName) {
  }
  
  export function isMobile() {
-   return window.screen.availWidth < 768;
+   // 通过UA判断，支持用户自行切换UA
+   // return window.screen.availWidth < 768;
+   return isIphone() || isAndroid()
  }
  
  function isIphone() {
