@@ -72,7 +72,20 @@
           v-model="form.interval"
           placeholder="请输入检测频率"
         ></el-input>
-        <span class="ml-sm">(分钟)</span>
+        <span class="color--info ml-sm">（分钟）</span>
+      </el-form-item>
+
+      <!-- 检测频率 -->
+      <el-form-item
+        label="重试次数"
+        prop="allow_error_count"
+      >
+        <el-input
+          style="width: 140px"
+          type="number"
+          v-model="form.allow_error_count"
+          placeholder="请输入重试次数"
+        ></el-input>
       </el-form-item>
 
       <!-- 启用 -->
@@ -161,6 +174,7 @@ export default {
         is_active: true,
         // 下次运行时间
         next_run_time: '',
+        allow_error_count: '0',
       },
     }
   },
@@ -190,6 +204,7 @@ export default {
         this.form.content = data.content
         // 检测频率
         this.form.interval = data.interval
+        this.form.allow_error_count = data.allow_error_count
       }
     },
 
@@ -227,6 +242,7 @@ export default {
         content: this.form.content,
         // 检测频率
         interval: this.form.interval,
+        allow_error_count: this.form.allow_error_count,
         // 状态
         // status: this.form.status,
         // // 启用

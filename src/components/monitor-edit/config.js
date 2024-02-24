@@ -27,6 +27,15 @@ export const formRules = {
     },
   ],
 
+  // 重试次数
+  allow_error_count: [
+    {
+      message: '重试次数不能为空',
+      required: true,
+      trigger: 'blur',
+    },
+  ],
+
   // 启用
   // is_active: [
   //   {

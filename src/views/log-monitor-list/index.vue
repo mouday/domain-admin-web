@@ -17,12 +17,16 @@
         >
       </div>
 
-      <div>
+      <div class="flex items-center">
+        <span class="color--info text-sm"
+          >下次运行时间：{{ detail?.next_run_time }}</span
+        >
+
         <el-link
           v-if="showMode == 'table'"
           :underline="false"
           type="primary"
-          class="mr-sm"
+          class="ml-sm"
           @click="handleChangeShowMode('chart')"
           ><el-icon><DataAnalysis /></el-icon>{{ $t('图表') }}</el-link
         >
@@ -31,7 +35,7 @@
           v-else
           :underline="false"
           type="primary"
-          class="mr-sm"
+          class="ml-sm"
           @click="handleChangeShowMode('table')"
           ><el-icon><Tickets /></el-icon>{{ $t('数据') }}</el-link
         >
@@ -44,7 +48,7 @@
             <el-link
               :underline="false"
               type="danger"
-              class="mr-sm"
+              class="ml-sm"
               ><el-icon><Delete /></el-icon>{{ $t('清空日志') }}</el-link
             >
           </template>
@@ -137,21 +141,22 @@ export default {
   computed: {},
 
   methods: {
-    resetData() {
+    async resetData() {
       this.page = 1
       this.list = []
-      this.getData()
-      this.getMonitorData()
+      await this.refreshData()
     },
 
-    refreshData() {
-      this.getData()
+    async refreshData() {
+      await this.getData()
+      await this.getMonitorData()
     },
 
     async getMonitorData() {
       let params = {
         monitor_id: this.monitorId,
       }
+
       const res = await this.$http.getMonitorById(params)
       if (res.ok) {
         this.detail = res.data

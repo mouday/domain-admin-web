@@ -10,6 +10,7 @@
     <ExportFile
       v-if="dialogVisible"
       :row="row"
+      :allowExts="allowExts"
       @on-cancel="handleClose"
       @on-confirm="handleSuccess"
     ></ExportFile>
@@ -36,6 +37,11 @@ export default {
     visible: {
       type: Boolean,
       default: false,
+    },
+
+    allowExts: {
+      type: Array,
+      default: () => ['csv', 'xlsx', 'txt'],
     },
   },
 

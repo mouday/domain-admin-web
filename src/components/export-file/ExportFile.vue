@@ -34,7 +34,12 @@
 export default {
   name: 'ExportFile',
 
-  props: {},
+  props: {
+    allowExts: {
+      type: Array,
+      default: () => ['xlsx', 'csv', 'txt'],
+    },
+  },
 
   emits: ['on-cancel', 'on-confirm'],
 
@@ -46,24 +51,28 @@ export default {
         ext: 'xlsx',
       },
 
-      options: [
-        {
-          label: 'xlsx',
-          value: 'xlsx',
-        },
-        {
-          label: 'csv',
-          value: 'csv',
-        },
-        {
-          label: 'txt',
-          value: 'txt',
-        },
-      ],
+      // options: [
+      //   {
+      //     label: 'xlsx',
+      //     value: 'xlsx',
+      //   },
+      //   {
+      //     label: 'csv',
+      //     value: 'csv',
+      //   },
+      //   {
+      //     label: 'txt',
+      //     value: 'txt',
+      //   },
+      // ],
     }
   },
 
-  computed: {},
+  computed: {
+    options(){
+      return this.allowExts.map(item => ({label: item, value: item}))
+    }
+  },
 
   methods: {
     async getData() {},

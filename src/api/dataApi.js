@@ -33,6 +33,7 @@ export default {
   getCronConfig: '/getCronConfig',
   updateCronConfig: '/updateCronConfig',
   getSystemData: '/getSystemData',
+  getMonitorTaskNextRunTime: '/getMonitorTaskNextRunTime',
 
   getUserInfo: '/getUserInfo',
   updateUserInfo: '/updateUserInfo',
@@ -157,6 +158,8 @@ export default {
   removeMonitorById: '/removeMonitorById',
   getMonitorById: '/getMonitorById',
   getMonitorList: '/getMonitorList',
+  exportMonitorFile: '/exportMonitorFile',
+  importMonitorFromFile: '/importMonitorFromFile',
 
   // http监控日志
   getLogMonitorList: '/getLogMonitorList',

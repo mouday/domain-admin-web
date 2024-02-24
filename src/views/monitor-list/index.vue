@@ -25,9 +25,97 @@
       </el-input>
     </div>
 
+    <!-- 筛选器 -->
+    <ConditionFilter
+      v-if="hasInitData"
+      class="mt-md"
+      ref="ConditionFilter"
+      @on-change="handleConditionFilterChange"
+    ></ConditionFilter>
+
+    <!-- 工具栏 -->
+    <div
+      class="flex mt-sm"
+      style="align-items: center"
+    >
+      <DataCount :value="total"></DataCount>
+
+      <div
+        class="flex"
+        style="margin-left: auto"
+      >
+        <span
+          v-if="next_run_time"
+          class="color--info text-sm"
+          >即将运行：{{ next_run_time }}</span
+        >
+
+        <template v-if="showBatchActionButton">
+          <el-popconfirm
+            title="确定删除选中？"
+            @confirm="handleBatchDeleteConfirm"
+          >
+            <template #reference>
+              <el-link
+                :underline="false"
+                type="danger"
+                class="mr-sm"
+                ><el-icon><Delete /></el-icon>批量删除</el-link
+              >
+            </template>
+          </el-popconfirm>
+
+          <el-link
+            :underline="false"
+            type="primary"
+            class="mr-sm"
+            @click="handleShowBatchUpdateDialog"
+            ><el-icon><Edit /></el-icon>批量操作</el-link
+          >
+        </template>
+
+        <UpdateDomainInfo @on-success="resetData"></UpdateDomainInfo>
+
+        <CheckDomainInfo
+          class="ml-sm"
+          @on-success="resetData"
+        ></CheckDomainInfo>
+
+        <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept -->
+        <el-link
+          :underline="false"
+          type="primary"
+          class="ml-sm"
+          style="position: relative"
+          ><el-icon><Upload /></el-icon>{{ $t('导入') }}
+          <el-upload
+            ref="upload"
+            action="action"
+            accept=".txt,.csv,.xlsx"
+            :limit="1"
+            :on-exceed="handleExceed"
+            :show-file-list="false"
+            :http-request="handleHttpRequest"
+          >
+            <div
+              style="position: absolute; top: 0; left: 0; right: 0; bottom: 0"
+            ></div>
+          </el-upload>
+        </el-link>
+
+        <el-link
+          :underline="false"
+          type="primary"
+          class="ml-sm"
+          @click="handleExportToFile"
+          ><el-icon><Download /></el-icon>{{ $t('导出') }}</el-link
+        >
+      </div>
+    </div>
+
     <!-- 数据列表 -->
     <DataTable
-      class="mt-md"
+      class="mt-sm"
       v-loading="loading"
       :list="list"
       @on-success="resetData"
@@ -50,6 +138,13 @@
       v-model:visible="dialogVisible"
       @on-success="handleAddSuccess"
     ></DataFormDialog>
+
+    <!-- 数据导出 -->
+    <ExportFileDialog
+      :allowExts="['xlsx', 'csv']"
+      v-model:visible="exportFileDialogVisible"
+      @on-confirm="handleExportConfirm"
+    ></ExportFileDialog>
   </div>
 </template>
 
@@ -60,8 +155,17 @@
 
 import DataFormDialog from '../../components/monitor-edit/DataFormDialog.vue'
 import DataTable from './DataTable.vue'
-import { MonitorStatusFilter,MonitorStatusFilterStatus } from '../../emuns/monitor-status-enums.js'
+import {
+  MonitorStatusFilter,
+  MonitorStatusFilterStatus,
+} from '../../emuns/monitor-status-enums.js'
 import { MonitorTypeFilter } from '../../emuns/monitor-type-enums.js'
+import DataCount from '@/components/DataCount.vue'
+import ConditionFilter from './ConditionFilter.vue'
+import ExportFileDialog from '@/components/export-file/ExportFileDialog.vue'
+import FileSaver from 'file-saver'
+import { genFileId } from 'element-plus'
+import dayjs from 'dayjs'
 
 export default {
   name: 'monitor-list',
@@ -71,6 +175,9 @@ export default {
   components: {
     DataFormDialog,
     DataTable,
+    DataCount,
+    ConditionFilter,
+    ExportFileDialog,
   },
 
   data() {
@@ -82,7 +189,12 @@ export default {
       keyword: '',
 
       loading: true,
+      hasInitData: true,
       dialogVisible: false,
+      params: {},
+      ConditionFilterParams: [],
+      exportFileDialogVisible: false,
+      next_run_time: null,
     }
   },
 
@@ -91,7 +203,22 @@ export default {
   methods: {
     resetData() {
       this.page = 1
+      this.getMonitorTaskNextRunTime()
       this.getData()
+    },
+
+    async getMonitorTaskNextRunTime() {
+      const res = await this.$http.getMonitorTaskNextRunTime()
+      this.next_run_time = res.data.next_run_time
+      if (this.next_run_time) {
+        let diff = dayjs(this.next_run_time).diff(dayjs())
+        if (diff > 0) {
+          setTimeout(() => {
+            this.getMonitorTaskNextRunTime()
+            this.getData()
+          }, diff)
+        }
+      }
     },
 
     async getData() {
@@ -102,6 +229,19 @@ export default {
         size: this.size,
         keyword: this.keyword,
       }
+
+      // 筛选参数
+      for (let item of this.ConditionFilterParams) {
+        if (item.selected && item.selected.length > 0) {
+          if (item.maxCount == 1) {
+            params[item.field] = item.selected[0]
+          } else {
+            params[item.field] = item.selected
+          }
+        }
+      }
+
+      this.params = params
 
       try {
         const res = await this.$http.getMonitorList(params)
@@ -132,10 +272,68 @@ export default {
     handleSearch() {
       this.resetData()
     },
+
+    handleConditionFilterChange(data) {
+      console.log(data)
+      this.ConditionFilterParams = data
+      this.resetData()
+    },
+
+    handleExportToFile() {
+      this.exportFileDialogVisible = true
+    },
+
+    async handleExportConfirm(data) {
+      const res = await this.$http.exportMonitorFile({
+        ...this.params,
+        ext: data.ext,
+      })
+
+      if (res.ok) {
+        FileSaver.saveAs(res.data.url, res.data.name)
+      }
+    },
+
+    // 覆盖前一个文件
+    handleExceed(files) {
+      // console.log(files)
+      this.$refs.upload.clearFiles()
+      const file = files[0]
+      file.uid = genFileId()
+      // console.log(file)
+
+      this.handleHttpRequest({ file })
+
+      // this.$refs.upload.handleStart(file)
+    },
+
+    async handleHttpRequest(options) {
+      let loading = this.$loading({ fullscreen: true })
+
+      // console.log(options)
+      let form = new FormData()
+      form.append('file', options.file)
+
+      const res = await this.$http.importMonitorFromFile(form)
+
+      if (res.code == 0) {
+        // this.$msg.success(`导入成功：${res.data.count}`)
+        this.$msg.success('导入成功，后台检测中')
+        this.resetData()
+
+        if (this.$refs.ConditionFilter) {
+          this.$refs.ConditionFilter.resetData()
+        }
+
+        // this.updateGroupOptions()
+      }
+
+      loading.close()
+    },
   },
 
   created() {
-    this.getData()
+    this.resetData()
   },
 }
 </script>

@@ -44,7 +44,7 @@
         v-model="form.timeout"
         placeholder="请输入超时时间"
       ></el-input>
-      <span class="ml-sm">（秒）</span>
+      <span class="ml-sm color--info ">（秒）</span>
     </el-form-item>
   </el-form>
 </template>
