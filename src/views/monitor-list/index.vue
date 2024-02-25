@@ -59,28 +59,14 @@
               <el-link
                 :underline="false"
                 type="danger"
-                class="mr-sm"
+                class="ml-sm"
                 ><el-icon><Delete /></el-icon>批量删除</el-link
               >
             </template>
           </el-popconfirm>
-
-          <el-link
-            :underline="false"
-            type="primary"
-            class="mr-sm"
-            @click="handleShowBatchUpdateDialog"
-            ><el-icon><Edit /></el-icon>批量操作</el-link
-          >
         </template>
 
-        <UpdateDomainInfo @on-success="resetData"></UpdateDomainInfo>
-
-        <CheckDomainInfo
-          class="ml-sm"
-          @on-success="resetData"
-        ></CheckDomainInfo>
-
+        <!-- 导入 -->
         <!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/accept -->
         <el-link
           :underline="false"
@@ -103,6 +89,7 @@
           </el-upload>
         </el-link>
 
+        <!-- 导出 -->
         <el-link
           :underline="false"
           type="primary"
@@ -119,7 +106,7 @@
       v-loading="loading"
       :list="list"
       @on-success="resetData"
-      @on-edit-row="handleEditRow"
+      @selection-change="handleSelectionChange"
     />
 
     <!-- 翻页 -->
@@ -187,6 +174,7 @@ export default {
       page: 1,
       size: 20,
       keyword: '',
+      timer: null,
 
       loading: true,
       hasInitData: true,
@@ -195,30 +183,39 @@ export default {
       ConditionFilterParams: [],
       exportFileDialogVisible: false,
       next_run_time: null,
+      selectedRows: [],
     }
   },
 
-  computed: {},
+  computed: {
+    showBatchActionButton() {
+      if (this.selectedRows && this.selectedRows.length > 0) {
+        return true
+      } else {
+        return false
+      }
+    },
+  },
 
   methods: {
     resetData() {
       this.page = 1
-      this.getMonitorTaskNextRunTime()
+      // this.getMonitorTaskNextRunTime()
       this.getData()
     },
 
     async getMonitorTaskNextRunTime() {
       const res = await this.$http.getMonitorTaskNextRunTime()
       this.next_run_time = res.data.next_run_time
-      if (this.next_run_time) {
-        let diff = dayjs(this.next_run_time).diff(dayjs())
-        if (diff > 0) {
-          setTimeout(() => {
-            this.getMonitorTaskNextRunTime()
-            this.getData()
-          }, diff)
-        }
-      }
+
+      // if (this.next_run_time) {
+      //   let diff = dayjs(this.next_run_time).diff(dayjs()) + 5 * 1000
+
+      //   this.timer = setTimeout(() => {
+      //     this.getMonitorTaskNextRunTime()
+      //     this.getData()
+      //   }, diff)
+      // }
     },
 
     async getData() {
@@ -330,6 +327,44 @@ export default {
 
       loading.close()
     },
+
+    handleSelectionChange(val) {
+      this.selectedRows = val
+      // console.log(val.map((item) => item.id))
+    },
+
+    async handleBatchDeleteConfirm() {
+      let loading = this.$loading({ fullscreen: true })
+
+      let params = {
+        monitor_ids: this.selectedRows.map((item) => item.id),
+      }
+
+      try {
+        const res = await this.$http.deleteMonitorByIds(params)
+
+        if (res.code == 0) {
+          this.$msg.success('操作成功')
+          this.resetData()
+        } else {
+          this.$msg.error(res.msg)
+        }
+      } catch (e) {
+        console.log(e)
+      } finally {
+        this.$nextTick(() => {
+          // 以服务的方式调用的 Loading 需要异步关闭
+          loading.close()
+        })
+      }
+    },
+  },
+
+  beforeUnmount() {
+    if (this.timer) {
+      clearInterval(this.timer)
+      this.timer = null
+    }
   },
 
   created() {

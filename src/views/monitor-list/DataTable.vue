@@ -4,7 +4,16 @@
       :data="list"
       stripe
       border
+      @selection-change="$emit('selection-change', $event)"
     >
+      <el-table-column
+        type="selection"
+        header-align="center"
+        align="center"
+        width="40"
+        :selectable="handleSelectable"
+      />
+
       <!-- <el-table-column
         label="ID"
         align="center"
@@ -229,7 +238,7 @@ export default {
     async handleStatusChange(row, value) {
       let params = {
         monitor_id: row.id,
-        is_active: value
+        is_active: value,
       }
 
       const res = await this.$http.updateMonitorActive(params)
@@ -255,6 +264,12 @@ export default {
       })
 
       window.open(route.href, '_blank')
+    },
+
+
+    handleSelectable(row, index) {
+      return true
+      // return row.has_edit_permission
     },
   },
 

@@ -19,7 +19,7 @@
 
       <div class="flex items-center">
         <span class="color--info text-sm"
-          >下次运行时间：{{ detail?.next_run_time }}</span
+          >下次运行时间：{{ detail?.next_run_time || '-'}}</span
         >
 
         <el-link

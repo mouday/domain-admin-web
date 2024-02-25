@@ -156,6 +156,7 @@ export default {
   updateMonitorById: '/updateMonitorById',
   updateMonitorActive: '/updateMonitorActive',
   removeMonitorById: '/removeMonitorById',
+  deleteMonitorByIds: '/deleteMonitorByIds',
   getMonitorById: '/getMonitorById',
   getMonitorList: '/getMonitorList',
   exportMonitorFile: '/exportMonitorFile',
