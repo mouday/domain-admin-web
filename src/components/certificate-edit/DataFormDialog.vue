@@ -5,6 +5,7 @@
     v-model="dialogVisible"
     width="800px"
     center
+    top="5vh"
     append-to-body
   >
     <DataForm
@@ -55,9 +56,9 @@ export default {
   computed: {
     dialogTitle() {
       if (this.row) {
-        return '编辑'
+        return '编辑证书'
       } else {
-        return '添加'
+        return '添加证书'
       }
     },
 

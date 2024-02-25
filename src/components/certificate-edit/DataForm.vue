@@ -35,7 +35,7 @@
             type="textarea"
             v-model="form.ssl_certificate"
             placeholder="证书内容（.pem文件），支持拖拽上传"
-            :rows="10"
+            :rows="6"
             :spellcheck="false"
             @change="handleCertificateChange"
           ></el-input>
@@ -58,7 +58,7 @@
             type="textarea"
             v-model="form.ssl_certificate_key"
             placeholder="证书私钥内容（.key文件），支持拖拽上传"
-            :rows="10"
+            :rows="6"
             :spellcheck="false"
           ></el-input>
         </FileDrop>
@@ -66,29 +66,31 @@
 
       <!-- 签发时间 -->
 
-      <el-form-item
-        label="签发时间"
-        prop="start_time"
-      >
-        <el-date-picker
-          v-model="form.start_time"
-          type="date"
-          placeholder="签发时间"
-        />
-      </el-form-item>
+      <div class="flex">
+        <el-form-item
+          label="签发时间"
+          prop="start_time"
+        >
+          <el-date-picker
+            v-model="form.start_time"
+            type="date"
+            placeholder="签发时间"
+          />
+        </el-form-item>
 
-      <!-- 过期时间 -->
+        <!-- 过期时间 -->
 
-      <el-form-item
-        label="过期时间"
-        prop="expire_time"
-      >
-        <el-date-picker
-          v-model="form.expire_time"
-          type="date"
-          placeholder="过期时间"
-        />
-      </el-form-item>
+        <el-form-item
+          label="过期时间"
+          prop="expire_time"
+        >
+          <el-date-picker
+            v-model="form.expire_time"
+            type="date"
+            placeholder="过期时间"
+          />
+        </el-form-item>
+      </div>
 
       <!-- 备注 -->
 
@@ -97,7 +99,7 @@
         prop="comment"
       >
         <el-input
-          type="text"
+          type="textarea"
           v-model="form.comment"
           placeholder="请输入备注"
         ></el-input>
@@ -324,6 +326,11 @@ export default {
 }
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+.el-textarea__inner:focus {
+    outline: 0;
+    box-shadow: 0 0 0 1px var(--el-input-focus-border-color) inset;
+}
+</style>
 
 <style lang="less" scoped></style>

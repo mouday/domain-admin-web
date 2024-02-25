@@ -1,6 +1,7 @@
 <template>
   <div
     class="FileDrop"
+    :class="{ 'FileDrop--active': isOver }"
     ref="FileDrop"
   >
     <slot></slot>
@@ -117,4 +118,11 @@ export default {
 //   box-sizing: border-box;
 
 // }
+
+.FileDrop--active {
+  .el-textarea__inner {
+    outline: 0;
+    box-shadow: 0 0 0 1px var(--el-input-focus-border-color) inset;
+  }
+}
 </style>
