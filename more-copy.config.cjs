@@ -8,6 +8,7 @@ let configMap = [
   // mcp -m edit issue-certificate .data/issue_certificate.json
   // mcp -m edit group-user ./data/group-user.json
   // mcp -m edit monitor ./data/monitor.json
+  // mcp -m edit certificate ./data/certificate.json
   {
     mode: 'edit',
     template: [
@@ -35,6 +36,7 @@ let configMap = [
   //  mcp -m list group-user ./data/group-user.json
   //  mcp -m list host ./data/host.json
   //  mcp -m list monitor ./data/monitor.json
+  //  mcp -m list certificate ./data/certificate.json
   {
     mode: 'list',
     template: [

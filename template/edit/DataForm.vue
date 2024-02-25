@@ -188,12 +188,14 @@ export default {
         {%- endfor %}
       }
 
-      // 编辑
-      if(this.row){
-        params['id'] = this.row.id
-      }
+      let res = null
 
-      const res = await this.$http.function(params)
+      if (this.row) {
+        params['id'] = this.row.id
+        res = await this.$http.updateById(params)
+      } else {
+        res = await this.$http.add(params)
+      }
 
       if (res.code == 0) {
         this.$msg.success('操作成功')

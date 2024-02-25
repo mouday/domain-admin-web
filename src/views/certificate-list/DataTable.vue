@@ -4,135 +4,101 @@
       :data="list"
       stripe
       border
-      @selection-change="$emit('selection-change', $event)"
     >
+      <!-- 域名 -->
       <el-table-column
-        type="selection"
+        label="域名"
         header-align="center"
         align="center"
-        width="40"
-        :selectable="handleSelectable"
-      />
-
-      <!-- <el-table-column
-        label="ID"
-        align="center"
-        prop="id"
-        width="60"
+        prop="domain"
       >
         <template #default="scope">
-          <span>{{ scope.row.id || '-' }}</span>
-        </template>
-      </el-table-column> -->
-
-      <!-- 标题 -->
-      <el-table-column
-        label="名称"
-        header-align="center"
-        align="center"
-        prop="title"
-      >
-        <template #default="scope">
-          <span>{{ scope.row.title || '-' }}</span>
+          <span>{{ scope.row.domain || '-' }}</span>
         </template>
       </el-table-column>
 
-      <!-- 监控类型 -->
+      <!-- 签发时间 -->
       <el-table-column
-        label="监控类型"
+        label="签发时间"
         header-align="center"
         align="center"
-        prop="monitor_type"
-        width="100"
-      >
-        <template #default="scope">
-          <span>{{ scope.row.monitor_type_label || '-' }}</span>
-        </template>
-      </el-table-column>
-
-      <!-- 监控参数 -->
-      <!-- <el-table-column
-        label="监控参数"
-        header-align="center"
-        align="center"
-        prop="content"
-      >
-        <template #default="scope">
-          <span>{{ scope.row.content || '-' }}</span>
-        </template>
-      </el-table-column> -->
-
-      <!-- 检测频率 -->
-      <el-table-column
-        label="频率(分钟)"
-        header-align="center"
-        align="center"
-        prop="interval"
-        width="100"
-      >
-        <template #default="scope">
-          <span>{{ scope.row.interval || '-' }}</span>
-        </template>
-      </el-table-column>
-
-      <!-- 状态 -->
-      <el-table-column
-        label="状态"
-        header-align="center"
-        align="center"
-        prop="status"
-        width="100"
-      >
-        <template #default="scope">
-          <ConnectStatus
-            :value="scope.row.status_value"
-            @on-click="handleOpenLogClick(scope.row)"
-          ></ConnectStatus>
-        </template>
-      </el-table-column>
-
-      <el-table-column
-        label="日志"
-        header-align="center"
-        align="center"
-        prop="interval"
-        width="100"
-      >
-        <template #default="scope">
-          <el-link
-            v-if="scope.row.log_count && scope.row.log_count > 0"
-            :underline="false"
-            @click="handleOpenLogClick(scope.row)"
-            >{{ scope.row.log_count }}</el-link
-          ><span v-else>-</span>
-        </template>
-      </el-table-column>
-
-      <!-- 下次运行时间 -->
-      <el-table-column
-        label="下次运行时间"
-        header-align="center"
-        align="center"
-        prop="next_run_time"
+        prop="start_time"
         width="180"
       >
         <template #default="scope">
-          <span>{{ scope.row.next_run_time || '-' }}</span>
+          <span>{{ scope.row.start_date || '-' }}</span>
+        </template>
+      </el-table-column>
+
+      <!-- 过期时间 -->
+      <el-table-column
+        label="过期时间"
+        header-align="center"
+        align="center"
+        prop="expire_time"
+        width="180"
+      >
+        <template #default="scope">
+          <span>{{ scope.row.expire_date || '-' }}</span>
+        </template>
+      </el-table-column>
+
+      <!-- 备注 -->
+      <el-table-column
+        label="备注"
+        header-align="center"
+        align="center"
+        prop="comment"
+      >
+        <template #default="scope">
+          <span>{{ scope.row.comment || '-' }}</span>
+        </template>
+      </el-table-column>
+
+      <!-- 创建时间 -->
+      <el-table-column
+        label="创建时间"
+        header-align="center"
+        align="center"
+        prop="create_time"
+        width="120"
+      >
+        <template #default="scope">
+          <span>{{ scope.row.create_time_label || '-' }}</span>
         </template>
       </el-table-column>
 
       <!-- 操作 -->
-      <el-table-column
-        label="启用"
+      <!-- <el-table-column
+        label="状态"
         header-align="center"
         align="center"
         width="80"
       >
         <template #default="scope">
           <el-switch
-            v-model="scope.row.is_active"
+            v-model="scope.row.status"
             @change="handleStatusChange(scope.row, $event)"
           />
+        </template>
+      </el-table-column> -->
+
+      <!-- 证书 -->
+      <el-table-column
+        label="证书（.zip）"
+        header-align="center"
+        align="center"
+        prop="ssl_certificate"
+        width="120"
+      >
+        <template #default="scope">
+          <el-link
+            :underline="false"
+            type="primary"
+            class="mr-sm"
+            @click="downloadSSLFile(scope.row)"
+            ><el-icon><Download /></el-icon>{{ $t('点击下载') }}</el-link
+          >
         </template>
       </el-table-column>
 
@@ -178,17 +144,17 @@
 
 <script>
 /**
- * created 2024-01-28
+ * created 2024-02-25
  */
-import DataFormDialog from '../../components/monitor-edit/DataFormDialog.vue'
-import ConnectStatus from '../../components/ConnectStatus.vue'
+import DataFormDialog from '@/components/certificate-edit/DataFormDialog.vue'
+import FileSaver from 'file-saver'
+import JSZip from 'jszip'
 
 export default {
   name: '',
 
   components: {
     DataFormDialog,
-    ConnectStatus,
   },
 
   props: {
@@ -214,10 +180,10 @@ export default {
 
     async handleDeleteClick(row) {
       let params = {
-        monitor_id: row.id,
+        certificate_id: row.certificate_id,
       }
 
-      const res = await this.$http.removeMonitorById(params)
+      const res = await this.$http.deleteCertificateById(params)
 
       if (res.code == 0) {
         this.$msg.success('操作成功')
@@ -227,13 +193,12 @@ export default {
       }
     },
 
-    async handleStatusChange(row, value) {
+    async handleStatusChange(row) {
       let params = {
-        monitor_id: row.id,
-        is_active: value,
+        id: row.id,
       }
 
-      const res = await this.$http.updateMonitorActive(params)
+      const res = await this.$http.function(params)
 
       if (res.code == 0) {
         this.$msg.success('操作成功')
@@ -247,20 +212,18 @@ export default {
       this.$emit('on-success')
     },
 
-    handleOpenLogClick(row) {
-      let route = this.$router.resolve({
-        name: 'log-monitor-list',
-        query: {
-          monitorId: row.id,
-        },
+    async downloadSSLFile(row) {
+      let name = row.domain
+
+      const zip = new JSZip()
+
+      zip.file(`${name}.pem`, row.ssl_certificate)
+      zip.file(`${name}.key`, row.ssl_certificate_key)
+
+      zip.generateAsync({ type: 'blob' }).then(function (content) {
+        // see FileSaver.js
+        FileSaver.saveAs(content, `${name}.zip`)
       })
-
-      window.open(route.href, '_blank')
-    },
-
-    handleSelectable(row, index) {
-      return true
-      // return row.has_edit_permission
     },
   },
 

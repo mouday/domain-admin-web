@@ -1,0 +1,15 @@
+{
+    "table": {
+      "columns": [
+        { "comment": "域名", "name": "domain", "default": "" },
+        { "comment": "证书", "name": "ssl_certificate", "default": "" },
+        { "comment": "证书私钥", "name": "ssl_certificate_key", "default": "" },
+
+        { "comment": "签发时间", "name": "start_time", "default": "" },
+        { "comment": "过期时间", "name": "expire_time", "default": "" },
+        { "comment": "备注", "name": "comment", "default": "" },
+        { "comment": "创建时间", "name": "create_time", "default": "" }
+      ]
+    }
+  }
+  

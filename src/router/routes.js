@@ -378,6 +378,18 @@ export const routes = [
           hidden: true,
         },
       },
+      {
+        path: 'certificate-list',
+        name: 'certificate-list',
+        component: () => import('../views/certificate-list/index.vue'),
+        meta: {
+          title: '证书托管',
+          icon: 'Box',
+          // roles: [RoleEnum.Admin],
+          hidden: true,
+        },
+      },
+      
     ],
   },
 ]

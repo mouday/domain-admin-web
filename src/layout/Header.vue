@@ -227,6 +227,11 @@ export default {
 
       {
         type: 'router', // 路由
+        label: '证书托管',
+        value: 'certificate-list',
+      },
+      {
+        type: 'router', // 路由
         label: 'WHOIS查询',
         value: 'lab',
       },

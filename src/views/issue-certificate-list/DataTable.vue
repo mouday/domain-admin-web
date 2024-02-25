@@ -285,7 +285,7 @@ export default {
         issue_certificate_id: row.id,
       }
 
-      const res = await this.$http.deleteCertificateById(params)
+      const res = await this.$http.deleteIssueCertificateById(params)
 
       if (res.code == 0) {
         this.$msg.success('操作成功')

@@ -129,7 +129,7 @@ export default {
   clearAsyncTaskLogList: '/clearAsyncTaskLogList',
 
   // SSL证书
-  getCertificateList: '/getCertificateList',
+  getIssueCertificateList: '/getIssueCertificateList',
   issueCertificate: '/issueCertificate',
   renewCertificate: '/renewCertificate',
   getIssueCertificateById: '/getIssueCertificateById',
@@ -140,7 +140,7 @@ export default {
   deployVerifyFile: '/deployVerifyFile',
   deployCertificateFile: '/deployCertificateFile',
   getCertificateChallenges: '/getCertificateChallenges',
-  deleteCertificateById: '/deleteCertificateById',
+  deleteIssueCertificateById: '/deleteIssueCertificateById',
   deleteCertificateByBatch: '/deleteCertificateByBatch',
   getAllowCommands: '/getAllowCommands',
 
@@ -166,6 +166,16 @@ export default {
   getLogMonitorList: '/getLogMonitorList',
   clearLogMonitor: '/clearLogMonitor',
   clearAllLogMonitor: '/clearAllLogMonitor',
-  
+
   getTagList: '/getTagList',
+
+  // 证书托管
+  getCertificateList: '/getCertificateList',
+  addCertificate: '/addCertificate',
+  updateCertificateById: '/updateCertificateById',
+  deleteCertificateById: '/deleteCertificateById',
+  deleteCertificateByIds: '/deleteCertificateByIds',
+  getCertificateById: '/getCertificateById',
+
+  parsePublicCert: '/parsePublicCert',
 }
