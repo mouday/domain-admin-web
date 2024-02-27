@@ -742,6 +742,16 @@ export default [
     'zh-CN': '加密方式',
     'en-US': 'SSL Type',
   },
-  
-  
+  {
+    'zh-CN': '域名监控',
+    'en-US': 'Domain Monitor',
+  },
+  {
+    'zh-CN': '网站监控',
+    'en-US': 'Web Monitor',
+  },
+  {
+    'zh-CN': '通知管理',
+    'en-US': 'Notify Manage',
+  },
 ]
