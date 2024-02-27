@@ -178,4 +178,5 @@ export default {
   getCertificateById: '/getCertificateById',
 
   parsePublicCert: '/parsePublicCert',
+  sendTestEmail: '/sendTestEmail',
 }

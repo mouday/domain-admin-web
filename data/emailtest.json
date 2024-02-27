@@ -1,0 +1,9 @@
+{
+  "table": {
+    "columns": [
+      { "comment": "邮件标题", "name": "subject", "default": "" },
+      { "comment": "邮件内容", "name": "content", "default": "" },
+      { "comment": "收件邮箱", "name": "email_list", "default": "" }
+    ]
+  }
+}

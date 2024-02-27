@@ -75,13 +75,19 @@
 
     <!-- 操作 -->
     <div class="text-center">
-      <!-- <el-button @click="handleCancel">取 消</el-button> -->
+      <el-button @click="handleTest">测 试</el-button>
       <el-button
         type="primary"
         @click="handleSubmit"
         >{{ $t('保存') }}</el-button
       >
     </div>
+
+    <EmailTestDataFormDialog
+      v-model:visible="dialogVisible"
+      :row="form"
+      @on-success="handleTestSuccess"
+    ></EmailTestDataFormDialog>
   </div>
 </template>
 
@@ -98,6 +104,7 @@
  * */
 // 引入枚举值
 import { formRules } from './config.js'
+import EmailTestDataFormDialog from '@/components/email-test-edit/DataFormDialog.vue'
 
 export default {
   name: '',
@@ -107,13 +114,16 @@ export default {
     row: { type: Object, default: null },
   },
 
-  components: {},
+  components: {
+    EmailTestDataFormDialog,
+  },
 
   data() {
     return {
       rules: formRules,
 
       // 引入枚举值
+      dialogVisible: true,
 
       form: {
         // 服务器地址
@@ -202,6 +212,12 @@ export default {
         loading.close()
       })
     },
+
+    handleTest() {
+      this.dialogVisible = true
+    },
+
+    handleTestSuccess(){}
   },
 
   created() {

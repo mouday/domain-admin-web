@@ -9,6 +9,7 @@ let configMap = [
   // mcp -m edit group-user ./data/group-user.json
   // mcp -m edit monitor ./data/monitor.json
   // mcp -m edit certificate ./data/certificate.json
+  // mcp -m edit email-test ./data/emailtest.json
   {
     mode: 'edit',
     template: [
