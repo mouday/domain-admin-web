@@ -83,6 +83,7 @@
       >
     </div>
 
+    <!-- 邮件发送测试 -->
     <EmailTestDataFormDialog
       v-model:visible="dialogVisible"
       :row="form"
@@ -123,7 +124,7 @@ export default {
       rules: formRules,
 
       // 引入枚举值
-      dialogVisible: true,
+      dialogVisible: false,
 
       form: {
         // 服务器地址
