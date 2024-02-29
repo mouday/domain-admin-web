@@ -1,8 +1,8 @@
 <template>
   <div class="card-main">
     <div class="card-main__header">
-      <div class="card-main__title">{{ title }}</div>
-      <div class="card-main__desc">{{ desc }}</div>
+      <div class="card-main__title">{{ $t(title) }}</div>
+      <div class="card-main__desc">{{ $t(desc) }}</div>
     </div>
     <slot></slot>
   </div>

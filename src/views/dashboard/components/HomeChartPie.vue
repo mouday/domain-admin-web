@@ -102,7 +102,10 @@ export default {
             // labelLine: {
             //   show: true,
             // },
-            data: value,
+            data: value.map((item) => {
+              item.name = this.$t(item.name)
+              return item
+            }),
 
             // [
             // { value: 1048, name: 'Search Engine' },
@@ -120,7 +123,7 @@ export default {
       }
 
       this.chartDom.setOption(option)
-      
+
       value.forEach((item) => {
         if (!item.selected) {
           this.chartDom.dispatchAction({

@@ -188,6 +188,26 @@ export default [
     'en-US': 'Cert Count',
   },
   {
+    'zh-CN': '过期证书',
+    'en-US': 'Expired Cert',
+  },
+  {
+    'zh-CN': '过期域名',
+    'en-US': 'Expired Domain',
+  },
+  {
+    'zh-CN': '过期域名',
+    'en-US': 'Expired Domain',
+  },
+  {
+    'zh-CN': '网站异常',
+    'en-US': 'Web Error',
+  },
+  {
+    'zh-CN': '网站数量',
+    'en-US': 'Web Count',
+  },
+  {
     'zh-CN': '域名数量',
     'en-US': 'Domain Count',
   },
@@ -358,6 +378,10 @@ export default [
   {
     'zh-CN': '清空日志',
     'en-US': 'Clear Log',
+  },
+  {
+    'zh-CN': '日志',
+    'en-US': 'Log',
   },
   {
     'zh-CN': '操作人',
@@ -753,5 +777,97 @@ export default [
   {
     'zh-CN': '通知管理',
     'en-US': 'Notify Manage',
+  },
+  {
+    'zh-CN': '退出',
+    'en-US': 'Logout',
+  },
+  {
+    'zh-CN': '关于',
+    'en-US': 'About',
+  },
+  {
+    'zh-CN': '修改密码',
+    'en-US': 'Change Password',
+  },
+  {
+    'zh-CN': '修改登录密码',
+    'en-US': 'Change Password',
+  },
+  {
+    'zh-CN': '旧密码',
+    'en-US': 'Old Password',
+  },
+  {
+    'zh-CN': '新密码',
+    'en-US': 'New Password',
+  },
+  {
+    'zh-CN': '首页',
+    'en-US': 'Index',
+  },
+  {
+    'zh-CN': '控制台',
+    'en-US': 'Dashboard',
+  },
+  {
+    'zh-CN': '请及时修改 admin（超级管理员）的默认密码',
+    'en-US': 'Please Change default password of admin(super manager)',
+  },
+  {
+    'zh-CN': '系统数据',
+    'en-US': 'System Data',
+  },
+  {
+    'zh-CN': '证书统计',
+    'en-US': 'SSL Cert Data',
+  },
+  {
+    'zh-CN': '域名统计',
+    'en-US': 'Domain Data',
+  },
+  {
+    'zh-CN': '监控统计',
+    'en-US': 'Monitor Data',
+  },
+  {
+    'zh-CN': '监控统计',
+    'en-US': 'Monitor Data',
+  },
+  {
+    'zh-CN': '未过期',
+    'en-US': 'Ok',
+  },
+  {
+    'zh-CN': '即将过期',
+    'en-US': 'Will Expired',
+  },
+  {
+    'zh-CN': '正常',
+    'en-US': 'Ok',
+  },
+  {
+    'zh-CN': '异常',
+    'en-US': 'Error',
+  },
+  {
+    'zh-CN': '证书托管',
+    'en-US': 'Cert Saver',
+  },
+  {
+    'zh-CN': '网站状态',
+    'en-US': 'Web Status',
+  },
+  {
+    'zh-CN': '下次运行时间',
+    'en-US': 'Next Run Time',
+  },
+  {
+    'zh-CN': '频率(分钟)',
+    'en-US': 'Frequency(min)',
+  },
+  {
+    'zh-CN': '监控类型',
+    'en-US': 'Type',
   },
 ]

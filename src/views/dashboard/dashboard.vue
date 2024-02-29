@@ -85,7 +85,7 @@ export default {
           color: COLORS.PRIMARY,
         },
         {
-          title: '监控数量',
+          title: '网站数量',
           key: 'monitor_count',
           path: '/monitor/list',
           count: 0,
@@ -107,7 +107,7 @@ export default {
         },
 
         {
-          title: '监控异常',
+          title: '网站异常',
           key: 'monitor_error_count',
           count: 0,
           path: '/monitor/list',

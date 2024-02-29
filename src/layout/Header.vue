@@ -74,7 +74,7 @@
                 v-if="item.type == 'url'"
                 @click="handleToolItemClick(item)"
                 class="justify-center"
-                >{{ item.label }}<el-icon><Link /></el-icon
+                >{{ $t(item.label) }}<el-icon><Link /></el-icon
               ></el-dropdown-item>
 
               <!-- 路由 -->
@@ -82,7 +82,7 @@
                 v-else
                 @click="handleToolItemClick(item)"
                 class="justify-center"
-                >{{ item.label }}</el-dropdown-item
+                >{{ $t(item.label) }}</el-dropdown-item
               >
             </template>
           </el-dropdown-menu>
@@ -141,19 +141,19 @@
             <el-dropdown-item
               @click="handleUpdatePasswordClick"
               class="justify-center"
-              >修改密码</el-dropdown-item
+              >{{ $t('修改密码') }}</el-dropdown-item
             >
 
             <el-dropdown-item
               @click="handleAboutClick"
               class="justify-center"
-              >关于</el-dropdown-item
+              >{{ $t('关于') }}</el-dropdown-item
             >
 
             <el-dropdown-item
               @click="handleLogoutClick"
               class="justify-center"
-              >退出</el-dropdown-item
+              >{{ $t('退出') }}</el-dropdown-item
             >
           </el-dropdown-menu>
         </template>

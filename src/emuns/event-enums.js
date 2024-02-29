@@ -22,7 +22,7 @@ export const EventOptions = [
   },
   {
     value: EventEnum.MONITOR_EXCEPTION,
-    label: translate('监控异常'),
+    label: translate('网站异常'),
   },
 ]
 

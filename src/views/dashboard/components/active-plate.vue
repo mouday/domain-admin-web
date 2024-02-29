@@ -13,7 +13,7 @@
           {{ item.count }}
           <!-- <CountTo :end="item.count"></CountTo> -->
         </p>
-        <p class="desc">{{ item.title }}</p>
+        <p class="desc">{{ $t(item.title) }}</p>
       </li>
     </ul>
   </div>
