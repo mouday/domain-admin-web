@@ -51,7 +51,7 @@
       >
         <template #default="scope">
           <div @click="handleCopyClick(scope.row.token)">
-            <span>_acme-challenge.{{ scope.row.domain  }}</span>
+            <span>_acme-challenge</span>
           </div>
         </template>
       </el-table-column>
