@@ -136,9 +136,16 @@ export default {
     },
 
     async getDomainHost() {
+      let domain = this.form.domains[0]
+
+      // 泛域名直接返回
+      if (domain.startsWith('*')) {
+        return
+      }
+
       let params = {
         // 域名列表
-        domain: this.form.domains[0],
+        domain: domain,
       }
 
       const res = await this.$http.getDomainHost(params)
@@ -235,10 +242,10 @@ export default {
         loading.close()
       })
     },
-    
-    handleChangeHost(){
+
+    handleChangeHost() {
       this.$refs.form.validateField(['deploy_host'])
-    }
+    },
   },
 
   created() {

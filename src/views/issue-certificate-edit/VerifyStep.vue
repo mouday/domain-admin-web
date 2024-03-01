@@ -124,6 +124,14 @@ export default {
         console.log(this.list)
 
         this.total = res.data.total
+
+        // 如果仅dns可用，则默认选中dns tab
+        if (this.fileList.length == 0 && this.dnsList.length > 0) {
+          this.activeName = 'dns'
+        } else {
+          this.activeName = 'file'
+        }
+
       } catch (e) {
         console.log(e)
         // this.msg.error(e.msg);
