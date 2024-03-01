@@ -1,8 +1,6 @@
 <template>
   <div class="">
-    <div
-      class="text-sm color--info flex items-center justify-end"
-    >
+    <div class="text-sm color--info flex items-center justify-end">
       <el-icon><Warning /></el-icon>
       <span>&nbsp;验证通过后会自动加入到[证书监控]列表 </span>
     </div>
@@ -78,9 +76,20 @@ export default {
     },
 
     dnsList() {
-      return this.list.filter((item) => {
-        return item.challenge && item.challenge.type == 'dns-01'
-      })
+      return this.list
+        .filter((item) => {
+          return item.challenge && item.challenge.type == 'dns-01'
+        })
+        .map((item) => {
+          // 特殊处理www前缀
+          if (item.sub_domain && item.sub_domain != 'www') {
+            item.verify_key = `_acme-challenge.${item.sub_domain}`
+          } else {
+            item.verify_key = '_acme-challenge'
+          }
+
+          return item
+        })
     },
   },
 

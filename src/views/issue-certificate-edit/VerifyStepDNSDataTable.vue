@@ -51,7 +51,7 @@
       >
         <template #default="scope">
           <div @click="handleCopyClick(scope.row.token)">
-            <span>_acme-challenge</span>
+            <span> {{ scope.row.verify_key || '-' }}  </span>
           </div>
         </template>
       </el-table-column>
