@@ -29,7 +29,7 @@ export function routerHook(router) {
       // 白名单直接走
       next()
     } else {
-      if (store.hasUserInfo) {
+      if (token && store.hasUserInfo) {
         if (to.meta && to.meta.roles) {
           if (hasPermission(to.meta.roles, store.userRoles)) {
             next()

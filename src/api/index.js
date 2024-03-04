@@ -4,6 +4,7 @@ import DATA_API from './dataApi.js'
 import instance from './instance.js'
 import { VITE_APP_API } from './instance.js'
 import { HttpCodeEnum } from './enums.js'
+import { hasPermission } from './permission.js'
 
 function httpRequest(url) {
   return async function (params = {}, config) {
@@ -15,6 +16,11 @@ function httpRequest(url) {
     //   data = params
     // } else {
     //   data = params
+    // }
+
+    // 权限检查
+    // if (!hasPermission(url)) {
+    //   return
     // }
 
     const res = await instance.post(url, params, config)

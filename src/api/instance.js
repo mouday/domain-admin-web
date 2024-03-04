@@ -19,6 +19,9 @@ instance.interceptors.request.use(
 
     if (token) {
       config.headers['X-Token'] = token
+    }
+
+    if (language) {
       config.headers['X-Language'] = language
     }
 
