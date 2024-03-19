@@ -7,6 +7,7 @@
     center
     top="5vh"
     append-to-body
+    :close-on-click-modal="false"
   >
     <DataForm
       v-if="dialogVisible"
