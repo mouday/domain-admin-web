@@ -1,4 +1,4 @@
-import { isNumber } from '@/utils/validator.js'
+import { isNumber } from '@/utils/validator-util.js'
 
 // 表单验证
 export const formRules = {

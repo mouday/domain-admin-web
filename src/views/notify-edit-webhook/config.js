@@ -1,4 +1,4 @@
-import { isJson, isObject } from '@/utils/validator.js'
+import { isJson, isObject } from '@/utils/validator-util.js'
 
 const validateHeaders = (rule, value, callback) => {
   if (!value) {

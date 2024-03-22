@@ -1,4 +1,4 @@
-import { isNumber } from '@/utils/validator.js'
+import { isNumber } from '@/utils/validator-util.js'
 
 // 加密方式
 export const sslTypeOptions = [

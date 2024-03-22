@@ -34,6 +34,7 @@
       <DownloadStep
         v-else-if="activeStep == 2"
         :form="form"
+        :issueCertificateId="issue_certificate_id"
         @on-close="$emit('on-cancel')"
       ></DownloadStep>
     </div>

@@ -1,4 +1,4 @@
-import { isEmail, isJson } from '@/utils/validator.js'
+import { isEmail, isJson } from '@/utils/validator-util.js'
 
 const validateEmailList = (rule, value, callback) => {
   if (!value) {

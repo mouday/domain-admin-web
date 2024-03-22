@@ -143,6 +143,7 @@ export default {
   deleteIssueCertificateById: '/deleteIssueCertificateById',
   deleteCertificateByBatch: '/deleteCertificateByBatch',
   getAllowCommands: '/getAllowCommands',
+  notifyWebHook: '/notifyWebHook',
 
   // 主机管理
   getHostList: '/getHostList',
