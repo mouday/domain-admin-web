@@ -9,6 +9,9 @@ export const EventEnum = {
   DOMAIN_EXPIRE: 1,
   // 监控异常
   MONITOR_EXCEPTION: 2,
+
+  // 托管证书到期
+  SSL_CERT_FILE_EXPIRE: 3,
 }
 
 export const EventOptions = [
@@ -23,6 +26,10 @@ export const EventOptions = [
   {
     value: EventEnum.MONITOR_EXCEPTION,
     label: translate('网站异常'),
+  },
+  {
+    value: EventEnum.SSL_CERT_FILE_EXPIRE,
+    label: translate('托管证书到期'),
   },
 ]
 

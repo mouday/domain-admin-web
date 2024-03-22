@@ -45,7 +45,7 @@
 
       <template
         v-if="
-          [EventEnum.SSL_CERT_EXPIRE, EventEnum.DOMAIN_EXPIRE].includes(
+          [EventEnum.SSL_CERT_EXPIRE, EventEnum.DOMAIN_EXPIRE, EventEnum.SSL_CERT_FILE_EXPIRE].includes(
             form.event_id
           )
         "
@@ -60,7 +60,15 @@
             placeholder="过期通知"
           ></el-input-number>
         </el-form-item>
+      </template>
 
+      <template
+        v-if="
+          [EventEnum.SSL_CERT_EXPIRE, EventEnum.DOMAIN_EXPIRE].includes(
+            form.event_id
+          )
+        "
+      >
         <!-- 分组 -->
         <el-form-item
           :label="$t('触发分组')"

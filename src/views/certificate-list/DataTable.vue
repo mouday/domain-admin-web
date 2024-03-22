@@ -17,6 +17,23 @@
         </template>
       </el-table-column>
 
+      <!-- 证书天数 -->
+      <el-table-column
+        :label="$t('证书天数')"
+        header-align="center"
+        align="center"
+        width="110"
+        sortable="custom"
+        prop="expire_days"
+      >
+        <template #default="scope">
+          <ExpireProgress
+            :startTime="scope.row.start_time"
+            :endTime="scope.row.expire_time"
+          ></ExpireProgress>
+        </template>
+      </el-table-column>
+
       <!-- 签发时间 -->
       <el-table-column
         label="签发时间"
@@ -149,12 +166,16 @@
 import DataFormDialog from '@/components/certificate-edit/DataFormDialog.vue'
 import FileSaver from 'file-saver'
 import JSZip from 'jszip'
+import ConnectStatus from '@/components/ConnectStatus.vue'
+import ExpireProgress from '@/components/ExpireProgress.vue'
 
 export default {
   name: '',
 
   components: {
     DataFormDialog,
+    ConnectStatus,
+    ExpireProgress
   },
 
   props: {
