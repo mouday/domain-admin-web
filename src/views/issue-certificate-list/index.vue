@@ -235,6 +235,8 @@ export default {
         name: 'host-list',
       })
     },
+
+    handleEditRow(row){}
   },
 
   created() {

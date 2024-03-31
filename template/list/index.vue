@@ -126,6 +126,8 @@ export default {
     handleSearch() {
       this.resetData()
     },
+
+    handleEditRow(row){}
   },
 
   created() {

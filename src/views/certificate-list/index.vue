@@ -32,6 +32,7 @@
       :list="list"
       @on-success="resetData"
       @on-edit-row="handleEditRow"
+      @on-row-update="handleRowUpdated"
     />
 
     <!-- 翻页 -->
@@ -125,6 +126,26 @@ export default {
 
     handleSearch() {
       this.resetData()
+    },
+
+    handleEditRow(row) {},
+
+    async handleRowUpdated(row) {
+      let params = {
+        certificate_id: row.certificate_id,
+      }
+
+      const res = await this.$http.getCertificateById(params)
+
+      if (res.ok) {
+        this.list = this.list.map((item) => {
+          if (item.certificate_id == res.data.certificate_id) {
+            return res.data
+          } else {
+            return item
+          }
+        })
+      }
     },
   },
 

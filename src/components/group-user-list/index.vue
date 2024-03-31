@@ -173,6 +173,8 @@ export default {
         })
       }
     },
+
+    handleEditRow(row){}
   },
 
   created() {

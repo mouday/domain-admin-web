@@ -10,12 +10,22 @@
         :label="$t('服务器地址')"
         prop="deploy_host"
       >
-        <RemoteHost
-          v-if="hasInit"
-          :defaultKeyword="host"
-          v-model="deployForm.deploy_host"
-          @on-confirm="handleDeployVerifyFile"
-        ></RemoteHost>
+        <div class="flex">
+          <RemoteHost
+            v-if="hasInit"
+            :defaultKeyword="host"
+            v-model="deployForm.deploy_host"
+            @on-confirm="handleDeployVerifyFile"
+          ></RemoteHost>
+
+          <!-- 一键部署 -->
+          <el-button
+            class="ml-md"
+            :disabled="disabled"
+            @click="handleDeployVerifyFile"
+            >{{ $t('一键部署') }}</el-button
+          >
+        </div>
       </el-form-item>
 
       <el-form-item
@@ -158,6 +168,10 @@ export default {
   },
 
   computed: {
+    disabled() {
+      return !(this.deployForm.deploy_host && this.deployForm.deploy_host.id)
+    },
+
     domain_list() {
       return this.form.domains.join(' ')
     },

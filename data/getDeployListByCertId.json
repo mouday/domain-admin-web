@@ -1,0 +1,11 @@
+{
+  "table": {
+    "columns": [
+      { "comment": "服务器地址", "name": "deploy_host_id", "default": "" },
+      { "comment": "私钥部署路径", "name": "deploy_key_file", "default": "" },
+      { "comment": "公钥部署路径", "name": "deploy_fullchain_file", "default": "" },
+      { "comment": "重启命令", "name": "deploy_reloadcmd", "default": "" }
+
+    ]
+  }
+}

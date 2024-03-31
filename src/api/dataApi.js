@@ -180,4 +180,13 @@ export default {
 
   parsePublicCert: '/parsePublicCert',
   sendTestEmail: '/sendTestEmail',
+
+  // 证书部署
+  getDeployListByCertId: '/getDeployListByCertId',
+  addDeployCert: '/addDeployCert',
+  updateDeployCertById: '/updateDeployCertById',
+  deleteByDeployCertId: '/deleteByDeployCertId',
+  deleteByDeployCertIds: '/deleteByDeployCertIds',
+  getDeployCertById: '/getDeployCertById',
+  handleDeployCert: '/handleDeployCert',
 }

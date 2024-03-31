@@ -98,7 +98,7 @@ export default {
           title: this.$t('验证域名'),
         },
         {
-          title: this.$t('下载证书'),
+          title: this.$t('部署证书'),
         },
       ],
     }

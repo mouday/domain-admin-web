@@ -40,7 +40,7 @@
         header-align="center"
         align="center"
         prop="start_time"
-        width="180"
+        width="120"
       >
         <template #default="scope">
           <span>{{ scope.row.start_date || '-' }}</span>
@@ -53,7 +53,7 @@
         header-align="center"
         align="center"
         prop="expire_time"
-        width="180"
+        width="120"
       >
         <template #default="scope">
           <span>{{ scope.row.expire_date || '-' }}</span>
@@ -85,6 +85,56 @@
         </template>
       </el-table-column>
 
+      <!-- 部署 -->
+      <el-table-column
+        label="部署"
+        header-align="center"
+        align="center"
+        prop="create_time"
+        width="60"
+      >
+        <template #default="scope">
+          <el-link
+            :underline="false"
+            type="primary"
+            @click="handleDeployCountClick(scope.row)"
+          >
+            <!-- 有失败 -->
+            <span
+              v-if="scope.row.deploy_error_count > 0"
+              class="color--danger"
+            >
+              {{ scope.row.deploy_success_count }}/{{
+                scope.row.deploy_count
+              }}</span
+            >
+            <!-- 有异常 -->
+            <span
+              v-else-if="scope.row.deploy_pending_count > 0"
+              class="color--warning"
+            >
+              {{ scope.row.deploy_success_count }}/{{
+                scope.row.deploy_count
+              }}</span
+            >
+            <!-- 都成功 -->
+            <span
+              v-else-if="scope.row.deploy_count > 0"
+              class="color--success"
+            >
+              {{ scope.row.deploy_count }}</span
+            >
+            <!-- 没有部署 -->
+            <span
+              v-else
+              class="color--info"
+            >
+              {{ scope.row.deploy_count }}</span
+            >
+          </el-link>
+        </template>
+      </el-table-column>
+
       <!-- 操作 -->
       <!-- <el-table-column
         label="状态"
@@ -102,20 +152,19 @@
 
       <!-- 证书 -->
       <el-table-column
-        label="证书（.zip）"
+        label="证书"
         header-align="center"
         align="center"
         prop="ssl_certificate"
-        width="120"
+        width="60"
       >
         <template #default="scope">
           <el-link
             :underline="false"
             type="primary"
-            class="mr-sm"
             @click="downloadSSLFile(scope.row)"
-            ><el-icon><Download /></el-icon>{{ $t('点击下载') }}</el-link
-          >
+            ><el-icon><Download /></el-icon
+          ></el-link>
         </template>
       </el-table-column>
 
@@ -156,6 +205,15 @@
       :row="currentRow"
       @on-success="handleUpdateSuccess"
     ></DataFormDialog>
+
+    <!-- 证书部署列表 -->
+    <DeployCertListDialog
+      v-model:visible="deployCertListDialogVisible"
+      :certId="currentRow?.certificate_id"
+      @on-success="handleUpdateSuccess"
+      @on-close="handleDialogClose"
+    >
+    </DeployCertListDialog>
   </div>
 </template>
 
@@ -168,6 +226,7 @@ import FileSaver from 'file-saver'
 import JSZip from 'jszip'
 import ConnectStatus from '@/components/ConnectStatus.vue'
 import ExpireProgress from '@/components/ExpireProgress.vue'
+import DeployCertListDialog from '@/components/deploy-cert-list/DataTableDialog.vue'
 
 export default {
   name: '',
@@ -175,7 +234,8 @@ export default {
   components: {
     DataFormDialog,
     ConnectStatus,
-    ExpireProgress
+    ExpireProgress,
+    DeployCertListDialog,
   },
 
   props: {
@@ -190,6 +250,7 @@ export default {
     return {
       currentRow: null,
       dialogVisible: false,
+      deployCertListDialogVisible: false,
     }
   },
 
@@ -245,6 +306,15 @@ export default {
         // see FileSaver.js
         FileSaver.saveAs(content, `${name}.zip`)
       })
+    },
+
+    handleDeployCountClick(row) {
+      this.currentRow = row
+      this.deployCertListDialogVisible = true
+    },
+
+    handleDialogClose() {
+      this.$emit('on-row-update', this.currentRow)
     },
   },
 

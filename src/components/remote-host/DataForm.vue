@@ -120,7 +120,7 @@ import {
 } from './config.js'
 
 export default {
-  name: '',
+  name: 'RemoteHostForm',
 
   props: {
     // 数据行

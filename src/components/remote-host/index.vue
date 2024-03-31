@@ -30,15 +30,6 @@
       </el-link>
     </template>
 
-    <!-- 一键部署 -->
-
-    <el-button
-      class="ml-md ml-auto"
-      :disabled="disabled"
-      @click="handleDeployVerifyFile"
-      >{{ $t('一键部署') }}</el-button
-    >
-
     <DataFormDialog
       v-model:visible="visible"
       :row="editValue"
