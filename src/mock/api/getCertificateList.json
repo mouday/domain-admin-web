@@ -1,34 +1,31 @@
 {
   "data": {
-    "list": [
-      {
-        "id": 6,
-        "user_id": 1,
-        "domain_raw": "[\"www.baidu.com\"]",
-        "challenge_type": "http-01",
-        "token": null,
-        "validation": null,
-        "status_url": null,
-        "status": "valid",
-        "start_time": "2023-08-22 10:36:32",
-        "expire_time": "2023-11-20 10:36:31",
-        "deploy_host_id": 4,
-        "deploy_verify_path": "/var/www/challenges/",
-        "deploy_key_file": "/usr/local/nginx/conf/ssl/www.baidu.com.key",
-        "deploy_fullchain_file": "/usr/local/nginx/conf/ssl/www.baidu.com.pem",
-        "deploy_reloadcmd": "service nginx force-reload",
-        "is_auto_renew": true,
-        "create_time": "2023-08-21 16:53:38",
-        "update_time": "2023-08-22 11:36:34",
-        "expire_date": "2023-11-20",
-        "start_date": "2023-08-22",
-        "has_ssl_certificate": true,
-        "domains": ["www.baidu.com"],
-        "update_time_label": "3小时前",
-        "create_time_label": "21小时前"
-      }
-    ],
-    "total": 1
+      "list": [
+          {
+              "id": 1,
+              "user_id": 1,
+              "domain": "www.baidu.com",
+              "ssl_certificate": "-----BEGIN CERTIFICATE-----\nMIIoq7hHwg==\n-----END CERTIFICATE-----\n",
+              "ssl_certificate_key": "-----BEGIN PRIVATE KEY-----\nMIjBbg=\n-----END PRIVATE KEY-----\n",
+              "start_time": "2024-02-21 09:31:45",
+              "expire_time": "2024-05-21 09:31:44",
+              "comment": "",
+              "version": 0,
+              "create_time": "2024-02-25 21:30:13",
+              "update_time": "2024-02-25 21:30:13",
+              "create_time_label": "2024-02-25",
+              "expire_date": "2024-05-21",
+              "real_time_expire_days": 50,
+              "start_date": "2024-02-21",
+              "update_time_label": "2024-02-25",
+              "certificate_id": 1,
+              "deploy_count": 0,
+              "deploy_pending_count": 0,
+              "deploy_error_count": 0,
+              "deploy_success_count": 0
+          }
+      ],
+      "total": 1
   },
   "code": 0,
   "msg": "success"

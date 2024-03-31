@@ -1,0 +1,54 @@
+{
+    "data": [
+        {
+            "title": "证书数量",
+            "key": "ssl_cert_count",
+            "count": 84,
+            "path": "/cert/list"
+        },
+        {
+            "title": "即将过期证书",
+            "key": "ssl_cert_will_expire_count",
+            "count": 0,
+            "path": "/cert/list"
+        },
+        {
+            "title": "过期证书",
+            "key": "ssl_cert_expire_count",
+            "count": 9,
+            "path": "/cert/list"
+        },
+        {
+            "title": "域名数量",
+            "key": "domain_count",
+            "count": 46,
+            "path": "/domain/list"
+        },
+        {
+            "title": "即将过期域名",
+            "key": "domain_will_expire_count",
+            "count": 0,
+            "path": "/domain/list"
+        },
+        {
+            "title": "过期域名",
+            "key": "domain_expire_count",
+            "count": 0,
+            "path": "/domain/list"
+        },
+        {
+            "title": "监控数量",
+            "count": 6,
+            "key": "monitor_count",
+            "path": "/monitor/list"
+        },
+        {
+            "title": "监控异常",
+            "key": "monitor_error_count",
+            "count": 1,
+            "path": "/monitor/list"
+        }
+    ],
+    "code": 0,
+    "msg": "success"
+}

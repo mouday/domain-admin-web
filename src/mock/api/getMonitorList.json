@@ -1,0 +1,134 @@
+{
+    "data": {
+        "list": [
+            {
+                "id": 6,
+                "user_id": 1,
+                "title": "百度",
+                "monitor_type": 1,
+                "content": {
+                    "url": "https://www.baidu.com/",
+                    "method": "GET",
+                    "timeout": 3
+                },
+                "interval": 60,
+                "allow_error_count": 0,
+                "status": 1,
+                "is_active": true,
+                "next_run_time": "2024-03-31 22:13:30",
+                "version": 728,
+                "create_time": "2024-03-01 14:00:14",
+                "update_time": null,
+                "create_time_label": "2024-03-01",
+                "http_timeout": 3,
+                "monitor_id": 6,
+                "update_time_label": null,
+                "http_url": "https://www.baidu.com/",
+                "log_count": 927
+            },
+            {
+                "id": 5,
+                "user_id": 1,
+                "title": "腾讯网",
+                "monitor_type": 1,
+                "content": {
+                    "url": "https://www.qq.com/",
+                    "method": "GET",
+                    "timeout": 3
+                },
+                "interval": 60,
+                "allow_error_count": 0,
+                "status": 1,
+                "is_active": true,
+                "next_run_time": "2024-03-31 22:13:30",
+                "version": 728,
+                "create_time": "2024-03-01 14:00:14",
+                "update_time": null,
+                "create_time_label": "2024-03-01",
+                "http_timeout": 3,
+                "monitor_id": 5,
+                "update_time_label": null,
+                "http_url": "https://www.qq.com/",
+                "log_count": 5085
+            },
+            {
+                "id": 4,
+                "user_id": 1,
+                "title": "网易",
+                "monitor_type": 1,
+                "content": {
+                    "url": "https://www.163.com/",
+                    "method": "GET",
+                    "timeout": 3
+                },
+                "interval": 60,
+                "allow_error_count": 0,
+                "status": 1,
+                "is_active": true,
+                "next_run_time": "2024-03-31 22:13:30",
+                "version": 728,
+                "create_time": "2024-03-01 14:00:14",
+                "update_time": null,
+                "create_time_label": "2024-03-01",
+                "http_timeout": 3,
+                "monitor_id": 4,
+                "update_time_label": null,
+                "http_url": "https://www.163.com/",
+                "log_count": 903
+            },
+            {
+                "id": 3,
+                "user_id": 1,
+                "title": "CSDN",
+                "monitor_type": 1,
+                "content": {
+                    "url": "https://www.csdn.net/",
+                    "method": "GET",
+                    "timeout": 3
+                },
+                "interval": 1,
+                "allow_error_count": 0,
+                "status": 2,
+                "is_active": false,
+                "next_run_time": null,
+                "version": 3,
+                "create_time": "2024-03-01 14:00:14",
+                "update_time": null,
+                "create_time_label": "2024-03-01",
+                "http_timeout": 3,
+                "monitor_id": 3,
+                "update_time_label": null,
+                "http_url": "https://www.csdn.net/",
+                "log_count": 532
+            },
+            {
+                "id": 1,
+                "user_id": 1,
+                "title": "springdoc.cn",
+                "monitor_type": 1,
+                "content": {
+                    "url": "https://springdoc.cn/",
+                    "method": "GET",
+                    "timeout": 3
+                },
+                "interval": 60,
+                "allow_error_count": 0,
+                "status": 1,
+                "is_active": true,
+                "next_run_time": "2024-03-31 22:13:04",
+                "version": 728,
+                "create_time": "2024-03-01 14:00:14",
+                "update_time": null,
+                "create_time_label": "2024-03-01",
+                "http_timeout": 3,
+                "monitor_id": 1,
+                "update_time_label": null,
+                "http_url": "https://springdoc.cn/",
+                "log_count": 1257
+            }
+        ],
+        "total": 6
+    },
+    "code": 0,
+    "msg": "success"
+}
