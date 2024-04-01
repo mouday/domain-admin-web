@@ -29,7 +29,7 @@
         <el-input
           type="text"
           v-model="form.deploy_key_file"
-          placeholder="请输入私钥部署路径"
+          placeholder="请输入私钥部署的绝对路径，eg: /usr/ssl/xxx.key"
         ></el-input>
       </el-form-item>
 
@@ -42,7 +42,7 @@
         <el-input
           type="text"
           v-model="form.deploy_fullchain_file"
-          placeholder="请输入公钥部署路径"
+          placeholder="请输入公钥部署的绝对路径，eg: /usr/ssl/xxx.pem"
         ></el-input>
       </el-form-item>
 
