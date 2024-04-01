@@ -193,12 +193,13 @@ export default {
 
       const res = await this.$http.handleDeployCert(params)
 
-      if (res.code == 0) {
-        // this.$emit('on-success', res.data)
-        await this.getDeployCertById(row.deploy_cert_id)
-      } else {
-        this.$msg.error(res.msg)
-      }
+      await this.getDeployCertById(row.deploy_cert_id)
+
+      // if (res.code == 0) {
+      //   // this.$emit('on-success', res.data)
+      // } else {
+      //   this.$msg.error(res.msg)
+      // }
 
       return res
     },
@@ -207,7 +208,7 @@ export default {
       let loading = this.$loading({ fullscreen: true })
 
       const res = await this.handleDeployRow(row)
-      
+
       if (res.ok) {
         this.$msg.success('部署完成')
       } else {
