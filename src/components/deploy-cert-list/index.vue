@@ -199,14 +199,20 @@ export default {
       } else {
         this.$msg.error(res.msg)
       }
+
+      return res
     },
 
     async handleDeployOneRow(row) {
       let loading = this.$loading({ fullscreen: true })
 
-      await this.handleDeployRow(row)
-
-      this.$msg.success('部署完成')
+      const res = await this.handleDeployRow(row)
+      
+      if (res.ok) {
+        this.$msg.success('部署完成')
+      } else {
+        this.$msg.error(res.msg)
+      }
 
       this.$nextTick(() => {
         // 以服务的方式调用的 Loading 需要异步关闭
