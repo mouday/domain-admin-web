@@ -30,7 +30,6 @@
       >
         <template #reference>
           <el-button
-            type="primary"
             :disabled="selectedRows.length == 0"
             ><el-icon><Position /></el-icon>{{ $t('一键部署') }}</el-button
           >

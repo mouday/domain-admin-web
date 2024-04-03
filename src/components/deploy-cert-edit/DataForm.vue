@@ -68,7 +68,7 @@
 
           <div class="ml-sm text-sm color--info flex items-center">
             <el-icon><Warning /></el-icon>
-            <span>&nbsp;仅使用预设命令</span>
+            <a class="mo-link" style="margin-left:4px;" href="https://domain-admin.readthedocs.io/zh-cn/latest/manual/install.html#id7" target="_blank">如何设置命令？</a>
           </div>
         </div>
       </el-form-item>
