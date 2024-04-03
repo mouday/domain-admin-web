@@ -232,7 +232,7 @@
           header-align="center"
           align="center"
           sortable="custom"
-          prop="domain_expire_monitor"
+          prop="is_auto_update"
         >
           <template #default="scope">
             <el-switch
