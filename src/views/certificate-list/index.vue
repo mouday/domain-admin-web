@@ -33,6 +33,7 @@
       @on-success="resetData"
       @on-edit-row="handleEditRow"
       @on-row-update="handleRowUpdated"
+      @on-sort-change="handleSortChange"
     />
 
     <!-- 翻页 -->
@@ -80,6 +81,9 @@ export default {
       size: 20,
       keyword: '',
 
+      order_type: '',
+      order_prop: '',
+
       loading: true,
       dialogVisible: false,
     }
@@ -100,6 +104,8 @@ export default {
         page: this.page,
         size: this.size,
         keyword: this.keyword,
+        order_type: this.order_type,
+        order_prop: this.order_prop,
       }
 
       try {
@@ -146,6 +152,22 @@ export default {
           }
         })
       }
+    },
+
+    handleSortChange({ column, prop, order }) {
+      console.log(column, prop, order)
+
+      // 先清空
+      this.order_prop = ''
+      this.order_type = ''
+
+      // 如果有排序字段，再赋值
+      if (order) {
+        this.order_type = order == 'descending' ? 'desc' : 'asc'
+        this.order_prop = prop
+      }
+ 
+      this.resetData()
     },
   },
 
