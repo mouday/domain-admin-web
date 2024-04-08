@@ -2,6 +2,7 @@
 .PHONY: dep-pro dev build build-visualizer
 
 # 部署到线上环境
+# make dep-pro
 dep-pro:
 	npm run build
 	cp -r ./dist/* ../domain-admin/domain_admin/public/

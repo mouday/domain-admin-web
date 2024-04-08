@@ -7,7 +7,8 @@
         closable
         @close="handleClose"
         @click="handleEditHost"
-        >{{ value.user }}@{{ value.host }}<template v-if="value.port != 22">:{{ value.port }}</template></el-tag
+        >{{ value.user }}@{{ value.host
+        }}<template v-if="value.port != 22">:{{ value.port }}</template></el-tag
       >
     </template>
 
@@ -56,7 +57,8 @@ export default {
     },
   },
 
-  emits: ['on-confirm', 'update:modelValue'],
+  // 'on-confirm',
+  emits: ['update:modelValue'],
 
   components: {
     DataFormDialog,
@@ -142,9 +144,9 @@ export default {
       this.value = data
     },
 
-    handleDeployVerifyFile() {
-      this.$emit('on-confirm', this.value)
-    },
+    // handleDeployVerifyFile() {
+    //   this.$emit('on-confirm', this.value)
+    // },
 
     handleSuccess(data) {
       this.value = data

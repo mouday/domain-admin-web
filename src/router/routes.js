@@ -61,6 +61,7 @@ export const routes = [
           icon: 'Tickets',
         },
       },
+      
       {
         path: '/cert/issue-certificate-list',
         name: 'issue-certificate-list',
@@ -69,7 +70,18 @@ export const routes = [
           title: '证书申请',
           icon: 'Box',
           // roles: [RoleEnum.Admin],
-          hidden: true,
+          // hidden: true,
+        },
+      },
+      {
+        path: 'certificate-list',
+        name: 'certificate-list',
+        component: () => import('../views/certificate-list/index.vue'),
+        meta: {
+          title: '证书托管',
+          icon: 'Box',
+          // roles: [RoleEnum.Admin],
+          // hidden: true,
         },
       },
 
@@ -373,17 +385,6 @@ export const routes = [
         component: () => import('../views/icp-info/index.vue'),
         meta: {
           title: 'ICP备案查询',
-          icon: 'Box',
-          // roles: [RoleEnum.Admin],
-          hidden: true,
-        },
-      },
-      {
-        path: 'certificate-list',
-        name: 'certificate-list',
-        component: () => import('../views/certificate-list/index.vue'),
-        meta: {
-          title: '证书托管',
           icon: 'Box',
           // roles: [RoleEnum.Admin],
           hidden: true,

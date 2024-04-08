@@ -225,11 +225,11 @@ export default {
       //   value: 'issue-certificate-list',
       // },
 
-      {
-        type: 'router', // 路由
-        label: '证书托管',
-        value: 'certificate-list',
-      },
+      // {
+      //   type: 'router', // 路由
+      //   label: '证书托管',
+      //   value: 'certificate-list',
+      // },
       {
         type: 'router', // 路由
         label: 'WHOIS查询',
@@ -419,11 +419,14 @@ export default {
     },
 
     handleAddCert() {
-      const route = this.$router.resolve({
+      this.$router.push({
         path: '/cert/issue-certificate-list',
       })
+      // const route = this.$router.resolve({
+      //   path: '/cert/issue-certificate-list',
+      // })
 
-      window.open(route.href, '_blank')
+      // window.open(route.href, '_blank')
     },
   },
 

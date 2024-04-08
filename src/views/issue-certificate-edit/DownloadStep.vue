@@ -65,6 +65,7 @@ export default {
     handleClose() {
       this.$emit('on-close')
     },
+    handleSuccess(){}
   },
 
   created() {},
