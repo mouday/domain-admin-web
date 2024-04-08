@@ -1,0 +1,1 @@
+import{t}from"./index.75d3c7d5.js";const a={UNKNOWN:0,SUCCESS:1,ERROR:2},e=[{value:a.UNKNOWN,label:t("\u672A\u77E5"),status:null},{value:a.SUCCESS,label:t("\u6210\u529F"),status:!0},{value:a.ERROR,label:t("\u5931\u8D25"),status:!1}];function o(u){var s;return(s=e.find(l=>l.value==u))==null?void 0:s.status}export{o as M};
