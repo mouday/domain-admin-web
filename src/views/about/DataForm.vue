@@ -42,7 +42,7 @@
             src="https://img.shields.io/github/issues/mouday/domain-admin"
         /></a>
       </el-form-item>
-      
+
       <el-form-item
         label="给我们点赞"
         prop="connect_status"
@@ -57,13 +57,24 @@
         /></a>
       </el-form-item>
 
-      
-
       <el-form-item
         label="QQ交流群"
         prop="domain"
       >
         <span>731742868</span>
+      </el-form-item>
+
+      <el-form-item
+        label="微信交流群"
+        prop="domain"
+      >
+        <div class="flex flex-col items-center w-full">
+          <img
+            class="qr-code"
+            src="@/assets/qrcode_for_coding-tree.jpg"
+          />
+          <div>回复: <span class="font-bold">domain-admin</span> </div>
+        </div>
       </el-form-item>
 
       <!-- 创建时间 -->
@@ -101,6 +112,11 @@ export default {
 </script>
 
 <style lang="less">
+.qr-code {
+  width: 100px;
+  height: 100px;
+}
+
 .about-system {
 }
 </style>
