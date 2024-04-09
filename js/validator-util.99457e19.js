@@ -1,0 +1,1 @@
+function r(t){var e=/^[a-zA-Z0-9\._-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;return e.test(t)}function n(t){try{return JSON.parse(t),!0}catch{return!1}}function i(t){return Object.prototype.toString.call(t)=="[object Object]"}function s(t){return typeof t!="string"&&(t=""+t),/^\d+$/.test(t)}export{n as a,i as b,r as c,s as i};
