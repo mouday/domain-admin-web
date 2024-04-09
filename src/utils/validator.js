@@ -1,3 +1,5 @@
+import {isJson, isObject}from './validator-util.js'
+
 // validateBody
 export function jsonObjectValidator(rule, value, callback) {
   if (!value) {
