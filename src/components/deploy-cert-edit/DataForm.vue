@@ -16,7 +16,6 @@
           v-if="hasInit"
           :defaultKeyword="host"
           v-model="form.deploy_host"
-          @on-confirm="handleDeployVerifyFile"
         ></RemoteHost>
       </el-form-item>
 
@@ -68,7 +67,13 @@
 
           <div class="ml-sm text-sm color--info flex items-center">
             <el-icon><Warning /></el-icon>
-            <a class="mo-link" style="margin-left:4px;" href="https://domain-admin.readthedocs.io/zh-cn/latest/manual/install.html#id7" target="_blank">如何设置命令？</a>
+            <a
+              class="mo-link"
+              style="margin-left: 4px"
+              href="https://domain-admin.readthedocs.io/zh-cn/latest/manual/install.html#id7"
+              target="_blank"
+              >如何设置命令？</a
+            >
           </div>
         </div>
       </el-form-item>
@@ -242,8 +247,6 @@ export default {
         }
       }
     },
-
-    handleDeployVerifyFile() {},
   },
 
   created() {

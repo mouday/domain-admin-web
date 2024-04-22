@@ -23,7 +23,6 @@
             :defaultKeyword="host"
             v-model="deployForm.deploy_host"
             @on-change="handleChangeHost"
-            @on-confirm="handleDeployVerifyFile"
           ></RemoteHost>
 
           <!-- 一键部署 -->
@@ -221,23 +220,23 @@ export default {
       FileSaver.saveAs(blob, this.form.token)
     },
 
-    async handleDeployVerifyFile(hostRow) {
+    async handleDeployVerifyFile() {
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          this.confirmDeployVerifyFile(hostRow)
+          this.confirmDeployVerifyFile()
         } else {
           return false
         }
       })
     },
 
-    async confirmDeployVerifyFile(hostRow) {
+    async confirmDeployVerifyFile() {
       let loading = this.$loading({ fullscreen: true })
 
       let params = {
         // 域名列表
         issue_certificate_id: this.form.id,
-        host_id: hostRow.id,
+        host_id: this.deployForm.deploy_host.id,
         verify_deploy_path: this.deployForm.verifyDeployPath,
         challenges: this.list,
       }
