@@ -110,6 +110,7 @@ export default {
   getSubDomainCert: '/getSubDomainCert',
   updateDomainICPOfUser: '/updateDomainICPOfUser',
   updateDomainRowICP: '/updateDomainRowICP',
+  autoImportSubDomainByIds: '/autoImportSubDomainByIds',
 
   getICP: '/getICP',
 

@@ -8,6 +8,6 @@ export function getLanguage() {
   }
 
   const language = localStorage.getItem('language') || defaultLanguage
-  console.log(language)
+  // console.log(language)
   return language
 }

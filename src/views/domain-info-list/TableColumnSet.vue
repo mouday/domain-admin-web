@@ -20,6 +20,8 @@ export default {
   name: 'UpdateDomainICP',
 
   props: {},
+  
+  emits: ['on-success'],
 
   components: {
     TableColumnSetDialog,

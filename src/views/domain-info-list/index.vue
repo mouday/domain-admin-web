@@ -72,6 +72,22 @@
           </template>
         </el-popconfirm>
 
+        <!-- 导入子域证书 -->
+        <el-popconfirm
+          v-if="showBatchDeleteButton"
+          :title="`${$t('导入子域证书')}？`"
+          @confirm="handleImportSubDomain"
+        >
+          <template #reference>
+            <el-link
+              class="mr-sm"
+              :underline="false"
+              type="primary"
+              ><el-icon><RefreshLeft /></el-icon>导入子域证书</el-link
+            >
+          </template>
+        </el-popconfirm>
+
         <!-- expire -->
         <UpdateDomainInfo @on-success="resetData"></UpdateDomainInfo>
 
@@ -137,6 +153,7 @@
       @selection-change="handleSelectionChange"
       @on-refresh-row="handleRefreshRow"
       @on-tag-click="handleTagClick"
+      @on-import-sub-domain="handleAutoImportSubDomainByIds"
     />
 
     <!-- 翻页 -->
@@ -494,6 +511,24 @@ export default {
     handleTagClick(tag) {
       this.keyword = tag
       this.resetData()
+    },
+
+    async handleAutoImportSubDomainByIds(domain_ids) {
+      let params = {
+        domain_ids: domain_ids,
+      }
+
+      const res = await this.$http.autoImportSubDomainByIds(params)
+
+      if (res.ok) {
+        this.$msg.success('操作成功后台处理中')
+      }
+    },
+
+    handleImportSubDomain() {
+      this.handleAutoImportSubDomainByIds(
+        this.selectedRows.map((item) => item.id)
+      )
     },
   },
 
