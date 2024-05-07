@@ -7,11 +7,15 @@ export const EventEnum = {
 
   // 域名到期
   DOMAIN_EXPIRE: 1,
-  // 监控异常
+  
+  // 网站监控异常
   MONITOR_EXCEPTION: 2,
 
   // 托管证书到期
   SSL_CERT_FILE_EXPIRE: 3,
+
+   // 监控异常恢复
+   MONITOR_EXCEPTION_RESTORE: 4,
 }
 
 export const EventOptions = [
@@ -24,13 +28,18 @@ export const EventOptions = [
     label: translate('域名到期'),
   },
   {
-    value: EventEnum.MONITOR_EXCEPTION,
-    label: translate('网站异常'),
-  },
-  {
     value: EventEnum.SSL_CERT_FILE_EXPIRE,
     label: translate('托管证书到期'),
   },
+  {
+    value: EventEnum.MONITOR_EXCEPTION,
+    label: translate('网站监控异常'),
+  },
+  {
+    value: EventEnum.MONITOR_EXCEPTION_RESTORE,
+    label: translate('监控异常恢复'),
+  },
+  
 ]
 
 export function eventFilter(value) {

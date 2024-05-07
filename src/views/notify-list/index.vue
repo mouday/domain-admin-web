@@ -100,7 +100,7 @@ export default {
             item.type_label = notifyTypeFilter(item.type_id)
             item.event_label = eventFilter(item.event_id)
             
-            if (item.event_id == EventEnum.MONITOR_EXCEPTION) {
+            if ([EventEnum.MONITOR_EXCEPTION, EventEnum.MONITOR_EXCEPTION_RESTORE].includes(item.event_id)) {
               item.expire_days = null
               item.disable_test = true
             }
