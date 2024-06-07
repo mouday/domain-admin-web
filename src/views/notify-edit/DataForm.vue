@@ -23,6 +23,21 @@
             :value="item.value"
           />
         </el-select>
+
+        <el-tooltip
+          effect="dark"
+          content="点击查看帮助"
+          placement="top-start"
+          :show-after="800"
+        >
+          <div class="ml-sm cursor-pointer">
+            <a
+              href="https://domain-admin.readthedocs.io/zh-cn/latest/manual/notify.html"
+              target="_blank"
+              ><el-icon><Warning /></el-icon
+            ></a>
+          </div>
+        </el-tooltip>
       </el-form-item>
 
       <!-- 触发事件 -->
@@ -45,9 +60,11 @@
 
       <template
         v-if="
-          [EventEnum.SSL_CERT_EXPIRE, EventEnum.DOMAIN_EXPIRE, EventEnum.SSL_CERT_FILE_EXPIRE].includes(
-            form.event_id
-          )
+          [
+            EventEnum.SSL_CERT_EXPIRE,
+            EventEnum.DOMAIN_EXPIRE,
+            EventEnum.SSL_CERT_FILE_EXPIRE,
+          ].includes(form.event_id)
         "
       >
         <el-form-item
@@ -143,6 +160,7 @@ import NotifyEditWebhook from '@/views/notify-edit-webhook/DataForm.vue'
 import NotifyEditWorkWeixin from '@/views/notify-edit-work-weixin/DataForm.vue'
 import NotifyEditDingTalk from '@/views/notify-edit-ding-talk/DataForm.vue'
 import NotifyEditFeishu from '@/views/notify-edit-feishu/DataForm.vue'
+import NotifyEditTelegram from '@/views/notify-edit-telegram/DataForm.vue'
 import { NotifyTypeEnum } from '@/emuns/notify-type-enums.js'
 import { EventOptions, EventEnum } from '@/emuns/event-enums.js'
 
@@ -162,6 +180,7 @@ export default {
     NotifyEditWorkWeixin,
     NotifyEditDingTalk,
     NotifyEditFeishu,
+    NotifyEditTelegram,
   },
 
   data() {
@@ -206,6 +225,12 @@ export default {
           label: this.$t('飞书'),
           icon: 'ChatSquare',
           component: NotifyEditFeishu,
+        },
+        {
+          value: NotifyTypeEnum.Telegram,
+          label: this.$t('电报'),
+          icon: 'ChatSquare',
+          component: NotifyEditTelegram,
         },
       ],
 
