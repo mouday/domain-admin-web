@@ -1,0 +1,16 @@
+{
+  "table": {
+    "columns": [
+      { "comment": "类型", "name": "dns_type_id", "default": "" },
+      { "comment": "名称", "name": "name", "default": "" },
+      {
+        "comment": "Access Key",
+        "name": "access_key",
+        "default": ""
+      },
+      { "comment": "Secret Key", "name": "secret_key", "default": "" },
+
+      { "comment": "创建时间", "name": "create_time", "default": "" }
+    ]
+  }
+}

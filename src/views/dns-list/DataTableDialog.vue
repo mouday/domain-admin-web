@@ -1,29 +1,26 @@
 <template>
   <!-- 编辑框 -->
   <el-dialog
-    :title="$t('申请SSL证书')"
+    :title="dialogTitle"
     v-model="dialogVisible"
-    width="900px"
+    width="340px"
     center
-    top="20px"
     append-to-body
-    @close="handleDialogClose"
   >
-    <IssueCertificateStep
+    <DataTableIndex
       v-if="dialogVisible"
       :row="row"
       @on-cancel="handleClose"
       @on-success="handleSuccess"
-    ></IssueCertificateStep>
+    ></DataTableIndex>
   </el-dialog>
 </template>
 
 <script>
 /**
- * created 2023-07-23
+ * created 2022-10-11
  */
-import DataForm from './DataForm.vue'
-import IssueCertificateStep from './IssueCertificateStep.vue'
+import DataTableIndex from './index.vue'
 
 export default {
   name: '',
@@ -42,11 +39,8 @@ export default {
     },
   },
 
-  emits: ['update:visible'],
-
   components: {
-    DataForm,
-    IssueCertificateStep,
+    DataTableIndex,
   },
 
   data() {
@@ -61,7 +55,7 @@ export default {
       if (this.row) {
         return '编辑'
       } else {
-        return this.$t('申请SSL证书')
+        return '添加'
       }
     },
 
@@ -69,7 +63,6 @@ export default {
       get() {
         return this.visible
       },
-
       set(val) {
         this.$emit('update:visible', val)
       },
@@ -78,21 +71,17 @@ export default {
 
   methods: {
     handleClose() {
-      this.$emit('update:visible', false)
+      this.dialogVisible = false
     },
 
     handleOpen() {
-      this.$emit('update:visible', true)
+      this.dialogVisible = true
     },
 
     handleSuccess() {
       this.handleClose()
       this.$emit('on-success')
     },
-
-    handleDialogClose(){
-      this.$emit('on-close')
-    }
   },
 
   created() {},

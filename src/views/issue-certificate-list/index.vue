@@ -53,6 +53,14 @@
           @click="handleHostList"
           ><el-icon><Setting /></el-icon>主机列表</el-link
         >
+
+        <el-link
+          :underline="false"
+          type="primary"
+          class="mr-sm"
+          @click="handleDNSList"
+          ><el-icon><Setting /></el-icon>DNS列表</el-link
+        >
       </div>
     </div>
 
@@ -236,7 +244,13 @@ export default {
       })
     },
 
-    handleEditRow(row){}
+    handleDNSList() {
+      this.$router.push({
+        name: 'dns-list',
+      })
+    },
+
+    handleEditRow(row) {},
   },
 
   created() {

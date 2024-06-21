@@ -1,29 +1,26 @@
 <template>
   <!-- 编辑框 -->
   <el-dialog
-    :title="$t('申请SSL证书')"
+    :title="dialogTitle"
     v-model="dialogVisible"
-    width="900px"
+    width="400px"
     center
-    top="20px"
     append-to-body
-    @close="handleDialogClose"
   >
-    <IssueCertificateStep
+    <DataForm
       v-if="dialogVisible"
       :row="row"
       @on-cancel="handleClose"
       @on-success="handleSuccess"
-    ></IssueCertificateStep>
+    ></DataForm>
   </el-dialog>
 </template>
 
 <script>
 /**
- * created 2023-07-23
+ * created 2024-06-21
  */
 import DataForm from './DataForm.vue'
-import IssueCertificateStep from './IssueCertificateStep.vue'
 
 export default {
   name: '',
@@ -46,7 +43,6 @@ export default {
 
   components: {
     DataForm,
-    IssueCertificateStep,
   },
 
   data() {
@@ -61,7 +57,7 @@ export default {
       if (this.row) {
         return '编辑'
       } else {
-        return this.$t('申请SSL证书')
+        return '添加'
       }
     },
 
@@ -89,10 +85,6 @@ export default {
       this.handleClose()
       this.$emit('on-success')
     },
-
-    handleDialogClose(){
-      this.$emit('on-close')
-    }
   },
 
   created() {},

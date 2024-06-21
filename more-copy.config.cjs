@@ -10,7 +10,7 @@ let configMap = [
   // mcp -m edit monitor ./data/monitor.json
   // mcp -m edit certificate ./data/certificate.json
   // mcp -m edit email-test ./data/emailtest.json
-  // mcp -m edit deploy-cert ./data/getDeployListByCertId.json
+  // mcp -m edit dns ./data/dns.json
   {
     mode: 'edit',
     template: [
@@ -39,6 +39,7 @@ let configMap = [
   //  mcp -m list host ./data/host.json
   //  mcp -m list monitor ./data/monitor.json
   //  mcp -m list certificate ./data/certificate.json
+  // mcp -m  list dns ./data/dns.json
   {
     mode: 'list',
     template: [

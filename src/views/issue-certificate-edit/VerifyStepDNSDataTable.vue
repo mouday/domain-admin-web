@@ -48,6 +48,7 @@
         header-align="center"
         align="center"
         prop="token"
+        width="200"
       >
         <template #default="scope">
           <div @click="handleCopyClick(scope.row.token)">

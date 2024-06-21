@@ -61,7 +61,7 @@ export const routes = [
           icon: 'Tickets',
         },
       },
-      
+
       {
         path: '/cert/issue-certificate-list',
         name: 'issue-certificate-list',
@@ -91,6 +91,16 @@ export const routes = [
         component: () => import('../views/host-list/index.vue'),
         meta: {
           title: '主机列表',
+          icon: 'User',
+          hidden: true,
+        },
+      },
+      {
+        path: '/cert/dns-list',
+        name: 'dns-list',
+        component: () => import('../views/dns-list/index.vue'),
+        meta: {
+          title: 'DNS列表',
           icon: 'User',
           hidden: true,
         },
@@ -390,7 +400,6 @@ export const routes = [
           hidden: true,
         },
       },
-      
     ],
   },
 ]

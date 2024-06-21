@@ -190,4 +190,11 @@ export default {
   deleteByDeployCertIds: '/deleteByDeployCertIds',
   getDeployCertById: '/getDeployCertById',
   handleDeployCert: '/handleDeployCert',
+
+  // DNS账户管理
+  addDns: '/addDns',
+  getDnsById: '/getDnsById',
+  updateDnsById: '/updateDnsById',
+  getDnsList: '/getDnsList',
+  deleteDnsById: '/deleteDnsById',
 }
