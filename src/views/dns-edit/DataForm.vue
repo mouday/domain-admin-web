@@ -201,8 +201,12 @@ export default {
       }
 
       if (res.code == 0) {
+        const detailRes = await this.$http.getDnsById({
+          dns_id: this.row?.id || res.data.id,
+        })
+
         this.$msg.success('操作成功')
-        this.$emit('on-success')
+        this.$emit('on-success', detailRes.data)
       } else {
         this.$msg.error(res.msg)
       }
