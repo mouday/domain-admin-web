@@ -140,6 +140,7 @@ export default {
   getDomainHost: '/getDomainHost',
   deployVerifyFile: '/deployVerifyFile',
   addDnsDomainRecord: '/addDnsDomainRecord',
+  updateRowAutoRenew: '/updateRowAutoRenew',
   deployCertificateFile: '/deployCertificateFile',
   getCertificateChallenges: '/getCertificateChallenges',
   deleteIssueCertificateById: '/deleteIssueCertificateById',

@@ -22,6 +22,7 @@
       <VerifyStep
         v-else-if="activeStep == 1"
         :form="form"
+        :issue_certificate="issue_certificate"
         @on-success="handleVerifySuccess"
       ></VerifyStep>
 
@@ -34,6 +35,7 @@
       <DownloadStep
         v-else-if="activeStep == 2"
         :form="form"
+        :issueCertificate="issueCertificate"
         :issueCertificateId="issue_certificate_id"
         @on-close="$emit('on-cancel')"
       ></DownloadStep>
@@ -74,6 +76,7 @@ export default {
       hasInit: false,
 
       activeStep: 0,
+      issueCertificate: null,
       issue_certificate_id: null,
       form: {
         id: null,
@@ -89,7 +92,7 @@ export default {
         deploy_reloadcmd: '',
         deploy_host: null,
       },
-      
+
       setpList: [
         {
           title: this.$t('填写域名'),
@@ -127,6 +130,7 @@ export default {
         this.form[key] = res.data[key]
       }
 
+      this.issueCertificate = res.data
       this.activeStep = this.defaultActiveStep
 
       if (res.data.ssl_certificate) {

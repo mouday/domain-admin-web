@@ -60,6 +60,12 @@ export default {
     issueCertificateId: {
       type: String,
     },
+    form: {
+      type: Object,
+    },
+    issueCertificate: {
+      type: Object,
+    },
   },
 
   emits: ['on-success', 'on-close'],
@@ -94,7 +100,7 @@ export default {
 
       headerExample: JSON.stringify(
         {
-          'X-Toen': 'TOKEN',
+          'X-Token': 'TOKEN',
         },
         null,
         4
@@ -105,6 +111,13 @@ export default {
   computed: {},
 
   methods: {
+    getData() {
+      // console.log(JSON.stringify(this.issueCertificate))
+
+      this.deployForm.url = this.issueCertificate.deploy_url
+      this.deployForm.headers = this.issueCertificate.deploy_header_raw
+    },
+
     handleClose() {
       this.$emit('on-close')
     },
@@ -146,7 +159,9 @@ export default {
     },
   },
 
-  created() {},
+  created() {
+    this.getData()
+  },
 }
 </script>
 

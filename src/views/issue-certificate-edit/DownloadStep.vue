@@ -17,6 +17,8 @@
         lazy
       >
         <DownloadStepByAPI
+          :form="form"
+          :issueCertificate="issueCertificate"
           :issueCertificateId="issueCertificateId"
           @on-success="handleSuccess"
         ></DownloadStepByAPI>
@@ -43,6 +45,11 @@ export default {
     form: {
       type: Object,
     },
+    
+    issueCertificate: {
+      type: Object,
+    },
+
     issueCertificateId: {
       type: String,
     },
@@ -65,7 +72,7 @@ export default {
     handleClose() {
       this.$emit('on-close')
     },
-    handleSuccess(){}
+    handleSuccess() {},
   },
 
   created() {},
