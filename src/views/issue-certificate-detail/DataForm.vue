@@ -45,6 +45,19 @@
           placeholder="请输入域名列表，每行一个"
         ></el-input>
       </el-form-item>
+
+      <el-form-item
+        :label="$t('证书文件')"
+        prop="domain"
+      >
+        <el-link
+          :underline="false"
+          type="primary"
+          class="mr-sm"
+          @click="downloadSSLFile"
+          ><el-icon><Download /></el-icon>{{ $t('点击下载') }}（.zip）</el-link
+        >
+      </el-form-item>
     </el-form>
 
     <!-- 操作 -->
@@ -70,6 +83,8 @@
  *
  * created 2023-07-23
  * */
+import FileSaver from 'file-saver'
+import JSZip from 'jszip'
 
 export default {
   name: '',
@@ -88,6 +103,7 @@ export default {
       // 引入枚举值
 
       form: {
+        domains: [],
         // 域名列表
         ssl_certificate: '',
         // 验证状态
@@ -163,6 +179,24 @@ export default {
         // 以服务的方式调用的 Loading 需要异步关闭
         loading.close()
       })
+    },
+
+    async downloadSSLFile() {
+      let name = this.form.domains[0]
+
+      const zip = new JSZip()
+
+      zip.file(`${name}.pem`, this.form.ssl_certificate)
+      zip.file(`${name}.key`, this.form.ssl_certificate_key)
+
+      zip.generateAsync({ type: 'blob' }).then(function (content) {
+        // see FileSaver.js
+        FileSaver.saveAs(content, `${name}.zip`)
+      })
+
+      // let blob = new Blob([this.form.ssl_certificate], {
+      //   type: 'text/plain;charset=utf-8',
+      // })
     },
   },
 
