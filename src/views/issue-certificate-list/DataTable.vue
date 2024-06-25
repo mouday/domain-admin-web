@@ -182,6 +182,7 @@
           <el-popconfirm
             title="确定续期？"
             @confirm="handleRenewIssueCertificateById(scope.row)"
+            :disabled="!scope.row.is_auto_renew"
           >
             <template #reference>
               <el-link
