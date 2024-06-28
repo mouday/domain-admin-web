@@ -4,12 +4,19 @@ import { translate } from '@/i18n/index.js'
 export const DNSTypeEnum = {
   // 阿里云
   ALIYUN: 1,
+
+  // 腾讯云
+  TENCENT_CLOUD: 2
 }
 
 export const DNSTypeOptions = [
   {
     value: DNSTypeEnum.ALIYUN,
     label: translate('阿里云'),
+  },
+  {
+    value: DNSTypeEnum.TENCENT_CLOUD,
+    label: translate('腾讯云'),
   },
 ]
 
