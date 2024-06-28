@@ -16,27 +16,30 @@
         </template>
       </el-table-column> -->
 
-      <!-- 名称 -->
-      <el-table-column
-        label="名称"
-        header-align="center"
-        align="center"
-        prop="name"
-      >
-        <template #default="scope">
-          <span>{{ scope.row.name || '-' }}</span>
-        </template>
-      </el-table-column>
-
       <!-- 类型 -->
       <el-table-column
         label="类型"
         header-align="center"
         align="center"
         prop="dns_type_id"
+        width="120"
       >
         <template #default="scope">
           <span>{{ scope.row.dns_type_label || '-' }}</span>
+        </template>
+      </el-table-column>
+
+
+      <!-- 名称 -->
+      <el-table-column
+        label="名称"
+        header-align="center"
+        align="center"
+        prop="name"
+        width="140"
+      >
+        <template #default="scope">
+          <span>{{ scope.row.name || '-' }}</span>
         </template>
       </el-table-column>
 
@@ -70,6 +73,7 @@
         header-align="center"
         align="center"
         prop="create_time"
+        width="200"
       >
         <template #default="scope">
           <span>{{ scope.row.create_time || '-' }}</span>
