@@ -85,6 +85,7 @@
  * */
 import FileSaver from 'file-saver'
 import JSZip from 'jszip'
+import { formatExportDomain } from '@/utils/domain-util.js'
 
 export default {
   name: '',
@@ -182,7 +183,7 @@ export default {
     },
 
     async downloadSSLFile() {
-      let name = this.form.domains[0]
+      let name = formatExportDomain(this.form.domains[0])
 
       const zip = new JSZip()
 

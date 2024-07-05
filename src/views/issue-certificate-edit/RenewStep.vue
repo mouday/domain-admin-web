@@ -17,6 +17,7 @@ import FileSaver from 'file-saver'
 import { highlight } from '@/utils/highlight-util.js'
 import hljs from 'highlight.js'
 import RemoteHost from '@/components/remote-host/index.vue'
+import { formatExportDomain } from '@/utils/domain-util.js'
 
 export default {
   name: 'VerifyStep',
@@ -94,7 +95,7 @@ export default {
         type: 'text/plain;charset=utf-8',
       })
 
-      let name = this.form.domains[0]
+      let name = formatExportDomain(this.form.domains[0])
       FileSaver.saveAs(blob, `${name}.key`)
     },
 
@@ -107,7 +108,7 @@ export default {
       let blob = new Blob([this.form.ssl_certificate], {
         type: 'text/plain;charset=utf-8',
       })
-      let name = this.form.domains[0]
+      let name = formatExportDomain(this.form.domains[0])
       FileSaver.saveAs(blob, `${name}.pem`)
     },
 

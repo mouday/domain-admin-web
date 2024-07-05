@@ -102,6 +102,7 @@ import JSZip from 'jszip'
 
 import RemoteHost from '@/components/remote-host/index.vue'
 import CodeHighlight from '@/components/code-highlight/index.vue'
+import { formatExportDomain } from '@/utils/domain-util.js'
 
 export default {
   name: 'VerifyStep',
@@ -293,12 +294,12 @@ export default {
         type: 'text/plain;charset=utf-8',
       })
 
-      let name = this.form.domains[0]
+      let name = formatExportDomain(this.form.domains[0])
       FileSaver.saveAs(blob, `${name}.key`)
     },
 
     async downloadSSLFile() {
-      let name = this.form.domains[0]
+      let name = formatExportDomain(this.form.domains[0])
 
       const zip = new JSZip()
 
