@@ -23,6 +23,19 @@
           @on-success="handleSuccess"
         ></DownloadStepByAPI>
       </el-tab-pane>
+
+      <el-tab-pane
+        :label="$t('OSS部署')"
+        name="oss"
+        lazy
+      >
+        <DownloadStepByOSS
+          :form="form"
+          :issueCertificate="issueCertificate"
+          :issueCertificateId="issueCertificateId"
+          @on-success="handleSuccess"
+        ></DownloadStepByOSS>
+      </el-tab-pane>
     </el-tabs>
 
     <!-- 操作 -->
@@ -37,6 +50,7 @@
 
 import DownloadStepBySSH from './DownloadStepBySSH.vue'
 import DownloadStepByAPI from './DownloadStepByAPI.vue'
+import DownloadStepByOSS from './DownloadStepByOSS.vue'
 
 export default {
   name: 'VerifyStep',
@@ -45,7 +59,7 @@ export default {
     form: {
       type: Object,
     },
-    
+
     issueCertificate: {
       type: Object,
     },
@@ -60,6 +74,7 @@ export default {
   components: {
     DownloadStepBySSH,
     DownloadStepByAPI,
+    DownloadStepByOSS,
   },
 
   data() {

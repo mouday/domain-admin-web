@@ -147,6 +147,7 @@ export default {
   deleteCertificateByBatch: '/deleteCertificateByBatch',
   getAllowCommands: '/getAllowCommands',
   notifyWebHook: '/notifyWebHook',
+  deployCertToOss: '/deployCertToOss',
 
   // 主机管理
   getHostList: '/getHostList',
