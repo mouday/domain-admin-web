@@ -12,7 +12,7 @@ export const MonitorTypeEnum = {
 export const MonitorTypeOptions = [
   {
     value: MonitorTypeEnum.HTTP,
-    label: translate('HTTP'),
+    label: translate('HTTP(S)'),
   },
 ]
 

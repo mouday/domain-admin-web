@@ -30,7 +30,7 @@
       <el-input
         type="text"
         v-model="form.url"
-        placeholder="请输入请求URL"
+        placeholder="请输入请求完整URL"
       ></el-input>
     </el-form-item>
 
