@@ -53,7 +53,7 @@
 
         <div class="ml-sm text-sm color--info flex items-center">
           <el-icon><Warning /></el-icon>
-          <span>&nbsp;目前，仅支持阿里云oss</span>
+          <span>&nbsp;目前，仅支持阿里云</span>
         </div>
       </el-form-item>
     </el-form>
