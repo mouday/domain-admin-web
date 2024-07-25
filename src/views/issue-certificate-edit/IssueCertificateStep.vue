@@ -91,6 +91,9 @@ export default {
         deploy_fullchain_file: '',
         deploy_reloadcmd: '',
         deploy_host: null,
+        cert_deploy_host: null,
+        cert_deploy_dns: null,
+        deploy_type_id: null,
       },
 
       setpList: [

@@ -36,6 +36,32 @@
           @on-success="handleSuccess"
         ></DownloadStepByOSS>
       </el-tab-pane>
+
+      <el-tab-pane
+        :label="$t('CDN部署')"
+        name="cdn"
+        lazy
+      >
+        <DownloadStepByCDN
+          :form="form"
+          :issueCertificate="issueCertificate"
+          :issueCertificateId="issueCertificateId"
+          @on-success="handleSuccess"
+        ></DownloadStepByCDN>
+      </el-tab-pane>
+
+      <el-tab-pane
+        :label="$t('DCDN部署')"
+        name="dcdn"
+        lazy
+      >
+        <DownloadStepByDCDN
+          :form="form"
+          :issueCertificate="issueCertificate"
+          :issueCertificateId="issueCertificateId"
+          @on-success="handleSuccess"
+        ></DownloadStepByDCDN>
+      </el-tab-pane>
     </el-tabs>
 
     <!-- 操作 -->
@@ -51,6 +77,8 @@
 import DownloadStepBySSH from './DownloadStepBySSH.vue'
 import DownloadStepByAPI from './DownloadStepByAPI.vue'
 import DownloadStepByOSS from './DownloadStepByOSS.vue'
+import DownloadStepByCDN from './DownloadStepByCDN.vue'
+import DownloadStepByDCDN from './DownloadStepByDCDN.vue'
 
 export default {
   name: 'VerifyStep',
@@ -75,6 +103,8 @@ export default {
     DownloadStepBySSH,
     DownloadStepByAPI,
     DownloadStepByOSS,
+    DownloadStepByCDN,
+    DownloadStepByDCDN,
   },
 
   data() {

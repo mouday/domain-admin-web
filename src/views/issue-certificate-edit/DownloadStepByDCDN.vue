@@ -138,12 +138,10 @@ export default {
 
   methods: {
     getData() {
-      console.log(this.form)
-
       if (
         this.form &&
         this.form.cert_deploy_dns &&
-        this.form.deploy_type_id == CertDeployTypeEnum.OSS
+        this.form.deploy_type_id == CertDeployTypeEnum.DCDN
       ) {
         this.handleSuccess(this.form.cert_deploy_dns)
       }
@@ -170,7 +168,7 @@ export default {
         dns_id: this.deployForm.dns.id,
       }
 
-      const res = await this.$http.deployCertToOss(params)
+      const res = await this.$http.deployCertToDcdn(params)
 
       if (res.code == 0) {
         this.$msg.success('部署成功')
@@ -214,6 +212,7 @@ export default {
       this.handleDialogClose()
     },
   },
+
   created() {
     this.getData()
   },

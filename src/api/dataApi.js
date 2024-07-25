@@ -148,6 +148,8 @@ export default {
   getAllowCommands: '/getAllowCommands',
   notifyWebHook: '/notifyWebHook',
   deployCertToOss: '/deployCertToOss',
+  deployCertToCdn: '/deployCertToCdn',
+  deployCertToDcdn: '/deployCertToDcdn',
 
   // 主机管理
   getHostList: '/getHostList',
