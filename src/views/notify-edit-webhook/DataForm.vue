@@ -150,8 +150,10 @@ export default {
         ),
 
         body: `{
-  "title": "到期提醒",
-  "content": "{% for row in list %}{{row.domain}} {{row.start_date or '-' }} - {{row.expire_date or '-' }} ({{row.expire_days}}){% endfor %}"
+  "msgtype": "text",
+  "text": {
+      "content": "{% for row in list %}{{row.domain}} {{row.start_date or '-' }} - {{row.expire_date or '-' }} ({{row.expire_days}}){% endfor %}"
+  }
 }
 `,
       },
