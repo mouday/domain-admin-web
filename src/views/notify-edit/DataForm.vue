@@ -74,8 +74,13 @@
           <el-input-number
             v-model="form.expire_days"
             :min="0"
-            placeholder="过期通知"
+            placeholder="剩余天数"
           ></el-input-number>
+          
+          <div class="ml-sm text-sm color--info flex items-center">
+            <el-icon><Warning /></el-icon>
+            <span>如果点击测试，收不到消息，请增加这个参数，例如：10000</span>
+          </div>
         </el-form-item>
       </template>
 
@@ -245,7 +250,7 @@ export default {
         // 通知方式
         type_id: NotifyTypeEnum.Email,
         // 过期通知
-        expire_days: 3,
+        expire_days: 300,
         // 备注
         comment: '',
         // 分组

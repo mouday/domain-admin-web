@@ -43,7 +43,7 @@ export const routes = [
     name: 'cert',
     component: Layout,
     meta: {
-      title: '证书监控',
+      title: '证书管理',
       icon: 'Tickets',
     },
 
@@ -57,7 +57,7 @@ export const routes = [
         name: 'cert-list',
         component: () => import('../views/domain-list/index.vue'),
         meta: {
-          title: '证书列表',
+          title: '证书监控',
           icon: 'Tickets',
         },
       },
