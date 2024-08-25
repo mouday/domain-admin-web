@@ -1,0 +1,7 @@
+import{e as r}from"./element-plus.0905118d.js";import{_ as c}from"./index.bd8936da.js";import{ai as l,o as s,c as n,M as d,R as i,a,F as _,T as o}from"./vendor-vue.a30a5472.js";const m={name:"ExpireProgress",props:{startTime:{type:String},endTime:{type:String},isManual:{type:Boolean}},components:{},data(){return{nowTime:r()}},computed:{parsedStartTime(){return r(this.startTime)},parsedEndTime(){return r(this.endTime)},totalDays(){return this.parsedEndTime.diff(this.parsedStartTime,"day")},expireDays(){return this.parsedEndTime.diff(this.nowTime,"day")},percentage(){let e=null;return this.expireDays&&this.totalDays&&(e=this.expireDays/this.totalDays*100),e},percentageStatus(){let e;return this.expireDays>7?e="":this.expireDays>0?e="warning":e="exception",e}},methods:{async getData(){}},created(){this.getData()}},g={class:"ExpireProgress"},y={class:"ExpireProgress__info"},u={class:"el-text-color-primary"},h=a("span",null," / ",-1),x={class:"el-text-color-secondary"},f={key:1};function D(e,T,E,v,S,t){const p=l("el-progress");return s(),n("div",g,[t.percentage?(s(),d(p,{key:0,percentage:t.percentage,"show-text":!1,status:t.percentageStatus},null,8,["percentage","status"])):i("v-if",!0),a("div",y,[t.totalDays?(s(),n(_,{key:0},[a("span",u,o(t.expireDays),1),h,a("span",x,o(t.totalDays),1)],64)):(s(),n("span",f,"-")),i(` <el-tag
+        v-if="isManual"
+        type="info"
+        class="mo-table-tag  ml-[1px]"
+        size="small"
+        >\u624B\u52A8</el-tag
+      > `)])])}const w=c(m,[["render",D]]);export{w as E};
