@@ -63,7 +63,7 @@
         </el-radio-group>
       </el-form-item>
 
-      <el-form-item
+      <el-form-item v-if="false"
         label="加密算法"
         prop="key_type"
       >

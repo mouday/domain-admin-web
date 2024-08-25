@@ -25,12 +25,12 @@ export const DIRECTORY_URL_OPTIONS = [
     label: 'ZeroSSL',
     value: DirectoryTypeEnum.ZERO_SSL,
     icon: zerosslIcon,
-    disabled: true,
+    // disabled: true,
   },
-  {
-    label: 'Google',
-    value: DirectoryTypeEnum.GOOGLE,
-    icon: googleIcon,
-    disabled: true,
-  },
+  // {
+  //   label: 'Google',
+  //   value: DirectoryTypeEnum.GOOGLE,
+  //   icon: googleIcon,
+  //   disabled: true,
+  // },
 ]

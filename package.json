@@ -41,11 +41,6 @@
     "vue-router": "^4.2.2"
   },
   "devDependencies": {
-    "@more-copy/console-plugin": "^1.0.0",
-    "@more-copy/core": "^1.0.0",
-    "@more-copy/nunjucks-plugin": "^1.0.2",
-    "@more-copy/read-data-plugin": "^1.0.0",
-    "@more-copy/time-plugin": "^1.0.0",
     "@vitejs/plugin-vue": "^3.1.2",
     "autoprefixer": "^10.4.12",
     "code-inspector-plugin": "^0.1.11",
