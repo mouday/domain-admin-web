@@ -13,13 +13,13 @@
     /></a>
 
     <a
-      href="https://github.com/mouday/domain-admin"
+      href="https://github.com/dromara/domain-admin"
       target="_blank"
       class="sidebar-info__box"
     >
       <img
         alt="GitHub stars"
-        src="https://img.shields.io/github/stars/mouday/domain-admin.svg?style=social"
+        src="https://img.shields.io/github/stars/dromara/domain-admin.svg?style=social"
     /></a>
   </div>
 </template>

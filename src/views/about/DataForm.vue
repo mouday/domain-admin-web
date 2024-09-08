@@ -35,11 +35,11 @@
       >
         <a
           class="inline-block"
-          href="https://github.com/mouday/domain-admin/issues"
+          href="https://github.com/dromara/domain-admin/issues"
           target="_blank"
           ><img
             alt="GitHub issues"
-            src="https://img.shields.io/github/issues/mouday/domain-admin"
+            src="https://img.shields.io/github/issues/dromara/domain-admin"
         /></a>
       </el-form-item>
 
@@ -49,11 +49,11 @@
       >
         <a
           class="inline-block"
-          href="https://github.com/mouday/domain-admin"
+          href="https://github.com/dromara/domain-admin"
           target="_blank"
           ><img
             alt="GitHub stars"
-            src="https://img.shields.io/github/stars/mouday/domain-admin.svg?style=social"
+            src="https://img.shields.io/github/stars/dromara/domain-admin.svg?style=social"
         /></a>
       </el-form-item>
 
