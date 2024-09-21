@@ -3,45 +3,23 @@
     <div class="login-container">
       <h3 class="title">Domain Admin</h3>
 
-      <el-form
-        class="login-form"
-        ref="form"
-        :model="form"
-        :rules="rules"
-        label-width="auto"
-      >
-        <el-form-item
-          label=""
-          prop="username"
-        >
-          <el-input
-            v-model="form.username"
-            auto-complete="off"
-            placeholder="用户名"
-          />
-        </el-form-item>
+      <!-- 邮箱登录 -->
+      <template v-if="loginTypeEnum.LOGIN_BY_EMAIL == loginType">
+        <EmailLogin @on-success="handleSuccess"></EmailLogin>
 
-        <el-form-item
-          label=""
-          prop="password"
-        >
-          <el-input
-            v-model="form.password"
-            type="password"
-            auto-complete="new-password"
-            placeholder="密码"
-            @keypress.enter="onSubmit"
-          />
-        </el-form-item>
-      </el-form>
+      </template>
 
-      <div>
-        <button
-          class="w-full mt-md login-button"
-          @click.native.prevent="onSubmit"
-        >
-          {{ $t('登录') }}
-        </button>
+      <!-- 账号密码 -->
+      <template v-else>
+        <UserLogin @on-success="handleSuccess"></UserLogin>
+      </template>
+
+      <!-- 允许注册 -->
+      <div v-if="enabledRegister" class="mt-md">
+        <template v-for="item in loginTypeOptions">
+          <div class="mo-link" v-if="loginType == item.value" @click="() => { handleChangeLoginMethod(item) }">{{
+            item.label }}</div>
+        </template>
       </div>
     </div>
   </div>
@@ -50,44 +28,64 @@
 <script>
 // created at 2022-10-01
 import { setToken } from '@/utils/token-util.js'
+import { useSystemStore } from '@/store/system-store.js'
+import { mapState, mapActions } from 'pinia'
+import EmailLogin from './EmailLogin.vue'
+import UserLogin from './UserLogin.vue'
+
+const loginTypeEnum = {
+  LOGIN_BY_USER: 'LOGIN_BY_USER',
+  LOGIN_BY_EMAIL: 'LOGIN_BY_EMAIL',
+}
+
+const loginTypeOptions = [
+  {
+    value: loginTypeEnum.LOGIN_BY_EMAIL,
+    toValue: loginTypeEnum.LOGIN_BY_USER,
+    label: '账号登录'
+
+  },
+  {
+    value: loginTypeEnum.LOGIN_BY_USER,
+    toValue: loginTypeEnum.LOGIN_BY_EMAIL,
+    label: '邮箱验证码登录'
+  }
+]
 
 export default {
   name: 'Login',
 
   props: {},
 
-  components: {},
+  components: {
+    EmailLogin,
+    UserLogin
+  },
 
   data() {
     return {
-      form: {
-        username: '',
-        password: '',
-      },
-
-      rules: {
-        username: [
-          {
-            required: true,
-            message: '用户名不能为空',
-            trigger: 'blur',
-          },
-        ],
-        password: [
-          {
-            required: true,
-            message: '密码不能为空',
-            trigger: 'blur',
-          },
-        ],
-      },
+      loginTypeEnum,
+      loginType: loginTypeEnum.LOGIN_BY_USER,
+      loginTypeOptions
     }
   },
 
-  computed: {},
+  computed: {
+    ...mapState(useSystemStore, {
+      enabledRegister: 'enabledRegister',
+    }),
+  },
 
   methods: {
-    async getData() {},
+    async getData() { },
+
+
+
+    handleChangeLoginMethod(item) {
+      console.log(item);
+
+      this.loginType = item.toValue
+    },
 
     onSubmit() {
       this.$refs.form.validate((valid) => {
@@ -99,28 +97,18 @@ export default {
       })
     },
 
-    async confirmSubmit() {
-      const res = await this.$http.login({
-        username: this.form.username,
-        password: this.form.password,
-      })
+    async handleSuccess() {
 
-      console.log(res)
+      this.$msg.success('登录成功')
 
-      if (res.code == 0) {
-        setToken(res.data.token)
-
-        this.$msg.success('登录成功')
-
-        let path = '/'
-        if (this.$route.query.redirect) {
-          path = this.$route.query.redirect
-        }
-
-        this.$router.push({
-          path,
-        })
+      let path = '/'
+      if (this.$route.query.redirect) {
+        path = this.$route.query.redirect
       }
+
+      this.$router.push({
+        path,
+      })
     },
   },
 
@@ -234,11 +222,9 @@ export default {
   color: #fff;
   height: 48px;
   line-height: 48px;
-  background-image: linear-gradient(
-    90deg,
-    rgb(45, 40, 255) -0.24%,
-    rgb(26, 125, 255) 99.96%
-  );
+  background-image: linear-gradient(90deg,
+      rgb(45, 40, 255) -0.24%,
+      rgb(26, 125, 255) 99.96%);
   border-radius: 0;
 }
 

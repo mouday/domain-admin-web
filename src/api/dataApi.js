@@ -3,6 +3,8 @@
  */
 export default {
   login: '/login',
+  loginByEmail: '/loginByEmail',
+  sendCode: '/sendCode',
 
   getDomainList: '/getDomainList',
   addDomain: '/addDomain',

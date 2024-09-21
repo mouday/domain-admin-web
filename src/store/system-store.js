@@ -11,6 +11,9 @@ export const useSystemStore = defineStore({
 
       // 系统版本号
       _version: '',
+
+      // 允许注册
+      _enabled_register: false,
     }
   },
 
@@ -21,6 +24,10 @@ export const useSystemStore = defineStore({
 
     version(state) {
       return state._version
+    },
+    
+    enabledRegister(state) {
+      return state._enabled_register
     },
   },
 
@@ -37,8 +44,10 @@ export const useSystemStore = defineStore({
 
     async updateVersion() {
       const res = await Http.getSystemVersion()
+
       if (res.code == 0) {
         this._version = res.data.version
+        this._enabled_register = res.data.enabled_register
       }
     },
   },
