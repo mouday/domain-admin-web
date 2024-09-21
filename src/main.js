@@ -40,9 +40,9 @@ if (import.meta.env.VITE_MODE == 'preview') {
     window.location.href = '/domain-admin-mini'
   }
 } else {
-  if (isMobile()) {
-    window.location.href = './m'
-  }
+  // if (isMobile() && window.location.pathname != '/m') {
+  //   window.location.href = '/m'
+  // }
 }
 
 const app = createApp(App)
