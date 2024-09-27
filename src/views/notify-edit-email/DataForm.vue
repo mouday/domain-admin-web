@@ -115,17 +115,18 @@ export default {
     },
 
     ...mapState(useUserStore, {
-      username: 'username',
+      userInfo: 'userInfo',
     }),
   },
 
   methods: {
     initData() {
-      if (isEmail(this.username)) {
-        this.form.email_list = JSON.stringify([this.username], null, 4)
+
+      if (isEmail(this.userInfo?.username)) {
+        this.form.email_list = JSON.stringify([this.userInfo.username], null, 4)
       }
     },
-    
+
     async getData() {
       // let loading = this.$loading()
 
