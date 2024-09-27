@@ -1,4 +1,8 @@
 /**
+ * @/utils/validator-util.js
+ */
+
+/**
  * 验证邮箱
  * @param {String} value
  * @returns {Boolean}

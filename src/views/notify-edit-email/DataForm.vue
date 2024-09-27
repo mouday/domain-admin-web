@@ -67,6 +67,9 @@ import { NotifyTypeEnum } from '../../emuns/notify-type-enums.js'
 import { EventOptions, EventEnum } from '@/emuns/event-enums.js'
 import { deepCopy } from '@/utils/copy-util.js'
 import CodeEditor from '@/components/code-editor/CodeEditor.vue'
+import { useUserStore } from '@/store/user-store.js'
+import { isEmail } from '@/utils/validator-util.js'
+import { mapState, mapActions } from 'pinia'
 
 export default {
   name: '',
@@ -110,9 +113,19 @@ export default {
     disabledTestButton() {
       return !(this.rowData && this.rowData.id)
     },
+
+    ...mapState(useUserStore, {
+      username: 'username',
+    }),
   },
 
   methods: {
+    initData() {
+      if (isEmail(this.username)) {
+        this.form.email_list = JSON.stringify([this.username], null, 4)
+      }
+    },
+    
     async getData() {
       // let loading = this.$loading()
 
@@ -124,6 +137,8 @@ export default {
             4
           )
         }
+      } else {
+        this.initData()
       }
 
       // this.$nextTick(() => {

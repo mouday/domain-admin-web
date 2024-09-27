@@ -107,6 +107,19 @@
         </template>
       </el-table-column>
 
+      
+      <!-- 通知渠道 -->
+      <el-table-column
+        :label="$t('注册时间')"
+        header-align="center"
+        align="center"
+        prop="create_time_label"
+        width="120"
+      >
+        <template #default="scope">
+          <span>{{ scope.row.create_time_label || '-' }}</span>
+        </template>
+      </el-table-column>
       <!-- 邮件列表 -->
       <!-- <el-table-column
         label="邮件列表"
@@ -158,7 +171,7 @@
 
       <el-table-column
         :label="$t('重置密码')"
-        width="150"
+        width="100"
         align="center"
         prop="tag"
       >

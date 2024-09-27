@@ -15,6 +15,7 @@
           placeholder="通知方式"
           v-model="form.type_id"
           :disabled="disabledType"
+          style="width: 150px;"
         >
           <el-option
             v-for="item in options"

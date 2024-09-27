@@ -1,26 +1,53 @@
 <template>
   <div class="">
-
-    <el-form class="login-form" ref="form" :model="form" :rules="rules" label-width="auto">
-      <el-form-item label="" prop="email">
-        <el-input v-model="form.email" auto-complete="off" placeholder="邮箱" />
+    <el-form
+      class="login-form"
+      ref="form"
+      :model="form"
+      :rules="rules"
+      label-width="auto"
+    >
+      <el-form-item
+        label=""
+        prop="email"
+      >
+        <el-input
+          v-model="form.email"
+          auto-complete="off"
+          placeholder="邮箱（账号不存在会自动注册）"
+        />
       </el-form-item>
 
-      <el-form-item label="" prop="code">
+      <el-form-item
+        label=""
+        prop="code"
+      >
         <div class="login-code-wrap">
-          <el-input v-model="form.code" type="password" auto-complete="new-password" placeholder="验证码"
-            @keypress.enter="debounceOnSubmit" />
-          <el-button type="primary" :disabled="disabled" @click="debounceHandleSendCode">{{ codeText }}</el-button>
+          <el-input
+            v-model="form.code"
+            type="password"
+            auto-complete="new-password"
+            placeholder="验证码"
+            @keypress.enter="debounceOnSubmit"
+          />
+          <el-button
+            type="primary"
+            :disabled="disabled"
+            @click="debounceHandleSendCode"
+            >{{ codeText }}</el-button
+          >
         </div>
       </el-form-item>
     </el-form>
 
     <div>
-      <button class="w-full mt-md login-button" @click.native.prevent="debounceOnSubmit">
+      <button
+        class="w-full mt-md login-button"
+        @click.native.prevent="debounceOnSubmit"
+      >
         {{ $t('登录') }}
       </button>
     </div>
-
   </div>
 </template>
 
@@ -58,14 +85,13 @@ export default {
             validator: (rule, value, callback) => {
               if (!value) {
                 return callback(new Error('邮箱不能为空'))
-              }
-              else if (!isEmail(value)) {
+              } else if (!isEmail(value)) {
                 return callback(new Error('邮箱不正确'))
               } else {
                 callback()
               }
             },
-          }
+          },
         ],
         code: [
           {
@@ -93,9 +119,7 @@ export default {
       } else {
         return '发送验证码'
       }
-    }
-
-
+    },
   },
 
   methods: {
@@ -112,7 +136,7 @@ export default {
       }, 1000)
     },
 
-    async getData() { },
+    async getData() {},
 
     onSubmit() {
       this.$refs.form.validate((valid) => {
@@ -130,7 +154,6 @@ export default {
         return
       }
 
-      
       this.timerDown()
 
       const res = await this.$http.sendCode({
@@ -155,14 +178,13 @@ export default {
       if (res.code == 0) {
         setToken(res.data.token)
         this.$emit('on-success')
-
       }
     },
   },
 
   created() {
-    this.debounceOnSubmit = lodash.debounce(this.onSubmit, 500);
-    this.debounceHandleSendCode = lodash.debounce(this.handleSendCode, 500);
+    this.debounceOnSubmit = lodash.debounce(this.onSubmit, 500)
+    this.debounceHandleSendCode = lodash.debounce(this.handleSendCode, 500)
     this.getData()
   },
 }

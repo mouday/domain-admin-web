@@ -4,9 +4,8 @@
       <h3 class="title">Domain Admin</h3>
 
       <!-- 邮箱登录 -->
-      <template v-if="loginTypeEnum.LOGIN_BY_EMAIL == loginType">
+      <template v-if="enabledRegister && loginTypeEnum.LOGIN_BY_EMAIL == loginType">
         <EmailLogin @on-success="handleSuccess"></EmailLogin>
-
       </template>
 
       <!-- 账号密码 -->
@@ -15,10 +14,22 @@
       </template>
 
       <!-- 允许注册 -->
-      <div v-if="enabledRegister" class="mt-md">
+      <div
+        v-if="enabledRegister"
+        class="mt-md"
+      >
         <template v-for="item in loginTypeOptions">
-          <div class="mo-link" v-if="loginType == item.value" @click="() => { handleChangeLoginMethod(item) }">{{
-            item.label }}</div>
+          <div
+            class="mo-link"
+            v-if="loginType == item.value"
+            @click="
+              () => {
+                handleChangeLoginMethod(item)
+              }
+            "
+          >
+            {{ item.label }}
+          </div>
         </template>
       </div>
     </div>
@@ -42,14 +53,13 @@ const loginTypeOptions = [
   {
     value: loginTypeEnum.LOGIN_BY_EMAIL,
     toValue: loginTypeEnum.LOGIN_BY_USER,
-    label: '账号登录'
-
+    label: '账号登录',
   },
   {
     value: loginTypeEnum.LOGIN_BY_USER,
     toValue: loginTypeEnum.LOGIN_BY_EMAIL,
-    label: '邮箱验证码登录'
-  }
+    label: '邮箱验证码登录',
+  },
 ]
 
 export default {
@@ -59,14 +69,14 @@ export default {
 
   components: {
     EmailLogin,
-    UserLogin
+    UserLogin,
   },
 
   data() {
     return {
       loginTypeEnum,
-      loginType: loginTypeEnum.LOGIN_BY_USER,
-      loginTypeOptions
+      loginType: loginTypeEnum.LOGIN_BY_EMAIL,
+      loginTypeOptions,
     }
   },
 
@@ -77,12 +87,10 @@ export default {
   },
 
   methods: {
-    async getData() { },
-
-
+    async getData() {},
 
     handleChangeLoginMethod(item) {
-      console.log(item);
+      console.log(item)
 
       this.loginType = item.toValue
     },
@@ -98,7 +106,6 @@ export default {
     },
 
     async handleSuccess() {
-
       this.$msg.success('登录成功')
 
       let path = '/'
@@ -222,9 +229,11 @@ export default {
   color: #fff;
   height: 48px;
   line-height: 48px;
-  background-image: linear-gradient(90deg,
-      rgb(45, 40, 255) -0.24%,
-      rgb(26, 125, 255) 99.96%);
+  background-image: linear-gradient(
+    90deg,
+    rgb(45, 40, 255) -0.24%,
+    rgb(26, 125, 255) 99.96%
+  );
   border-radius: 0;
 }
 
