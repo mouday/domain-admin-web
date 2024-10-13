@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <!-- 操作按钮 -->
-    <div class="margin-bottom--20">
+    <div class="margin-bottom--20 flex items-center">
       <el-input
         style="width: 260px"
         v-model="keyword"
@@ -18,7 +18,8 @@
       </el-input>
 
       <SelectGroup
-        class="w-[150px] ml-sm"
+        style="width: 200px;"
+        class="ml-sm"
         v-model="group_id"
         clearable
         showNotGroup

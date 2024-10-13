@@ -2,7 +2,7 @@
   <div class="">
     <!-- 操作按钮 -->
     <div
-      class="mb-md"
+      class="mb-md flex items-center"
       v-if="groupRow.is_leader && role == RoleEnum.User"
     >
       <!-- <el-button
@@ -12,7 +12,7 @@
       > -->
       <span>添加成员：</span>
 
-      <SearchUser
+      <SearchUser style="width: 200px;"
         v-model:keyword="keyword"
         @on-select="handleSelectUser"
       ></SearchUser>
