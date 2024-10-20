@@ -10,7 +10,7 @@
         <el-alert
           v-if="isDefaultPassword"
           :title="$t('请及时修改 admin（超级管理员）的默认密码')"
-          type="warning"
+          type="error"
           show-icon
         />
 

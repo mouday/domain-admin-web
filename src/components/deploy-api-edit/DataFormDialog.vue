@@ -1,32 +1,36 @@
 <template>
   <!-- 编辑框 -->
   <el-dialog
-    :title="dialogTitle"
+    title="API部署"
     v-model="dialogVisible"
-    width="340px"
+    width="600px"
     center
     append-to-body
     @close="handleClose"
   >
-    <DataTableIndex
+    <DataForm
       v-if="dialogVisible"
+      :certId="certId"
       :row="row"
       @on-cancel="handleCancel"
       @on-success="handleSuccess"
-    ></DataTableIndex>
+    ></DataForm>
   </el-dialog>
 </template>
 
 <script>
 /**
- * created 2022-10-11
+ * created 2024-03-31
  */
-import DataTableIndex from './index.vue'
+import DataForm from './DataForm.vue'
 
 export default {
   name: '',
 
   props: {
+
+    certId: { type: Number, default: null },
+    
     // 数据行
     row: {
       type: Object,
@@ -40,8 +44,10 @@ export default {
     },
   },
 
+  emits: ['update:visible'],
+
   components: {
-    DataTableIndex,
+    DataForm,
   },
 
   data() {
@@ -64,6 +70,7 @@ export default {
       get() {
         return this.visible
       },
+
       set(val) {
         this.$emit('update:visible', val)
       },
@@ -71,22 +78,20 @@ export default {
   },
 
   methods: {
-    handleClose() {
-      console.log('handleClose');
-      
+    handleClose(){
       this.$emit('on-close')
     },
 
-    handleOpen() {
-      this.dialogVisible = true
+    handleCancel() {
+      this.$emit('update:visible', false)
     },
 
-    handleCancel(){
-      this.dialogVisible = false
+    handleOpen() {
+      this.$emit('update:visible', true)
     },
 
     handleSuccess() {
-      this.dialogVisible = false
+      this.handleCancel()
       this.$emit('on-success')
     },
   },

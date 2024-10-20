@@ -88,11 +88,11 @@
 
       <!-- 部署 -->
       <el-table-column
-        label="部署"
+        label="SSH部署"
         header-align="center"
         align="center"
         prop="create_time"
-        width="60"
+        width="100"
       >
         <template #default="scope">
           <el-link
@@ -132,6 +132,45 @@
             >
               {{ scope.row.deploy_count }}</span
             >
+          </el-link>
+        </template>
+      </el-table-column>
+
+      <!-- 部署 -->
+      <el-table-column
+        label="API部署"
+        header-align="center"
+        align="center"
+        prop="create_time"
+        width="100"
+      >
+        <template #default="scope">
+          <el-link
+            :underline="false"
+            type="primary"
+            @click="handleDeployApiClick(scope.row)"
+          >
+            <!-- 有失败 -->
+            <span
+              v-if="scope.row.api_deploy_status === 2"
+              class="color--danger"
+            >
+            部署失败
+              </span
+            >
+            
+            <!-- 成功 -->
+            <span
+              v-else-if="scope.row.api_deploy_status === 1"
+              class="color--success"
+            >部署成功</span
+            >
+            <!-- 没有部署 -->
+            <span
+              v-else
+              class="color--info"
+            >
+            未部署</span>
           </el-link>
         </template>
       </el-table-column>
@@ -215,6 +254,15 @@
       @on-close="handleDialogClose"
     >
     </DeployCertListDialog>
+
+    <!-- 证书api部署列表 -->
+    <DeployApiFormDialog
+      v-model:visible="deployByApiDialogVisible"
+      :certId="currentRow?.certificate_id"
+      @on-success="handleUpdateSuccess"
+      @on-close="handleDialogClose"
+    >
+    </DeployApiFormDialog>
   </div>
 </template>
 
@@ -228,6 +276,8 @@ import JSZip from 'jszip'
 import ConnectStatus from '@/components/ConnectStatus.vue'
 import ExpireProgress from '@/components/ExpireProgress.vue'
 import DeployCertListDialog from '@/components/deploy-cert-list/DataTableDialog.vue'
+import DeployApiFormDialog from '@/components/deploy-api-edit/DataFormDialog.vue'
+
 import { formatExportDomain } from '@/utils/domain-util.js'
 
 export default {
@@ -238,6 +288,7 @@ export default {
     ConnectStatus,
     ExpireProgress,
     DeployCertListDialog,
+    DeployApiFormDialog
   },
 
   props: {
@@ -253,6 +304,7 @@ export default {
       currentRow: null,
       dialogVisible: false,
       deployCertListDialogVisible: false,
+      deployByApiDialogVisible: false,
     }
   },
 
@@ -313,6 +365,11 @@ export default {
     handleDeployCountClick(row) {
       this.currentRow = row
       this.deployCertListDialogVisible = true
+    },
+
+    handleDeployApiClick(row) {
+      this.currentRow = row
+      this.deployByApiDialogVisible = true
     },
 
     handleDialogClose() {

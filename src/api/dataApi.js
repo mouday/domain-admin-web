@@ -185,6 +185,8 @@ export default {
   deleteCertificateById: '/deleteCertificateById',
   deleteCertificateByIds: '/deleteCertificateByIds',
   getCertificateById: '/getCertificateById',
+  deployCertificateByWebhook: '/deployCertificateByWebhook',
+  getDeployWebhook: '/getDeployWebhook',
 
   parsePublicCert: '/parsePublicCert',
   sendTestEmail: '/sendTestEmail',
