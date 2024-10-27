@@ -42,6 +42,7 @@ export default {
   updateUserPassword: '/updateUserPassword',
 
   getUserList: '/getUserList',
+  getUserListByName: '/getUserListByName',
   addUser: '/addUser',
   deleteUser: '/deleteUser',
   updateUserStatus: '/updateUserStatus',

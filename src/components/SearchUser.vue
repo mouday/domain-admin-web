@@ -2,7 +2,6 @@
   <el-autocomplete
     v-model="keyword_"
     :fetch-suggestions="querySearchAsync"
-    
     :placeholder="$t('搜索用户名')"
     :debounce="500"
     clearable
@@ -12,6 +11,9 @@
 
 <script>
 // created at 2023-07-22
+import { useUserStore } from '@/store/user-store.js'
+import { mapState, mapActions } from 'pinia'
+
 export default {
   name: 'SearchUser',
 
@@ -41,6 +43,10 @@ export default {
         this.$emit('update:keyword', val)
       },
     },
+    ...mapState(useUserStore, {
+      userInfo: 'userInfo',
+      isAdmin: 'isAdmin',
+    }),
   },
 
   methods: {
@@ -60,20 +66,22 @@ export default {
 
       let list = []
 
-      try {
-        const res = await this.$http.getUserList(params)
+      let res
 
-        if (res.ok) {
-          list = res.data.list.map((item) => {
-            item.value = item.username
-            return item
-          })
-        }
-      } catch (e) {
-        console.log(e)
-      } finally {
-        this.loading = false
+      if (this.isAdmin) {
+        res = await this.$http.getUserList(params)
+      } else {
+        res = await this.$http.getUserListByName(params)
       }
+
+      if (res.ok) {
+        list = res.data.list.map((item) => {
+          item.value = item.username
+          return item
+        })
+      }
+
+      this.loading = false
 
       return list
     },
