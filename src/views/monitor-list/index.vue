@@ -153,6 +153,7 @@ import ExportFileDialog from '@/components/export-file/ExportFileDialog.vue'
 import FileSaver from 'file-saver'
 import { genFileId } from 'element-plus'
 import dayjs from 'dayjs'
+import { getExportFileUrl } from '@/utils/export-util.js'
 
 export default {
   name: 'monitor-list',
@@ -287,7 +288,7 @@ export default {
       })
 
       if (res.ok) {
-        FileSaver.saveAs(res.data.url, res.data.name)
+        FileSaver.saveAs(getExportFileUrl(res.data.url), res.data.name)
       }
     },
 
