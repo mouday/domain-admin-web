@@ -207,6 +207,7 @@ import { RoleEnum } from '@/emuns/role-enums.js'
 import { getTableColumn } from './table-column.js'
 import DataCount from '@/components/DataCount.vue'
 import ExportFileDialog from '@/components/export-file/ExportFileDialog.vue'
+import { getExportFileUrl } from '@/utils/export-util.js'
 
 export default {
   name: 'domain-list',
@@ -383,7 +384,7 @@ export default {
       })
 
       if (res.ok) {
-        FileSaver.saveAs(res.data.url, res.data.name)
+        FileSaver.saveAs(getExportFileUrl(res.data.url), res.data.name)
       }
     },
 
