@@ -1,3 +1,6 @@
+import { TimeUnitEnum } from '@/emuns/time-unit-enums.js'
+import { translate } from '@/i18n/index.js'
+
 // 表单验证
 export const formRules = {
   url: [
@@ -22,3 +25,14 @@ export const formRules = {
     },
   ],
 }
+
+export const TimeoutUnitOptions = [
+  {
+    value: TimeUnitEnum.Millisecond,
+    label: translate('毫秒'),
+  },
+  {
+    value: TimeUnitEnum.Second,
+    label: translate('秒'),
+  },
+]

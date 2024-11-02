@@ -44,7 +44,18 @@
         v-model="form.timeout"
         placeholder="请输入超时时间"
       ></el-input>
-      <span class="ml-sm color--info ">（秒）</span>
+      <!-- <span class="ml-sm color--info ">（秒）</span> -->
+      <el-select class="ml-sm"
+        v-model="form.timeout_unit"
+        style="width: 80px"
+      >
+        <el-option
+          v-for="item in TimeoutUnitOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        />
+      </el-select>
     </el-form-item>
   </el-form>
 </template>
@@ -62,6 +73,7 @@
  * */
 import {
   formRules,
+  TimeoutUnitOptions,
   // 引入枚举值
 } from './config.js'
 import {
@@ -90,6 +102,7 @@ export default {
       MonitorTypeEnum,
       MonitorTypeOptions,
       RequestMethodOptions,
+      TimeoutUnitOptions,
       // form: {
       //   method: RequestMethodOptions[0].value,
       // },

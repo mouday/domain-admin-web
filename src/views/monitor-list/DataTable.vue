@@ -65,17 +65,18 @@
       <!-- 检测频率 -->
       <el-table-column
         
-        :label="$t('频率(分钟)')"
+        :label="$t('检测频率')"
         header-align="center"
         align="center"
         prop="interval"
         width="120"
       >
         <template #default="scope">
-          <span>{{ scope.row.interval || '-' }}</span>
+          <span>{{ scope.row.interval_label || '-' }}</span>
         </template>
       </el-table-column>
 
+    
       <!-- 状态 -->
       <el-table-column
         :label="$t('状态')"

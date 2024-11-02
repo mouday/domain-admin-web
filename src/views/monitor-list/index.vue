@@ -154,7 +154,7 @@ import FileSaver from 'file-saver'
 import { genFileId } from 'element-plus'
 import dayjs from 'dayjs'
 import { getExportFileUrl } from '@/utils/export-util.js'
-
+import { TimeUnitFilter } from '@/emuns/time-unit-enums.js'
 export default {
   name: 'monitor-list',
 
@@ -248,6 +248,7 @@ export default {
           this.list = res.data.list.map((item) => {
             item.monitor_type_label = MonitorTypeFilter(item.monitor_type)
             item.status_value = MonitorStatusFilterStatus(item.status)
+            item.interval_label = `${item.interval} ${TimeUnitFilter(item.interval_unit)}`
             return item
           })
           this.total = res.data.total

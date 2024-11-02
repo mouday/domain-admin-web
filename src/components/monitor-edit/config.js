@@ -1,3 +1,6 @@
+import { TimeUnitEnum } from '@/emuns/time-unit-enums.js'
+import { translate } from '@/i18n/index.js'
+
 // 表单验证
 export const formRules = {
   // 标题
@@ -47,3 +50,38 @@ export const formRules = {
 }
 
 // 引入枚举值
+
+export const IntervalUnitOptions = [
+  // {
+  //   value: TimeUnitEnum.Millisecond,
+  //   label: translate('毫秒'),
+  // },
+  {
+    value: TimeUnitEnum.Second,
+    label: translate('秒'),
+  },
+  {
+    value: TimeUnitEnum.Minute,
+    label: translate('分钟'),
+  },
+  {
+    value: TimeUnitEnum.Hour,
+    label: translate('小时'),
+  },
+  {
+    value: TimeUnitEnum.Day,
+    label: translate('天'),
+  },
+  {
+    value: TimeUnitEnum.Week,
+    label: translate('周'),
+  },
+  {
+    value: TimeUnitEnum.Month,
+    label: translate('月'),
+  },
+  {
+    value: TimeUnitEnum.Year,
+    label: translate('年'),
+  },
+]

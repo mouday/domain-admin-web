@@ -72,7 +72,19 @@
           v-model="form.interval"
           placeholder="请输入检测频率"
         ></el-input>
-        <span class="color--info ml-sm">（分钟）</span>
+        <!-- <span class="color--info ml-sm">（分钟）</span> -->
+        <el-select
+          class="ml-sm"
+          v-model="form.interval_unit"
+          style="width: 80px"
+        >
+          <el-option
+            v-for="item in IntervalUnitOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
       </el-form-item>
 
       <!-- 检测频率 -->
@@ -124,6 +136,7 @@
  * */
 import {
   formRules,
+  IntervalUnitOptions
   // 引入枚举值
 } from './config.js'
 import {
@@ -131,6 +144,7 @@ import {
   MonitorTypeFilter,
   MonitorTypeOptions,
 } from '../../emuns/monitor-type-enums.js'
+import { TimeUnitEnum } from '@/emuns/time-unit-enums.js'
 
 import { RequestMethodOptions } from '../../emuns/request-method-enums.js'
 import HttpDataForm from './HttpDataForm/HttpDataForm.vue'
@@ -155,6 +169,7 @@ export default {
       MonitorTypeEnum,
       MonitorTypeOptions,
       RequestMethodOptions,
+      IntervalUnitOptions,
       form: {
         // 标题
         title: '',
@@ -165,9 +180,11 @@ export default {
           method: RequestMethodOptions[0].value,
           url: '',
           timeout: 3,
+          timeout_unit: TimeUnitEnum.Second,
         },
         // 检测频率
         interval: '60',
+        interval_unit: TimeUnitEnum.Minute,
         // 状态
         status: '',
         // 启用
@@ -204,6 +221,7 @@ export default {
         this.form.content = data.content
         // 检测频率
         this.form.interval = data.interval
+        this.form.interval_unit = data.interval_unit
         this.form.allow_error_count = data.allow_error_count
       }
     },
@@ -242,6 +260,7 @@ export default {
         content: this.form.content,
         // 检测频率
         interval: this.form.interval,
+        interval_unit: this.form.interval_unit,
         allow_error_count: this.form.allow_error_count,
         // 状态
         // status: this.form.status,
