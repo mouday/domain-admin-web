@@ -1,4 +1,4 @@
-import {isJson, isObject}from './validator-util.js'
+import {isJson, isObject, isNumber}from './validator-util.js'
 
 // validateBody
 export function jsonObjectValidator(rule, value, callback) {
@@ -14,6 +14,19 @@ export function jsonObjectValidator(rule, value, callback) {
 
   if (!isObject(parseValue)) {
     callback(new Error('必须是object对象'))
+  } else {
+    callback()
+  }
+}
+
+
+export function validatorNumber (rule, value, callback){
+  if (!value) {
+    return callback()
+  }
+
+  if (!isNumber(value)) {
+    return callback(new Error('只能是非负整数'))
   } else {
     callback()
   }

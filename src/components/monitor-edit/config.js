@@ -1,5 +1,6 @@
 import { TimeUnitEnum } from '@/emuns/time-unit-enums.js'
 import { translate } from '@/i18n/index.js'
+import { isNumber } from '@/utils/validator-util.js'
 
 // 表单验证
 export const formRules = {
@@ -28,6 +29,20 @@ export const formRules = {
       required: true,
       trigger: 'blur',
     },
+    {
+      validator: (rule, value, callback) => {
+        if (!value) {
+          return callback()
+        }
+
+        if (!isNumber(value) || parseInt(value) <= 0) {
+          return callback(new Error('只能是正整数'))
+        } else {
+          callback()
+        }
+      },
+      trigger: 'blur',
+    },
   ],
 
   // 重试次数
@@ -35,6 +50,20 @@ export const formRules = {
     {
       message: '重试次数不能为空',
       required: true,
+      trigger: 'blur',
+    },
+    {
+      validator: (rule, value, callback) => {
+        if (!value) {
+          return callback()
+        }
+
+        if (!isNumber(value) || parseInt(value) < 0) {
+          return callback(new Error('只能是零和正整数'))
+        } else {
+          callback()
+        }
+      },
       trigger: 'blur',
     },
   ],
