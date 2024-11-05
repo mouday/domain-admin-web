@@ -85,6 +85,20 @@
         prop="status"
         width="100"
       >
+        <template #header>
+          <el-tooltip
+            effect="dark"
+            content="点击下方图标可前往监控日志页面查看详情"
+            placement="top-start"
+            :show-after="800"
+          >
+            <div class="inline-flex items-center">
+              <span class="mr-[2px]">{{ $t('状态') }}</span>
+              <el-icon><Warning /></el-icon>
+            </div>
+          </el-tooltip>
+        </template>
+
         <template #default="scope">
           <ConnectStatus
             :value="scope.row.status_value"
@@ -94,13 +108,26 @@
       </el-table-column>
 
       <el-table-column
-        
         :label="$t('日志')"
         header-align="center"
         align="center"
         prop="interval"
         width="100"
       >
+        <template #header>
+          <el-tooltip
+            effect="dark"
+            content="点击下方编号可前往监控日志页面查看详情"
+            placement="top-start"
+            :show-after="800"
+          >
+            <div class="inline-flex items-center">
+              <span class="mr-[2px]">{{ $t('日志') }}</span>
+              <el-icon><Warning /></el-icon>
+            </div>
+          </el-tooltip>
+        </template>
+
         <template #default="scope">
           <el-link
             v-if="scope.row.log_count && scope.row.log_count > 0"

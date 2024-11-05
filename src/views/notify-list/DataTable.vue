@@ -144,7 +144,7 @@
         <template #header>
           <el-tooltip
             effect="dark"
-            content="如果收不到消息，可尝试增加：剩余天数"
+            content="请添加真实数据后进行测试"
             placement="top-start"
             :show-after="800"
           >
