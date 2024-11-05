@@ -2,10 +2,10 @@
   <div class="app-container">
     <div class="flex justify-between mb-sm">
       <div class="flex items-center">
-        <span class="color--info">监控名称: </span>
-        <span class="ml-sm">{{ detail?.title }}</span>
+        <span class="color--info whitespace-nowrap">监控名称: </span>
+        <span class="ml-sm whitespace-nowrap">{{ detail?.title }}</span>
 
-        <span class="ml-md color--info">监控请求: </span>
+        <span class="ml-md color--info whitespace-nowrap">监控请求: </span>
         <span class="ml-sm">{{ detail?.content?.method }}</span>
         <el-link
           class="ml-sm"
@@ -13,14 +13,13 @@
           type="primary"
           :href="detail?.content?.url"
           :target="'_blank'"
-          >{{ detail?.content?.url }}</el-link
         >
+          <span class="check-url">{{ detail?.content?.url }}</span>
+        </el-link>
       </div>
 
       <div class="flex items-center">
-        <span class="color--info text-sm"
-          >下次运行时间：{{ detail?.next_run_time || '-'}}</span
-        >
+        <span class="color--info text-sm whitespace-nowrap">下次运行时间：{{ detail?.next_run_time || '-'}}</span>
 
         <el-link
           v-if="showMode == 'table'"
@@ -35,7 +34,7 @@
           v-else
           :underline="false"
           type="primary"
-          class="ml-sm"
+          class="ml-sm whitespace-nowrap"
           @click="handleChangeShowMode('table')"
           ><el-icon><Tickets /></el-icon>{{ $t('数据') }}</el-link
         >
@@ -48,7 +47,7 @@
             <el-link
               :underline="false"
               type="danger"
-              class="ml-sm"
+              class="ml-sm whitespace-nowrap"
               ><el-icon><Delete /></el-icon>{{ $t('清空日志') }}</el-link
             >
           </template>
@@ -278,4 +277,9 @@ export default {
 
 <style lang="less"></style>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+  .check-url {
+    max-width: calc(100vw - 1050px);
+    word-break: break-all;
+  }
+</style>
