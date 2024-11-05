@@ -55,6 +55,20 @@
         align="center"
         width="100"
       >
+        <template #header>
+          <el-tooltip
+            effect="dark"
+            content="点击下方数字可前往证书监控页面查看详情"
+            placement="top-start"
+            :show-after="800"
+          >
+            <div class="inline-flex items-center">
+              <span class="mr-[2px]">{{ $t('证书数量') }}</span>
+              <el-icon><Warning /></el-icon>
+            </div>
+          </el-tooltip>
+        </template>
+
         <template #default="scope">
           <el-link
             v-if="scope.row.ssl_count && scope.row.ssl_count > 0"
@@ -556,14 +570,12 @@ export default {
     },
 
     handleCertCountClick(row) {
-      let route = this.$router.resolve({
+      this.$router.push({
         name: 'cert-list',
         query: {
-          keyword: row.domain,
+          monitorId: row.domain,
         },
       })
-
-      window.open(route.href, '_blank')
     },
 
     handleRefreshRow(row) {

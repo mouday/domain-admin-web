@@ -508,6 +508,7 @@ export default {
       window.open(route.href, '_blank')
     },
 
+    // 暂未使用
     handleEditCert(row) {
       this.$router.push({
         name: 'CertEdit',

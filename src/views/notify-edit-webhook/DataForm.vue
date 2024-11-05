@@ -13,7 +13,7 @@
         <el-select
           v-model="form.method"
           placeholder="请求方法"
-          style="width: 100px"
+          style="width: 150px"
         >
           <el-option
             v-for="item in methodOptions"
@@ -81,6 +81,9 @@
         target="_blank"
         >微信推送消息通知接口汇总</a
       >
+    </div>
+    <div class="text-[14px] color--info">
+      <span>注意：测试时请保证已经添加数据且数据能触发通知</span>
     </div>
 
     <!-- 操作 -->

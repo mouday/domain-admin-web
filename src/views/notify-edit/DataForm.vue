@@ -47,8 +47,9 @@
         prop="event_id"
       >
         <el-select
-          :placeholder="$t('触发事件')"
-          v-model="form.event_id"
+        :placeholder="$t('触发事件')"
+        v-model="form.event_id"
+        style="width: 150px;"
         >
           <el-option
             v-for="item in EventOptions"
@@ -77,10 +78,10 @@
             :min="0"
             placeholder="剩余天数"
           ></el-input-number>
-          
+
           <div class="ml-sm text-sm color--info flex items-center">
             <el-icon><Warning /></el-icon>
-            <span>如果点击测试，收不到消息，请增加这个参数，例如：10000</span>
+            <span>点击测试收不到消息时，请增大这个参数，如：10000</span>
           </div>
         </el-form-item>
       </template>
