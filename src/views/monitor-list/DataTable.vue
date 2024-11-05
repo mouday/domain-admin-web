@@ -280,14 +280,12 @@ export default {
     },
 
     handleOpenLogClick(row) {
-      let route = this.$router.resolve({
+      this.$router.push({
         name: 'log-monitor-list',
         query: {
           monitorId: row.id,
         },
       })
-
-      window.open(route.href, '_blank')
     },
 
     handleSelectable(row, index) {

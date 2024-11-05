@@ -558,14 +558,12 @@ export default {
     },
 
     handleCertCountClick(row) {
-      let route = this.$router.resolve({
+      this.$router.push({
         name: 'cert-list',
         query: {
-          keyword: row.domain,
+          monitorId: row.domain,
         },
       })
-
-      window.open(route.href, '_blank')
     },
 
     handleRefreshRow(row) {
