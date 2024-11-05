@@ -24,6 +24,7 @@
         width="230"
         show-overflow-tooltip
         prop="domain"
+        fixed
       >
         <template #default="scope">
           <el-link
@@ -63,6 +64,16 @@
           >
           <span v-else>-</span>
         </template>
+      </el-table-column>
+
+      <el-table-column
+        :label="$t('到期时间')"
+        header-align="center"
+        align="center"
+        width="160"
+        show-overflow-tooltip
+        prop="domain_expire_time"
+      >
       </el-table-column>
 
       <!-- 分组 -->
@@ -267,6 +278,7 @@
         width="110"
         header-align="center"
         align="center"
+        fixed="right"
       >
         <template #default="scope">
           <!-- <el-link
