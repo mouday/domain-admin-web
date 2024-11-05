@@ -53,6 +53,16 @@
             >
           </template>
         </el-popconfirm>
+
+        <el-link
+          :underline="false"
+          type="primary"
+          class="ml-sm whitespace-nowrap"
+          :disabled="loading"
+          @click="getData"
+        >
+          <el-icon><Refresh /></el-icon>{{ $t('刷新') }}
+        </el-link>
       </div>
     </div>
 

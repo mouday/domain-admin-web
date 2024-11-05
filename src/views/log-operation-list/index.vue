@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <div class="flex justify-between mb-sm">
+    <div class="flex justify-end mb-sm">
       <div></div>
 
       <el-popconfirm
@@ -16,6 +16,15 @@
           >
         </template>
       </el-popconfirm>
+
+      <el-link
+        :underline="false"
+        type="primary"
+        :disabled="loading"
+        @click="getData"
+      >
+        <el-icon><Refresh /></el-icon>{{ $t('刷新') }}
+      </el-link>
     </div>
 
     <!-- 数据列表 -->
