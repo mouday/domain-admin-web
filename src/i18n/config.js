@@ -886,7 +886,7 @@ export default [
   },
   {
     'zh-CN': '一键部署',
-    'en-US': 'Auto Deploy'
+    'en-US': 'Auto Deploy',
     'zh-TW': '一鍵部署',
   },
   {
