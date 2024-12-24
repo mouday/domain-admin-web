@@ -509,7 +509,6 @@ export default [
     'en-US': 'Excute Result',
     'zh-TW': '執行結果',
   },
-
   {
     'zh-CN': '状态',
     'en-US': 'Status',
@@ -540,13 +539,11 @@ export default [
     'en-US': 'Search Domain',
     'zh-TW': '搜尋域名',
   },
-
   {
     'zh-CN': '搜索域名、标签',
     'en-US': 'Search Domain Or Tag',
     'zh-TW': '搜尋域名、標籤',
   },
-
   {
     'zh-CN': '搜索用户名',
     'en-US': 'Search Username',
@@ -572,7 +569,6 @@ export default [
     'en-US': 'Domain Expired',
     'zh-TW': '域名過期',
   },
-
   {
     'zh-CN': '邮件',
     'en-US': 'Email',
@@ -628,7 +624,6 @@ export default [
     'en-US': 'Edit Domain',
     'zh-TW': '修改域名',
   },
-
   {
     'zh-CN': '证书时间',
     'en-US': 'Cert Time',
@@ -785,7 +780,6 @@ export default [
     'en-US': 'verify',
     'zh-TW': '驗證',
   },
-
   {
     'zh-CN': '是',
     'en-US': 'Yes',
