@@ -246,7 +246,11 @@ export default {
         label: '证书信息查询',
         value: 'cert-info',
       },
-
+      {
+        type: 'router', // 路由
+        label: '微信禁封查询',
+        value: 'wechat-info',
+      },
       {
         type: 'router', // 路由
         label: 'ICP备案查询',

@@ -390,6 +390,17 @@ export const routes = [
         },
       },
       {
+        path: 'wechat-info',
+        name: 'wechat-info',
+        component: () => import('../views/wechat-info/index.vue'),
+        meta: {
+          title: '微信禁封查询',
+          icon: 'Box',
+          // roles: [RoleEnum.Admin],
+          hidden: true,
+        },
+      },
+      {
         path: 'icp-info',
         name: 'icp-info',
         component: () => import('../views/icp-info/index.vue'),

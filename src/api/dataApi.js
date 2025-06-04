@@ -207,4 +207,7 @@ export default {
   updateDnsById: '/updateDnsById',
   getDnsList: '/getDnsList',
   deleteDnsById: '/deleteDnsById',
+
+  // 工具箱
+  validateUrlForWechat: '/validateUrlForWechat'
 }
