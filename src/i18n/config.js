@@ -1059,4 +1059,9 @@ export default [
     'en-US': 'Type',
     'zh-TW': '監控類型',
   },
+  {
+    'zh-CN': '一键部署并验证',
+    'en-US': 'Auto Deploy and Verify',
+    'zh-TW': '一键部署並驗證',
+  },
 ]

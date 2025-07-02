@@ -54,8 +54,13 @@
     <div class="text-center mt-md">
       <el-button
         type="primary"
-        @click="handleVerifyCertificateById"
+        @click="handleVerifyCertificateById()"
         >{{ $t('验证') }}</el-button
+      >
+      <el-button
+        type="primary"
+        @click="handleDeployVerifyCertificateById"
+        >{{ $t('一键部署并验证') }}</el-button
       >
     </div>
   </div>
@@ -187,13 +192,28 @@ export default {
       }
     },
 
-    async handleVerifyCertificateById() {
+    async handleDeployVerifyCertificateById() {
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          this.handleVerifyCertificateById(true)
+        } else {
+          return false
+        }
+      })
+    },
+
+    async handleVerifyCertificateById(deploy = false) {
       let loading = this.$loading({ fullscreen: true })
 
       let params = {
         // 域名列表
         issue_certificate_id: this.form.id,
         challenge_type: 'http-01',
+      }
+
+      if (deploy) {
+        params.host_id = this.deployForm.deploy_host.id
+        params.verify_deploy_path = this.deployForm.verifyDeployPath
       }
 
       const res = await this.$http.verifyCertificateById(params)
