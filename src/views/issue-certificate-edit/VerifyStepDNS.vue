@@ -52,8 +52,13 @@
     <div class="text-center mt-md">
       <el-button
         type="primary"
-        @click="handleSubmit"
+        @click="handleSubmit()"
         >验 证</el-button
+      >
+      <el-button
+        type="primary"
+        @click="handleDeploySubmit"
+        >{{ $t('一键部署并验证') }}</el-button
       >
     </div>
 
@@ -134,13 +139,27 @@ export default {
   methods: {
     async getData() {},
 
-    async handleSubmit() {
+    async handleDeploySubmit() {
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          this.handleSubmit(true)
+        } else {
+          return false
+        }
+      })
+    },
+
+    async handleSubmit(deploy = false) {
       let loading = this.$loading({ fullscreen: true })
 
       let params = {
         // 域名列表
         issue_certificate_id: this.form.id,
         challenge_type: 'dns-01',
+      }
+
+      if (deploy) {
+        params.dns_id = this.deployForm.dns.id
       }
 
       const res = await this.$http.verifyCertificateById(params)
