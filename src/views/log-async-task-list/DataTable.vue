@@ -94,6 +94,25 @@
       </el-table-column>
 
       <el-table-column
+        :label="$t('参数')"
+        header-align="center"
+        align="center"
+        prop="params"
+        width="60"
+      >
+        <template #default="scope">
+          <el-link
+            v-if="scope.row.params"
+            :underline="false"
+            @click="handleShowDetail(scope.row)"
+          >
+            <span>查看</span>
+          </el-link>
+          <span v-else>-</span>
+        </template>
+      </el-table-column>
+
+      <el-table-column
         :label="$t('执行结果')"
         header-align="center"
         align="center"
@@ -164,6 +183,11 @@
       :row="currentRow"
       @on-success="handleUpdateSuccess"
     ></DataFormDailog> -->
+    <DataFormParamsDialog
+      v-model:visible="dialogVisible"
+      :row="currentRow"
+      @on-success="handleSuccess"
+    ></DataFormParamsDialog>
   </div>
 </template>
 
@@ -172,7 +196,9 @@
  * created 2022-10-03
  */
 // import DataFormDailog from '../log_scheduler-edit/DataFormDailog.vue'
+import hljs from 'highlight.js'
 import ConnectStatus from '@/components/ConnectStatus.vue'
+import DataFormParamsDialog from './DataFormParamsDialog.vue'
 
 export default {
   name: '',
@@ -180,6 +206,7 @@ export default {
   components: {
     // DataFormDailog,
     ConnectStatus,
+    DataFormParamsDialog,
   },
 
   props: {
@@ -236,6 +263,15 @@ export default {
     handleUpdateSuccess() {
       this.$emit('on-success')
     },
+
+    handleShowDetail(row) {
+      this.currentRow = row
+      this.dialogVisible = true
+    },
+  },
+
+  mounted() {
+    hljs.highlightAll()
   },
 
   created() {},

@@ -83,6 +83,7 @@
 
 // import DataFormDailog from '../log_scheduler-edit/DataFormDailog.vue'
 import DataTable from './DataTable.vue'
+import { highlight } from '@/utils/highlight-util.js'
 
 export default {
   name: 'log-scheduler-list',
@@ -134,7 +135,16 @@ export default {
       const res = await this.$http.getAsyncTaskLogList(params)
 
       if (res.code == 0) {
-        this.list = res.data.list
+        this.list = res.data.list.map((item) => {
+          // 格式化
+          try {
+            item.params = JSON.stringify(JSON.parse(item.params), null, 2)
+          } catch (e) {}
+
+          // highlight
+          item.params = highlight(item.params, { language: 'json' }).value
+          return item
+        })
         this.total = res.data.total
       }
 
