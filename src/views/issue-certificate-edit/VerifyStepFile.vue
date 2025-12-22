@@ -36,6 +36,23 @@
       </el-form-item>
 
       <el-form-item
+        v-if="associatedDns"
+        label="关联DNS账号"
+      >
+        <el-tag type="success">{{ associatedDns.name }}</el-tag>
+        <el-button
+          class="ml-md"
+          link
+          type="primary"
+          @click="handleSwitchToDns"
+          >切换到 DNS 验证</el-button
+        >
+        <div class="color--info text-xs mt-xs">
+          此主机已关联 DNS 账号，您可以点击上方按钮或手动切换到 [DNS验证] 标签页进行一键配置。
+        </div>
+      </el-form-item>
+
+      <el-form-item
         :label="$t('服务器目录')"
         prop="verifyDeployPath"
       >
@@ -103,6 +120,7 @@ export default {
         deploy_host: null,
         verifyDeployPath: '',
       },
+      associatedDns: null,
 
       rules: {
         deploy_host: [
@@ -189,7 +207,29 @@ export default {
 
       if (res.data.list && res.data.list.length > 0) {
         this.deployForm.deploy_host = res.data.list[0]
+        this.handleChangeHost()
       }
+    },
+
+    async handleChangeHost() {
+      this.$refs.form.validateField(['deploy_host'])
+
+      if (this.deployForm.deploy_host && this.deployForm.deploy_host.dns_id) {
+        const res = await this.$http.getDnsById({
+          dns_id: this.deployForm.deploy_host.dns_id,
+        })
+        if (res.code == 0) {
+          this.associatedDns = res.data
+        } else {
+          this.associatedDns = null
+        }
+      } else {
+        this.associatedDns = null
+      }
+    },
+
+    handleSwitchToDns() {
+      this.$emit('on-tab-switch', 'dns')
     },
 
     async handleDeployVerifyCertificateById() {
@@ -276,9 +316,9 @@ export default {
       })
     },
 
-    handleChangeHost() {
-      this.$refs.form.validateField(['deploy_host'])
-    },
+    // handleChangeHost() {
+    //   this.$refs.form.validateField(['deploy_host'])
+    // },
   },
 
   created() {

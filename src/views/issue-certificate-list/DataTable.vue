@@ -96,7 +96,22 @@
         </template>
       </el-table-column>
 
-      <!-- 创建时间 -->
+      <!-- 关联信息 -->
+      <el-table-column
+        :label="$t('关联信息')"
+        header-align="center"
+        align="center"
+        width="150"
+      >
+        <template #default="scope">
+          <div class="color--info text-xs">
+            <div>{{ $t('DNS账号') }}: {{ scope.row.challenge_deploy_name }}</div>
+            <div>{{ $t('部署主机') }}: {{ scope.row.deploy_host_name }}</div>
+          </div>
+        </template>
+      </el-table-column>
+
+      <!-- 更新时间 -->
       <el-table-column
         :label="$t('更新时间')"
         header-align="center"
@@ -151,6 +166,35 @@
             v-model="scope.row.is_auto_renew"
             @change="handleAutoRenewChange(scope.row, $event)"
           />
+
+          <!-- 续期结果 -->
+          <div
+            v-if="scope.row.is_auto_renew"
+            class="mt-xs text-xs"
+          >
+            <template v-if="scope.row.renew_status === 0">
+              <el-tag
+                size="small"
+                type="success"
+                >{{ $t('续期成功') }}</el-tag
+              >
+            </template>
+            <template v-else-if="scope.row.renew_status === 1">
+              <el-tooltip
+                class="box-item"
+                effect="dark"
+                :content="scope.row.renew_message"
+                placement="top"
+              >
+                <el-tag
+                  size="small"
+                  type="danger"
+                  class="cursor-pointer"
+                  >{{ $t('续期失败') }}</el-tag
+                >
+              </el-tooltip>
+            </template>
+          </div>
         </template>
       </el-table-column>
 
