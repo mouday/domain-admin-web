@@ -73,7 +73,6 @@
       </el-form-item>
 
       <!-- 密码 -->
-
       <el-form-item
         v-else
         label="密码"
@@ -86,6 +85,25 @@
           autocomplete="new-password"
           placeholder="请输入密码"
         ></el-input>
+      </el-form-item>
+
+      <!-- DNS -->
+      <el-form-item
+        label="关联DNS账号"
+        prop="dns_id"
+      >
+        <el-select
+          v-model="form.dns_id"
+          placeholder="请选择DNS账号"
+          clearable
+        >
+          <el-option
+            v-for="item in dnsList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          />
+        </el-select>
       </el-form-item>
     </el-form>
 
@@ -143,7 +161,9 @@ export default {
         auth_type: HostAuthTypeEnum.PASSWORD,
         password: '',
         private_key: '',
+        dns_id: 0,
       },
+      dnsList: [],
     }
   },
 
@@ -161,6 +181,15 @@ export default {
         }
       } else if (this.row && this.row.host) {
         this.form.host = this.row.host
+      }
+
+      this.getDnsList()
+    },
+
+    async getDnsList() {
+      const res = await this.$http.getDnsList()
+      if (res.code == 0) {
+        this.dnsList = res.data.list
       }
     },
 
@@ -200,6 +229,7 @@ export default {
         password: this.form.password,
         private_key: this.form.private_key,
         auth_type: this.form.auth_type,
+        dns_id: this.form.dns_id,
       }
 
       let res = null

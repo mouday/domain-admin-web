@@ -15,6 +15,7 @@
           :form="form"
           :list="fileList"
           @on-success="handleSuccess"
+          @on-tab-switch="handleTabSwitch"
         ></VerifyStepFile>
       </el-tab-pane>
       <el-tab-pane
@@ -142,6 +143,10 @@ export default {
 
     handleSuccess() {
       this.$emit('on-success')
+    },
+
+    handleTabSwitch(name) {
+      this.activeName = name
     },
   },
 
