@@ -920,6 +920,11 @@ export default [
     'zh-TW': '編輯用戶',
   },
   {
+    'zh-CN': '证书管理',
+    'en-US': 'Cert Manage',
+    'zh-TW': '證書管理',
+  },
+  {
     'zh-CN': '证书监控',
     'en-US': 'Cert Monitor',
     'zh-TW': '證書監控',
