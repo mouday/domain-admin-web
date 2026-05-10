@@ -5,6 +5,7 @@ export default {
   login: '/login',
   loginByEmail: '/loginByEmail',
   sendCode: '/sendCode',
+  getOidcConfig: '/oidc/config',
 
   getDomainList: '/getDomainList',
   addDomain: '/addDomain',

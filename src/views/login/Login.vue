@@ -32,14 +32,31 @@
           </div>
         </template>
       </div>
+
+      <!-- SSO登录 -->
+      <div
+        v-if="oidcEnabled"
+        class="mt-md"
+      >
+        <div class="divider">
+          <span>或</span>
+        </div>
+        <button
+          class="sso-login-button"
+          @click="handleOidcLogin"
+        >
+          使用 SSO 登录
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 // created at 2022-10-01
-import { setToken } from '@/utils/token-util.js'
+import { setToken, removeToken } from '@/utils/token-util.js'
 import { useSystemStore } from '@/store/system-store.js'
+import { useUserStore } from '@/store/user-store.js'
 import { mapState, mapActions } from 'pinia'
 import EmailLogin from './EmailLogin.vue'
 import UserLogin from './UserLogin.vue'
@@ -77,6 +94,7 @@ export default {
       loginTypeEnum,
       loginType: loginTypeEnum.LOGIN_BY_EMAIL,
       loginTypeOptions,
+      oidcEnabled: false,
     }
   },
 
@@ -87,7 +105,52 @@ export default {
   },
 
   methods: {
-    async getData() {},
+    async getData() {
+      // 检查URL参数中是否有token（OIDC回调）
+      const urlParams = new URLSearchParams(window.location.search)
+      const token = urlParams.get('token')
+
+      if (token) {
+        // 保存token
+        setToken(token)
+
+        // 获取用户信息
+        const userStore = useUserStore()
+        await userStore.updateUserInfo()
+
+        // 检查是否成功获取用户信息
+        if (!userStore.hasUserInfo) {
+          // API已经显示了错误消息，这里只需要清理状态
+          removeToken()
+
+          // 清除URL中的token参数，避免刷新后重复尝试
+          const url = new URL(window.location.href)
+          url.search = ''
+          window.history.replaceState({}, '', url.toString())
+
+          return
+        }
+
+        // 确定跳转路径
+        let path = this.$route.query.redirect || '/'
+        this.$msg.success('登录成功')
+
+        // 清除URL中的token参数（hash之前的query参数）
+        const url = new URL(window.location.href)
+        url.search = '' // 清除所有query参数
+        window.history.replaceState({}, '', url.toString())
+
+        // 跳转到目标页面
+        this.$router.replace({ path })
+        return
+      }
+
+      // 获取OIDC配置
+      const res = await this.$http.getOidcConfig()
+      if (res.ok) {
+        this.oidcEnabled = res.data.enabled
+      }
+    },
 
     handleChangeLoginMethod(item) {
       console.log(item)
@@ -116,6 +179,11 @@ export default {
       this.$router.push({
         path,
       })
+    },
+
+    handleOidcLogin() {
+      // 跳转到OIDC登录端点
+      window.location.href = this.$resolve_api_url('/oidc/login')
     },
   },
 
@@ -239,5 +307,43 @@ export default {
 
 .login-button:hover {
   opacity: 0.9;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 20px 0;
+  color: #a3acb5;
+  font-size: 14px;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.divider span {
+  padding: 0 10px;
+}
+
+.sso-login-button {
+  width: 100%;
+  height: 48px;
+  line-height: 48px;
+  border: 1px solid #d1d5db;
+  background-color: #fff;
+  color: #333;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: 0;
+}
+
+.sso-login-button:hover {
+  background-color: #f9fafb;
+  border-color: #2d28ff;
 }
 </style>

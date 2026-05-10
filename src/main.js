@@ -11,7 +11,7 @@ import 'element-plus/dist/index.css'
 
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
-import { Http } from './api/index.js'
+import { Http, resolve_api_url } from './api/index.js'
 import SingleMessage from './components/single-message/index.js'
 import { ElLoading } from 'element-plus'
 import { router } from './router/index.js'
@@ -49,6 +49,7 @@ const app = createApp(App)
 
 app.config.globalProperties.$http = Http
 app.config.globalProperties.$msg = SingleMessage
+app.config.globalProperties.$resolve_api_url = resolve_api_url
 // app.config.globalProperties.$loading = ElLoading.service
 
 app.use(router)
